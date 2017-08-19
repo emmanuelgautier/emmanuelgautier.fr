@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+@mixin inline-list {
+  list-style-type: none;
+  &, & li {
+    margin: 0;
+    padding: 0;
+    display: inline;
+  }
+}
+
+// Mixins
+@import "components/prefixer";
+@import "components/mixins";
+@import "components/color";
+
+// Variables;
+// @import "components/variables";
+@import "variables";
+
+// Reset
+@import "components/normalize";
+
+// components
+@import "components/global";
+// @import "components/icons-material-design";
+@import "components/grid";
+@import "components/navbar";
+@import "components/roboto";
+@import "components/typography";
+@import "components/cards";
+@import "components/toast";
+@import "components/tabs";
+@import "components/tooltip";
+@import "components/buttons";
+@import "components/dropdown";
+@import "components/waves";
+// @import "components/modal";
+@import "components/collapsible";
+@import "components/materialbox";
+@import "components/form";
+// @import "components/table_of_contents";
+@import "components/sideNav";
+// @import "components/preloader";
+// @import "components/slider";
+// @import "components/date_picker/default.scss";
+// @import "components/date_picker/default.date.scss";
+// @import "components/date_picker/default.time.scss";
+
+@import "prism";
+@import "social";
+@import "material-icons";
+
+.brand-logo > img {
+  margin-top: 15%;
+}
+
+#home h2 {
+  font-size: $h3-fontsize;
+}
+
+.inline-list {
+  @include inline-list
+}
+
+.inline-list-icon {
+  font-size: 20px;
+}
+
+.inline-list-icon > li > a {
+  color: $primary-color-light;
+}
+
+#ido code.language-markup {
+  font-size: 1.3rem;
+}
+
+#ido {
+  code[class*="language-"], pre[class*="language-"] {
+    line-height: 1.0;
+  }
+}
+
+#home {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
