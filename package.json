@@ -1,20 +1,57 @@
 {
   "name": "emmanuelgautier.fr",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "emmanuelgautier.fr Website.",
+  "main": "gulpfile.babel.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp",
+    "build": "gulp build --production"
+  },
+  "author": "Emmanuel Gautier <foundation@zurb.com>",
+  "license": "MIT",
+  "dependencies": {
+    "foundation-sites": "~6.4.1",
+    "jquery": ">=3.0.0",
+    "motion-ui": "~1.2.2",
+    "what-input": "^4.1.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.7.2",
+    "browser-sync": "^2.10.0",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-clean-css": "^3.3.1",
+    "gulp-cli": "^1.2.1",
+    "gulp-concat": "^2.5.2",
+    "gulp-extname": "^0.2.0",
+    "gulp-if": "^2.0.0",
+    "gulp-imagemin": "^2.2.1",
+    "gulp-load-plugins": "^1.1.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.2.0",
+    "gulp-uncss": "^1.0.1",
+    "js-yaml": "^3.4.6",
+    "panini": "^1.3.0",
+    "rimraf": "^2.4.3",
+    "style-sherpa": "^1.0.0",
+    "vinyl-named": "^1.1.0",
+    "webpack": "^2.6.1",
+    "webpack-stream": "^3.2.0",
+    "yargs": "^3.8.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://emmanuelgautier@bitbucket.org/emmanuelgautier/emmanuelgautier.fr.git"
+    "url": "https://github.com/emmanuelgautier/emmanuelgautier.fr.git"
   },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-sass": "^2.0.4",
-    "gulp-sourcemaps": "^1.5.2"
-  }
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "private": true
 }

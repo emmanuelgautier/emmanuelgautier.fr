@@ -1,0 +1,54 @@
+
+html, body {
+  height: 100%;
+}
+
+.full-screen {
+  height: 100%;
+}
+
+.vertical-middle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rss-color {
+  color: $color-rss;
+  background-color: $white;
+
+  &:hover {
+    color: $white;
+    background-color: $color-rss;
+  }
+}
+
+.twitter-color {
+  color: $color-twitter;
+  background-color: $white;
+
+  &:hover {
+    color: $white;
+    background-color: $color-twitter;
+  }
+}
+
+.linkedin-color {
+  color: $color-linkedin;
+  background-color: $white;
+
+  &:hover {
+    color: $white;
+    background-color: $color-linkedin;
+  }
+}
+
+.github-color {
+  color: $color-github;
+  background-color: $white;
+
+  &:hover {
+    color: $white;
+    background-color: $color-github;
+  }
+}
