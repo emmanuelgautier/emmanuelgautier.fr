@@ -1,56 +1,60 @@
 {
   "name": "emmanuelgautier.fr",
-  "version": "1.0.0",
-  "description": "emmanuelgautier.fr Website.",
-  "main": "gulpfile.babel.js",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "gulp",
-    "build": "gulp build --production"
+    "dev": "next dev",
+    "test": "next build",
+    "build": "next build",
+    "export": "next build && next export",
+    "start": "next start",
+    "type-check": "tsc --pretty --noEmit",
+    "format": "prettier --write .",
+    "lint": "eslint . --ext ts --ext tsx --ext js"
   },
-  "license": "MIT",
-  "dependencies": {
-    "foundation-sites": "~6.4.1",
-    "jquery": ">=3.0.0",
-    "motion-ui": "~1.2.2",
-    "what-input": "^4.1.3"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn run type-check"
+    }
   },
-  "devDependencies": {
-    "babel-core": "^6.24.1",
-    "babel-loader": "^6.4.1",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-register": "^6.26.0",
-    "browser-sync": "^2.10.0",
-    "gulp": "github:gulpjs/gulp#4.0",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-babel": "^6.1.2",
-    "gulp-clean-css": "^3.3.1",
-    "gulp-cli": "^1.2.1",
-    "gulp-concat": "^2.5.2",
-    "gulp-extname": "^0.2.0",
-    "gulp-if": "^2.0.0",
-    "gulp-imagemin": "^2.2.1",
-    "gulp-load-plugins": "^1.1.0",
-    "gulp-sass": "^3.1.0",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.2.0",
-    "gulp-uncss": "^1.0.1",
-    "js-yaml": "^3.4.6",
-    "panini": "^1.3.0",
-    "rimraf": "^2.4.3",
-    "style-sherpa": "^1.0.0",
-    "vinyl-named": "^1.1.0",
-    "webpack": "^2.6.1",
-    "webpack-stream": "^3.2.0",
-    "yargs": "^3.8.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/emmanuelgautier/emmanuelgautier.fr.git"
-  },
-  "babel": {
-    "presets": [
-      "es2015"
+  "lint-staged": {
+    "*.@(ts|tsx)": [
+      "yarn lint",
+      "yarn format"
     ]
   },
-  "private": true
+  "dependencies": {
+    "@tailwindcss/typography": "^0.3.1",
+    "autoprefixer": "10.1.0",
+    "classnames": "2.2.6",
+    "fontsource-open-sans": "^3.1.5",
+    "next": "10.0.3",
+    "next-seo": "^4.17.0",
+    "next-sitemap": "^1.3.16",
+    "postcss": "8.2.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-helmet": "^6.1.0",
+    "react-schemaorg": "^1.3.1",
+    "schema-dts": "^0.8.2",
+    "tailwindcss": "2.0.2"
+  },
+  "devDependencies": {
+    "@emmanuelgautier/renovate-config": "1.1.1",
+    "@types/classnames": "2.2.11",
+    "@types/node": "14.14.10",
+    "@types/react": "17.0.0",
+    "@types/react-dom": "17.0.0",
+    "@typescript-eslint/eslint-plugin": "4.9.0",
+    "@typescript-eslint/parser": "4.9.0",
+    "eslint": "7.15.0",
+    "eslint-config-prettier": "7.0.0",
+    "eslint-plugin-react": "7.21.5",
+    "frontmatter-markdown-loader": "3.6.2",
+    "husky": "4.3.4",
+    "lint-staged": "10.5.3",
+    "prettier": "2.2.1",
+    "typescript": "4.1.2"
+  }
 }
