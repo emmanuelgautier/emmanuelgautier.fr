@@ -123,7 +123,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fontsource/open-sans@^4.1.0":
+"@fontsource/open-sans@4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@fontsource/open-sans/-/open-sans-4.1.0.tgz#d44b4495bd23d78018675e4e79973894e393c0ed"
   integrity sha512-sWDAAr6ESHJdBKXse6njvZem4sTZLILkugaEfAvpdFiaKBh2RnXTa4DJllDh5LzP0MLMUrfj/JAjMbKxWFo6pQ==
@@ -4239,7 +4239,7 @@ image-size@^0.5.1:
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
   integrity sha1-Cd/Uq50g4p6xw+gLiZA3jfnjy5w=
 
-image-trace-loader@^1.0.2:
+image-trace-loader@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/image-trace-loader/-/image-trace-loader-1.0.2.tgz#d4ae7094f72a6c77b7e42b8c73add9adb851e14a"
   integrity sha512-VitEb2W97fcYLfnWxSRYQQcxax54xe7NS1bIOkQktiePLtbIL6Hl2kFAnjcn8D9dkUZ63XAz+ba/RWFHYODiHQ==
@@ -4250,7 +4250,7 @@ image-trace-loader@^1.0.2:
     schema-utils "^2.5.0"
     svgo "^1.3.2"
 
-imagemin-mozjpeg@^9.0.0:
+imagemin-mozjpeg@9.0.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/imagemin-mozjpeg/-/imagemin-mozjpeg-9.0.0.tgz#d1af26d0b43d75a41c211051c1910da59d9d2324"
   integrity sha512-TwOjTzYqCFRgROTWpVSt5UTT0JeCuzF1jswPLKALDd89+PmrJ2PdMMYeDLYZ1fs9cTovI9GJd68mRSnuVt691w==
@@ -4259,7 +4259,7 @@ imagemin-mozjpeg@^9.0.0:
     is-jpg "^2.0.0"
     mozjpeg "^7.0.0"
 
-imagemin-optipng@^8.0.0:
+imagemin-optipng@8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/imagemin-optipng/-/imagemin-optipng-8.0.0.tgz#b88e5cf6da25cc8479e07cdf38c3ae0479df7ef2"
   integrity sha512-CUGfhfwqlPjAC0rm8Fy+R2DJDBGjzy2SkfyT09L8rasnF9jSoHFqJ1xxSZWK6HVPZBMhGPMxCTL70OgTHlLF5A==
@@ -4268,7 +4268,7 @@ imagemin-optipng@^8.0.0:
     is-png "^2.0.0"
     optipng-bin "^7.0.0"
 
-imagemin-svgo@^8.0.0:
+imagemin-svgo@8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/imagemin-svgo/-/imagemin-svgo-8.0.0.tgz#34658069f9e4a537e455467b433830fffaeb3c6e"
   integrity sha512-++fDnnxsLT+4rpt8babwiIbzapgBzeS2Kgcy+CwgBvgSRFltBFhX2WnpCziMtxhRCzqJcCE9EcHWZP/sj+G3rQ==
@@ -5125,7 +5125,7 @@ lpad-align@^1.0.1:
     longest "^1.0.0"
     meow "^3.3.0"
 
-lqip-loader@^2.2.1:
+lqip-loader@2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/lqip-loader/-/lqip-loader-2.2.1.tgz#e2083c2e9e5a4e99cbc7452020e582af57b2dc1b"
   integrity sha512-GKCFqDaHg74/qbTlqh/WfUrlbGCp14baMgLwWwF2GMWrmStPcxCYS9y0E9RPXBsA2VtsOX67YH75bwQ8hcSsCw==
@@ -5574,7 +5574,7 @@ neo-async@^2.5.0, neo-async@^2.6.1, neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-next-optimized-images@^2.6.2:
+next-optimized-images@2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/next-optimized-images/-/next-optimized-images-2.6.2.tgz#8974a2186758c50e1a263c6866dbec5c25280db5"
   integrity sha512-yH/f3eLmoQ/TxvWRiSuM6AuF3tR1s4nePdHPTm9gl4lAaGEKxTGaSuUL+ZxE5j/c/ITrnHVHibQzOz1Jl8euQw==
@@ -7108,7 +7108,7 @@ responselike@1.0.2:
   dependencies:
     lowercase-keys "^1.0.0"
 
-responsive-loader@^2.3.0:
+responsive-loader@2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/responsive-loader/-/responsive-loader-2.3.0.tgz#3123b6db1dd8aeee37c4d7805e3f45d2e8f5edc1"
   integrity sha512-8GyyasTKdOfTMDvYy/mBpyV2EM7hz7zWoKdxpocA60eX1jM2udsb+ji03haZWeGnTkQvOplXVqHsev9952dWng==
@@ -7391,7 +7391,7 @@ sharp@0.26.2:
     tar-fs "^2.1.0"
     tunnel-agent "^0.6.0"
 
-sharp@^0.27.0:
+sharp@0.27.0:
   version "0.27.0"
   resolved "https://registry.yarnpkg.com/sharp/-/sharp-0.27.0.tgz#523fba913ba674985dcc688a6a5237384079d80f"
   integrity sha512-II+YBCW3JuVWQZdpTEA2IBjJcYXPuoKo3AUqYuW+FK9Um93v2gPE2ihICCsN5nHTUoP8WCjqA83c096e8n//Rw==
@@ -8036,7 +8036,7 @@ svg-baker@^1.5.0, svg-baker@^1.7.0:
     query-string "^4.3.2"
     traverse "^0.6.6"
 
-svg-sprite-loader@^5.2.1:
+svg-sprite-loader@5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/svg-sprite-loader/-/svg-sprite-loader-5.2.1.tgz#f0c37e76665ddfdf7abc8ff6ebd1da35cdd212d9"
   integrity sha512-n2IZc87rpOeXh+PQFksFMGCfMV/BT01YG+Dlbyjoh2Cz8BSTL5Vi/7KDr86Pt/u1NRDCVb3vY74BF5rKCmqbNA==
@@ -8663,7 +8663,7 @@ webidl-conversions@^4.0.2:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
   integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
 
-webp-loader@^0.6.0:
+webp-loader@0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/webp-loader/-/webp-loader-0.6.0.tgz#f9086777bb02ec653d046634014e95212e627032"
   integrity sha512-+3k/ojbdh6U74G8nKFB4syaXxjx294xOt+WAVlN84w/7ew6jJCS6DCoGzK8P/giRR4FiSVisKWIydGlb6EXOFQ==
