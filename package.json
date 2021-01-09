@@ -44,7 +44,7 @@
     "tailwindcss": "2.0.2"
   },
   "devDependencies": {
-    "@emmanuelgautier/renovate-config": "1.1.1",
+    "@emmanuelgautier/renovate-config": "1.1.2",
     "@types/classnames": "2.2.11",
     "@types/node": "14.14.10",
     "@types/react": "17.0.0",
