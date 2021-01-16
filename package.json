@@ -55,7 +55,7 @@
     "eslint-config-prettier": "7.1.0",
     "eslint-plugin-react": "7.22.0",
     "frontmatter-markdown-loader": "3.6.2",
-    "husky": "4.3.4",
+    "husky": "4.3.8",
     "image-trace-loader": "1.0.2",
     "imagemin-mozjpeg": "9.0.0",
     "imagemin-optipng": "8.0.0",
