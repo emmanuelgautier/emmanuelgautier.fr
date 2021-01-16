@@ -46,7 +46,7 @@
   "devDependencies": {
     "@emmanuelgautier/renovate-config": "1.1.2",
     "@types/classnames": "2.2.11",
-    "@types/node": "14.14.20",
+    "@types/node": "14.14.21",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
     "@typescript-eslint/eslint-plugin": "4.9.0",
