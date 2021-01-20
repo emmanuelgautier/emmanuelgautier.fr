@@ -1,9 +1,25 @@
 module.exports = {
-  siteUrl: 'https://www.emmanuelgautier.fr',
+  siteUrl: 'www.emmanuelgautier.fr',
+
+  i18n: {
+    locales: ['fr', 'en'],
+    defaultLocale: 'fr',
+
+    domains: [
+      {
+        domain: 'www.emmanuelgautier.fr',
+        defaultLocale: 'fr',
+      },
+
+      {
+        domain: 'www.emmanuelgautier.com',
+        defaultLocale: 'en',
+      },
+    ],
+  },
 
   openGraph: {
     type: 'website',
-    locale: 'fr_FR',
     site_name: 'Emmanuel Gautier',
   },
 

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Host: https://www.emmanuelgautier.fr
-Sitemap: https://www.emmanuelgautier.fr/sitemap.xml
+Host: www.emmanuelgautier.fr
+Sitemap: www.emmanuelgautier.fr/sitemap.xml

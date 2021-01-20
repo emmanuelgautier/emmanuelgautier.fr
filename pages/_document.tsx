@@ -2,10 +2,14 @@ import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 import { GTM_ID } from '../lib/gtm'
 
-export default class MyDocument extends Document {
+interface Props {
+  locale: string
+}
+
+export default class MyDocument extends Document<Props> {
   render() {
     return (
-      <Html lang="fr">
+      <Html lang={this.props.locale}>
         <Head>
           {/* Google Tag Manager - Global base code */}
           <script
@@ -29,7 +33,6 @@ export default class MyDocument extends Document {
               style={{ display: 'none', visibility: 'hidden' }}
             />
           </noscript>
-
           <Main />
           <NextScript />
         </body>
