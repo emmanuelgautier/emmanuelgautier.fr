@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: 'www.emmanuelgautier.fr',
+  siteUrl: process.env.DOMAIN || 'www.emmanuelgautier.fr',
 
   i18n: {
     locales: ['fr', 'en'],
