@@ -1,12 +1,14 @@
 import { capitalize } from 'lodash'
 import Link from 'next/link'
-import { NextSeo } from 'next-seo'
+import { NextSeo, SocialProfileJsonLd } from 'next-seo'
 import { useIntl } from 'react-intl'
 
 import { getPageBySlug } from '../lib/api'
 import markdownToHtml from '../lib/markdownToHtml'
 
 import Layout from '../components/Layout'
+
+import SEO from '../next-seo.config'
 
 interface Props {
   page: {
@@ -22,6 +24,12 @@ function Home({ page }: Props) {
   return (
     <>
       <NextSeo title={page.title} description={page.description} />
+      <SocialProfileJsonLd
+        type="Person"
+        name={page.title}
+        url={`https://${SEO.siteUrl}`}
+        sameAs={SEO.socials}
+      />
 
       <Layout>
         <div className="container w-full max-w-screen-lg mx-auto">

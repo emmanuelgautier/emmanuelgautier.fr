@@ -1,6 +1,12 @@
 module.exports = {
   siteUrl: process.env.DOMAIN || 'www.emmanuelgautier.fr',
 
+  socials: [
+    'https://github.com/emmanuelgautier',
+    'https://twitter.com/gautier_manu',
+    'https://www.linkedin.com/in/emmanuelgautier1',
+  ],
+
   i18n: {
     locales: ['fr', 'en'],
     defaultLocale: 'fr',
