@@ -1,6 +1,7 @@
 import '@fontsource/open-sans'
 
 import { AppProps } from 'next/app'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { DefaultSeo } from 'next-seo'
 import { IntlConfig, IntlProvider } from 'react-intl'
@@ -26,34 +27,42 @@ function MyApp({ Component, pageProps, messages, locale }: Props) {
   const canonicalUrl = getLocalizedUrl(currentLocaleDomain, basePath, asPath)
 
   return (
-    <IntlProvider
-      locale={locale}
-      defaultLocale={SEO.i18n.defaultLocale}
-      messages={messages}
-    >
-      <DefaultSeo
-        {...{
-          siteUrl,
-          canonical: canonicalUrl,
+    <>
+      <Head>
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="HandheldFriendly" content="True" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
 
-          languageAlternates: SEO.i18n.domains?.map(
-            ({ domain, defaultLocale }) => ({
-              hrefLang: defaultLocale,
-              href: getLocalizedUrl(domain, basePath, asPath),
-            })
-          ),
+      <IntlProvider
+        locale={locale}
+        defaultLocale={SEO.i18n.defaultLocale}
+        messages={messages}
+      >
+        <DefaultSeo
+          {...{
+            siteUrl,
+            canonical: canonicalUrl,
 
-          openGraph: {
-            url: siteUrl,
-            locale,
-            ...SEO.openGraph,
-          },
+            languageAlternates: SEO.i18n.domains?.map(
+              ({ domain, defaultLocale }) => ({
+                hrefLang: defaultLocale,
+                href: getLocalizedUrl(domain, basePath, asPath),
+              })
+            ),
 
-          twitter: SEO.twitter,
-        }}
-      />
-      <Component {...pageProps} />
-    </IntlProvider>
+            openGraph: {
+              url: siteUrl,
+              locale,
+              ...SEO.openGraph,
+            },
+
+            twitter: SEO.twitter,
+          }}
+        />
+        <Component {...pageProps} />
+      </IntlProvider>
+    </>
   )
 }
 
