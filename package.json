@@ -5,11 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "test": "next build",
-    "build": "run-s extract:i18n compile:i18n next-build",
+    "build": "run-s extract:i18n compile:i18n build-next",
     "export": "next export",
     "start": "next start",
     "serve": "serve out",
-    "next-build": "next build",
+    "build-next": "next build",
     "extract:i18n": "formatjs extract '{pages,components}/*.{js,ts,tsx}' --format simple --id-interpolation-pattern '[sha512:contenthash:base64:6]' --out-file lang/en.json",
     "compile:i18n": "formatjs compile-folder --ast --format simple lang compiled-lang",
     "postbuild": "next-sitemap",

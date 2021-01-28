@@ -1,7 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 import SEO from '../next-seo.config'
-import { GTM_ID } from '../lib/gtm'
 
 interface Props {
   locale: string
@@ -35,17 +34,6 @@ export default class MyDocument extends Document<Props> {
           <link
             rel="manifest"
             href={`https://${SEO.siteUrl}/site.webmanifest`}
-          />
-
-          {/* Global site tag (gtag.js) - Google Analytics */}
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GTM_ID}`}
-          />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GTM_ID}');`,
-            }}
           />
         </Head>
         <body className="bg-gray-50 antialiased">

@@ -24,6 +24,10 @@ module.exports = {
     ],
   },
 
+  person: {
+    name: 'Emmanuel Gautier',
+  },
+
   openGraph: {
     type: 'website',
     site_name: 'Emmanuel Gautier',

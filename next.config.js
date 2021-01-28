@@ -5,6 +5,8 @@ const withOptimizedImages = require('next-optimized-images')
 module.exports = withOptimizedImages({
   // i18n: SEO.i18n,
 
+  trailingSlash: true,
+
   inlineImageLimit: 8192,
   imagesFolder: 'images',
   imagesName: '[name]-[hash].[ext]',
