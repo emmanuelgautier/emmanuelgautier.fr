@@ -1,3 +1,12 @@
 [build]
   command = "npm run build && npm run export"
   publish = "out"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
+[[plugins]]
+  package = "netlify-purge-cloudflare-on-deploy"
