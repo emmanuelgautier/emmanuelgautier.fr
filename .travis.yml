@@ -5,3 +5,7 @@ node_js:
 cache:
   directories:
     - '$HOME/.npm'
+    - 'node_modules'
+script:
+- yarn lint
+- yarn build
