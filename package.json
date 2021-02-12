@@ -30,7 +30,7 @@
     ]
   },
   "dependencies": {
-    "@fontsource/open-sans": "4.1.0",
+    "@fontsource/open-sans": "4.2.1",
     "@formatjs/cli": "2.15.0",
     "@formatjs/intl-datetimeformat": "2.8.4",
     "@formatjs/intl-getcanonicallocales": "1.5.3",
