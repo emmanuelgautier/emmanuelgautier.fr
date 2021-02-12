@@ -274,10 +274,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fontsource/open-sans@4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@fontsource/open-sans/-/open-sans-4.1.0.tgz#d44b4495bd23d78018675e4e79973894e393c0ed"
-  integrity sha512-sWDAAr6ESHJdBKXse6njvZem4sTZLILkugaEfAvpdFiaKBh2RnXTa4DJllDh5LzP0MLMUrfj/JAjMbKxWFo6pQ==
+"@fontsource/open-sans@4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/open-sans/-/open-sans-4.2.1.tgz#5c8763a91eb2d0e1a3a4ef61eca3743e4224e9e3"
+  integrity sha512-CfvS4yIrZxBA9FoITkceFUM3HS9MYty8qZJ/Jq1m4NRqQlJX7Jc8KV4k/APG1h16jdp9ilU6VmZbdLwPxXr7Yw==
 
 "@formatjs/cli@2.15.0":
   version "2.15.0"
