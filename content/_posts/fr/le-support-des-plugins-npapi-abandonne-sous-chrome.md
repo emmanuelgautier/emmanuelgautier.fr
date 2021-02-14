@@ -1,0 +1,20 @@
+---
+title: Le support des plugins NPAPI abandonné sous Chrome
+description: L'annonce a été faite hier sur le blog officiel de Chromium, Netscape Plugin API ne sera plus supporté à partir de Janvier 2014 sur le navigateur Chrome. Justin Schuh, ingénieur sécurité chez google, explique que cette décision a été prise en raison de problèmes de sécurité et de maintient du code.
+image: /images/chrome.jpg
+tags:
+  - google
+slug: le-support-des-plugins-npapi-abandonne-sous-chrome
+updated: '2013-09-24'
+created: '2013-09-24'
+---
+
+L'annonce a été faite hier sur le blog officiel de Chromium, Netscape Plugin API ne sera plus supporté à partir de Janvier 2014 sur le navigateur Chrome. Justin Schuh, ingénieur sécurité chez google, explique que cette décision a été prise en raison de problèmes de sécurité et de maintient du code.
+
+Au départ, les NPAPI avaient été développé pour le navigateur Netscape dans les années 90, mais très vite il fut implémenté par d'autres navigateurs. Ils avaient été conçu dans le but de donner la possibilité aux développeurs d'étendre les fonctionnalités des navigateurs dans leur applis. Au fil des années, les navigateurs ont grandement gagné en rapidité et en sécurité et donne, à l'heure actuelle, la possibilité de ce passer de ces APIs.
+
+Afin d'assouplir les transitions, google a mis en place une liste blanche temporaire de plug-ins qui ne seront pas bloqués dans les premiers temps. Cette liste est constituée de Silverlight, Unity, Google Earth, Java (déjà bloqué pour des raisons de sécurité), Google Talk et Facebook Video.
+
+De même, Google conseille de ce tourner vers une liste de technologies jouant le rôle d'alternatives parmis lesquels NaCl (Native Client), les APPs, Native Messaging API.
+
+source: [blog chromium](http://blog.chromium.org/2013/09/saying-goodbye-to-our-old-friend-npapi.html)

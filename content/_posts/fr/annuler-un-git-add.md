@@ -1,0 +1,16 @@
+---
+title: Annuler un git add
+description: Un git add malencontreux est vite arrivé. C'est pourquoi il existe une commande qui permet d'annuler ce git add. Voici la ligne de commande permettant de faire cette action.
+image: /images/git.jpg
+tags:
+  - git
+slug: annuler-un-git-add
+updated: '2014-10-12'
+created: '2014-10-12'
+---
+
+Un " git add " malencontreux est vite arrivé. C'est pourquoi il existe une commande qui permet d'annuler ce " git add ". Voici la ligne de commande permettant de faire cette action.
+
+```bash
+git rm --cached <file>
+```

@@ -1,0 +1,36 @@
+---
+title: Installer une extension chrome hors du Web Store
+description: Il vous est peut être déjà arrivé de tomber sur des extensions ou des codes sources d'extensions chrome hors du Web Store et de ne pas savoir comment les installer sur votre navigateur. Dans le cas, où vous développez une extension chrome et que vous ne sachiez pas comment la tester, ce qui va suivre va vous intéresser.
+image: /images/webstore.jpg
+tags:
+  - google
+slug: installer-une-extension-chrome-hors-du-web-store
+updated: '2013-08-13'
+created: '2013-08-13'
+---
+
+Il vous est peut être déjà arrivé de tomber sur des extensions ou des codes sources d'extensions chrome hors du Web Store et de ne pas savoir comment les installer sur votre navigateur. Dans le cas, où vous développez une extension chrome et que vous ne sachiez pas comment la tester, ce qui va suivre va vous intéresser.
+
+Si vous avez le fichier .crx de l'extension, c'est que vous possédez la version empaquetée de l'extension. Dans ce cas allez à la partie 1, sinon passez directement à la partie 2.
+
+### Installer à partir de l'extension empaqueté
+
+Pour installer une extension empaqueté, suivez les étapes suivantes :
+
+1. Télécharger l'extension au format .crx (si déjà fait passez au troisième point)
+2. Si vous avez désactivé la protection contre les installations à partir de site hors du Chrome Web Store, l'installation devrait être automatique lors de l'ouverture du fichier.
+3. Sinon, ouvrez le gestionnaire d'extensions (Menu > Outils > Extensions) et faites-y un glisser/déposer du fichier .crx.
+
+### Installer à partir des sources
+
+Pour installer à partir des sources, suivez les étapes suivantes :
+
+1. Téléchargez le dossier contenant les sources
+2. Vérifiez que ce dossier contient le fichier manifest.json
+3. Rendez-vous dans le gestionnaire d'extensions (Menu > Outils > Extensions)
+4. Passez en ' Mode développeur ' en cochant la case correspondante en haut à droite de votre écran.
+5. Trois boutons devraient apparaître. Cliquez sur ' Charger l'extension non empaquetée... ', puis choisissez le dossier contenant les codes sources et le précieux manifest.json.
+
+##### Note
+
+Ce tutoriel est compatible avec les versions 28, 29 et 30 du navigateur chrome / chromium. En cas d'erreur, vérifiez la présence de fichier manifest.json dans les sources et qu'il ne manque pas de fichier tel que des images ou des fichiers Javascript (.js). Dans le cas où l'erreur ne vient pas de là, faîte une recherche google à partir de l'erreur renvoyé par chrome.

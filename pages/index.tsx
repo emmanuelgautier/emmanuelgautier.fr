@@ -1,65 +1,42 @@
 import { capitalize } from 'lodash'
-import { useAmp } from 'next/amp'
 import Link from 'next/link'
 import { useIntl } from 'react-intl'
 
-import { getPageBySlug } from '../lib/api'
+import { getFeaturedPosts, getPageBySlug } from '../lib/api'
 import markdownToHtml from '../lib/markdownToHtml'
 
 import Layout from '../components/Layout'
+import ProfileImg from '../components/ProfileImg'
 
 interface Props {
   page: {
     title: string
     description: string
     content: string
+    featuredPosts: Array<{ slug: string; title: string }>
   }
 }
 
+const featuredPostNumber = 3
+
 export const config = { amp: 'hybrid' }
 
-function Home({ page }: Props) {
+function Home({ page: { content, featuredPosts, title, description } }: Props) {
   const intl = useIntl()
-  const isAmp = useAmp()
 
   return (
-    <Layout title={page.title} description={page.description} path="/">
+    <Layout title={title} description={description} headEnabled={false}>
       <div className="container w-full max-w-screen-lg mx-auto">
         <div className="flex flex-col justify-center items-center text-center mt-12 md:mt-20 pb-12 mx-40 border-b border-gray-300">
           <div className="h-40 w-40 m-5">
-            {isAmp ? (
-              <amp-img
-                className="object-cover rounded-full"
-                src={require('../public/images/profile.png')}
-                alt={page.title}
-                height="100"
-                width="100"
-              />
-            ) : (
-              <picture>
-                <source
-                  srcSet={require('../public/images/profile.png?webp')}
-                  type="image/webp"
-                />
-                <source
-                  srcSet={require('../public/images/profile.png')}
-                  type="image/png"
-                />
-                <img
-                  className="object-cover rounded-full"
-                  src={require('../public/images/profile.png')}
-                  alt={page.title}
-                  title={page.title}
-                />
-              </picture>
-            )}
+            <ProfileImg title={title} />
           </div>
           <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-            {page.title}
+            {title}
           </h1>
           <div
             className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg md:mt-5 md:text-xl"
-            dangerouslySetInnerHTML={{ __html: page.content }}
+            dangerouslySetInnerHTML={{ __html: content }}
           />
         </div>
 
@@ -70,23 +47,13 @@ function Home({ page }: Props) {
 
           <div className="py-6 px-2 prose">
             <ul>
-              <li>
-                <Link href="https://blog.emmanuelgautier.fr/git-sensibilite-casse/">
-                  <a target="_blank">Git et la sensibilité à la casse</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="https://blog.emmanuelgautier.fr/utilisateurs-et-privileges-sous-mysql/">
-                  <a target="_blank">Utilisateurs et privilèges sous MySQL</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="https://blog.emmanuelgautier.fr/installer-et-configurer-un-serveur-dns-avec-bind9-sous-linux/">
-                  <a target="_blank">
-                    Installer et configurer un serveur DNS avec Bind9 sous Linux
-                  </a>
-                </Link>
-              </li>
+              {featuredPosts.map(({ slug, title }) => (
+                <li key={slug}>
+                  <Link href={`/blog/${slug}`}>
+                    <a>{title}</a>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -129,10 +96,25 @@ export const getStaticProps = async ({
   ])
   const content = await markdownToHtml(page.content || '')
 
+  const getStaticFeaturedPosts = (lang: string, sliceEnd: number) =>
+    getFeaturedPosts(lang, ['created', 'slug', 'title'])
+      .sort((post1: any, post2: any) =>
+        post1.created > post2.created ? -1 : 1
+      )
+      .slice(0, sliceEnd)
+
+  let featuredPosts = getStaticFeaturedPosts(locale, featuredPostNumber)
+  if (featuredPosts.length < featuredPostNumber) {
+    featuredPosts = featuredPosts.concat(
+      getStaticFeaturedPosts('fr', featuredPostNumber - featuredPosts.length)
+    )
+  }
+
   return {
     props: {
       page: {
         ...page,
+        featuredPosts,
         content,
       },
     },

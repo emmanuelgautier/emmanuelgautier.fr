@@ -9,7 +9,13 @@ declare namespace JSX {
     height?: string
     layout?: string
   }
+  interface AmpAnalytics {
+    type: string
+    'data-credentials': string
+    children: ReactElement
+  }
   interface IntrinsicElements {
     'amp-img': AmpImg
+    'amp-analytics': AmpAnalytics
   }
 }

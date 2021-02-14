@@ -1,5 +1,12 @@
+const subdomainFr = 'www.emmanuelgautier.fr'
+const subdomainEn = 'www.emmanuelgautier.com'
+
+const siteUrl = process.env.DOMAIN || subdomainFr
+const blogSubdomain =
+  siteUrl === subdomainFr ? 'blog.emmanuelgautier.fr' : subdomainEn
+
 module.exports = {
-  siteUrl: process.env.DOMAIN || 'www.emmanuelgautier.fr',
+  siteUrl: `https://${siteUrl}`,
 
   socials: [
     'https://github.com/emmanuelgautier',
@@ -7,18 +14,23 @@ module.exports = {
     'https://www.linkedin.com/in/emmanuelgautier1',
   ],
 
+  blog: {
+    pathPrefix: siteUrl === blogSubdomain ? '/' : '/blog',
+    subdomain: blogSubdomain,
+  },
+
   i18n: {
     locales: ['fr', 'en'],
     defaultLocale: 'fr',
 
     domains: [
       {
-        domain: 'www.emmanuelgautier.fr',
+        domain: subdomainFr,
         defaultLocale: 'fr',
       },
 
       {
-        domain: 'www.emmanuelgautier.com',
+        domain: subdomainEn,
         defaultLocale: 'en',
       },
     ],
@@ -26,6 +38,7 @@ module.exports = {
 
   person: {
     name: 'Emmanuel Gautier',
+    image: '/images/profile.png',
   },
 
   openGraph: {

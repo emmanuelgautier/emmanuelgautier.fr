@@ -1,0 +1,36 @@
+---
+title: Git et la sensibilité à la casse
+description: Aujourd'hui je ne comprenais pas pourquoi, sur la CI, les tests ne passaient pas ne trouvant pas certains fichiers alors que ceux-ci étaient bien présents sur le système de fichiers et envoyés sur GIT. La subtibilité venait d'un renommage de fichiers qui modifiait la casse de ceux-ci.
+image: /images/git.jpg
+tags:
+  - git
+  - osx
+  - windows
+slug: git-sensibilite-casse
+featured: true
+updated: '2018-11-06'
+created: '2018-11-06'
+---
+
+Aujourd'hui je ne comprenais pas pourquoi, sur la CI, les tests ne passaient pas ne trouvant pas certains fichiers alors que ceux-ci étaient bien présents sur le système de fichiers et envoyés sur GIT. La subtibilité venait d'un renommage de fichiers qui modifiait la casse de ceux-ci.
+
+En effet les systèmes de fichiers de Windows et OSX ne sont pas sensibles à la casse (`Case Insensitive`). Si vous êtes utilisateurs d'un de ces système d'exploitation, deux solutions s'offrent à vous.
+
+Un moyen de contournement simple consiste à utiliser la commande `git mv` de la manière suivante :
+
+```git
+git mv camelcase camelCase
+git commit -m "fix camelCase name"
+```
+
+L'autre soluion est de configurer GIT de telle manière qu'il soit sensible à la casse avec ce type de système de fichiers.
+
+A partir de la documentation de [git-config](https://gitirc.eu/git-config.html)
+
+> Internal variable which enables various workarounds to enable Git to work better on filesystems that are not case sensitive, like APFS, HFS+, FAT, NTFS, etc. For example, if a directory listing finds "makefile" when Git expects "Makefile", Git will assume it is really the same file, and continue to remember it as "Makefile".
+
+Pour l'activer, attribuez la valeur `false` à `core.ignoreCase`
+
+```git
+git config core.ignorecase false
+```

@@ -1,0 +1,15 @@
+---
+title: Mise à jour de Dart SDK
+description: L'éditeur du langage de google, Dart, a été mis à jour. Parmis les nouveautés et améliorations de l'éditeur on peut souligner une amélioration de la rapidité de génération du JavaScript. En effet, l'outil intégré dart2js permettant la transcription de Dart en JavaScript a subit des améliorations de rapidité. On peut voir aussi une meilleur intégration de l'édition de HTML et CSS avec l'autocomplétion et un meilleur surlignage sémantique.
+image: /images/dart.jpg
+tags:
+  - google
+  - dart
+slug: mise-a-jour-de-dart-sdk
+updated: '2013-10-03'
+created: '2013-10-03'
+---
+
+L'éditeur du langage de google, Dart, a été mis à jour. Parmis les nouveautés et améliorations de l'éditeur on peut souligner une amélioration de la rapidité de génération du JavaScript. En effet, l'outil intégré dart2js permettant la transcription de Dart en JavaScript a subit des améliorations de rapidité. On peut voir aussi une meilleur intégration de l'édition de HTML et CSS avec l'autocomplétion et un meilleur surlignage sémantique.
+
+Source: [News Dartlang](http://news.dartlang.org/2013/10/faster-dart2js-and-new-html-editor-in.html)

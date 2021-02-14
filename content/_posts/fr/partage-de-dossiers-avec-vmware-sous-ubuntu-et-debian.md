@@ -1,0 +1,33 @@
+---
+title: Partage de dossiers avec VMWare sous Ubuntu et Debian
+description: VMWare propose de partager des dossiers entre le système hôte et la machine virtualisée. Ces dossiers permettent de partager des données entre les deux machines. Le principe est que la machine virtualisée peut accéder aux dossiers choisis de la même manière que le système hôte et en changer les fichiers selon ses besoins.
+image: /images/vmware.jpg
+tags:
+  - linux
+  - ubuntu
+  - debian
+  - vmware
+slug: partage-de-dossiers-avec-vmware-sous-ubuntu-et-debian
+updated: '2015-04-06'
+created: '2015-04-06'
+---
+
+VMWare propose de partager des dossiers entre le système hôte et la machine virtualisée. Ces dossiers permettent de partager des données entre les deux machines. Le principe est que la machine virtualisée peut accéder aux dossiers choisis de la même manière que le système hôte et en changer les fichiers selon ses besoins.
+
+Les VMWare tools doivent au préalable avoir été installés pour utiliser la fonctionnalité de partage de dossier. Si ce n'est pas le cas, vous pouvez lire ce [tutoriel](https://blog.emmanuelgautier.fr/installer-les-vmware-tools-sous-ubuntu-et-debian/) qui vous expliquera comment les installer.
+
+VMWare utilise les fonctionnalités de base de linux pour partager ses dossiers. En effet, ces dossiers seront en fait des disques, avec un système de fichiers spécifique, à monter sur votre système d'exploitation. L'ajout d'un dossier partagé VMWare sous Linux peut donc se faire de deux manières différentes. La première est de le faire par la ligne de commande.
+
+La ligne de commande vous permet de monter le dossier mais comme tout montage de dossier via la ligne de commande, au prochain redémarrage, il vous sera nécessaire de remonter le dossier. Voici ci-dessous la commande à utiliser. Veillez à remplacer `sharedfoldername` par le nom de votre partage et "/root/sharedfolderlocation" par le chemin où vous voulez monter votre dossier.
+
+```bash
+sudo mount -t vmhgfs .host:/sharedfoldername /root/sharedfolderlocation
+```
+
+La seconde manière est d'enregistrer le disque dans le fichier fstab afin qu'il soit automatiquement monté à chaque démarrage de la VM. Pour ce faire voici la ligne à ajouter dans votre fichier `/etc/fstab`.
+
+```bash
+.host:/sharedfoldername /root/sharedfolderlocation vmhgfs defaults,ttl=5,uid=1000,gid=1000 0 0
+```
+
+Vous pouvez retrouver plus d’informations sur le montage des dossiers partagés sur la [Documentation de VMWare](https://pubs.vmware.com/workstation-9/index.jsp?topic=%2Fcom.vmware.ws.using.doc%2FGUID-AB5C80FE-9B8A-4899-8186-3DB8201B1758.html).

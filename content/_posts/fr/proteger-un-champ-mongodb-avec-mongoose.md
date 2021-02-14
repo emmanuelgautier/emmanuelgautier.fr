@@ -1,0 +1,55 @@
+---
+title: Protéger un champ MongoDB avec Mongoose
+description: Comme pour toute application, nous ne voulons pas que certains champs de nos bases soient visibles aux yeux de tous. [Mongoose](https://mongoosejs.com/), ODM écrit en Javascript pour requêter les bases NoSQL MongoDB, permet simplement de mettre en place une protection sur certains champs que nous voulons laisser cachés.
+image: /images/mongodb.png
+tags:
+  - nodejs
+  - javascript
+  - mongodb
+slug: proteger-un-champ-mongodb-avec-mongoose
+updated: '2014-09-17'
+created: '2014-09-17'
+---
+
+Comme pour toute application, nous ne voulons pas que certains champs de nos bases soient visibles aux yeux de tous. [Mongoose](https://mongoosejs.com/), ODM écrit en Javascript pour requêter les bases NoSQL MongoDB, permet simplement de mettre en place une protection sur certains champs que nous voulons laisser cachés.
+
+Mongoose rend possible, au moment de la création du schéma, d'établir une protection sur un ou plusieurs champs de votre schéma. Cette protection intervient lorsque vous requêtez celui-ci, le champ en question n’apparaît pas dans le résultat.
+
+Voici la manière de faire pour créer un Schéma avec un champ protégé :
+
+```javascript
+var UserSchema = new Schema({
+  username: { type: String, index: { unique: true } },
+  mail: { type: String, index: { unique: true } },
+  password: { type: String, select: false },
+  createdAt: { type: Date, default: Date.now },
+})
+
+mongoose.model('User', UserSchema)
+```
+
+Vérifions maintenant que le champs est bien protégé :
+
+```javascript
+var User = mongoose.model('User')
+
+User.findOne({ username: username }, function (err, user) {
+  if (user) {
+    // User
+  }
+})
+```
+
+Si vous désirez à un moment récupérer le contenu de ce champ, il vous suffit d'utiliser la fonction `select` comme suivant :
+
+```javascript
+var User = mongoose.model('User')
+
+User.findOne({ username: username })
+  .select('+password')
+  .exec(function (err, user) {
+    if (user) {
+      // User
+    }
+  })
+```

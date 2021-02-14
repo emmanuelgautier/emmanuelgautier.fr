@@ -1,0 +1,44 @@
+---
+title: Installer SASS et Compass sur Ubuntu
+description: SASS est un préprocesseur CSS utilisé par de nombreux projets web dont les framework Foundation et Bootstrap. Il permet, à partir d’un langage proche de celui du CSS, de générer une feuille de style CSS.
+image: /images/sass.jpg
+tags:
+  - css
+  - sass
+  - compass
+  - linux
+  - ubuntu
+slug: installer-sass-et-compass-sur-ubuntu
+updated: '2014-10-19'
+created: '2014-10-19'
+---
+
+[SASS](http://sass-lang.com/) est un préprocesseur CSS utilisé par de nombreux projets web dont les framework [Foundation](http://foundation.zurb.com/) et [Bootstrap](http://getbootstrap.com/). Il permet, à partir d’un langage proche de celui du CSS, de générer une feuille de style CSS.
+
+### Pourquoi utiliser un préprocesseur CSS ?
+
+L’avantage d’utiliser un préprocesseur réside dans le fait que ces préprocesseurs sont des langages de programmation contrairement au CSS qui est un langage de structure. Ce qui vous permet de structurer votre design en décomposant vos éléments graphiques dans des fichiers, regrouper certaines caractéristiques de style telle que les couleurs, les dimensions de blocs dans des variables, … etc. Pour résumer utiliser un préprocesseur comme SASS permet d’organiser et de maintenir plus simplement les design de vos applications web.
+
+[Compass](http://compass-style.org/), quant à lui, est un framework de SASS. Il introduit un ensemble de fonctions et de structures permettant de simplifier et d'accélérer le développement de votre design.
+
+### Installation de SASS et Compass
+
+Nous allons maintenant installer les outils SASS et Compass permettant de compiler vos fichiers pour générer des feuilles de style. Ces outils seront, par la suite, utilisables en ligne de commande.
+
+Etant développés en Ruby, il convient d’installer ce langage, si cela n’est pas déjà fait :
+
+```bash
+sudo apt-get install make ruby ruby-dev
+```
+
+A partir du gestionnaire de package gem, nous pouvons installer les outils
+
+```bash
+sudo gem install sass compass
+```
+
+Si vous désirez avoir les dernières versions, il vous suffit de remplacer la dernière commande par la commande suivante :
+
+```bash
+gem install sass compass --pre
+```

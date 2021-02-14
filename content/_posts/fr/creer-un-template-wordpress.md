@@ -1,0 +1,146 @@
+---
+title: Créer un template Wordpress
+description: Il peut arriver que le template par défaut de wordpress ne suffise pas et que vous soyez obligé d’en créer un de toute pièce. En effet, si vous souhaitez avoir une page sur votre site web qui se démarque des autres ou alors vous avez besoin d’un agencement de votre page plus particulier, vous allez devoir passer par la création d’un nouveau template. Pour ce faire rien de plus simple avec wordpress, nous allons le voir tout de suite.
+image: /images/wordpress.png
+tags:
+  - php
+  - wordpress
+slug: creer-un-template-wordpress
+updated: '2013-09-22'
+created: '2013-09-22'
+---
+
+Il peut arriver que le template par défaut de wordpress ne suffise pas et que vous soyez obligé d’en créer un de toute pièce. En effet, si vous souhaitez avoir une page sur votre site web qui se démarque des autres ou alors vous avez besoin d’un agencement de votre page plus particulier, vous allez devoir passer par la création d’un nouveau template. Pour ce faire rien de plus simple avec wordpress, nous allons le voir tout de suite.
+
+### Prérequis
+
+Tout d’abord, intéressons-nous à la structure du template par défaut fourni par wordpress. Le template de base est situé dans le fichier ' page.php ' situé dans le dossier du thème que vous utilisez, en voici le code source (WordPress 4.0) :
+
+```php
+<?php
+
+/**
+  * The template for displaying all pages
+  *
+  * This is the template that displays all pages by default.
+  * Please note that this is the WordPress construct of pages and that
+  * other 'pages' on your WordPress site will use a different template.
+  *
+  * @package WordPress
+  * @subpackage Twenty_Fourteen
+  * @since Twenty Fourteen 1.0
+  */
+
+  get_header(); ?>
+
+  <div id="main-content" class="main-content">
+
+  <?php
+
+  if ( is_front_page() && twentyfourteen_has_featured_posts() ) {
+    // Include the featured content template.
+    get_template_part( 'featured-content' );
+  }
+  ?>
+
+  <div id="primary" class="content-area">
+    <div id="content" class="site-content" role="main">
+
+      <?php
+
+      // Start the Loop.
+      while ( have_posts() ) : the_post();
+
+      // Include the page content template.
+      get_template_part( 'content', 'page' );
+
+     // If comments are open or we have at least one comment, load up the comment template.
+    if ( comments_open() || get_comments_number() ) {
+      comments_template();
+    }
+
+  endwhile;
+
+  ?>
+
+  </div><!-- #content -->
+</div><!-- #primary -->
+
+<?php get_sidebar( 'content' ); ?>
+</div><!-- #main-content -->
+
+<?php
+
+get_sidebar();
+get_footer();
+```
+
+Nous n’allons pas expliquer chaque fonction php contenu dans le template mais arretons-nous tout de même sur les plus importantes.
+
+Les fonctions `get_header()`, `get_sidebar()` et `get_footer()` sont les fonctions vitales à la page car elles permettent de mettre en place toute la structure générale de la page. Prenons les fonctions les unes après les autres. `get_header` vous permet d’appeler toute la partie d’entête de la page, ce qui comprend tout ce qui se situe entre les balises `<head>`, la bannière du haut et le menu principal. La fonction `get_sidebar` vous permet de récupérer les widgets placés sur vos pages. La fonction `get_footer`, quant à elle, permet de récupérer le pied de page. Ces trois fonctions sont donc la base même de la structure de votre page, ne les oubliez surtout pas !
+
+Maintenant que nous savons comment récupérer la structure de la page, il serait bon de savoir comme afficher son contenu. La fonction qui joue se rôle sur la page est la fonction `get_template_part( 'content', 'page' )`. Elle vous affichera le template `content-page.php` contenant le corps de l’article que vous aurez rentré dans l’espace d’administration.
+
+Une autre fonction qui pourra vous intéresser est la fonction `comments_template()` qui affichera le formulaire de commentaire pour l’article si vous n’avez pas désactivé les commentaires dans les paramètres de wordpress.
+
+### Création de la base de notre template
+
+Sachant maintenant comment est constitué un template, à nous de jouer. En premier lieu, il faut créer un fichier dans le dossier `page-templates` du thème que vous utilisez. Nommez ce fichier avec le nom que vous voulez, pour ma part je l'appellerai `custom.php`. Commencez votre fichier par le commentaire php ci-dessous en remplaçant ‘ Custom ‘ par le nom de template que vous voulez lui donner. Ce nom sera celui qui s’affichera plus tard dans le panneau d’administration quand vous choisirez le template pour votre page.
+
+```php
+<?php
+
+/**
+  *
+  * Template Name: Custom
+  *
+  */
+```
+
+Et voici un exemple de template que vous pourriez créer :
+
+```php
+<?php
+
+/**
+  *
+  * Template Name: Custom
+  *
+  */
+
+get_header(); ?>
+
+<div id="main-content" class="main-content">
+
+  <?php
+
+  if ( is_front_page() && twentyfourteen_has_featured_posts() ) {
+    // Include the featured content template.
+    get_template_part( 'featured-content' );
+  }
+
+  ?>
+
+  <div id="primary" class="content-area">
+    <div id="content" class="site-content" role="main">
+      <?php while ( have_posts() ) : the_post(); ?>
+        <?php get_template_part( 'content', 'page' ); ?>
+
+        <?php echo get_sidebar('disqus'); ?>
+
+      <?php endwhile; ?>
+    </div>
+  </div>
+</div>
+
+<?php
+
+get_sidebar();
+get_footer();
+```
+
+### Utilisation du template
+
+Pour utiliser votre template, rendez-vous à l’onglet d’écriture de page, et regardez la zone de choix des templates. Et magique, le nom de votre template apparait dans la liste !
+
+![Exemple de choix de template](/images/creer-template-wordpress.jpg)

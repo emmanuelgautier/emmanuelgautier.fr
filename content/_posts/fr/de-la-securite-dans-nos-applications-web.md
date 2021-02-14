@@ -1,0 +1,254 @@
+---
+title: De la sécurité dans nos applications web
+description: Vous le savez sans doute déjà, tous les internautes ne sont pas des gens de confiance. Certains pirates tentent de contourner les sécurités de vos applications web. C’est pourquoi, la sécurité sur Internet n’est plus un sujet à prendre à la légère. Et nous allons prendre ça au sérieux, justement !
+image: /images/security.jpg
+tags:
+  - php
+  - securite
+slug: de-la-securite-dans-nos-applications-web
+updated: '2013-02-07 14:30'
+created: '2013-02-07 14:30'
+---
+
+Vous le savez sans doute déjà, tous les internautes ne sont pas des gens de confiance. Certains pirates tentent de contourner les sécurités de vos applications web : soit pour les **détruire**, soit pour en **voler les informations** des utilisateurs.
+
+C’est pourquoi, la sécurité sur Internet n’est plus un sujet à prendre à la légère. Et nous allons prendre ça au sérieux, justement !
+
+### Comment ?
+
+Nous allons étudier les techniques des pirates, agrémentées de démonstrations. Et oui, pour bien savoir se protéger, il faut savoir comment on est attaqué ! Injections SQL, failles XSS, failles include et bien d’autres réjouissances… Puis nous apprendrons à détecter les failles et à les corriger.
+
+### Faille XSS
+
+#### a. Qu'est ce que c'est ?
+
+Le Cross Site Scripting (XSS) permet l'injection de code malveillant du **côté client**. Souvent, il s'agit de codes Javascript mais cela peut tout autant être du Java, du Flash ou encore une iframe.
+
+#### b. Comment ça marche ?
+
+Souvent le code s’exécutera sur les pages affichées par les visiteurs du site attaqué. Le script malveillant aura accès au **DOM** (Document Object Model), ce qui veut dire que potentiellement, ce script pourra voir et faire **toutes les actions auquel l'utilisateur à accès**.
+
+Exemple :
+![attaque xss](/images/securite-web1.jpg)
+![attaque xss](/images/securite-web2.jpg)
+
+Maintenant, tentons de comprendre ce qui s'est passé ! Le pirate a entré le code suivant dans le commentaire :
+
+```html
+<script>
+  alert("Pas d'accord du tout")
+</script>
+```
+
+Ce même code a été ensuite affiché dans le code source de la page comme du code html. Le navigateur a donc exécuté ce qui était entre les balises script de manière normal et affiche donc le texte " pas d'accord du tout " dans une boîte dialogue.
+
+#### c. Quel est le danger ?
+
+- Vols d'informations
+- Utilisation d'un site piraté pour faire circuler un virus (virus Samy sur MySpace en 2005)
+- Phishing
+- Défacement
+- Redirection vers un autre site (pouvant servir à voler des informations par la même occasion)
+
+L'attaquant peut faire n'importe quel action auquel à accès l'utilisateur. Donc, plus l'utilisateur à de pouvoir plus le script malveillant en a aussi. Il est donc évident que si le script s'attaque à l'admin, le script aura autant de pouvoir qu'un admin, ce qui est assez terrifiant en général.
+
+#### d. Comment l'éviter
+
+Pour l'éviter deux possibilités :
+
+- Faire des filtres
+- Remplacer certains caractères html par leur entités html correspondante
+
+La première solution est qu'on pourrait faire une fonction qui filtre la balise " script ". Voyons la fonction ci-dessous qui va enlever tout les " script " de la chaîne de caractères rentrée.
+
+```php
+<?php
+
+function anti_script($string)
+{
+    return preg_replace("#script#", "", $string);
+}
+
+```
+
+Pourtant, cette méthode pose quelques problème et est même totalement inefficace contre les attaques. En effet, ce filtre est facilement contournable car au lieu de mettre `<script></script>` mettons `<scscriptript></scrscriptipt>`. Lorsque les filtres vont faire leur actions le code résultant sera `<script></script>` et le code pourra s’exécuter. Autre chose qui est embêtant, c'est que sur un site d'informatique, on ne pourra pas mettre le texte `script` dans ses messages car ils seront automatiquement effacés du message. Pas très commode pour expliquer son code !
+
+On peut utiliser la fonction [htmlspecialchars()](http://www.php.net/manual/fr/function.htmlspecialchars.php). Cette fonction va remplacer certains caractères html par leur entités correspondantes. On peut utiliser de la même manière la fonction [htmlentitites()](http://www.php.net/manual/fr/function.htmlentities.php) qui a exactement la même utilitée que htmlspecialchars mais en plus complet. Une autre méthode encore plus radicale supprimera toute les balises html et php, c'est la fonction [strip_tags()](http://php.net/manual/fr/function.strip-tags.php).
+
+### Injection Sql
+
+L'injection sql permet, comme son nom l'indique, **d'injecter une requête sql** à l'insu du développeur.
+
+#### Comment ça marche ?
+
+Souvent le code malveillant va être inséré dans des données transmis par formulaire ou par variable passé dans l'url. Le code de l'attaquant va faire des requêtes à la base ou en fausser leurs utilités  Au préalable, l'attaquant pourra avoir soigneusement exploité le manque de sécurisation pour faire un plan d'une ou de plusieurs table de la base.
+
+**Exemple**
+![injection sql](/images/securite-web4.jpg)
+![injection sql](/images/securite-web5.jpg)
+
+Dans l'exemple précédent nous avons prix le cas d'une connexion classique. Pour bien comprendre ce qui c'est passé il est bon de voir quel type de requête est utilisé pour la connexion :
+
+```sql
+SELECT id FROM user WHERE username = '(pseudo)' AND password = '(mot de passe hashé)'
+```
+
+Maintenant remplaçons les variables par les données rentrées par l'utilisateur, la requête devient alors :
+
+```sql
+SELECT id FROM user WHERE username='admin' # 'AND password='p hashé'
+```
+
+Or le `#` signifie le début d'un commentaire en sql d'où la requête revient donc a :
+
+```sql
+SELECT id FROM user WHERE username='admin'
+```
+
+La requête retourne toujours un résultat non nul tant que le pseudo 'admin' existe dans la base.
+
+#### c. Quel est le danger ?
+
+- Vols d'informations
+- Changement d'informations dans la base
+- Délétion de données
+
+#### d. Comment l'éviter ?
+
+Pour l'éviter deux possibilités :
+
+- Échapper les caractères
+- Préparer les requêtes
+
+La fonction [addslashes()](http://php.net/manual/fr/function.addslashes.php) permet d'ajouter un antislash devant certain caractère ce qui permet d'échapper les caractères qui nous embêtes et qui pourraient fausser notre requêtes.
+
+De la même manière les fonctions qui nous permettes les accès à la base nous donne l'accès à des fonctions qui peuvent échapper ces mêmes caractères. Pour les connexions avec l'objet [mysqli](http://www.php.net/manual/en/book.mysqli.php) on pourra échapper la chaîne grâce à [`MySQLi::mysqli_real_escape_string()`](http://www.php.net/manual/en/mysqli.real-escape-string.php). Pour les connexions avec l'objet `PDO`, on pourra échapper les caractères avec la fonction [`PDO::quote()`](http://php.net/manual/en/pdo.quote.php).
+
+Une autre méthode est de préparer ses requêtes. Nous pourrons voir un exemple avec PDO.
+
+```php
+<?php
+
+$pdo = new PDO('mysql:host;dbname=userdata', 'root', '');
+
+$username = "admin' #";
+$password = "p";
+
+$statement = $pdo->prepare("SELECT * FROM users WHERE username=:username AND password=:password");
+$statement>bindValue(':username', $username, PDO::PARAM_STR);
+$statement->bindValue(':password', md5($password), PDO::PARAM_STR);
+
+$statement->execute();
+
+$user = $statement->fetch();
+$statement->closeCursor();
+
+```
+
+Le plus important et ce qui reste la meilleur méthode pour éviter de subir des injections est de bien vérifier les données rentrées. Cela comprend de :
+
+- Vérifier le type de la donnée (la transtyper si besoin est)
+- Vérifier la longueur des chaines
+- Si le choix des données est restreint, vérifier que les données rentrées appartiennent à cette fourchette de solutions
+
+### Attaque des mots de passe par brute force
+
+#### a. Qu'est ce que c'est ?
+
+Le principe d'une attaque par brute force des mots de passe est de tendre à une recherche exhaustive des mots de passe possibles rentrés par l'utilisateur. Plusieurs variantes existent. Il peut y avoir une recherche exhaustive essayant toute les combinaisons de caractères possible. Une autre variante est de rechercher à l'aide d'un dictionnaire les mots probables.
+
+#### b. Comment ça marche ?
+
+###### Première variante, la recherche exhaustive des combinaisons de caractères possibles
+
+L'attaquant qui aura au préalable récupéré le pseudo d'un membre, teste, à l'aide d'un programme (ou un script), toute les combinaisons de caractères possibles pouvant être rentrées en mot de passe. Au bout d'un moment le mot de passe testé sera le bon et l'attaquant aura réussi à récupérer le mot de passe et donc le compte.
+
+###### Deuxième variante, l'attaque par dictionnaire
+
+L'attaquant qui, au préalable, aura récupéré le pseudo d'un membre, teste tout les mots probables du dictionnaire d'une langue. De la même manière que précédemment, il tombera sur le mot de passe si le membre a utilisé un mot correctement orthographié et appartenant au dictionnaire employé par le programme de l'attaquant.
+
+###### Façons de faire
+
+Pour exécuter ces attaques il est évident que cela doit être un script qui doit faire les requêtes dans un but de rapidité. Ce script va donc envoyer des requêtes avec le même pseudo et différents mot de passe, puis, pour repérer l’échec d’authentification, va comparer le code source de la page lors de l’échec d’authentification et le code source de la page renvoyé pour chaque mot de passe. Lorsque le code source n’est pas le même alors, c’est qui n’y a pas d’erreur et donc que vous avez trouvé le mot de passe.
+
+#### c. Quel est le danger ?
+
+Le danger, c’est tout simplement le contrôle d’un compte (ou plusieurs si l’attaquant attaque plusieurs compte), le vol d’informations, modification des informations de l’utilisateur, …., toutes les actions que peut faire un utilisateur. Il est également possible d’avoir plus d’accès dans le cas du contrôle du compte d’un administrateur qui
+pourrait avoir accès au compte ftp ou à la base par exemple.
+
+#### d. Comment l'éviter ?
+
+Pour éviter cette attaque, plusieurs méthodes assez simple peuvent être mise en place.
+
+Une première méthode consiste à limiter le nombre d'essaies de connexion de l'utilisateur. Par exemple, au bout de cinq essais l'attaquant pourra toujours essayer, même si le mot de passe est bon l'authentification sera interdite. Pour le membre du site, un mail sera envoyé pour réinitialiser le mot de passe ou alors il pourra réessayer mais il devra attendre 24h.
+
+Une seconde méthode pourrait être le captcha. Oui ce texte impossible à relire par les utilisateurs les robots ! En effet, étant donné que les robots ne peuvent par relire ces captchas, ils ne peuvent donc pas se connecter ou s'inscrire lorsqu'il y en a un présent dans le formulaire.
+
+Une autre méthode consiste à augmenter la complexité des mots de passe. Avec cette méthode, vous pouvez demander aux utilisateurs d’avoir un mot de passe comportant un certains nombre de caractères (au moins 6) avec des lettres, des chiffres, des caractères spéciaux et ne formant pas un
+mot. Ce n’est pas une mesure de sécurité absolu mais elle peut au moins endurcir la découverte des mots de passe par l’attaquant et peut être même empêcher la recherche exhaustive d'être terminé dans un temps polynomial (et augmenter le risque que l'utilisateur ne s'en souvienne
+pas aussi).
+
+Vous pouvez aussi demander à l'utilisateur de répondre à une question stupide générée aléatoirement. Puisque un robot est encore plus stupide que votre question, seul l'utilisateur pourra y répondre.
+
+### Faille include
+
+#### a. Qu'est ce que c'est
+
+L’exploitation d’une faille include permet d’accéder à n’importe quel fichier sur le serveur et plus selon les configurations de votre environnement PHP.
+Souvent le nom du fichier est demandé dans une url et c'est par là que l'attaquant va exploiter la faille.
+
+#### b. Comment ça marche ?
+
+Nous allons travailler sur un cas classique de recherche où l’objet de la recherche est une page web inclue par un include. En voici un script que l’attaquant ne connait pas bien sûr.
+
+![script contenant la faille include](/images/securite-web6.jpg)
+
+Néanmoins, il est facile de le repérer à l’url `localhost/Securite/conf'7-02-13/example/query.php?q=example1.php`
+
+L’attaquant va donc remplacer `example1.php` par le fichier qu’il veut voir. Prenons par exemple le fichier .htaccess. L’url rentrée par l’attaquant va donc devenir :
+localhost/Securite/conf'7-02-13/example/query.php?q=.htaccess
+
+Le script va donc inclure le fichier .htaccess et dans la suite logique des choses la page affiche le contenu de mon fichier .htaccess :
+
+#### c. Quel est le danger ?
+
+Comme danger on pourrait citer celui d’avoir accès pour l’attaquant à des fichiers sensible tel que le .htaccess, .htpasswd et celui de pouvoir inclure et/ou exécuter des fichiers sensibles.
+
+#### d. Comment l'éviter ?
+
+Une première solution serait d’obliger une extension particulière comme par exemple les " .html ". Cela évitera, en toute logique, d’inclure les fichiers .htaccess, .htpasswd et tout les scripts php. Le code du début deviendra donc le suivant :
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mon super site a pirater</title>
+  </head>
+
+  <body>
+    <?php if (!empty($_GET['q'])) {
+          include($_GET['q']); } ?>
+  </body>
+</html>
+```
+
+Si nous répétons l’attaque donnée en démonstration, voici donc ce qui va se passer :
+
+![erreur php](/images/securite-web10.jpg)
+
+Ou alors vous pouvez tout simplement vérifier le fichier à inclure. Pour ce faire vous pouvez dresser une liste des fichiers qui peuvent être inclus soit avec un tableau (un array en php) soit avec des entrée dans une table de la base de données. Exemple de script pouvant exercé ce contrôle :
+![script sécurisé contre la faille include](/images/securite-web11.jpg)
+
+### Quelques bonnes pratiques
+
+#### Fonction [error_reporting()](http://php.net/manual/fr/function.error-reporting.php)
+
+Cette fonction permet d’empêcher que dans le cas d’une éventuel erreurs, celle-ci soit affichée. Cette découverte qui aurait été au mieux à l’utilisateur et au pire au pirate pour révéler des informations précieuses tel que le nom de variables, le nom de table sql, nom de répertoires, de fichiers, …. etc.
+
+#### Fonction [set_error_handler()](http://php.net/manual/fr/function.set-error-handler.php)
+
+Cette fonction permet de gérer vos erreurs. Vous pouvez donc, en cas d’erreur, enregistrer ces erreurs dans une base de données afin d’en prendre connaissance, les résoudre et faire une redirection vers une page d’erreur, évitant ainsi que l’erreur soit visible par le pirate.
+
+#### Le `@` anti-erreurs
+
+Le placement d’un `@` devant des fonctions natives php vous permette d’empêcher le déclenchement d’un erreur.

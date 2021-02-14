@@ -7,6 +7,12 @@ module.exports = withOptimizedImages({
 
   trailingSlash: true,
 
+  experimental: {
+    amp: {
+      skipValidation: true,
+    },
+  },
+
   inlineImageLimit: 8192,
   imagesFolder: 'images',
   imagesName: '[name]-[hash].[ext]',

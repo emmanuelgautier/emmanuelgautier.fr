@@ -1,0 +1,16 @@
+---
+title: Google introduit Web Designer
+description: Google a lancé aujourd'hui Web Designer, un logiciel de création de bannières publicitaires. Ce logiciel, destiné aux web designers et aux publicitaires afin de leur donner des outils de création de bannières simplement, est pourvu d'une interface simple et intuitive et est surtout gratuit.
+image: /images/google_webdesigner.jpg
+tags:
+  - google
+slug: google-introduit-web-designer
+updated: '2013-10-02'
+created: '2013-10-02'
+---
+
+Google a lancé aujourd'hui Web Designer, un logiciel de création de bannières publicitaires. Ce logiciel, destiné aux web designers et aux publicitaires afin de leur donner des outils de création de bannières simplement, est pourvu d'une interface simple et intuitive et est surtout gratuit.
+
+Cette application gère différentes étapes de la création avec la gestion d'animations, la mise en place de la 3D et vous donne accès au code généré. Ce code est en fait du HTML / CSS / JavaScript, ce qui permet une compatibilité avec tout les navigateurs et cela sans flash. En effet, la différence et la grande force de cet outil est qu'il ne génère pas la publicité en flash.
+
+Une petite video de présentation : [http://www.youtube.com/watch?v=kHj7fqbNaQw](http://www.youtube.com/watch?v=kHj7fqbNaQw)

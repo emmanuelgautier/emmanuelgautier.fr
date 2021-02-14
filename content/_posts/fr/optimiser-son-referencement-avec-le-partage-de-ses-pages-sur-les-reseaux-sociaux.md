@@ -1,0 +1,96 @@
+---
+title: >-
+  Optimiser son référencement avec le partage de ses pages sur les réseaux
+  sociaux
+description: Les réseaux sociaux constituent une grande source de diffusion pour tout site web et entreprise. Cependant, cette source a ses règles et ses méthodes qui sont bonnes à connaître pour pouvoir exploiter au mieux le partage. Nous allons donc voir comment optimiser nos pages web pour permettre un bon partage sur les réseaux sociaux.
+image: /images/social-media.jpg
+tags:
+  - facebook
+  - twitter
+  - google
+  - seo
+  - smo
+slug: >-
+  optimiser-son-referencement-avec-le-partage-de-ses-pages-sur-les-reseaux-sociaux
+updated: '2013-11-02'
+created: '2013-11-02'
+---
+
+Les réseaux sociaux constituent une grande source de diffusion pour tout site web et entreprise. Cependant, cette source a ses règles et ses méthodes qui sont bonnes à connaître pour pouvoir exploiter au mieux le partage. Nous allons donc voir comment optimiser nos pages web pour permettre un bon partage sur les réseaux sociaux. En effet, certaines solutions à mettre en place sont données par ceux-ci pour faciliter le partage et optimiser l'accessibilité de leur partage au sein même des flux vues par les utilisateurs finaux.
+
+Pour montrer la différence de visibilité et d'attractivité d'un partage avec ou sans ces optimisations, je vous invite à regarder les captures d'écran d'un même partage sur Facebook. Le premier est un partage sans les optimisations, le second avec optimisations.
+
+![Sans optimisations pour le partage](/images/optimiser-partage-social-1.jpg)
+![Avec optimisations pour le partage](/images/optimiser-partage-social-2.jpg)
+
+La différence est notable, le premier possède une image prise au hasard sur la page, la description est heureusement trouvée dans la balise meta description et aucune autre information n'est fournie. La deuxième possède une image de présentation fixe, une description renseigné ainsi que d'autre informations qui ne figures pas visuellement.
+
+### Open Graph
+
+Open Graph fait partie de ces outils qui vous permette d'optimiser le partage de vos contenus sur les réseaux sociaux. Cette outil est un protocole créé par Facebook pour faciliter la communication entre son réseau social et les contenus pouvant être présent sur le réseau. Comme vu plus haut, facebook met en place de la même manière des outils pour analyser le contenus des pages web dans le cas où le site ne mettrait pas en place les stratégies d'Open Graph. Seulement ces outils, aussi puissant qu'ils sont, ne peuvent pas être aussi précis que ce que la personne ayant publié le contenu peut souhaité. C'est pour cette raison que nous allons voir comment indiquer à Facebook ce qu'il veut savoir.
+
+Pour ce faire, une documentation existe sur le site officiel d'[Open Graph](http://ogp.me/). Vous pouvez de même tester vos pages à ce [lien](https://developers.facebook.com/tools/debug/) sur le site de Facebook.
+
+Voici un exemple d'utilisation d'Open Graph :
+
+```html
+<html
+  lang="fr"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      property="og:title"
+      content="Connaître le nombre de partage de ses pages en JavaScript"
+    />
+    <meta property="og:site_name" content="Emmanuel Gautier" />
+    <meta
+      property="og:url"
+      content="http://blog.emmanuelgautier.fr/connaitre-le-nombre-de-partage-de-ses-pages-en-javascript.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:description"
+      content="Si vous avez déjà essayé de récupérer le nombre de partages de vos pages via uniquement JavaScript, vous avez sûrement dû vous rendre compte que l'affaire n'était aisée. "
+    />
+    <meta
+      property="og:image"
+      content="http://blog.emmanuelgautier.fr/images/share-count-javascript.jpg"
+    />
+    <meta property="article:published_time" content="2013-09-30" />
+    <meta property="article:tag" content="javascript" />
+    <meta
+      property="article:publisher"
+      content="https://www.facebook.com/emmanuel.gautier.777"
+    />
+  </head>
+</html>
+```
+
+### Twitter Card
+
+Twitter, tout comme Facebook a mis en place des balises meta à renseigner pour optimiser le partage sur sa plateforme. La documentation de ces balises se trouve sur la [page](https://dev.twitter.com/docs/cards) des développeurs d'API Twitter.
+
+Voici un exemple d'utilisation :
+
+```html
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gautier_manu" />
+<meta
+  name="twitter:title"
+  content="Connaître le nombre de partage de ses pages en JavaScript"
+/>
+<meta
+  name="twitter:description"
+  content="Si vous avez déjà essayé de récupérer le nombre de partages de vos pages via uniquement JavaScript, vous avez sûrement dû vous rendre compte que l'affaire n'était aisée."
+/>
+<meta
+  name="twitter:image"
+  content="http://blog.emmanuelgautier.fr/images/share-count-javascript.jpg"
+/>
+```
+
+### Données Structurées
+
+Google Plus, à l'exception de ses homologues, ne met pas en place de balises spéciales pour son réseau. En fait, il utilise des balises déjà utilisées pour les recherches de google que sont les données structurées. Pour plus d'informations je vous renvoie à la [documentation](https://support.google.com/webmasters/answer/99170?hl=en&ref_topic=1088472) de Google.

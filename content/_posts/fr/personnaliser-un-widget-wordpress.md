@@ -1,0 +1,116 @@
+---
+title: Personnaliser un widget Wordpress
+description: Durant le dernier tutoriel, nous avons appris à créer notre propre widget. Aujourd’hui nous allons apprendre à le faire changer en fonction de ce que peut rentrer l’utilisateur. En effet, si le widget est à usage unique alors il est clair que ce tutoriel ne présente pas grand interêt mais si vous voulez réutiliser votre plugin utlérieurement mais de manière légèrement différente alors là ça devient intéressant.
+image: /images/wordpress.png
+tags:
+  - wordpress
+  - php
+slug: personnaliser-un-widget-wordpress
+updated: '2013-10-06'
+created: '2013-10-06'
+---
+
+Durant le dernier tutoriel, nous avons appris à créer notre propre widget. Aujourd’hui nous allons apprendre à le faire changer en fonction de ce que peut rentrer l’utilisateur. En effet, si le widget est à usage unique alors il est clair que ce tutoriel ne présente pas grand interêt mais si vous voulez réutiliser votre plugin utlérieurement mais de manière légèrement différente alors là ça devient intéressant.
+
+Reprenons, notre widget de la dernière fois. Pour rappel ce widget permet aux visiteurs de me suivre sur google+. Maintenant, nous allons vouloir faire en sorte que ce widget puisse servir à suivre n’importe qui en fonction de ce qui sera voulu.
+
+```php
+<?php
+
+class Follow_widget extends WP_Widget {
+    function Follow_Widget() {
+        parent::__construct( 'follow-widget', 'Follow Widget',
+            array(
+                'classname' => 'follow-widget',
+                'description' => 'Mon widget pour me suivre :P'
+            ));
+    }
+
+    function widget($args, $instance) {
+        echo '<div class="follow-widget"><script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+        <div class="g-person" data-width="295" data-href="//plus.google.com/116179883294469011493" data-theme="dark" data-layout="landscape" data-rel="author"></div>
+        </div>';
+    }
+
+    public function update() {}
+
+    public function form() {}
+}
+
+```
+
+### Introduire des arguments
+
+Lors de la création de notre classe widget, nous lui avons passée quatre fonctions dont deux qui n’étaient pas utilisées. Cette fois-ci nous allons les utiliser car elles jouent un rôle dans la sauvegarde et la gestion des valeurs des attributs du widget. Les fonctions `update` et `form` permettent respectivement de mettre à jour les valeurs enregistrées et d’afficher le formulaire pour pouvoir les changer.
+
+Dans notre cas, nous voulons le rajout d’un attribut correspondant à l’identifiant google+. Pour ce faire, nous devons faire en sorte d’afficher un champ dans le formulaire de configuration du widget, le mettre à jour à partir de la fonction update et enfin l’afficher dans notre widget.
+
+Commençons par l’affichage du formulaire. La fonction `form`, responsable de l’affichage du formulaire de configuration du widget prend pour paramètre l’instance de notre widget. Cette instance est la variable clé du système car elle stocke les valeurs et noms des attributs sous forme d’un tableau PHP. Pour que l’administrateur sache si il a déjà renseigné le champ et si oui, ce qu'il y a mis, nous allons récupérer la valeur qui nous intéresse comme suivant.
+
+```php
+<?php
+
+if (isset($instance['id'])) {
+    $id = $instance['id'];
+} else {
+    $id = 'me';
+}
+
+```
+
+Puis nous affichons notre formulaire. Voici le code d’exemple.
+
+```html
+<p>
+  <label for="<?php echo $this->get_field_id( 'id' ); ?>"
+    ><?php _e( 'ID Google+: ' ); ?></label
+  >
+  <input
+    id="<?php echo $this->get_field_id( 'id' ); ?>"
+    name="<?php echo $this->get_field_name( 'id' ); ?>"
+    type="text"
+    value="<?php echo esc_attr( $id ); ?>"
+  />
+</p>
+```
+
+Maintenant, il s’agit d’enregistrer les attributs au moyen de la fonction update. Cette fonction prend pour premier paramètre l’instance nouvellement créée ainsi que l’ancienne instance. Pour enregistrer, et après avoir fait des vérifications si nécessaire, il suffit de retourner la valeur de l’instance du widget souhaitée. Et voilà, les attributs enregistrés.
+
+```php
+<?php
+
+public function update( $new_instance, $old_instance ) {
+    $instance = array();
+    $instance['id'] = ( ! empty( $new_instance['id'] ) ) ? strip_tags( $new_instance['id'] ) : '';
+
+    return $instance;
+}
+
+```
+
+Il ne nous reste plus qu’à les afficher dans le widget. La fonction widget prends pour deuxième paramètre l’instance du widget contenant les variables donc nous pouvons récupérer l’id précédemment rentré et l’insérer dans le code du widget.
+
+```php
+<?php
+
+function widget($args, $instance) {
+    echo '<div class="follow-widget"><script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+        <div class="g-person" data-width="295" data-href="//plus.google.com/' . esc_attr( $instance['id'] ) . '" data-theme="dark" data-layout="landscape" data-rel="author"></div>
+        </div>';
+}
+
+```
+
+### Sécurité
+
+Quand il commence à avoir une interaction avec l’utilisateur, il faut faire attention à la sécurité. Il faut toujours considérer que l’utilisateur est malicieux et peut rentrer n’importe quelle valeur. Ici la menace pourrait être une faille de type XSS puisque le code rentré peut être directement affiché sur la page sans vérification, c’est pourquoi nous allons voir quelques bonnes pratiques. La première est à faire lors de l’affichage du formulaire, la valeur à afficher dans le champ doit être encodée au cas où la variable à afficher contiendrait du code HTML interpretable. Vous pouvez le faire à partir d’une fonction PHP de votre choix, sachez juste que wordpress dispose d’une fonction `esc_attr()` qui fait ce travail. La deuxième sécurité à prendre est lors de l’enregistrement de la variable, dans notre cas, la variable ne doit pas contenir de code HTML donc il serait bon de supprimer toutes balises éventuelles au moyen de `strip_tags()`. Et enfin encoder la valeur de sortie dans la fonction `widget()` tout comme pour le formulaire.
+
+### Utilisation
+
+Pour vous rendre compte de l’évolution de notre widget, rendez vous à la page d’administration des widgets, cliquez sur le widget préalablement placé, un champ apparaît demandant la variable à rentrer.
+
+![administration widget](/images/widget3.jpg)
+
+Mettez la valeur que vous souhaitez et constatez le changement en vous rendant à la page du site contenant ce widget.
+
+![Nouveau widget](/images/widget4.jpg)

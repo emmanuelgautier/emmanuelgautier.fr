@@ -1,0 +1,93 @@
+---
+title: Utilisateurs et privilèges sous MySQL
+description: L'administration d'une base de données inclue la gestion des utilisateurs et de leurs privilèges. La plupart du temps, une interface graphique, telle que MySQL Workbench ou PHPMyAdmin, est disponible pour réaliser de façon simple les actions liées à cette gestion. Dans ce tutoriel, nous allons voir comment réaliser la gestion des utilisateurs MySQL au moyen de requêtes SQL.
+image: /images/mysql.png
+tags:
+  - mysql
+  - sql
+slug: utilisateurs-et-privileges-sous-mysql
+featured: true
+updated: '2015-04-27'
+created: '2015-04-27'
+---
+
+L'administration d'une base de données inclue la gestion des utilisateurs et de leurs privilèges. La plupart du temps, une interface graphique, telle que [MySQL Workbench](https://www.mysql.fr/products/workbench/) ou [PHPMyAdmin](https://www.phpmyadmin.net/), est disponible pour réaliser de façon simple les actions liées à cette gestion. Dans ce tutoriel, nous allons voir comment réaliser la gestion des utilisateurs MySQL au moyen de requêtes SQL.
+
+### Création d'un utilisateur
+
+Première action, création d'un utilisateur avec un mot de passe. Deux façons de faire sont possibles en fonction de la façon dont vous voulez attribuer le mot de passe au moment de la création de l'utilisateur.
+
+```sql
+-- Mot de passe en clair dans la requête
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'password';
+
+-- Mot de passe passé sous un algorithme de Hash
+SELECT PASSWORD('password'); -- Création du Hash du mot de passe
+CREATE USER 'user'@'localhost' IDENTIFIED BY PASSWORD '*2470C0C06DEE42FD1618BB9900DFG1E6Y89F4';
+```
+
+### Renommer un utilisateur
+
+Pour renommer un utilisateur déjà créé, la commande est la suivante.
+
+```sql
+RENAME USER 'user'@'localhost' TO 'user2'@'localhost';
+```
+
+### Changer un mot de passe
+
+Le changement de mot de passe suit la même logique que pour son attribution lors de la création d'un utilisateur. Vous avez plusieurs moyens de le faire selon si vous attribuez le mot de passe déjà hashé ou non.
+
+```sql
+SET PASSWORD FOR 'user'@'localhost' = PASSWORD('newpassword');
+```
+
+### Attribution de privilèges
+
+Avant toute opération d'attribution de privilèges sur une base de données, commençons par créer cette dernière.
+
+```sql
+CREATE DATABASE `database` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+```
+
+Maintenant, attribuons des privilèges à un utilisateur sur cette base de données.
+
+```sql
+GRANT SELECT, INSERT, UPDATE, DELETE ON `database`.* TO 'user'@'localhost';
+```
+
+Si vous voulez attribuer tout les droits sur une base de données à un utilisateur, il vous suffit d'effectuer la requête suivante :
+
+```sql
+GRANT ALL ON `database`.* TO 'user'@'localhost';
+```
+
+Maintenant, pour que les nouveaux droits attribués soient pris en compte, il est nécessaire de lancer la requête FLUSH.
+
+```sql
+FLUSH PRIVILEGES;
+```
+
+### Révocation de privilèges
+
+Après avoir attribuer des privilège, révoquons-les. Vous pouvez révoquer l'ensemble des droits d'un utilisateur avec la requêtes suivante.
+
+```sql
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'user'@'localhost';
+```
+
+Vous pouvez également supprimer seulement certains privilèges.
+
+```sql
+REVOKE DELETE ON database.* FROM 'user'@'localhost';
+```
+
+### Suppression Utilisateur
+
+La suppression d'un utilisateur MySQL dépend de la version de MySQL. A partir de la version 5.0.2, la commande suivante suffit à la suppression de l'utilisateur.
+
+```sql
+DROP USER 'user'@'localhost';
+```
+
+Dans le cas où la version de MySQL est inférieure à 5.0.2, il est obligatoire de révoquer les privilèges de l'utilisateur pour pouvoir le supprimer. Pour plus d'informations, la [documentation officielle](https://dev.mysql.com/doc/refman/5.0/en/drop-user.html) de MySQL fournie une explication plus détaillée.

@@ -1,5 +1,8 @@
 import '@fontsource/open-sans'
+import '../styles/globals.css'
+import '../styles/prism.css'
 
+import { useAmp } from 'next/amp'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -10,20 +13,17 @@ import { polyfill } from '../polyfills'
 
 import SEO from '../next-seo.config'
 
-import '../styles/globals.css'
-
 type Props = Pick<IntlConfig, 'messages' | 'locale'> & AppProps
 
 function MyApp({ Component, pageProps, messages, locale }: Props) {
   const router = useRouter()
+  const isAmp = useAmp()
   const { asPath, basePath } = router
   const foundDomain = SEO.i18n.domains.find(
     ({ defaultLocale: domainLocale }) => domainLocale === locale
   )
   const currentLocaleDomain = foundDomain ? foundDomain.domain : SEO.siteUrl
-
   const siteUrl = `https://${currentLocaleDomain}${basePath}`
-
   const canonicalUrl = getLocalizedUrl(currentLocaleDomain, basePath, asPath)
 
   return (
@@ -31,7 +31,10 @@ function MyApp({ Component, pageProps, messages, locale }: Props) {
       <Head>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="HandheldFriendly" content="True" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {!isAmp && (
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        )}
       </Head>
 
       <IntlProvider

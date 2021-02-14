@@ -1,0 +1,47 @@
+---
+title: Créer votre propre Serveur NodeJS
+description: Aujourd'hui, nodeJS est une des technologie Javascript la plus utilisé dans le monde. Elle permet d'écrire en JavaScript le backend de n'importe laquelle de vos applications web comme la plateforme de blogging toute nouvellement découverte Ghost. Ainsi, vous pouvez écrire vos sites de A à Z en JavaScript, trop cool !
+image: /images/nodejs.png
+tags:
+  - javascript
+  - nodejs
+  - linux
+slug: creer-votre-propre-serveur-nodejs
+updated: '2014-01-01'
+created: '2014-01-01'
+---
+
+Aujourd'hui, nodeJS est une des technologie Javascript la plus utilisé dans le monde. Elle permet d'écrire en JavaScript le backend de n'importe laquelle de vos applications web comme la plateforme de blogging toute nouvellement découverte Ghost. Ainsi, vous pouvez écrire vos sites de A à Z en JavaScript, trop cool !
+
+Nous allons voir dans ce tuto comment se créer un environnement pour programmer avec NodeJS. Pour ce faire nous allons avoir besoin d'une machine virtuelle. Je vous invite à vous créer une VM Linux Debian pour suivre ce tuto.
+
+### Installation de NodeJS
+
+Entrons dans le vive du sujet. Commencez par installer les logiciels utiles pour l’exécution et l'installation de NodeJS :
+
+```bash
+sudo apt-get install python g++ make
+```
+
+Créez un dossier où seront placées les sources et téléchargez l'archive dans ce dossier
+
+```bash
+mkdir ~/src && cd $_
+wget -N http://nodejs.org/dist/node-latest.tar.gz
+```
+
+Ou bien clonez les sources git
+
+```bash
+mkdir ~/src && cd $_
+git clone https://github.com/joyent/node
+```
+
+Décompressez l'archive, configurez et lancez l'installation à l'aide des fichiers d'installation fournis dans l'archive.
+
+```bash
+tar xzvf node-latest.tar.gz && cd node-v*
+sudo ./configure && sudo make && sudo make install
+```
+
+L'installation de NodeJS est à présent terminé vous pouvez commencer à vous amuser !

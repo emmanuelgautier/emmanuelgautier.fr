@@ -1,0 +1,29 @@
+---
+title: BigDump
+description: Lorsque vous travaillez sur de gros sites, il peut vous arriver d'avoir des bases de données assez volumineuses. Enfin, tant que ça reste sur le serveur, cela ne pose pas trop de problèmes.
+image: /images/mysql.png
+tags:
+  - php
+  - mysql
+  - sql
+slug: bigdump
+updated: '2013-10-11'
+created: '2013-10-11'
+---
+
+Lorsque vous travaillez sur de gros sites, il peut vous arriver d'avoir des bases de données assez volumineuses. Enfin, tant que ça reste sur le serveur, cela ne pose pas trop de problèmes. Mais dans le cas où vous voudriez déplacer cette base ou simplement en faire une copie pour travailler en local alors c'est à ce moment là que des problèmes peuvent se poser. Pour l'export de la base de données tout va bien mais arrivé à l'import dans la nouvelle base vous êtes confronté à l'impossibilité de réimporter votre base. Le premier obstacle est souvent la taille du fichier à uploader.
+
+Dans **phpMyAdmin** vous pouvez contourner celui-ci en compressant sous format zip (ou gzip) votre fichier et l'upload devient possible. Le deuxième problème et le plus compliqué à résoudre est celui des trop grandes quantités de données à injecter en une seul fois. Cette impossibilité est souvent du à un temps d’exécution de la requête trop long. La solution est un script conseillé par phpMyAdmin dans leur aide, [Big Dump](http://www.ozerov.de/bigdump/). Ce script permet de diviser votre requête en plusieurs sous requêtes et ainsi la faire passer petit à petit.
+
+Son exécution est très simple. Commencez par configurer les lignes suivantes dans le fichier bigdump.php préalablement téléchargé.
+
+```php
+<?php
+
+$db_server   = 'localhost';
+$db_name     = '';
+$db_username = '';
+$db_password = '';
+```
+
+Mettez maintenant votre fichier sur le serveur de votre base de données et exécutez-le avec votre navigateur en vous rendant à L’URL de son emplacement. Vous n'aurez plus qu'à uploader et exécuter le script.
