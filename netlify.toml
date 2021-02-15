@@ -1,9 +1,6 @@
 [build]
-  command = "npm run build && npm run export"
+  command = "yarn build && yarn export"
   publish = "out"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
 
 [[plugins]]
   package = "@netlify/plugin-lighthouse"
