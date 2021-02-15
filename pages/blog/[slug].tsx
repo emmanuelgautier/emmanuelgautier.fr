@@ -41,13 +41,14 @@ function BlogPost({ page }: Props) {
   } = page
   const url = `${siteUrl}${blogSEOConfig.pathPrefix}/${slug}`
   const hashtags = tags.map((tag) => `${tag.split(' ').join('')}`)
+  const canonical = blogSEOConfig.subdomain === 'blog.emmanuelgautier.fr' ? `https://${blogSEOConfig.subdomain}/${slug}` : `https://${blogSEOConfig.subdomain}${blogSEOConfig.pathPrefix}/${slug}`
 
   return (
     <Layout title={title} description={description}>
       <NextSeo
         title={title}
         description={description}
-        canonical={`${blogSEOConfig.subdomain}/${blogSEOConfig.pathPrefix}/${slug}`}
+        canonical={canonical}
         openGraph={{
           title,
           description,

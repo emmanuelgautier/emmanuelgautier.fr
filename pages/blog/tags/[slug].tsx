@@ -21,13 +21,14 @@ function BlogTag({ page }: Props) {
   const title = tag
   const description = `Articles about ${tag}`
   const url = `https://${blogSEOConfig.subdomain}${blogSEOConfig.pathPrefix}/tags/${slug}`
+  const canonical = blogSEOConfig.subdomain === 'blog.emmanuelgautier.fr' ? `https://${blogSEOConfig.subdomain}/tags/${slug}` : `https://${blogSEOConfig.subdomain}${blogSEOConfig.pathPrefix}/tags/${slug}`
 
   return (
     <Layout title={title} description={description}>
       <NextSeo
         title={title}
         description={description}
-        canonical={url}
+        canonical={canonical}
         openGraph={{
           title,
           description,
