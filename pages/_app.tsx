@@ -22,9 +22,9 @@ function MyApp({ Component, pageProps, messages, locale }: Props) {
   const foundDomain = SEO.i18n.domains.find(
     ({ defaultLocale: domainLocale }) => domainLocale === locale
   )
-  const currentLocaleDomain = foundDomain ? foundDomain.domain : SEO.siteUrl
-  const siteUrl = `https://${currentLocaleDomain}${basePath}`
-  const canonicalUrl = getLocalizedUrl(currentLocaleDomain, basePath, asPath)
+  const currentLocaleURL = foundDomain ? foundDomain.domain : SEO.siteUrl
+  const siteUrl = `${currentLocaleURL}${basePath}`
+  const canonicalUrl = getLocalizedUrl(currentLocaleURL, basePath, asPath)
 
   return (
     <>
@@ -92,8 +92,8 @@ function getMessages(locale: string) {
   return langBundle
 }
 
-function getLocalizedUrl(domain: string, basePath: string, path: string) {
-  return `https://${domain}${basePath}${path}`
+function getLocalizedUrl(url: string, basePath: string, path: string) {
+  return `${url}${basePath}${path}`
 }
 
 MyApp.getStaticProps = async ({

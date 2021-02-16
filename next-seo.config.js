@@ -15,7 +15,7 @@ module.exports = {
   ],
 
   blog: {
-    pathPrefix: siteUrl === blogSubdomain ? '/' : '/blog',
+    pathPrefix: siteUrl === subdomainFr ? '/' : '/blog',
     subdomain: blogSubdomain,
   },
 
