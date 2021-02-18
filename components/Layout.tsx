@@ -44,15 +44,8 @@ const Layout: React.FC<Props> = ({
             />
           </>
         ) : (
-          <amp-analytics type="gtag" data-credentials="include">
-            <script
-              type="application/json"
-              dangerouslySetInnerHTML={{
-                __html: `{ "vars" : { "gtag_id": "${GTM_ID}", "config" : { "${GTM_ID}": {"groups": "default" } } } }`,
-              }}
-            />
-          </amp-analytics>
-        )}
+            <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+          )}
 
         {!isAmp && (
           <link
@@ -61,6 +54,17 @@ const Layout: React.FC<Props> = ({
           />
         )}
       </Head>
+
+      {isAmp && (
+        <amp-analytics type="gtag" data-credentials="include">
+          <script
+            type="application/json"
+            dangerouslySetInnerHTML={{
+              __html: `{ "vars" : { "gtag_id": "${GTM_ID}", "config" : { "${GTM_ID}": {"groups": "default" } } } }`,
+            }}
+          />
+        </amp-analytics>
+      )}
 
       <NextSeo title={title} description={description} />
       <SocialProfileJsonLd
