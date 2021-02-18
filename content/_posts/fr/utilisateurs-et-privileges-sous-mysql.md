@@ -18,7 +18,7 @@ L'administration d'une base de données inclue la gestion des utilisateurs et de
 Première action, création d'un utilisateur avec un mot de passe. Deux façons de faire sont possibles en fonction de la façon dont vous voulez attribuer le mot de passe au moment de la création de l'utilisateur.
 
 ```sql
--- Mot de passe en clair dans la requête
+-- Mot de passe en clair dans la requête (pas sécurisé)
 CREATE USER 'user'@'localhost' IDENTIFIED BY 'password';
 
 -- Mot de passe passé sous un algorithme de Hash
