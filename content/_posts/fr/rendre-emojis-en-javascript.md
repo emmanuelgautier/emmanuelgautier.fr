@@ -1,0 +1,22 @@
+---
+title: Comment render les emojis en JavaScript
+description: Pour le contenu de vos articles, les emojis ajoutent un peu de fun à vos pages. Ce court article explique comment utiliser des emojis en JavaScript.
+tags:
+  - javascript
+  - react
+slug: rendre-emojis-en-javascript
+featured: false
+updated: '2021-02-28'
+created: '2021-02-28'
+---
+
+Pour le contenu de vos articles, les emojis ajoutent un peu de fun à vos pages. Ce court article explique comment utiliser des emojis en JavaScript.
+
+La manière la plus pratique est d'utiliser directement les Unicodes. Un exemple en JSX :
+```jsx
+<span>{'\u{1F680}'}</span>
+```
+
+Vous pouvez également utiliser le package [node-emoji](https://www.npmjs.com/package/node-emoji) pour aider à les manipuler.
+
+Si vous voulez savoir quel emoji utiliser, vous pouvez trouver la liste à ce [lien](https://unicode.org/emoji/charts/full-emoji-list.html)
