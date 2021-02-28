@@ -8,6 +8,7 @@ import React from 'react'
 import { GTM_ID } from '../lib/gtm'
 import SEO from '../next-seo.config'
 
+import Footer from './Footer'
 import ProfileImg from './ProfileImg'
 
 type Props = {
@@ -92,6 +93,7 @@ const Layout: React.FC<Props> = ({
         </header>
       )}
       <main>{children}</main>
+      <Footer />
     </>
   )
 }
