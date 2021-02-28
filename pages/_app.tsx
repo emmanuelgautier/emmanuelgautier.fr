@@ -77,7 +77,7 @@ function MyApp({ Component, pageProps, messages, locale }: Props) {
  * @returns {[string, Promise]} A tuple containing the negotiated locale
  * and the promise of fetching the translated messages
  */
-function getMessages(locales: string | string[] = ['en']) {
+function getMessages(locales: string | string[] = ['en']): [string, Promise<any>] {
   if (!Array.isArray(locales)) {
     locales = [locales]
   }
@@ -99,7 +99,7 @@ function getMessages(locales: string | string[] = ['en']) {
   if (!langBundle) {
     return ['en', import('../compiled-lang/en.json')]
   }
-  return [locale, langBundle]
+  return [locale as string, langBundle]
 }
 
 function getLocalizedUrl(url: string, basePath: string, path: string) {
