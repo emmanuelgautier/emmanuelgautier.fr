@@ -1148,7 +1148,7 @@
     "@types/prop-types" "*"
     csstype "^3.0.2"
 
-"@types/rss@^0.0.28":
+"@types/rss@0.0.28":
   version "0.0.28"
   resolved "https://registry.yarnpkg.com/@types/rss/-/rss-0.0.28.tgz#2780ffec484ca3c69cce63e314efd4ca4454f6c9"
   integrity sha512-Kymd0BI1tBOSwOwCN5Y8dtlJegTIF+izS8tJETiivJ7qAJGHhnuZjiunXWqBkgv6dg0ZZWyf0kEfMgkr4YWJzg==
@@ -9163,7 +9163,7 @@ robots-parser@^2.0.1:
   resolved "https://registry.yarnpkg.com/robots-parser/-/robots-parser-2.2.0.tgz#da7d9fceb94fa14888e796641035905f855f50e1"
   integrity sha512-PsUtHqiuk5MiC6WFnTFxry7NZfuuwh5eG7WBx+iYS5zFx5BlitW0s5uizl8mfCBVW/v9t0FRI95L1cACXI6PJw==
 
-rss@^1.2.2:
+rss@1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/rss/-/rss-1.2.2.tgz#50a1698876138133a74f9a05d2bdc8db8d27a921"
   integrity sha1-UKFpiHYTgTOnT5oF0r3I240nqSE=
