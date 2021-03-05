@@ -5,6 +5,8 @@ const siteUrl = process.env.DOMAIN || subdomainFr
 const blogSubdomain =
   siteUrl === subdomainFr ? 'blog.emmanuelgautier.fr' : subdomainEn
 
+const person = 'Emmanuel Gautier'
+
 module.exports = {
   siteUrl: `https://${siteUrl}`,
 
@@ -36,14 +38,18 @@ module.exports = {
     ],
   },
 
+  rss: {
+    title: person
+  },
+
   person: {
-    name: 'Emmanuel Gautier',
+    name: person,
     image: '/images/profile.png',
   },
 
   openGraph: {
     type: 'website',
-    site_name: 'Emmanuel Gautier',
+    site_name: person,
   },
 
   twitter: {

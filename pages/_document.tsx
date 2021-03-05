@@ -30,6 +30,7 @@ export default class MyDocument extends Document<Props> {
             href={`${SEO.siteUrl}/favicon-16x16.png`}
             sizes="16x16"
           />
+          <link rel='alternate' type='application/rss+xml' title={`${SEO.person.name} RSS Feed`} href='/rss.xml' />
 
           <link rel="manifest" href={`${SEO.siteUrl}/site.webmanifest`} />
         </Head>
