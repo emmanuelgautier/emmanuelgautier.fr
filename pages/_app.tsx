@@ -1,3 +1,7 @@
+import '@fontsource/open-sans'
+import '../styles/globals.css'
+import '../styles/prism.css'
+
 import { useAmp } from 'next/amp'
 import App, { AppProps } from 'next/app'
 import Head from 'next/head'
@@ -9,22 +13,13 @@ import { polyfill } from '../polyfills'
 
 import SEO from '../next-seo.config'
 
-import '@fontsource/open-sans'
-import '../styles/globals.css'
-import '../styles/prism.css'
-
 type Props = Pick<IntlConfig, 'messages' | 'locale'> & AppProps
 
 function MyApp({ Component, pageProps, messages, locale }: Props) {
   const router = useRouter()
   const isAmp = useAmp()
   const { asPath, basePath } = router
-  const foundDomain = SEO.i18n.domains.find(
-    ({ defaultLocale: domainLocale }) => domainLocale === locale
-  )
-  const currentLocaleURL = foundDomain ? foundDomain.domain : SEO.siteUrl
-  const siteUrl = `${currentLocaleURL}${basePath}`
-  const canonicalUrl = getLocalizedUrl(currentLocaleURL, basePath, asPath)
+  const url = `${SEO.siteUrl}${basePath}${asPath}`
 
   return (
     <>
@@ -44,18 +39,10 @@ function MyApp({ Component, pageProps, messages, locale }: Props) {
       >
         <DefaultSeo
           {...{
-            siteUrl,
-            canonical: canonicalUrl,
-
-            languageAlternates: SEO.i18n.domains?.map(
-              ({ domain, defaultLocale }) => ({
-                hrefLang: defaultLocale,
-                href: getLocalizedUrl(domain, basePath, asPath),
-              })
-            ),
+            siteUrl: SEO.siteUrl,
 
             openGraph: {
-              url: siteUrl,
+              url,
               locale,
               ...SEO.openGraph,
             },
@@ -100,10 +87,6 @@ function getMessages(locales: string | string[] = ['en']): [string, Promise<any>
     return ['en', import('../compiled-lang/en.json')]
   }
   return [locale as string, langBundle]
-}
-
-function getLocalizedUrl(url: string, basePath: string, path: string) {
-  return `${url}${basePath}${path}`
 }
 
 const getInitialProps: typeof App.getInitialProps = async appContext => {

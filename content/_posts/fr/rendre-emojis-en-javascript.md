@@ -5,6 +5,8 @@ tags:
   - javascript
   - react
 slug: rendre-emojis-en-javascript
+alternate:
+  en: rendering-emojis-with-javascript
 featured: false
 updated: '2021-02-28'
 created: '2021-02-28'

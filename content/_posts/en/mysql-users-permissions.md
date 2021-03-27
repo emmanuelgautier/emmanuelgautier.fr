@@ -6,6 +6,8 @@ tags:
   - mysql
   - sql
 slug: mysql-users-permissions
+alternate:
+  fr: utilisateurs-et-privileges-sous-mysql
 featured: true
 updated: '2015-04-27'
 created: '2015-04-27'

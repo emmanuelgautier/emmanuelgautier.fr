@@ -7,6 +7,8 @@ tags:
   - osx
   - windows
 slug: git-sensibilite-casse
+alternate:
+  en: git-case-sensitive
 featured: true
 updated: '2018-11-06'
 created: '2018-11-06'

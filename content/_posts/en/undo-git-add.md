@@ -5,6 +5,8 @@ image: /images/git.jpg
 tags:
   - git
 slug: undo-git-add
+alternate:
+  fr: annuler-un-git-add
 updated: '2014-10-12'
 created: '2014-10-12'
 ---

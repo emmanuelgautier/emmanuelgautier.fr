@@ -2,7 +2,7 @@ import { NextSeo } from 'next-seo'
 import Link from 'next/link'
 
 import { getAllTags, getPostsByTag } from '../../../lib/api'
-import { blog as blogSEOConfig } from '../../../next-seo.config'
+import SEO from '../../../next-seo.config'
 
 import Layout from '../../../components/Layout'
 
@@ -20,8 +20,8 @@ function BlogTag({ page }: Props) {
   const tag = slug
   const title = tag
   const description = `Articles about ${tag}`
-  const url = `https://${blogSEOConfig.subdomain}${blogSEOConfig.pathPrefix}/tags/${slug}`
-  const canonical = blogSEOConfig.subdomain === 'blog.emmanuelgautier.fr' ? `https://${blogSEOConfig.subdomain}/tags/${slug}` : `https://${blogSEOConfig.subdomain}${blogSEOConfig.pathPrefix}/tags/${slug}`
+  const url = `https://${SEO.blog.subdomain}/blog/tags/${slug}`
+  const canonical = `https://${SEO.blog.subdomain}${SEO.blog.pathPrefix}/tags/${slug}`
 
   return (
     <Layout title={title} description={description}>

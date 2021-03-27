@@ -6,14 +6,18 @@ import { ArticleJsonLd, NextSeo } from 'next-seo'
 import Link from 'next/link'
 import { LinkedinShareButton, TwitterShareButton } from 'react-share'
 
+import Layout from '../../components/Layout'
+
 import { getAllPosts, getPostBySlug } from '../../lib/api'
 import markdownToHtml from '../../lib/markdownToHtml'
-import SEO, { blog as blogSEOConfig } from '../../next-seo.config'
-
-import Layout from '../../components/Layout'
+import SEO from '../../next-seo.config'
 
 interface Props {
   page: {
+    alternate?: {
+      en?: string,
+      fr?: string
+    },
     title: string
     description: string
     image: string
@@ -22,14 +26,16 @@ interface Props {
     updated: string
     created: string
     content: string
-  }
+  },
+  locale: string
 }
 
 export const config = { amp: 'hybrid' }
 
-function BlogPost({ page }: Props) {
+function BlogPost({ locale, page }: Props) {
   const siteUrl = SEO.siteUrl
   const {
+    alternate,
     title,
     description,
     image,
@@ -39,9 +45,25 @@ function BlogPost({ page }: Props) {
     updated,
     slug,
   } = page
-  const url = `${siteUrl}${blogSEOConfig.pathPrefix}/${slug}`
+  const url = `${siteUrl}/blog/${slug}`
   const hashtags = tags.map((tag) => `${tag.split(' ').join('')}`)
-  const canonical = blogSEOConfig.subdomain === 'blog.emmanuelgautier.fr' ? `https://${blogSEOConfig.subdomain}/${slug}` : `https://${blogSEOConfig.subdomain}${blogSEOConfig.pathPrefix}/${slug}`
+  const canonical = `https://${SEO.blog.subdomain}${SEO.blog.pathPrefix}/${slug}`
+
+  const languageAlternates = [
+    {
+      hrefLang: locale,
+      href: url
+    }
+  ]
+  if (alternate) {
+    const [alternateLang, alternateSlug] = Object.entries(alternate)[0]
+    const alternateSubdomain = SEO.i18n.domains.find(({ defaultLocale }) => alternateLang === defaultLocale)?.domain
+
+    languageAlternates.push({
+      hrefLang: alternateLang,
+      href: `https://${alternateSubdomain}/blog/${alternateSlug}`
+    })
+  }
 
   return (
     <Layout title={title} description={description}>
@@ -49,6 +71,7 @@ function BlogPost({ page }: Props) {
         title={title}
         description={description}
         canonical={canonical}
+        languageAlternates={languageAlternates}
         openGraph={{
           title,
           description,
@@ -128,8 +151,8 @@ function BlogPost({ page }: Props) {
               <div className="py-2 my-4 md:my-8">
                 {tags.map((tag) => (
                   <Link
-                    key={tag + `-tag`}
-                    href={`${blogSEOConfig.pathPrefix}/tags/${kebabCase(tag)}/`}
+                    key={`${tag}-tag`}
+                    href={`/blog/tags/${kebabCase(tag)}/`}
                   >
                     <a className="inline-block bg-gray-200 px-4 py-2 text-sm text-gray-700 mr-2 mb-2">
                       {tag}
@@ -155,6 +178,7 @@ export const getStaticProps = async ({
     'title',
     'description',
     'image',
+    'alternate',
     'tags',
     'slug',
     'created',

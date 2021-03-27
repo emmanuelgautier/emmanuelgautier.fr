@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.emmanuelgautier.fr
+Host: https://www.emmanuelgautier.com
 
 # Sitemaps
-Sitemap: https://www.emmanuelgautier.fr/sitemap.xml
+Sitemap: https://www.emmanuelgautier.com/sitemap.xml

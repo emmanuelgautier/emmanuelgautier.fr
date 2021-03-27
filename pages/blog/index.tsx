@@ -1,10 +1,10 @@
 import { NextSeo } from 'next-seo'
 import Link from 'next/link'
 
-import { getAllPosts } from '../../lib/api'
-import { blog as blogSEOConfig } from '../../next-seo.config'
-
 import Layout from '../../components/Layout'
+
+import { getAllPosts } from '../../lib/api'
+import SEO from '../../next-seo.config'
 
 interface Props {
   page: {
@@ -18,8 +18,8 @@ function BlogIndex({ page }: Props) {
   const { posts } = page
   const title = 'Blog'
   const description = ''
-  const url = `https://${blogSEOConfig.subdomain}/`
-  const canonical = blogSEOConfig.subdomain === 'blog.emmanuelgautier.fr' ? `https://${blogSEOConfig.subdomain}/` : `https://${blogSEOConfig.subdomain}${blogSEOConfig.pathPrefix}/`
+  const url = `https://${SEO.blog.subdomain}/blog/`
+  const canonical = SEO.blog.subdomain === 'blog.emmanuelgautier.fr' ? `https://${SEO.blog.subdomain}/` : `https://${SEO.blog.subdomain}${SEO.blog.pathPrefix}/`
 
   return (
     <Layout title={title} description={description}>
@@ -32,6 +32,10 @@ function BlogIndex({ page }: Props) {
           description,
           url,
         }}
+        languageAlternates={SEO.i18n.domains.map(({ domain, defaultLocale }) => ({
+          hrefLang: defaultLocale,
+          href: `https://${domain}/blog/`
+        }))}
       />
 
       <div className="container w-full max-w-screen-lg mx-auto">
@@ -45,7 +49,7 @@ function BlogIndex({ page }: Props) {
           <ul>
             {posts.map(({ slug, title }) => (
               <li key={slug}>
-                <Link href={`${blogSEOConfig.pathPrefix}/${slug}`}>
+                <Link href={`${SEO.blog.pathPrefix}/${slug}`}>
                   <a>{title}</a>
                 </Link>
               </li>

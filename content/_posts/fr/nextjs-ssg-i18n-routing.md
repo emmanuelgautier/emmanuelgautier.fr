@@ -8,6 +8,8 @@ tags:
   - nextjs
   - i18n
 slug: nextjs-ssg-i18n-routing
+alternate:
+  en: nextjs-ssg-i18n-routing
 featured: true
 updated: '2021-03-14'
 created: '2021-03-14'

@@ -6,6 +6,8 @@ tags:
   - javascript
   - nodejs
 slug: update-nodejs-with-npm
+alternate:
+  fr: mettre-a-jour-nodejs-via-npm
 updated: '2021-02-20'
 created: '2014-10-26'
 ---

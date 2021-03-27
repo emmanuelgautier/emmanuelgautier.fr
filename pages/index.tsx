@@ -1,5 +1,6 @@
 import { capitalize } from 'lodash'
 import Link from 'next/link'
+import { NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 
 import { getFeaturedPosts, getPageBySlug } from '../lib/api'
@@ -7,6 +8,8 @@ import markdownToHtml from '../lib/markdownToHtml'
 
 import Layout from '../components/Layout'
 import ProfileImg from '../components/ProfileImg'
+
+import SEO from '../next-seo.config'
 
 interface Props {
   page: {
@@ -26,6 +29,13 @@ function Home({ page: { content, featuredPosts, title, description } }: Props) {
 
   return (
     <Layout title={title} description={description} headEnabled={false}>
+      <NextSeo
+        languageAlternates={SEO.i18n.domains.map(({ domain, defaultLocale }) => ({
+          hrefLang: defaultLocale,
+          href: `https://${domain}/`
+        }))}
+      />
+
       <div className="container w-full max-w-screen-lg mx-auto">
         <div className="flex flex-col justify-center items-center text-center mt-12 md:mt-20 pb-12 mx-40 border-b border-gray-300">
           <div className="h-40 w-40 m-5">
