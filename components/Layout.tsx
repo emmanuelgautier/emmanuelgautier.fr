@@ -51,7 +51,7 @@ const Layout: React.FC<Props> = ({
         {!isAmp && (
           <link
             rel="amphtml"
-            href={`${basePath}${asPath === '/' ? '/index' : asPath}.amp/`}
+            href={`${basePath}${asPath === '/' ? '/index' : asPath.substr(0, asPath.length - 1)}.amp/`}
           />
         )}
       </Head>
