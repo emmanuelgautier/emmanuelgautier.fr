@@ -7,6 +7,7 @@ import App, { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { DefaultSeo } from 'next-seo'
+import { ThemeProvider } from 'next-themes'
 import { IntlConfig, IntlProvider } from 'react-intl'
 
 import { polyfill } from '../polyfills'
@@ -50,7 +51,9 @@ function MyApp({ Component, pageProps, messages, locale }: Props) {
             twitter: SEO.twitter,
           }}
         />
-        <Component {...pageProps} />
+        <ThemeProvider attribute="class">
+          <Component {...pageProps} />
+        </ThemeProvider>
       </IntlProvider>
     </>
   )

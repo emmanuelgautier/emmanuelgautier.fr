@@ -30,11 +30,15 @@ export default class MyDocument extends Document<Props> {
             href={`${SEO.siteUrl}/favicon-16x16.png`}
             sizes="16x16"
           />
-          <link rel='alternate' type='application/rss+xml' title={`${SEO.person.name} RSS Feed`} href='/rss.xml' />
+          <link rel="alternate" type="application/rss+xml" title={`${SEO.person.name} RSS Feed`} href="/rss.xml" />
 
           <link rel="manifest" href={`${SEO.siteUrl}/site.webmanifest`} />
+
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
         </Head>
-        <body className="bg-gray-50 antialiased">
+
+        <body className="bg-white dark:bg-black text-white dark:text-black">
           <Main />
           <NextScript />
         </body>

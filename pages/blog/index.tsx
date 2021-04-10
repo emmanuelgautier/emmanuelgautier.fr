@@ -1,6 +1,6 @@
 import { NextSeo } from 'next-seo'
-import Link from 'next/link'
 
+import BlogPostCard from '../../components/BlogPostCard'
 import Layout from '../../components/Layout'
 
 import { getAllPosts } from '../../lib/api'
@@ -8,7 +8,7 @@ import SEO from '../../next-seo.config'
 
 interface Props {
   page: {
-    posts: Array<{ slug: string; title: string }>
+    posts: Array<{ slug: string; title: string, description: string }>
   }
 }
 
@@ -38,24 +38,14 @@ function BlogIndex({ page }: Props) {
         }))}
       />
 
-      <div className="container w-full max-w-screen-lg mx-auto">
-        <div className="flex flex-col justify-center items-center text-center mt-12 md:mt-20 pb-12 mx-40 border-b border-gray-300">
-          <h1 className="text-2xl tracking-tight font-extrabold text-gray-900 sm:text-3xl md:text-4xl">
-            {title}
-          </h1>
-        </div>
+      <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
+        <h1 className="font-bold text-xl md:text-3xl tracking-tight mb-4 text-black dark:text-white">
+          {title}
+        </h1>
 
-        <div className="py-6 px-2 prose">
-          <ul>
-            {posts.map(({ slug, title }) => (
-              <li key={slug}>
-                <Link href={`${SEO.blog.pathPrefix}/${slug}`}>
-                  <a>{title}</a>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+          {posts.map(({ slug, title, description }) => (
+            <BlogPostCard key={`blog-posts-${slug}`} title={title} slug={slug} summary={description} />
+          ))}
       </div>
     </Layout>
   )
@@ -66,9 +56,9 @@ export default BlogIndex
 export const getStaticProps = async ({
   locale = process.env.DEFAULT_LOCALE,
 }: any) => {
-  const posts: any[] = getAllPosts(locale, ['slug', 'title', 'created'])
+  const posts: any[] = getAllPosts(locale, ['slug', 'title', 'description', 'created'])
     .sort((post1: any, post2: any) => (post1.created > post2.created ? -1 : 1))
-    .slice(0, 10)
+    .slice(0, 20)
 
   return {
     props: {

@@ -10,13 +10,15 @@ import Layout from '../components/Layout'
 import ProfileImg from '../components/ProfileImg'
 
 import SEO from '../next-seo.config'
+import BlogPostCard from '../components/BlogPostCard'
+import ProjectCard from '../components/ProjectCart'
 
 interface Props {
   page: {
     title: string
     description: string
     content: string
-    featuredPosts: Array<{ slug: string; title: string }>
+    featuredPosts: Array<{ slug: string; title: string, description: string }>
   }
 }
 
@@ -28,7 +30,7 @@ function Home({ page: { content, featuredPosts, title, description } }: Props) {
   const intl = useIntl()
 
   return (
-    <Layout title={title} description={description} headEnabled={false}>
+    <Layout title={title} description={description}>
       <NextSeo
         languageAlternates={SEO.i18n.domains.map(({ domain, defaultLocale }) => ({
           hrefLang: defaultLocale,
@@ -36,58 +38,49 @@ function Home({ page: { content, featuredPosts, title, description } }: Props) {
         }))}
       />
 
-      <div className="container w-full max-w-screen-lg mx-auto">
-        <div className="flex flex-col justify-center items-center text-center mt-12 md:mt-20 pb-12 mx-40 border-b border-gray-300">
-          <div className="h-40 w-40 m-5">
+      <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
+        <div className="text-center mt-12 pb-4 border-b border-1 border-gray-200 dark:border-gray-800">
+          <div className="h-40 w-40 mx-auto mb-4">
             <ProfileImg title={title} />
           </div>
-          <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+          <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
             {title}
           </h1>
-          <div
-            className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg md:mt-5 md:text-xl"
+          <h2
+            className="prose text-gray-600 dark:text-gray-400 mb-16 text-base sm:text-lg md:text-xl mt-3"
             dangerouslySetInnerHTML={{ __html: content }}
           />
         </div>
 
-        <div className="flex flex-col my-8">
-          <h3 className="text-lg tracking-tight md:text-3xl">
+        <div className="mt-4">
+          <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 text-black dark:text-white">
             {capitalize(intl.formatMessage({ defaultMessage: 'blog' }))}
           </h3>
-
-          <div className="py-6 px-2 prose">
-            <ul>
-              {featuredPosts.map(({ slug, title }) => (
-                <li key={slug}>
-                  <Link href={`/blog/${slug}`}>
-                    <a>{title}</a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {featuredPosts.map(({ slug, title, description }) => (
+            <BlogPostCard key={`homepage-featuredpost-${slug}`} slug={slug} title={title} summary={description} />
+          ))}
         </div>
 
-        <div className="flex flex-col my-8">
-          <h3 className="text-lg tracking-tight md:text-3xl">
+        <div className="mt-4">
+          <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 text-black dark:text-white">
             {capitalize(intl.formatMessage({ defaultMessage: 'projects' }))}
           </h3>
 
-          <div className="py-6 px-2 prose">
-            <ul>
-              <li>
-                <Link href="https://www.data-show.com/">
-                  <a target="_blank">Data Show</a>
-                </Link>
-              </li>
+          <Link href="https://www.data-show.com/">
+            <a target="_blank">Data Show</a>
+          </Link>
 
-              <li>
-                <Link href="https://www.planete-durable.fr/">
-                  <a target="_blank">Planète Durable</a>
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <ProjectCard
+            title="Data Show"
+            href="https://www.data-show.com/"
+            description="Data Show makes data visualization notebooks with open data about economics and health topics."
+          />
+
+          <ProjectCard
+            title="Planète Durable"
+            href="https://www.planete-durable.fr/"
+            description="Chaque geste compte. Planète Durable partage des conseils, innovations et initiatives veillant à préserver notre planète."
+          />
         </div>
       </div>
     </Layout>
@@ -107,7 +100,7 @@ export const getStaticProps = async ({
   const content = await markdownToHtml(page.content || '')
 
   const getStaticFeaturedPosts = (lang: string, sliceEnd: number) =>
-    getFeaturedPosts(lang, ['created', 'slug', 'title'])
+    getFeaturedPosts(lang, ['created', 'slug', 'title', 'description'])
       .sort((post1: any, post2: any) =>
         post1.created > post2.created ? -1 : 1
       )

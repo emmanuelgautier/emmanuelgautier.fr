@@ -1,12 +1,15 @@
 import { faLinkedinIn, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import { kebabCase } from 'lodash'
 import { ArticleJsonLd, NextSeo } from 'next-seo'
 import Link from 'next/link'
+import Image from 'next/image'
+import { useIntl } from 'react-intl'
 import { LinkedinShareButton, TwitterShareButton } from 'react-share'
 
 import Layout from '../../components/Layout'
+import OutboundLink from '../../components/OutboundLink'
 
 import { getAllPosts, getPostBySlug } from '../../lib/api'
 import markdownToHtml from '../../lib/markdownToHtml'
@@ -30,9 +33,14 @@ interface Props {
   locale: string
 }
 
+const discussUrl = (url: string) =>
+  `https://mobile.twitter.com/search?q=${encodeURIComponent(url)}`;
+
 export const config = { amp: 'hybrid' }
 
 function BlogPost({ locale, page }: Props) {
+  const intl = useIntl()
+
   const siteUrl = SEO.siteUrl
   const {
     alternate,
@@ -102,18 +110,29 @@ function BlogPost({ locale, page }: Props) {
         description={description}
       />
 
-      <div className="container w-full max-w-prose mx-auto mt-4">
+      <div className="container w-full max-w-prose mx-auto mb-8">
         <article className="max-w-2xl mx-auto px-4 sm:px-6 xl:max-w-4xl xl:px-0">
           <header className="pt-2">
             <div className="space-y-4 text-left">
-              <h1 className="text-3xl leading-12 text-gray-800 md:text-4xl md:leading-14 mb-2">
+              <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
                 {title}
               </h1>
 
-              <div className="grid grid-cols-2 justify-items-stretch py-1">
-                <p className="text-gray-700">
-                  <span>{format(new Date(created), 'PP')}</span>
-                </p>
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full my-2">
+                <div className="flex items-center">
+                  <Image
+                    alt={SEO.person.name}
+                    title={SEO.person.name}
+                    height={24}
+                    width={24}
+                    src="/images/profile.png"
+                    className="rounded-full"
+                  />
+                  <p className="text-sm text-gray-700 dark:text-gray-300 ml-2">
+                    <span>{`${SEO.person.name} / `}</span>
+                    <span>{format(parseISO(created), 'MMMM dd, yyyy')}</span>
+                  </p>
+                </div>
 
                 <div className="justify-self-end text-sm">
                   <TwitterShareButton
@@ -141,27 +160,31 @@ function BlogPost({ locale, page }: Props) {
             </div>
           </header>
 
-          <div className="mt-6 mb-2">
-            <div
-              className="prose prose-lg"
-              dangerouslySetInnerHTML={{ __html: content }}
-            />
+          <div
+            className="prose dark:prose-dark max-w-none w-full"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
 
-            {tags && tags.length ? (
-              <div className="py-2 my-4 md:my-8">
-                {tags.map((tag) => (
-                  <Link
-                    key={`${tag}-tag`}
-                    href={`/blog/tags/${kebabCase(tag)}/`}
-                  >
-                    <a className="inline-block bg-gray-200 px-4 py-2 text-sm text-gray-700 mr-2 mb-2">
-                      {tag}
-                    </a>
-                  </Link>
-                ))}
-              </div>
-            ) : null}
+          <div className="text-sm text-gray-700 dark:text-gray-300 mt-8">
+            <OutboundLink href={discussUrl(url)}>
+              {intl.formatMessage({ defaultMessage: 'Discuss on Twitter' })}
+            </OutboundLink>
           </div>
+
+          {tags && tags.length ? (
+            <div className="mt-8">
+              {tags.map((tag) => (
+                <Link
+                  key={`${tag}-tag`}
+                  href={`/blog/tags/${kebabCase(tag)}/`}
+                >
+                  <a className="inline-block text-gray-300 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 rounded px-4 py-1 text-xs mr-2">
+                    {tag}
+                  </a>
+                </Link>
+              ))}
+            </div>
+          ) : null}
         </article>
       </div>
     </Layout>

@@ -3,7 +3,10 @@ const withOptimizedImages = require('next-optimized-images')
 // const SEO = require('./next-seo.config')
 
 module.exports = withOptimizedImages({
-  // i18n: SEO.i18n,
+  future: {
+    webpack5: true,
+    strictPostcssConfiguration: true
+  },
 
   trailingSlash: true,
 
