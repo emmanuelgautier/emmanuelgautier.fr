@@ -4,12 +4,12 @@ import { format, parseISO } from 'date-fns'
 import { kebabCase } from 'lodash'
 import { ArticleJsonLd, NextSeo } from 'next-seo'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useIntl } from 'react-intl'
 import { LinkedinShareButton, TwitterShareButton } from 'react-share'
 
 import Layout from '../../components/Layout'
 import OutboundLink from '../../components/OutboundLink'
+import ProfileImage from '../../components/ProfileImg'
 
 import { getAllPosts, getPostBySlug } from '../../lib/api'
 import markdownToHtml from '../../lib/markdownToHtml'
@@ -120,14 +120,7 @@ function BlogPost({ locale, page }: Props) {
 
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full my-2">
                 <div className="flex items-center">
-                  <Image
-                    alt={SEO.person.name}
-                    title={SEO.person.name}
-                    height={24}
-                    width={24}
-                    src="/images/profile.png"
-                    className="rounded-full"
-                  />
+                  <ProfileImage title={SEO.person.name} width={24} height={24} />
                   <p className="text-sm text-gray-700 dark:text-gray-300 ml-2">
                     <span>{`${SEO.person.name} / `}</span>
                     <span>{format(parseISO(created), 'MMMM dd, yyyy')}</span>
