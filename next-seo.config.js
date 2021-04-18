@@ -6,23 +6,20 @@ const subdomainEn = 'www.emmanuelgautier.com'
 
 const siteDomain = getSiteDomain()
 const siteUrl = `https://${siteDomain}`
-const blogSubdomain =
-  siteDomain === subdomainFr ? 'blog.emmanuelgautier.fr' : subdomainEn
 
 const person = 'Emmanuel Gautier'
 
 module.exports = {
   siteUrl,
 
-  socials: [
-    'https://github.com/emmanuelgautier',
-    'https://twitter.com/gautier_manu',
-    'https://www.linkedin.com/in/emmanuelgautier1',
-  ],
+  socials: {
+    github: 'https://github.com/emmanuelgautier',
+    twitter: 'https://twitter.com/gautier_manu',
+    linkedin: 'https://www.linkedin.com/in/emmanuelgautier1',
+  },
 
   blog: {
-    pathPrefix: siteUrl === subdomainFr ? '' : '/blog',
-    subdomain: blogSubdomain,
+    pathPrefix: '/blog',
   },
 
   i18n: {

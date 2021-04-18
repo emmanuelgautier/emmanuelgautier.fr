@@ -3,6 +3,8 @@ import { useIntl } from 'react-intl'
 
 import OutboundLink from './OutboundLink'
 
+import SEO from '../next-seo.config'
+
 const Footer = () => {
   const intl = useIntl()
 
@@ -12,18 +14,18 @@ const Footer = () => {
       <div className="w-full max-w-2xl grid grid-cols-1 gap-4 pb-16 sm:grid-cols-2">
         <div className="flex flex-col space-y-4">
           <Link href="/">
-            <a className="text-gray-500 hover:text-gray-600 transition">{intl.formatMessage({ defaultMessage: 'Home' })}</a>
+            <a className="text-gray-500 hover:text-gray-600">{intl.formatMessage({ defaultMessage: 'Home' })}</a>
           </Link>
 
-          <a href="/rss.xml" className="text-gray-500 hover:text-gray-600 transition">
+          <a href="/rss.xml" className="text-gray-500 hover:text-gray-600">
             RSS
           </a>
         </div>
         <div className="flex flex-col space-y-4">
-          <OutboundLink className="text-gray-500 hover:text-gray-600 transition" href="https://twitter.com/gautier_manu">
+          <OutboundLink className="text-gray-500 hover:text-gray-600" href={SEO.socials.twitter}>
             Twitter
           </OutboundLink>
-          <OutboundLink className="text-gray-500 hover:text-gray-600 transition" href="https://github.com/emmanuelgautier">
+          <OutboundLink className="text-gray-500 hover:text-gray-600" href={SEO.socials.github}>
             GitHub
         </OutboundLink>
         </div>

@@ -35,7 +35,6 @@ export default class MyDocument extends Document<Props> {
           <link rel="manifest" href={`${SEO.siteUrl}/site.webmanifest`} />
 
           <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
         </Head>
 
         <body className="bg-white dark:bg-black text-white dark:text-black">

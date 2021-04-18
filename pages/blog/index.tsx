@@ -18,15 +18,13 @@ function BlogIndex({ page }: Props) {
   const { posts } = page
   const title = 'Blog'
   const description = ''
-  const url = `https://${SEO.blog.subdomain}/blog/`
-  const canonical = SEO.blog.subdomain === 'blog.emmanuelgautier.fr' ? `https://${SEO.blog.subdomain}/` : `https://${SEO.blog.subdomain}${SEO.blog.pathPrefix}/`
+  const url = `https://${SEO.siteUrl}/blog/`
 
   return (
     <Layout title={title} description={description}>
       <NextSeo
         title={title}
         description={description}
-        canonical={canonical}
         openGraph={{
           title,
           description,

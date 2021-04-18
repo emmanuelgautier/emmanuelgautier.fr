@@ -55,7 +55,6 @@ function BlogPost({ locale, page }: Props) {
   } = page
   const url = `${siteUrl}/blog/${slug}`
   const hashtags = tags.map((tag) => `${tag.split(' ').join('')}`)
-  const canonical = `https://${SEO.blog.subdomain}${SEO.blog.pathPrefix}/${slug}`
 
   const languageAlternates = [
     {
@@ -78,7 +77,6 @@ function BlogPost({ locale, page }: Props) {
       <NextSeo
         title={title}
         description={description}
-        canonical={canonical}
         languageAlternates={languageAlternates}
         openGraph={{
           title,
@@ -135,7 +133,7 @@ function BlogPost({ locale, page }: Props) {
                     hashtags={hashtags}
                     resetButtonStyle={false}
                     related={[SEO.twitter.site]}
-                    className="cursor-pointer h-6 w-6 bg-gray-700 hover:bg-white text-white hover:text-gray-900 border-solid hover:border-2 hover:border-gray-900 transition duration-300 mr-1 rounded-lg"
+                    className="cursor-pointer h-6 w-6 bg-gray-700 hover:bg-white text-white hover:text-gray-900 border-solid hover:border-2 hover:border-gray-900 mr-1 rounded-lg"
                   >
                     <FontAwesomeIcon icon={faTwitter} />
                   </TwitterShareButton>
@@ -144,7 +142,7 @@ function BlogPost({ locale, page }: Props) {
                     summary={description}
                     source={SEO.person.name}
                     resetButtonStyle={false}
-                    className="cursor-pointer h-6 w-6 bg-gray-700 hover:bg-white text-white hover:text-gray-900 border-solid hover:border-2 hover:border-gray-900 transition duration-300 mr-1 rounded-lg"
+                    className="cursor-pointer h-6 w-6 bg-gray-700 hover:bg-white text-white hover:text-gray-900 border-solid hover:border-2 hover:border-gray-900 mr-1 rounded-lg"
                   >
                     <FontAwesomeIcon icon={faLinkedinIn} />
                   </LinkedinShareButton>
