@@ -1,37 +1,40 @@
 ---
 title: L’opérateur ternaire en PHP
-description: L’utilisation de l’opérateur ternaire n’est certes pas la méthode de développer la plus lisible dans la majorité des cas mais elle s’avère pratique dans lisibilité de conditions simples et elle offre de meilleurs performances. L’implémentation de cet opérateur peut différer selon les langages, voyons dans le cas de PHP.
+description: L’utilisation de l’opérateur ternaire n’est certes pas la méthode de développer la plus lisible dans la majorité des cas mais elle s’avère pratique dans la lisibilité de conditions simples. L’implémentation de cet opérateur peut différer selon les langages, voyons dans le cas de PHP.
 image: /images/php.jpg
 tags:
   - php
 slug: loperateur-ternaire-en-php
-updated: '2014-10-31'
+alternate:
+  en: php-ternary-operator
+updated: '2021-04-20'
 created: '2014-10-31'
 ---
 
-L’utilisation de l’opérateur ternaire n’est certes pas la méthode de développer la plus lisible dans la majorité des cas mais elle s’avère pratique dans lisibilité de conditions simples et elle offre de meilleurs performances. L’implémentation de cet opérateur peut différer selon les langages, voyons dans le cas de PHP.
+L’utilisation de l’opérateur ternaire n’est certes pas la méthode de développer la plus lisible dans la majorité des cas mais elle s’avère pratique dans la lisibilité de conditions simples. L’implémentation de cet opérateur peut différer selon les langages, voyons dans le cas de PHP.
 
-### Qu’est ce que l’opérateur ternaire ?
+## Qu’est ce que l’opérateur ternaire ?
 
 Simplement, il s’agit de mettre une condition logique sur un seul ligne. Voyons par exemple :
 
 ```php
-if($boolean)
-  echo ‘true’;
-else
-  echo ‘false’;
+if($boolean) {
+  echo "foo";
+} else {
+  echo "bar";
+}
 ```
 
-Cette condition est relativement simple et prend tout de même 4 lignes de code. L’opérateur ternaire va nous permettre de mettre cette condition sur une seul ligne de la manière suivante :
+Cette condition est relativement simple et prend tout de même 5 lignes de code. L’opérateur ternaire va nous permettre de mettre cette condition sur une seul ligne de la manière suivante :
 
 ```php
-echo ($boolean ? ‘true’ : ‘false’);
+echo ($boolean ? "foo" : "bar");
 ```
 
 Vous pouvez faire ceci à l’infini mais ceci dégrade, bien évidement la lisibilité du code et peut s’avérer un frein dans la maintenance d’une application.
 
 ```php
-echo ($boolean ? ($boolean2 ? ‘true true’ : ‘true false’) : ‘false’);
+echo ($boolean ? ($boolean2 ? "true true" : "true false") : "false");
 ```
 
 L’opérateur ternaire peut également se représenter de la forme suivante
