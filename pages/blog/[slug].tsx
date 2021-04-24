@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { format, parseISO } from 'date-fns'
 import { kebabCase } from 'lodash'
 import { ArticleJsonLd, NextSeo } from 'next-seo'
+import { useAmp } from 'next/amp'
 import Link from 'next/link'
 import { useIntl } from 'react-intl'
 import { LinkedinShareButton, TwitterShareButton } from 'react-share'
 
 import Layout from '../../components/Layout'
 import OutboundLink from '../../components/OutboundLink'
-import ProfileImage from '../../components/ProfileImg'
 
 import { getAllPosts, getPostBySlug } from '../../lib/api'
 import markdownToHtml from '../../lib/markdownToHtml'
@@ -39,6 +39,7 @@ const discussUrl = (url: string) =>
 export const config = { amp: 'hybrid' }
 
 function BlogPost({ locale, page }: Props) {
+  const isAmp = useAmp()
   const intl = useIntl()
 
   const siteUrl = SEO.siteUrl
@@ -116,43 +117,44 @@ function BlogPost({ locale, page }: Props) {
                 {title}
               </h1>
 
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full my-2">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full">
                 <div className="flex items-center">
-                  <ProfileImage title={SEO.person.name} width={24} height={24} />
-                  <p className="text-sm text-gray-700 dark:text-gray-300 ml-2">
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
                     <span>{`${SEO.person.name} / `}</span>
                     <span>{format(parseISO(created), 'MMMM dd, yyyy')}</span>
                   </p>
                 </div>
 
-                <div className="justify-self-end text-sm">
-                  <TwitterShareButton
-                    url={url}
-                    title={title}
-                    via={SEO.twitter.site}
-                    hashtags={hashtags}
-                    resetButtonStyle={false}
-                    related={[SEO.twitter.site]}
-                    className="cursor-pointer h-6 w-6 bg-gray-700 hover:bg-white text-white hover:text-gray-900 border-solid hover:border-2 hover:border-gray-900 mr-1 rounded-lg"
-                  >
-                    <FontAwesomeIcon icon={faTwitter} />
-                  </TwitterShareButton>
-                  <LinkedinShareButton
-                    url={url}
-                    summary={description}
-                    source={SEO.person.name}
-                    resetButtonStyle={false}
-                    className="cursor-pointer h-6 w-6 bg-gray-700 hover:bg-white text-white hover:text-gray-900 border-solid hover:border-2 hover:border-gray-900 mr-1 rounded-lg"
-                  >
-                    <FontAwesomeIcon icon={faLinkedinIn} />
-                  </LinkedinShareButton>
-                </div>
+                {!isAmp && (
+                  <div className="justify-self-end text-sm">
+                    <TwitterShareButton
+                      url={url}
+                      title={title}
+                      via={SEO.twitter.site}
+                      hashtags={hashtags}
+                      resetButtonStyle={false}
+                      related={[SEO.twitter.site]}
+                      className="cursor-pointer h-6 w-6 bg-gray-700 hover:bg-white text-white hover:text-gray-900 border-solid hover:border-2 hover:border-gray-900 mr-1 rounded-lg"
+                    >
+                      <FontAwesomeIcon icon={faTwitter} />
+                    </TwitterShareButton>
+                    <LinkedinShareButton
+                      url={url}
+                      summary={description}
+                      source={SEO.person.name}
+                      resetButtonStyle={false}
+                      className="cursor-pointer h-6 w-6 bg-gray-700 hover:bg-white text-white hover:text-gray-900 border-solid hover:border-2 hover:border-gray-900 mr-1 rounded-lg"
+                    >
+                      <FontAwesomeIcon icon={faLinkedinIn} />
+                    </LinkedinShareButton>
+                  </div>
+                )}
               </div>
             </div>
           </header>
 
           <div
-            className="prose dark:prose-dark max-w-none w-full"
+            className="prose dark:prose-dark max-w-none w-full mt-8"
             dangerouslySetInnerHTML={{ __html: content }}
           />
 

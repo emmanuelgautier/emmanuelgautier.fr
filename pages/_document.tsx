@@ -34,7 +34,14 @@ export default class MyDocument extends Document<Props> {
 
           <link rel="manifest" href={`${SEO.siteUrl}/site.webmanifest`} />
 
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+          <link
+            rel="preload"
+            href="/assets/fonts/inter/inter-latin-variable-full-normal.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
         </Head>
 
         <body className="bg-white dark:bg-black text-white dark:text-black">

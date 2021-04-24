@@ -6,7 +6,7 @@ interface Props {
   slug: string
 }
 
-const BlogPostCard = ({ title, summary, slug }: Props) => (
+const BlogPostCard: React.FC<Props> = ({ title, summary, slug }: Props) => (
   <Link href={`/blog/${slug}`}>
     <a className="w-full">
       <div className="mb-8 w-full">

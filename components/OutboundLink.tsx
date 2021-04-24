@@ -4,17 +4,15 @@ interface Props {
   children: React.ReactNode
 }
 
-function OutboundLink({ className, href, children }: Props) {
-  return (
-    <a
-      className={className}
-      target="_blank"
-      rel="noopener noreferrer"
-      href={href}
-    >
-      {children}
-    </a>
-  )
-}
+const OutboundLink: React.FC<Props> = ({ className, href, children }: Props) => (
+  <a
+    className={className}
+    target="_blank"
+    rel="noopener noreferrer"
+    href={href}
+  >
+    {children}
+  </a>
+)
 
 export default OutboundLink
