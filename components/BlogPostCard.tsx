@@ -7,7 +7,7 @@ interface Props {
 }
 
 const BlogPostCard: React.FC<Props> = ({ title, summary, slug }: Props) => (
-  <Link href={`/blog/${slug}`}>
+  <Link href={`/blog/${slug}/`}>
     <a className="w-full">
       <div className="mb-8 w-full">
         <div className="flex flex-col md:flex-row justify-between">
