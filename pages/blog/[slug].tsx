@@ -1,12 +1,8 @@
-import { faLinkedinIn, faTwitter } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { format, parseISO } from 'date-fns'
 import { kebabCase } from 'lodash'
 import { ArticleJsonLd, NextSeo } from 'next-seo'
-import { useAmp } from 'next/amp'
 import Link from 'next/link'
 import { useIntl } from 'react-intl'
-import { LinkedinShareButton, TwitterShareButton } from 'react-share'
 
 import Layout from '../../components/Layout'
 import OutboundLink from '../../components/OutboundLink'
@@ -39,7 +35,6 @@ const discussUrl = (url: string) =>
 export const config = { amp: 'hybrid' }
 
 function BlogPost({ locale, page }: Props) {
-  const isAmp = useAmp()
   const intl = useIntl()
 
   const siteUrl = SEO.siteUrl
@@ -55,7 +50,6 @@ function BlogPost({ locale, page }: Props) {
     slug,
   } = page
   const url = `${siteUrl}/blog/${slug}`
-  const hashtags = tags.map((tag) => `${tag.split(' ').join('')}`)
 
   const languageAlternates = [
     {
@@ -124,31 +118,6 @@ function BlogPost({ locale, page }: Props) {
                     <span>{format(parseISO(created), 'MMMM dd, yyyy')}</span>
                   </p>
                 </div>
-
-                {!isAmp && (
-                  <div className="justify-self-end text-sm">
-                    <TwitterShareButton
-                      url={url}
-                      title={title}
-                      via={SEO.twitter.site}
-                      hashtags={hashtags}
-                      resetButtonStyle={false}
-                      related={[SEO.twitter.site]}
-                      className="cursor-pointer h-6 w-6 bg-gray-700 hover:bg-white text-white hover:text-gray-900 border-solid hover:border-2 hover:border-gray-900 mr-1 rounded-lg"
-                    >
-                      <FontAwesomeIcon icon={faTwitter} />
-                    </TwitterShareButton>
-                    <LinkedinShareButton
-                      url={url}
-                      summary={description}
-                      source={SEO.person.name}
-                      resetButtonStyle={false}
-                      className="cursor-pointer h-6 w-6 bg-gray-700 hover:bg-white text-white hover:text-gray-900 border-solid hover:border-2 hover:border-gray-900 mr-1 rounded-lg"
-                    >
-                      <FontAwesomeIcon icon={faLinkedinIn} />
-                    </LinkedinShareButton>
-                  </div>
-                )}
               </div>
             </div>
           </header>
@@ -171,7 +140,7 @@ function BlogPost({ locale, page }: Props) {
                   key={`${tag}-tag`}
                   href={`/blog/tags/${kebabCase(tag)}/`}
                 >
-                  <a className="inline-block text-gray-300 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 rounded px-4 py-1 text-xs mr-2">
+                  <a className="inline-block text-gray-300 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 rounded px-4 py-2 text-xs mr-2">
                     {tag}
                   </a>
                 </Link>
