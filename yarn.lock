@@ -1719,10 +1719,10 @@
     lighthouse "^7.0.0"
     puppeteer "^8.0.0"
 
-"@netlify/plugin-nextjs@3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@netlify/plugin-nextjs/-/plugin-nextjs-3.1.0.tgz#93f81c4bc6201584f42e74dc86b25cfadeb2639f"
-  integrity sha512-UJ3I69fx5j2/ZIw+ODnOGZd4GLv1ogfGBQdIticrmysbx+hHb5UjaFyy2JL8pXYyE37oDjEZJWi/PyTyTbx4lQ==
+"@netlify/plugin-nextjs@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@netlify/plugin-nextjs/-/plugin-nextjs-3.2.0.tgz#9ea7a5c42531cc0b1aa5caefdba91fa0e1d2ed8a"
+  integrity sha512-OkC+n2wQkfg7torHdy6scWzw4EOhUkvQzdPQxhx2HVd18mVnOndPuBC1/hfXED5J1pr1H7R5RXHjVspe7BxG/Q==
   dependencies:
     "@sls-next/lambda-at-edge" "^1.5.2"
     adm-zip "^0.5.4"
