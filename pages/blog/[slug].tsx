@@ -104,7 +104,7 @@ function BlogPost({ locale, page }: Props) {
       />
 
       <div className="container w-full max-w-prose mx-auto mb-8">
-        <article className="max-w-2xl mx-auto px-4 sm:px-6 xl:max-w-4xl xl:px-0">
+        <article className="mx-auto max-w-2xl xl:max-w-4xl">
           <header className="pt-2">
             <div className="space-y-4 text-left">
               <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
@@ -140,7 +140,7 @@ function BlogPost({ locale, page }: Props) {
                   key={`${tag}-tag`}
                   href={`/blog/tags/${kebabCase(tag)}/`}
                 >
-                  <a className="inline-block text-gray-300 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 rounded px-4 py-2 text-xs mr-2">
+                  <a className="inline-block text-gray-100 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 rounded px-4 py-2 text-xs mr-2 mb-2">
                     {tag}
                   </a>
                 </Link>
