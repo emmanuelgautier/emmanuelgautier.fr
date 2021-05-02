@@ -1,0 +1,28 @@
+---
+title: Comment récupérer la chaine de charactères HTML d'un composant React
+description: Dans plusieurs cas, vous pourriez avoir besoin d'avoir la chaine de charactère représentant le HTML généré plutôt que le composant React. Le moyen le plus simple est d'utiliser la fonction renderToString du package react-dom.
+tags:
+  - javascript
+  - react
+slug: rendre-element-react-string
+alternate:
+  fr: react-element-render-to-string
+featured: false
+updated: '2021-05-02'
+created: '2021-05-02'
+---
+
+Dans plusieurs cas, vous pourriez avoir besoin d'avoir la chaine de charactères représentant le HTML généré plutôt que le composant React.
+
+Le moyen le plus simple est d'utiliser la fonction `renderToString` du package `react-dom` : 
+```jsx
+import { renderToString } from 'react-dom/server'
+
+renderToString(<YourAwesomeComponent props1="value1" props2={{ value: "2" }} />)
+```
+
+La fonction `renderToString` peut être utilisée côté serveur et côté client.
+
+Si vous souhaitez rendre l'ensemble de la page pour des raisons SEO ou d'UX par exemple, vous pouvez également utiliser la fonction `renderToNodeStream` pour améliorer le temps de chargement de la page.
+
+Plus d'informations sur la [documentation](https://reactjs.org/docs/react-dom-server.html) de React.
