@@ -1,6 +1,7 @@
 ---
 title: How to get a React element as an HTML string
 description: For use cases, you may want to have the generated HTML string from your React component instead of a mounted component rendered on the page. The simplest way is to use the renderToString function provided by the react-dom package.
+image: /images/nextjs.jpg
 tags:
   - javascript
   - react

@@ -1,6 +1,7 @@
 ---
 title: Comment récupérer la chaine de charactères HTML d'un composant React
 description: Dans plusieurs cas, vous pourriez avoir besoin d'avoir la chaine de charactère représentant le HTML généré plutôt que le composant React. Le moyen le plus simple est d'utiliser la fonction renderToString du package react-dom.
+image: /images/nextjs.jpg
 tags:
   - javascript
   - react
