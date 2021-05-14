@@ -15,6 +15,7 @@ created: '2021-02-28'
 Pour le contenu de vos articles, les emojis ajoutent un peu de fun à vos pages. Ce court article explique comment utiliser des emojis en JavaScript.
 
 La manière la plus pratique est d'utiliser directement les Unicodes. Un exemple en JSX :
+
 ```jsx
 <span>{'\u{1F680}'}</span>
 ```

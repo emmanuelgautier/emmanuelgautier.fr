@@ -18,7 +18,7 @@ interface Props {
     title: string
     description: string
     content: string
-    featuredPosts: Array<{ slug: string; title: string, description: string }>
+    featuredPosts: Array<{ slug: string; title: string; description: string }>
   }
 }
 
@@ -32,10 +32,12 @@ function Home({ page: { content, featuredPosts, title, description } }: Props) {
   return (
     <Layout title={title} description={description}>
       <NextSeo
-        languageAlternates={SEO.i18n.domains.map(({ domain, defaultLocale }) => ({
-          hrefLang: defaultLocale,
-          href: `https://${domain}/`
-        }))}
+        languageAlternates={SEO.i18n.domains.map(
+          ({ domain, defaultLocale }) => ({
+            hrefLang: defaultLocale,
+            href: `https://${domain}/`,
+          })
+        )}
       />
 
       <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
@@ -57,7 +59,12 @@ function Home({ page: { content, featuredPosts, title, description } }: Props) {
             {capitalize(intl.formatMessage({ defaultMessage: 'blog' }))}
           </h3>
           {featuredPosts.map(({ slug, title, description }) => (
-            <BlogPostCard key={`homepage-featuredpost-${slug}`} slug={slug} title={title} summary={description} />
+            <BlogPostCard
+              key={`homepage-featuredpost-${slug}`}
+              slug={slug}
+              title={title}
+              summary={description}
+            />
           ))}
         </div>
 

@@ -40,7 +40,7 @@ module.exports = {
   },
 
   rss: {
-    title: person
+    title: person,
   },
 
   person: {

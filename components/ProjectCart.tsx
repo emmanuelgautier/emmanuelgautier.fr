@@ -1,13 +1,13 @@
 import OutboundLink from './OutboundLink'
 
 interface Props {
-  title: string,
-  description: string,
-  href: string,
+  title: string
+  description: string
+  href: string
   icon?: string
 }
 
-const ProjectCard = ({ title, description, href }: Props) => (
+const ProjectCard: React.FC<Props> = ({ title, description, href }) => (
   <OutboundLink className="block mb-4 hover:shadow" href={href}>
     <div className="flex items-center border border-gray-200 dark:border-gray-800 rounded p-4">
       <div>

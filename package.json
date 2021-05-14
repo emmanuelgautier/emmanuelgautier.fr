@@ -15,15 +15,12 @@
     "extract:i18n": "formatjs extract '{pages,components}/**/*.{js,ts,tsx}' --format simple --id-interpolation-pattern '[sha512:contenthash:base64:6]' --out-file lang/en.json",
     "compile:i18n": "formatjs compile-folder --ast --format simple lang compiled-lang",
     "postbuild": "next-sitemap",
-    "type-check": "tsc --pretty --noEmit",
+    "check:format": "tsc --pretty --noEmit",
     "format": "prettier --write .",
-    "lint": "eslint . --ext ts --ext tsx --ext js"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn run type-check"
-    }
+    "lint": "eslint . --ext ts --ext tsx --ext js",
+    "pre-commit": "yarn lint-staged",
+    "pre-push": "yarn check:format",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.@(ts|tsx)": [
@@ -55,9 +52,9 @@
     "next": "10.2.0",
     "next-optimized-images": "2.6.2",
     "next-seo": "4.24.0",
-    "next-sitemap": "1.6.3",
+    "next-sitemap": "1.6.57",
     "next-themes": "0.0.14",
-    "postcss": "8.2.10",
+    "postcss": "8.2.15",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-helmet": "6.1.0",
@@ -73,24 +70,24 @@
     "remark-stringify": "9.0.1",
     "rss": "1.2.2",
     "schema-dts": "0.8.2",
-    "tailwindcss": "2.1.1",
+    "tailwindcss": "2.1.2",
     "unified": "9.2.0"
   },
   "devDependencies": {
     "@emmanuelgautier/renovate-config": "1.2.0",
     "@fullhuman/postcss-purgecss": "4.0.3",
-    "@netlify/plugin-nextjs": "3.2.0",
+    "@netlify/plugin-nextjs": "3.2.2",
     "@tailwindcss/jit": "0.1.18",
     "@types/classnames": "2.3.1",
     "@types/node": "14.14.21",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
     "@types/rss": "0.0.28",
-    "@typescript-eslint/eslint-plugin": "4.22.0",
-    "@typescript-eslint/parser": "4.22.0",
+    "@typescript-eslint/eslint-plugin": "4.23.0",
+    "@typescript-eslint/parser": "4.23.0",
     "cross-env": "7.0.3",
     "cssnano": "5.0.1",
-    "eslint": "7.25.0",
+    "eslint": "7.26.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-react": "7.23.2",
     "husky": "6.0.0",
@@ -98,7 +95,7 @@
     "imagemin-mozjpeg": "9.0.0",
     "imagemin-optipng": "8.0.0",
     "imagemin-svgo": "9.0.0",
-    "lint-staged": "10.5.3",
+    "lint-staged": "11.0.0",
     "lqip-loader": "2.2.1",
     "npm-run-all": "4.1.5",
     "postcss-cli": "8.3.1",
@@ -108,7 +105,7 @@
     "serve": "11.3.2",
     "sharp": "0.28.0",
     "svg-sprite-loader": "6.0.2",
-    "typescript": "4.2.2",
+    "typescript": "4.2.4",
     "webp-loader": "0.6.0"
   }
 }

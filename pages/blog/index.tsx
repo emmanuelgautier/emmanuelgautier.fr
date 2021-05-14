@@ -8,7 +8,7 @@ import SEO from '../../next-seo.config'
 
 interface Props {
   page: {
-    posts: Array<{ slug: string; title: string, description: string }>
+    posts: Array<{ slug: string; title: string; description: string }>
   }
 }
 
@@ -30,10 +30,12 @@ function BlogIndex({ page }: Props) {
           description,
           url,
         }}
-        languageAlternates={SEO.i18n.domains.map(({ domain, defaultLocale }) => ({
-          hrefLang: defaultLocale,
-          href: `https://${domain}/blog/`
-        }))}
+        languageAlternates={SEO.i18n.domains.map(
+          ({ domain, defaultLocale }) => ({
+            hrefLang: defaultLocale,
+            href: `https://${domain}/blog/`,
+          })
+        )}
       />
 
       <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
@@ -41,9 +43,14 @@ function BlogIndex({ page }: Props) {
           {title}
         </h1>
 
-          {posts.map(({ slug, title, description }) => (
-            <BlogPostCard key={`blog-posts-${slug}`} title={title} slug={slug} summary={description} />
-          ))}
+        {posts.map(({ slug, title, description }) => (
+          <BlogPostCard
+            key={`blog-posts-${slug}`}
+            title={title}
+            slug={slug}
+            summary={description}
+          />
+        ))}
       </div>
     </Layout>
   )
@@ -54,7 +61,12 @@ export default BlogIndex
 export const getStaticProps = async ({
   locale = process.env.DEFAULT_LOCALE,
 }: any) => {
-  const posts: any[] = getAllPosts(locale, ['slug', 'title', 'description', 'created'])
+  const posts: any[] = getAllPosts(locale, [
+    'slug',
+    'title',
+    'description',
+    'created',
+  ])
     .sort((post1: any, post2: any) => (post1.created > post2.created ? -1 : 1))
     .slice(0, 20)
 

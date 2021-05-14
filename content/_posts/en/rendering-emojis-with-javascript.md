@@ -15,6 +15,7 @@ created: '2021-02-28'
 For the content of your posts, emojis add some fun to your pages. This short post explains how to make that possible in JavaScript.
 
 The most conveniant is to use directly the right emoji Unicode. Here a JSX example :
+
 ```jsx
 <span>{'\u{1F680}'}</span>
 ```

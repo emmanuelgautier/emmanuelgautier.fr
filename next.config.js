@@ -5,7 +5,7 @@ const withOptimizedImages = require('next-optimized-images')
 module.exports = withOptimizedImages({
   future: {
     webpack5: true,
-    strictPostcssConfiguration: true
+    strictPostcssConfiguration: true,
   },
 
   trailingSlash: true,

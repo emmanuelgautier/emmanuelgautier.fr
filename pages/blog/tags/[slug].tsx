@@ -8,7 +8,7 @@ import Layout from '../../../components/Layout'
 
 interface Props {
   page: {
-    posts: Array<{ title: string; slug: string, description: string }>
+    posts: Array<{ title: string; slug: string; description: string }>
     slug: string
   }
 }
@@ -40,7 +40,12 @@ function BlogTag({ page }: Props) {
         </h1>
 
         {posts.map(({ slug, title, description }) => (
-          <BlogPostCard key={`tag-posts-${slug}`} title={title} slug={slug} summary={description} />
+          <BlogPostCard
+            key={`tag-posts-${slug}`}
+            title={title}
+            slug={slug}
+            summary={description}
+          />
         ))}
       </div>
     </Layout>

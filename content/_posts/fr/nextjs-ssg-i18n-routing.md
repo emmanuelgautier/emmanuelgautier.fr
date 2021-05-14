@@ -47,6 +47,7 @@ Quand vous génerez votre site statiquement, il n'est plus possible d'utiliser l
 Nous avons besoin d'introduire une nouvelle variable d'environnement `NEXT_LOCALE` qui va contenir la locale du site géneré durant le process d'export.
 
 Exemple de contenu dans un fichier `.env.*`
+
 ```
 NEXT_LOCALE=fr
 ```
@@ -54,7 +55,7 @@ NEXT_LOCALE=fr
 Vous pouvez maintenant utiliser la variable `NEXT_LOCALE` dans le fichier `_app.tsx` dans la fonction `getInitialProps` pour définir la langue.
 
 ```ts
-const getInitialProps: typeof App.getInitialProps = async appContext => {
+const getInitialProps: typeof App.getInitialProps = async (appContext) => {
   const locale = appContext.router.locale || process.env.NEXT_LOCALE
   const [supportedLocale, messagePromise] = getMessages(locale)
 
@@ -77,7 +78,8 @@ Grâce à cette variable et le changement fait, `react-intl` va maintenant utili
 Maintenant, vous avez un site disponible en plusieurs langues. Vous pouvez construire votre site sur plusieurs noms de domaine également avec une gestion de plusieurs pipeline de build. Vous pouvez réaliser ce type d'implémentation avec des services comme Netlify, Vercel, ... etc.
 
 Exemple généré pour deux langues et déployé avec Vercel :
-* [English](https://next-showcase-ssg-en.vercel.app/)
-* [French](https://next-showcase-ssg-fr.vercel.app/)
+
+- [English](https://next-showcase-ssg-en.vercel.app/)
+- [French](https://next-showcase-ssg-fr.vercel.app/)
 
 Si vous souhaitez en savoir plus, vous pouvez jeter un oeil au [Code Source](https://github.com/emmanuelgautier/nextjs-showcase/tree/main/packages/ssg-i18n-routing)

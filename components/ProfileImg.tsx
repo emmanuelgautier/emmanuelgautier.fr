@@ -3,12 +3,17 @@ import { useAmp } from 'next/amp'
 
 interface Props {
   className?: string
-  title: string,
-  height?: number,
+  title: string
+  height?: number
   width?: number
 }
 
-function ProfileImage({ className, title, height = 100, width = 100 }: Props) {
+const ProfileImage: React.FC<Props> = ({
+  className,
+  title,
+  height = 100,
+  width = 100,
+}) => {
   const isAmp = useAmp()
   const classes = clsx('object-cover rounded-full', className)
 

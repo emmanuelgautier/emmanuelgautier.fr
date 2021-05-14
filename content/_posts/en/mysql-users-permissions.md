@@ -88,7 +88,6 @@ REVOKE DELETE ON database.* FROM 'user'@'localhost';
 
 The MySQL user deletion depends on the MySQL version you are using. From the 5.0.2 version, you only need the following command to drop the user.
 
-
 ```sql
 DROP USER 'user'@'localhost';
 ```

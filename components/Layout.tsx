@@ -16,11 +16,7 @@ type Props = {
   children: React.ReactNode
 }
 
-const Layout: React.FC<Props> = ({
-  title,
-  description,
-  children,
-}) => {
+const Layout: React.FC<Props> = ({ title, description, children }) => {
   const router = useRouter()
   const { basePath, asPath } = router
   const isAmp = useAmp()
@@ -42,8 +38,12 @@ const Layout: React.FC<Props> = ({
             />
           </>
         ) : (
-            <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-          )}
+          <script
+            async
+            custom-element="amp-analytics"
+            src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"
+          ></script>
+        )}
 
         {isAmp && (
           <>
@@ -66,7 +66,9 @@ const Layout: React.FC<Props> = ({
         {!isAmp && (
           <link
             rel="amphtml"
-            href={`${basePath}${asPath === '/' ? '/index' : asPath.substr(0, asPath.length - 1)}.amp/`}
+            href={`${basePath}${
+              asPath === '/' ? '/index' : asPath.substr(0, asPath.length - 1)
+            }.amp/`}
           />
         )}
       </Head>
@@ -95,11 +97,7 @@ const Layout: React.FC<Props> = ({
         sameAs={Object.values(SEO.socials)}
       />
 
-      {isAmp ? (
-        <HeaderAmp />
-      ) : (
-          <Header />
-        )}
+      {isAmp ? <HeaderAmp /> : <Header />}
 
       <main className="flex flex-col justify-center bg-white dark:bg-black px-8">
         {children}

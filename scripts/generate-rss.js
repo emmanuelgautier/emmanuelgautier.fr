@@ -7,7 +7,12 @@ const { person, siteUrl, rss: rssConfig } = require('../next-seo.config')
 const fileName = 'rss.xml'
 
 function generate() {
-  const posts = getAllPosts(process.env.DEFAULT_LOCALE || 'en', ['title', 'description', 'slug', 'created'])
+  const posts = getAllPosts(process.env.DEFAULT_LOCALE || 'en', [
+    'title',
+    'description',
+    'slug',
+    'created',
+  ])
   const feed = new RSS({
     title: rssConfig.title,
     site_url: `${siteUrl}/`,
@@ -16,7 +21,7 @@ function generate() {
 
   posts
     .sort((a, b) => new Date(b.created) - new Date(a.created))
-    .map(post => {
+    .map((post) => {
       feed.item({
         title: post.title,
         guid: post.slug,
@@ -31,4 +36,4 @@ function generate() {
   fs.writeFileSync(`./public/${fileName}`, rss)
 }
 
-generate();
+generate()

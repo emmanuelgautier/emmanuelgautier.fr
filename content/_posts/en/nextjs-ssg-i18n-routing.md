@@ -47,6 +47,7 @@ When you generate your website statically, it is not possible to use browser req
 We need to introduce a new environment variable `NEXT_LOCALE` which will contain the locale of the website generated during the export process.
 
 Example of content in `.env.*` file
+
 ```
 NEXT_LOCALE=en
 ```
@@ -54,7 +55,7 @@ NEXT_LOCALE=en
 You can now use the `NEXT_LOCALE` variable in your `_app.tsx` file in the `getInitialProps` function to define the locale.
 
 ```ts
-const getInitialProps: typeof App.getInitialProps = async appContext => {
+const getInitialProps: typeof App.getInitialProps = async (appContext) => {
   const locale = appContext.router.locale || process.env.NEXT_LOCALE
   const [supportedLocale, messagePromise] = getMessages(locale)
 
@@ -77,7 +78,8 @@ Thanks to this variable and the change done, `react-intl` will now use as locale
 Now you have a website available for multiple languages. You can build your website for multiple domains as well dealing with multiple build processes, one for each locale. Feel free to implement it with the service you want like Netlify, Vercel, ... etc
 
 The showcase generated for two languages deployed with Vercel :
-* [English](https://next-showcase-ssg-en.vercel.app/)
-* [French](https://next-showcase-ssg-fr.vercel.app/)
+
+- [English](https://next-showcase-ssg-en.vercel.app/)
+- [French](https://next-showcase-ssg-fr.vercel.app/)
 
 If you want to know more, have a look into the [Source Code](https://github.com/emmanuelgautier/nextjs-showcase/tree/main/packages/ssg-i18n-routing)

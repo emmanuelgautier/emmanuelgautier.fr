@@ -1,9 +1,7 @@
 import Link from 'next/link'
 import { useIntl } from 'react-intl'
 
-interface Props { }
-
-const Header: React.FC<Props> = () => {
+const Header: React.FC = () => {
   const intl = useIntl()
 
   return (

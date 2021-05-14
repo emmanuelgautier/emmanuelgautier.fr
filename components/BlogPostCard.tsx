@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
 interface Props {
-  title: string,
-  summary: string,
+  title: string
+  summary: string
   slug: string
 }
 
