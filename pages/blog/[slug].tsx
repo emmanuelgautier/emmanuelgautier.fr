@@ -1,6 +1,6 @@
 import { format, parseISO } from 'date-fns'
 import { kebabCase } from 'lodash'
-import { ArticleJsonLd, NextSeo } from 'next-seo'
+import { ArticleJsonLd, BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import Link from 'next/link'
 import { useIntl } from 'react-intl'
 
@@ -14,9 +14,9 @@ import SEO from '../../next-seo.config'
 interface Props {
   page: {
     alternate?: {
-      en?: string,
+      en?: string
       fr?: string
-    },
+    }
     title: string
     description: string
     image: string
@@ -25,12 +25,12 @@ interface Props {
     updated: string
     created: string
     content: string
-  },
+  }
   locale: string
 }
 
 const discussUrl = (url: string) =>
-  `https://mobile.twitter.com/search?q=${encodeURIComponent(url)}`;
+  `https://mobile.twitter.com/search?q=${encodeURIComponent(url)}`
 
 export const config = { amp: 'hybrid' }
 
@@ -54,16 +54,18 @@ function BlogPost({ locale, page }: Props) {
   const languageAlternates = [
     {
       hrefLang: locale,
-      href: url
-    }
+      href: url,
+    },
   ]
   if (alternate) {
     const [alternateLang, alternateSlug] = Object.entries(alternate)[0]
-    const alternateSubdomain = SEO.i18n.domains.find(({ defaultLocale }) => alternateLang === defaultLocale)?.domain
+    const alternateSubdomain = SEO.i18n.domains.find(
+      ({ defaultLocale }) => alternateLang === defaultLocale
+    )?.domain
 
     languageAlternates.push({
       hrefLang: alternateLang,
-      href: `https://${alternateSubdomain}/blog/${alternateSlug}`
+      href: `https://${alternateSubdomain}/blog/${alternateSlug}`,
     })
   }
 
@@ -102,6 +104,25 @@ function BlogPost({ locale, page }: Props) {
         publisherLogo={`${siteUrl}${SEO.person.image}`}
         description={description}
       />
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: 'Home',
+            item: `${siteUrl}/`,
+          },
+          {
+            position: 2,
+            name: 'Blog',
+            item: `${siteUrl}/blog/`,
+          },
+          {
+            position: 3,
+            name: title,
+            item: url,
+          },
+        ]}
+      />
 
       <div className="container w-full max-w-prose mx-auto mb-8">
         <article className="mx-auto max-w-2xl xl:max-w-4xl">
@@ -136,10 +157,7 @@ function BlogPost({ locale, page }: Props) {
           {tags && tags.length ? (
             <div className="mt-8">
               {tags.map((tag) => (
-                <Link
-                  key={`${tag}-tag`}
-                  href={`/blog/tags/${kebabCase(tag)}/`}
-                >
+                <Link key={`${tag}-tag`} href={`/blog/tags/${kebabCase(tag)}/`}>
                   <a className="inline-block text-gray-100 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 rounded px-4 py-2 text-xs mr-2 mb-2">
                     {tag}
                   </a>
