@@ -56,7 +56,7 @@ function Home({ page: { content, featuredPosts, title, description } }: Props) {
 
         <div className="mt-4">
           <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 text-black dark:text-white">
-            {capitalize(intl.formatMessage({ defaultMessage: 'blog' }))}
+            {capitalize(intl.formatMessage({ defaultMessage: 'Blog' }))}
           </h3>
           {featuredPosts.map(({ slug, title, description }) => (
             <BlogPostCard
@@ -70,7 +70,7 @@ function Home({ page: { content, featuredPosts, title, description } }: Props) {
 
         <div className="mt-4">
           <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 text-black dark:text-white">
-            {capitalize(intl.formatMessage({ defaultMessage: 'projects' }))}
+            {capitalize(intl.formatMessage({ defaultMessage: 'Projects' }))}
           </h3>
 
           <Link href="https://www.data-show.com/">

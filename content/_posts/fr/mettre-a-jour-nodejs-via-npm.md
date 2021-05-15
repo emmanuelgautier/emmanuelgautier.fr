@@ -6,6 +6,23 @@ tags:
   - javascript
   - nodejs
 slug: mettre-a-jour-nodejs-via-npm
+questions:
+  - question: Comment mettre à jour Nodejs sous Linux ?
+    answer:
+      Voici le détail en lignes de commande pour mettre à jour NodeJS sur votre machine. La mise à jour prendra la dernière version stable du langage.
+
+      ```shell
+      sudo npm cache clean -f
+      sudo npm install -g n
+      sudo n stable
+      ```
+  - question: Comment connaître la version de NodeJS ?
+    answer:
+      Pour connaître la version installée de NodeJS, vous pouvez lancer la ligne suivante
+
+      ```shell
+      node -v
+      ```
 alternate:
   en: update-nodejs-with-npm
 updated: '2021-02-20'

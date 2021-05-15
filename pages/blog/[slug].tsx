@@ -1,13 +1,19 @@
 import { format, parseISO } from 'date-fns'
 import { kebabCase } from 'lodash'
-import { ArticleJsonLd, BreadcrumbJsonLd, NextSeo } from 'next-seo'
+import {
+  ArticleJsonLd,
+  BreadcrumbJsonLd,
+  FAQPageJsonLd,
+  NextSeo,
+} from 'next-seo'
 import Link from 'next/link'
 import { useIntl } from 'react-intl'
 
+import BlogPostCard from '../../components/BlogPostCard'
 import Layout from '../../components/Layout'
 import OutboundLink from '../../components/OutboundLink'
 
-import { getAllPosts, getPostBySlug } from '../../lib/api'
+import { getAllPosts, getPostBySlug, getPostsByTag } from '../../lib/api'
 import markdownToHtml from '../../lib/markdownToHtml'
 import SEO from '../../next-seo.config'
 
@@ -25,6 +31,15 @@ interface Props {
     updated: string
     created: string
     content: string
+    relatedPosts: Array<{
+      description: string
+      slug: string
+      title: string
+    }>
+    questions?: Array<{
+      question: string
+      answer: string
+    }>
   }
   locale: string
 }
@@ -48,6 +63,8 @@ function BlogPost({ locale, page }: Props) {
     created,
     updated,
     slug,
+    relatedPosts,
+    questions,
   } = page
   const url = `${siteUrl}/blog/${slug}`
 
@@ -108,12 +125,12 @@ function BlogPost({ locale, page }: Props) {
         itemListElements={[
           {
             position: 1,
-            name: 'Home',
+            name: intl.formatMessage({ defaultMessage: 'Home' }),
             item: `${siteUrl}/`,
           },
           {
             position: 2,
-            name: 'Blog',
+            name: intl.formatMessage({ defaultMessage: 'Blog' }),
             item: `${siteUrl}/blog/`,
           },
           {
@@ -123,6 +140,15 @@ function BlogPost({ locale, page }: Props) {
           },
         ]}
       />
+
+      {questions && questions?.length > 0 && (
+        <FAQPageJsonLd
+          mainEntity={questions.map(({ question, answer }) => ({
+            questionName: question,
+            acceptedAnswerText: answer,
+          }))}
+        />
+      )}
 
       <div className="container w-full max-w-prose mx-auto mb-8">
         <article className="mx-auto max-w-2xl xl:max-w-4xl">
@@ -154,7 +180,7 @@ function BlogPost({ locale, page }: Props) {
             </OutboundLink>
           </div>
 
-          {tags && tags.length ? (
+          {tags && tags.length && (
             <div className="mt-8">
               {tags.map((tag) => (
                 <Link key={`${tag}-tag`} href={`/blog/tags/${kebabCase(tag)}/`}>
@@ -164,7 +190,23 @@ function BlogPost({ locale, page }: Props) {
                 </Link>
               ))}
             </div>
-          ) : null}
+          )}
+
+          {relatedPosts && (
+            <div className="mt-8">
+              <h3 className="font-bold text-xl md:text-2xl tracking-tight mb-4 text-black dark:text-white">
+                {intl.formatMessage({ defaultMessage: 'Related Posts' })}
+              </h3>
+              {relatedPosts.map(({ description, slug, title }) => (
+                <BlogPostCard
+                  key={`post-relatedposts-${slug}`}
+                  slug={slug}
+                  title={title}
+                  summary={description}
+                />
+              ))}
+            </div>
+          )}
         </article>
       </div>
     </Layout>
@@ -188,14 +230,40 @@ export const getStaticProps = async ({
     'updated',
     'date',
     'content',
+    'questions',
   ])
   const content = await markdownToHtml(post.content || '')
+
+  let relatedPosts: any[] = []
+  if (post.tags.length > 0) {
+    relatedPosts = (getPostsByTag(post.tags[0], locale, [
+      'title',
+      'slug',
+      'description',
+      'created',
+    ]) as any[])
+      .sort((post1, post2) => (post1.created > post2.created ? -1 : 1))
+      .filter((post) => post.slug !== slug)
+      .slice(0, 3)
+  }
+
+  if (post.questions && post.questions.length > 0) {
+    post.questions = await Promise.all(
+      post.questions.map(({ answer, ...question }: Record<string, 'answer'>) =>
+        markdownToHtml(answer).then((content) => ({
+          ...question,
+          answer: content,
+        }))
+      )
+    )
+  }
 
   return {
     props: {
       page: {
         ...post,
         content,
+        relatedPosts,
       },
       locale,
     },
