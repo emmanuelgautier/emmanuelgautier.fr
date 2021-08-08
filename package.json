@@ -70,7 +70,7 @@
     "remark-stringify": "9.0.1",
     "rss": "1.2.2",
     "schema-dts": "0.8.2",
-    "tailwindcss": "2.1.2",
+    "tailwindcss": "2.2.7",
     "unified": "9.2.0"
   },
   "devDependencies": {
