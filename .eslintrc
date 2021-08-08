@@ -4,11 +4,12 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@next/next/recommended",
+    "next/core-web-vitals",
     // Uncomment the following lines to enable eslint-config-prettier
     // Is not enabled right now to avoid issues with the Next.js repo
-    // "prettier",
-    // "prettier/@typescript-eslint"
+    "prettier"
   ],
   "env": {
     "es6": true,
@@ -38,6 +39,7 @@
       {
         "allow": ["warn", "error"]
       }
-    ]
+    ],
+    "@next/next/no-img-element": 0
   }
 }
