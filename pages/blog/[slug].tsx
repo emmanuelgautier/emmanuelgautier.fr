@@ -236,12 +236,14 @@ export const getStaticProps = async ({
 
   let relatedPosts: any[] = []
   if (post.tags.length > 0) {
-    relatedPosts = (getPostsByTag(post.tags[0], locale, [
-      'title',
-      'slug',
-      'description',
-      'created',
-    ]) as any[])
+    relatedPosts = (
+      getPostsByTag(post.tags[0], locale, [
+        'title',
+        'slug',
+        'description',
+        'created',
+      ]) as any[]
+    )
       .sort((post1, post2) => (post1.created > post2.created ? -1 : 1))
       .filter((post) => post.slug !== slug)
       .slice(0, 3)
