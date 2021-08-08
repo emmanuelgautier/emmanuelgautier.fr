@@ -96,7 +96,7 @@
     "imagemin-mozjpeg": "9.0.0",
     "imagemin-optipng": "8.0.0",
     "imagemin-svgo": "9.0.0",
-    "lint-staged": "11.0.0",
+    "lint-staged": "11.1.2",
     "lqip-loader": "2.2.1",
     "npm-run-all": "4.1.5",
     "postcss-cli": "8.3.1",
