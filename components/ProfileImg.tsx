@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { useAmp } from 'next/amp'
+import Image from 'next/image'
 
 interface Props {
   className?: string
@@ -26,24 +27,13 @@ const ProfileImage: React.FC<Props> = ({
       width={width.toString()}
     />
   ) : (
-    <picture>
-      <source
-        srcSet={require('../public/images/profile.png?webp')}
-        type="image/webp"
-      />
-      <source
-        srcSet={require('../public/images/profile.png')}
-        type="image/png"
-      />
-      <img
-        className={classes}
-        src={require('../public/images/profile.png')}
-        alt={title}
-        title={title}
-        height={height}
-        width={width}
-      />
-    </picture>
+    <Image
+      src="/images/profile.png"
+      alt={title}
+      title={title}
+      height={height}
+      width={width}
+    />
   )
 }
 

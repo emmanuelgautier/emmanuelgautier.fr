@@ -20,7 +20,7 @@ module.exports = {
           }),
         ]
       : {
-          '@tailwindcss/jit': {},
+          tailwindcss: {},
           autoprefixer: {},
         },
 }

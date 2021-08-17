@@ -3,6 +3,11 @@ import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 
+enum Theme {
+  Dark = 'dark',
+  Light = 'light',
+}
+
 const Header: React.FC = () => {
   const intl = useIntl()
   const [mounted, setMounted] = useState(false)
@@ -17,7 +22,9 @@ const Header: React.FC = () => {
         aria-label="Toggle Dark Mode"
         type="button"
         className="bg-gray-200 dark:bg-gray-800 rounded p-3 h-10 w-10"
-        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        onClick={() =>
+          setTheme(theme === Theme.Dark ? Theme.Light : Theme.Dark)
+        }
       >
         {mounted && (
           <svg
@@ -27,7 +34,7 @@ const Header: React.FC = () => {
             stroke="currentColor"
             className="h-4 w-4 text-gray-800 dark:text-gray-200"
           >
-            {theme === 'dark' ? (
+            {theme === Theme.Dark ? (
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
