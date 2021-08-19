@@ -1,5 +1,5 @@
 ---
-title: Activer la vérification de typage pour Python dans VSCode
+title: Comment activer la vérification de typage pour Python dans VSCode
 description: Python supporte désormais le [type hints](https://docs.python.org/3/library/typing.html). Dans cet article, nous allons voir comment avoir de l'IntelliSense pour le typage ainsi qu'avoir les erreurs de typage sur Visual Studio Code.
 image: /images/python.png
 tags:

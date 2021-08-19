@@ -1,5 +1,5 @@
 ---
-title: Enable Python type checking in VSCode
+title: How to enable Python type checking in VSCode
 description: Python now has support for type hints. In this article, we will see how to enable better IntelliSense and type checking analysis in VSCode.
 image: /images/python.png
 tags:
