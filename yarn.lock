@@ -900,10 +900,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@emmanuelgautier/renovate-config@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@emmanuelgautier/renovate-config/-/renovate-config-1.2.0.tgz#533fa1389922f9cb2ece9dc7a6ba5689ee3aac28"
-  integrity sha512-REPhQvhtmyh4cJTzaVLvUoElDxYwWGNxsaLQmfWN6Dz1AB5m/fpw9n0Aw1lI4gJ/fH1jDqz4xeg4NFOEzs8v5g==
+"@emmanuelgautier/renovate-config@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@emmanuelgautier/renovate-config/-/renovate-config-1.2.1.tgz#50600dc5afc607ec48acdd4be658f1b613556ab7"
+  integrity sha512-enyqqn1EJ/WxZd9ag9vx49m2qJZyK5Eqoj2pFNwW7dEFjEhn6nHCcPwKzGyuQ/AhirXsjF2C5GXdNpR2pEQfcg==
 
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
@@ -6352,7 +6352,7 @@ next-sitemap@1.6.148:
     matcher "^4.0.0"
     minimist "^1.2.5"
 
-next-themes@^0.0.15:
+next-themes@0.0.15:
   version "0.0.15"
   resolved "https://registry.yarnpkg.com/next-themes/-/next-themes-0.0.15.tgz#ab0cee69cd763b77d41211f631e108beab39bf7d"
   integrity sha512-LTmtqYi03c4gMTJmWwVK9XkHL7h0/+XrtR970Ujvtu3s0kZNeJN24aJsi4rkZOI8i19+qq6f8j+8Duwy5jqcrQ==
