@@ -17,6 +17,8 @@ created: '2021-03-14'
 
 Statically generating a website with the NextJS framework in different languages is not so obvious. The framework does not bring clear support for this use case and the [NextJS documentation](https://nextjs.org/docs/advanced-features/i18n-routing#how-does-this-work-with-static-generation) explains that i18n routing is not supported for SSG.
 
+If you are seeing the message `i18n support is not compatible with next export`, this post should be able to help find a workaround.
+
 ## Bootstrap the project
 
 First of all, let's create a new next project from the `with-react-intl` template
