@@ -73,7 +73,7 @@
     "unified": "9.2.0"
   },
   "devDependencies": {
-    "@emmanuelgautier/renovate-config": "1.2.0",
+    "@emmanuelgautier/renovate-config": "1.2.1",
     "@fullhuman/postcss-purgecss": "4.0.3",
     "@netlify/plugin-nextjs": "3.8.0",
     "@types/classnames": "2.3.1",
