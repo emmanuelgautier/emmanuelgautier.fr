@@ -11,11 +11,13 @@ slug: nextjs-ssg-i18n-routing
 alternate:
   en: nextjs-ssg-i18n-routing
 featured: true
-updated: '2021-03-14'
+updated: '2021-09-04'
 created: '2021-03-14'
 ---
 
 Générer statiquement un site avec le framework NextJS pour différentes langues n'est pas si simple. Le framework n'apporte pas un support claire pour ce type de cas d'usage et la [documentation NextJS](https://nextjs.org/docs/advanced-features/i18n-routing#how-does-this-work-with-static-generation) explique que le routing i18n n'est pas supporté pour le SSG.
+
+Si vous êtes en train de voir le message `i18n support is not compatible with next export`, cet article devrait vous donner une solution de contournement.
 
 ## Mettre en place le projet
 
