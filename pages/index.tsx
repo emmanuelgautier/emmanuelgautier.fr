@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 
-import { getFeaturedPosts, getPageBySlug } from '../lib/api'
+import { getPageBySlug, getStaticFeaturedPosts } from '../lib/api'
 import markdownToHtml from '../lib/markdownToHtml'
 
 import Layout from '../components/Layout'
@@ -21,8 +21,6 @@ interface Props {
     featuredPosts: Array<{ slug: string; title: string; description: string }>
   }
 }
-
-const featuredPostNumber = 3
 
 export const config = { amp: 'hybrid' }
 
@@ -54,19 +52,21 @@ function Home({ page: { content, featuredPosts, title, description } }: Props) {
           />
         </div>
 
-        <div className="mt-4">
-          <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 text-black dark:text-white">
-            {capitalize(intl.formatMessage({ defaultMessage: 'Blog' }))}
-          </h3>
-          {featuredPosts.map(({ slug, title, description }) => (
-            <BlogPostCard
-              key={`homepage-featuredpost-${slug}`}
-              slug={slug}
-              title={title}
-              summary={description}
-            />
-          ))}
-        </div>
+        {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
+          <div className="mt-4">
+            <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 text-black dark:text-white">
+              {capitalize(intl.formatMessage({ defaultMessage: 'Blog' }))}
+            </h3>
+            {featuredPosts.map(({ slug, title, description }) => (
+              <BlogPostCard
+                key={`homepage-featuredpost-${slug}`}
+                slug={slug}
+                title={title}
+                summary={description}
+              />
+            ))}
+          </div>
+        )}
 
         <div className="mt-4">
           <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 text-black dark:text-white">
@@ -106,19 +106,7 @@ export const getStaticProps = async ({
   ])
   const content = await markdownToHtml(page.content || '')
 
-  const getStaticFeaturedPosts = (lang: string, sliceEnd: number) =>
-    getFeaturedPosts(lang, ['created', 'slug', 'title', 'description'])
-      .sort((post1: any, post2: any) =>
-        post1.created > post2.created ? -1 : 1
-      )
-      .slice(0, sliceEnd)
-
-  let featuredPosts = getStaticFeaturedPosts(locale, featuredPostNumber)
-  if (featuredPosts.length < featuredPostNumber) {
-    featuredPosts = featuredPosts.concat(
-      getStaticFeaturedPosts('fr', featuredPostNumber - featuredPosts.length)
-    )
-  }
+  const featuredPosts = getStaticFeaturedPosts(locale, { number: 5 })
 
   return {
     props: {

@@ -5,7 +5,7 @@ module.exports = {
 
   images: {
     loader: 'cloudinary',
-    domains: ['res.cloudinary.com']
+    domains: ['res.cloudinary.com'],
   },
 
   experimental: {

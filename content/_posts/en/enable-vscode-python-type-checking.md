@@ -29,8 +29,9 @@ In your `settings.json` file, add a new line with the following setting:
 ```
 
 The default value for this line is `off` meaning the static analysis is disabled. You have two other possible values which are:
-* `basic`: basic type checking rules
-* `strict`: All type checking rules at the highest error severity
+
+- `basic`: basic type checking rules
+- `strict`: All type checking rules at the highest error severity
 
 If you test on the code below you should have a type error in VSCode now
 

@@ -29,8 +29,9 @@ Dans le fichier `settings.json`, ajouter la nouvelle ligne suivante :
 ```
 
 La valeur par défaut est `off` qui signifie que la vérification est désactivée. Vous avez deux autres options disponibles :
-* `basic`: applique des règles basiques de vérification de typage.
-* `strict`: toutes les règles de typage seront traitées avec la plus forte sévérité d'erreur.
+
+- `basic`: applique des règles basiques de vérification de typage.
+- `strict`: toutes les règles de typage seront traitées avec la plus forte sévérité d'erreur.
 
 Si maintenant vous testez le code ci-dessous, vous devriez voir une erreur dans VSCode
 

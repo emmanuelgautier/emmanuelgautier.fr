@@ -13,9 +13,20 @@ import BlogPostCard from '../../components/BlogPostCard'
 import Layout from '../../components/Layout'
 import OutboundLink from '../../components/OutboundLink'
 
-import { getAllPosts, getPostBySlug, getPostsByTag } from '../../lib/api'
+import {
+  getAllPosts,
+  getPostBySlug,
+  getPostsByTag,
+  getStaticFeaturedPosts,
+} from '../../lib/api'
 import markdownToHtml from '../../lib/markdownToHtml'
 import SEO from '../../next-seo.config'
+
+interface Post {
+  description: string
+  slug: string
+  title: string
+}
 
 interface Props {
   page: {
@@ -31,11 +42,8 @@ interface Props {
     updated: string
     created: string
     content: string
-    relatedPosts: Array<{
-      description: string
-      slug: string
-      title: string
-    }>
+    relatedPosts: Array<Post>
+    featuredPosts: Array<Post>
     questions?: Array<{
       question: string
       answer: string
@@ -64,6 +72,7 @@ function BlogPost({ locale, page }: Props) {
     updated,
     slug,
     relatedPosts,
+    featuredPosts,
     questions,
   } = page
   const url = `${siteUrl}/blog/${slug}`
@@ -180,7 +189,7 @@ function BlogPost({ locale, page }: Props) {
             </OutboundLink>
           </div>
 
-          {tags && tags.length && (
+          {Array.isArray(tags) && tags.length > 0 && (
             <div className="mt-8">
               {tags.map((tag) => (
                 <Link key={`${tag}-tag`} href={`/blog/tags/${kebabCase(tag)}/`}>
@@ -192,14 +201,30 @@ function BlogPost({ locale, page }: Props) {
             </div>
           )}
 
-          {relatedPosts && (
+          {Array.isArray(relatedPosts) && relatedPosts.length > 0 && (
             <div className="mt-8">
               <h3 className="font-bold text-xl md:text-2xl tracking-tight mb-4 text-black dark:text-white">
                 {intl.formatMessage({ defaultMessage: 'Related Posts' })}
               </h3>
               {relatedPosts.map(({ description, slug, title }) => (
                 <BlogPostCard
-                  key={`post-relatedposts-${slug}`}
+                  key={`post-related-posts-${slug}`}
+                  slug={slug}
+                  title={title}
+                  summary={description}
+                />
+              ))}
+            </div>
+          )}
+
+          {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
+            <div className="mt-8">
+              <h3 className="font-bold text-xl md:text-2xl tracking-tight mb-4 text-black dark:text-white">
+                {intl.formatMessage({ defaultMessage: 'Featured Posts' })}
+              </h3>
+              {featuredPosts.map(({ description, slug, title }) => (
+                <BlogPostCard
+                  key={`post-featured-posts-${slug}`}
                   slug={slug}
                   title={title}
                   summary={description}
@@ -249,6 +274,10 @@ export const getStaticProps = async ({
       .slice(0, 3)
   }
 
+  const featuredPosts = getStaticFeaturedPosts(locale, {
+    excludedPostSlug: post.slug,
+  })
+
   if (post.questions && post.questions.length > 0) {
     post.questions = await Promise.all(
       post.questions.map(({ answer, ...question }: Record<string, 'answer'>) =>
@@ -266,15 +295,18 @@ export const getStaticProps = async ({
         ...post,
         content,
         relatedPosts,
+        featuredPosts,
       },
       locale,
     },
   }
 }
 
-export async function getStaticPaths({
+export function getStaticPaths({
   locale = process.env.DEFAULT_LOCALE,
-}: any) {
+}: {
+  locale: string | undefined
+}): Record<string, unknown> {
   const posts: any[] = getAllPosts(locale, ['slug'])
 
   return {
