@@ -4,7 +4,7 @@ import { NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 
 import { getPageBySlug, getStaticFeaturedPosts } from '../lib/api'
-import markdownToHtml from '../lib/markdownToHtml'
+import { markdownToHtml } from '../lib/markdownToHtml'
 
 import Layout from '../components/Layout'
 import ProfileImg from '../components/ProfileImg'

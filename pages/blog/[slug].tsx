@@ -19,7 +19,10 @@ import {
   getPostsByTag,
   getStaticFeaturedPosts,
 } from '../../lib/api'
-import markdownToHtml from '../../lib/markdownToHtml'
+import {
+  markdownToHtml,
+  markdownToHtmlWithoutCodeSyntaxHighlight,
+} from '../../lib/markdownToHtml'
 import SEO from '../../next-seo.config'
 
 interface Post {
@@ -281,7 +284,7 @@ export const getStaticProps = async ({
   if (post.questions && post.questions.length > 0) {
     post.questions = await Promise.all(
       post.questions.map(({ answer, ...question }: Record<string, 'answer'>) =>
-        markdownToHtml(answer).then((content) => ({
+        markdownToHtmlWithoutCodeSyntaxHighlight(answer).then((content) => ({
           ...question,
           answer: content,
         }))
