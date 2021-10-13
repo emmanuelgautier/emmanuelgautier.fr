@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "test": "next build",
+    "test": "yarn run build",
     "build": "run-s extract:i18n compile:i18n build:rss build:next",
     "build:css": "CSS_ENV=build postcss styles/globals.css --config postcss.config.js -o styles/output.css",
     "build:next": "next build",
