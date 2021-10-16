@@ -8,11 +8,11 @@ tags:
   - debian
   - vmware
 slug: installer-les-vmware-tools-sous-ubuntu-et-debian
-updated: '2015-03-23'
+updated: '2021-10-09'
 created: '2015-03-23'
 ---
 
-Les VMWare Tools sont des outils développés par VMWare afin d'améliorer l'intégration de la machine virtuelle avec l'hôte. Ces outils, disponibles pour différents systèmes d'exploitation, apportent le support de différentes fonctionnalités tel que le copié-collé, les dossiers partagés, l'accélération matérielle, etc ... .
+Les VMWare Tools sont des outils développés par VMWare afin d'améliorer l'intégration de la machine virtuelle avec l'hôte. Ces outils, disponibles pour différents systèmes d'exploitation, apportent le support de différentes fonctionnalités tel que le copié-collé, les dossiers partagés, l'accélération matérielle, un meilleur support de la carte graphique, etc ... .
 
 Dans cet article, nous allons voir comment installer ces outils sous Debian et Ubuntu. Pour ce faire, vous pouvez suivre les instructions suivantes.
 
