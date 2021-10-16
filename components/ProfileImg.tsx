@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import { useAmp } from 'next/amp'
-import Image from 'next/image'
 
 import ProfilePic from '../public/images/profile.png'
 
@@ -29,7 +28,7 @@ const ProfileImage: React.FC<Props> = ({
       width={width.toString()}
     />
   ) : (
-    <Image
+    <img
       className={classes}
       src={ProfilePic}
       alt={title}
