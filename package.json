@@ -78,7 +78,7 @@
     "schema-dts": "1.0.0",
     "tailwindcss": "2.2.17",
     "unified": "9.2.2",
-    "url-loader": "^4.1.1"
+    "url-loader": "4.1.1"
   },
   "devDependencies": {
     "@emmanuelgautier/renovate-config": "1.2.2",
