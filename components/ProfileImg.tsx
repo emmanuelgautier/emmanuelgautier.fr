@@ -2,6 +2,8 @@ import clsx from 'clsx'
 import { useAmp } from 'next/amp'
 import Image from 'next/image'
 
+import ProfilePic from '../public/images/profile.png'
+
 interface Props {
   className?: string
   title: string
@@ -21,14 +23,15 @@ const ProfileImage: React.FC<Props> = ({
   return isAmp ? (
     <amp-img
       className={classes}
-      src={require('../public/images/profile.png')}
+      src={ProfilePic}
       alt={title}
       height={height.toString()}
       width={width.toString()}
     />
   ) : (
     <Image
-      src="/images/profile.png"
+      className={classes}
+      src={ProfilePic}
       alt={title}
       title={title}
       height={height}

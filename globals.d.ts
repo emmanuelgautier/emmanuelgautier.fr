@@ -4,7 +4,7 @@ declare namespace JSX {
   interface AmpImg {
     className?: string
     alt?: string
-    src?: string
+    src?: string | StaticImageData
     width?: string
     height?: string
     layout?: string
