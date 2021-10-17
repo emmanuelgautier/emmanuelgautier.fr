@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
-import SEO from '../next-seo.config'
+import SEO from '../next-seo.config.js'
 
 interface Props {
   locale: string

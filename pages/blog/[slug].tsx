@@ -9,49 +9,28 @@ import {
 import Link from 'next/link'
 import { useIntl } from 'react-intl'
 
+import { allPosts } from '.contentlayer/data'
+import type { Post } from '.contentlayer/types'
+
 import BlogPostCard from '../../components/BlogPostCard'
+import Content from '../../components/Content'
 import Layout from '../../components/Layout'
 import OutboundLink from '../../components/OutboundLink'
 
-import {
-  getAllPosts,
-  getPostBySlug,
-  getPostsByTag,
-  getStaticFeaturedPosts,
-} from '../../lib/api'
-import {
-  markdownToHtml,
-  markdownToHtmlWithoutCodeSyntaxHighlight,
-} from '../../lib/markdownToHtml'
-import SEO from '../../next-seo.config'
+import SEO from '../../next-seo.config.js'
 
-interface Post {
-  description: string
+interface PathParams {
   slug: string
-  title: string
 }
 
 interface Props {
-  page: {
-    alternate?: {
-      en?: string
-      fr?: string
-    }
-    title: string
-    description: string
-    image: string
-    tags: string[]
-    slug: string
-    updated: string
-    created: string
-    content: string
-    relatedPosts: Array<Post>
-    featuredPosts: Array<Post>
-    questions?: Array<{
-      question: string
-      answer: string
-    }>
-  }
+  page: Post
+  relatedPosts: Array<Post>
+  featuredPosts: Array<Post>
+  questions?: Array<{
+    question: string
+    answer: string
+  }>
   locale: string
 }
 
@@ -60,7 +39,13 @@ const discussUrl = (url: string) =>
 
 export const config = { amp: 'hybrid' }
 
-function BlogPost({ locale, page }: Props) {
+function BlogPost({
+  locale,
+  page,
+  relatedPosts,
+  featuredPosts,
+  questions,
+}: Props): React.ReactNode {
   const intl = useIntl()
 
   const siteUrl = SEO.siteUrl
@@ -70,13 +55,11 @@ function BlogPost({ locale, page }: Props) {
     description,
     image,
     tags,
-    content,
+    body,
     created,
     updated,
     slug,
-    relatedPosts,
-    featuredPosts,
-    questions,
+    readingTime,
   } = page
   const url = `${siteUrl}/blog/${slug}`
 
@@ -163,7 +146,7 @@ function BlogPost({ locale, page }: Props) {
       )}
 
       <div className="container w-full max-w-prose mx-auto mb-8">
-        <article className="mx-auto max-w-2xl xl:max-w-4xl">
+        <article className="mx-auto max-w-3xl xl:max-w-5xl">
           <header className="pt-2">
             <div className="space-y-4 text-left">
               <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
@@ -177,14 +160,16 @@ function BlogPost({ locale, page }: Props) {
                     <span>{format(parseISO(created), 'MMMM dd, yyyy')}</span>
                   </p>
                 </div>
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 min-w-32 md:mt-0">
+                  {readingTime.text}
+                </p>
               </div>
             </div>
           </header>
 
-          <div
-            className="prose dark:prose-dark max-w-none w-full mt-8"
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
+          <div className="prose dark:prose-dark max-w-none w-full mt-8">
+            <Content content={body} />
+          </div>
 
           <div className="text-sm text-gray-700 dark:text-gray-300 mt-8">
             <OutboundLink href={discussUrl(url)}>
@@ -243,83 +228,49 @@ function BlogPost({ locale, page }: Props) {
 
 export default BlogPost
 
-export const getStaticProps = async ({
+export function getStaticProps({
   params: { slug },
   locale = process.env.DEFAULT_LOCALE,
-}: any) => {
-  const post: any = getPostBySlug(slug, locale, [
-    'title',
-    'description',
-    'image',
-    'alternate',
-    'tags',
-    'slug',
-    'created',
-    'updated',
-    'date',
-    'content',
-    'questions',
-  ])
-  const content = await markdownToHtml(post.content || '')
+}: {
+  params: PathParams
+  locale: string | undefined
+}): { props: Props } {
+  const post = allPosts.find(({ slug: _slug }) => _slug === slug)
+  if (!post) {
+    throw new Error()
+  }
 
-  let relatedPosts: any[] = []
+  let relatedPosts: Post[] = []
   if (post.tags.length > 0) {
-    relatedPosts = (
-      getPostsByTag(post.tags[0], locale, [
-        'title',
-        'slug',
-        'description',
-        'created',
-      ]) as any[]
-    )
+    relatedPosts = allPosts
+      .filter(({ tags }) => tags.some((tag) => post.tags.includes(tag)))
       .sort((post1, post2) => (post1.created > post2.created ? -1 : 1))
-      .filter((post) => post.slug !== slug)
+      .filter(({ slug: _slug }) => _slug !== slug)
       .slice(0, 3)
   }
 
-  const featuredPosts = getStaticFeaturedPosts(locale, {
-    excludedPostSlug: post.slug,
-  })
-
-  if (post.questions && post.questions.length > 0) {
-    post.questions = await Promise.all(
-      post.questions.map(({ answer, ...question }: Record<string, 'answer'>) =>
-        markdownToHtmlWithoutCodeSyntaxHighlight(answer).then((content) => ({
-          ...question,
-          answer: content,
-        }))
-      )
-    )
-  }
+  const featuredPosts: Post[] = allPosts
+    .filter(({ featured }) => featured)
+    .filter(({ slug: _slug }) => _slug !== slug)
+    .sort((post1, post2) => (post1.created > post2.created ? -1 : 1))
+    .slice(0, 3)
 
   return {
     props: {
-      page: {
-        ...post,
-        content,
-        relatedPosts,
-        featuredPosts,
-      },
+      page: post,
+      relatedPosts,
+      featuredPosts,
       locale,
     },
   }
 }
 
-export function getStaticPaths({
-  locale = process.env.DEFAULT_LOCALE,
-}: {
-  locale: string | undefined
-}): Record<string, unknown> {
-  const posts: any[] = getAllPosts(locale, ['slug'])
-
+export function getStaticPaths(): {
+  paths: Array<{ params: PathParams }>
+  fallback: boolean
+} {
   return {
-    paths: posts.map((posts) => {
-      return {
-        params: {
-          slug: posts.slug,
-        },
-      }
-    }),
+    paths: allPosts.map(({ slug }) => ({ params: { slug } })),
     fallback: false,
   }
 }

@@ -1,25 +1,21 @@
-const fs = require('fs')
-const RSS = require('rss')
+import { writeFileSync } from 'fs'
+import RSS from 'rss'
+import { allPosts } from '.contentlayer/data'
 
-const { getAllPosts } = require('../lib/api')
-const { person, siteUrl, rss: rssConfig } = require('../next-seo.config')
+import config from '../next-seo.config.js'
+
+const { person, siteUrl, rss: rssConfig } = config
 
 const fileName = 'rss.xml'
 
 function generate() {
-  const posts = getAllPosts(process.env.DEFAULT_LOCALE || 'en', [
-    'title',
-    'description',
-    'slug',
-    'created',
-  ])
   const feed = new RSS({
     title: rssConfig.title,
     site_url: `${siteUrl}/`,
     feed_url: `${siteUrl}/${fileName}`,
   })
 
-  posts
+  allPosts
     .sort((a, b) => new Date(b.created) - new Date(a.created))
     .map((post) => {
       feed.item({
@@ -33,7 +29,7 @@ function generate() {
     })
 
   const rss = feed.xml({ indent: true })
-  fs.writeFileSync(`./public/${fileName}`, rss)
+  writeFileSync(`./public/${fileName}`, rss)
 }
 
 generate()

@@ -11,11 +11,16 @@ import { IntlConfig, IntlProvider } from 'react-intl'
 
 import { polyfill } from '../polyfills'
 
-import SEO from '../next-seo.config'
+import SEO from '../next-seo.config.js'
 
 type Props = Pick<IntlConfig, 'messages' | 'locale'> & AppProps
 
-function MyApp({ Component, pageProps, messages, locale }: Props) {
+function MyApp({
+  Component,
+  pageProps,
+  messages,
+  locale,
+}: Props): React.ReactNode {
   const router = useRouter()
   const isAmp = useAmp()
   const { asPath, basePath } = router

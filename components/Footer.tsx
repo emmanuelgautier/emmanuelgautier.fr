@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 
 import OutboundLink from './OutboundLink'
 
-import SEO from '../next-seo.config'
+import SEO from '../next-seo.config.js'
 
 const Footer: React.FC = () => {
   const intl = useIntl()

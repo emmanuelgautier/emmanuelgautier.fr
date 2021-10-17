@@ -1,20 +1,22 @@
 import { NextSeo } from 'next-seo'
 
+import { allPosts } from '.contentlayer/data'
+import type { Post } from '.contentlayer/types'
+
 import BlogPostCard from '../../components/BlogPostCard'
 import Layout from '../../components/Layout'
 
-import { getAllPosts } from '../../lib/api'
-import SEO from '../../next-seo.config'
+import SEO from '../../next-seo.config.js'
 
 interface Props {
   page: {
-    posts: Array<{ slug: string; title: string; description: string }>
+    posts: Post[]
   }
 }
 
 export const config = { amp: 'hybrid' }
 
-function BlogIndex({ page }: Props) {
+function BlogIndex({ page }: Props): React.ReactNode {
   const { posts } = page
   const title = 'Blog'
   const description = ''
@@ -58,17 +60,12 @@ function BlogIndex({ page }: Props) {
 
 export default BlogIndex
 
-export const getStaticProps = async ({
+export const getStaticProps = ({
   locale = process.env.DEFAULT_LOCALE,
 }: any) => {
-  const posts: any[] = getAllPosts(locale, [
-    'slug',
-    'title',
-    'description',
-    'created',
-  ])
+  const posts = allPosts
     .sort((post1: any, post2: any) => (post1.created > post2.created ? -1 : 1))
-    .slice(0, 20)
+    .slice(0, 30)
 
   return {
     props: {

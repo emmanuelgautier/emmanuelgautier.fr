@@ -34,3 +34,6 @@ yarn-error.log*
 .vercel
 
 compiled-lang
+
+# Contentlayer
+.contentlayer

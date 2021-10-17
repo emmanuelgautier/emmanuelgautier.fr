@@ -4,11 +4,7 @@ interface Props {
   children: React.ReactNode
 }
 
-const OutboundLink: React.FC<Props> = ({
-  className,
-  href,
-  children,
-}: Props) => (
+const OutboundLink: React.FC<Props> = ({ className, href, children }) => (
   <a
     className={className}
     target="_blank"

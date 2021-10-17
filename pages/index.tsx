@@ -2,29 +2,28 @@ import { capitalize } from 'lodash'
 import Link from 'next/link'
 import { NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
-
-import { getPageBySlug, getStaticFeaturedPosts } from '../lib/api'
-import { markdownToHtml } from '../lib/markdownToHtml'
+import { allPages, allPosts } from '.contentlayer/data'
+import type { Page, Post } from '.contentlayer/types'
 
 import Layout from '../components/Layout'
 import ProfileImg from '../components/ProfileImg'
 
-import SEO from '../next-seo.config'
+import SEO from '../next-seo.config.js'
 import BlogPostCard from '../components/BlogPostCard'
 import ProjectCard from '../components/ProjectCart'
+import Content from '../components/Content'
 
 interface Props {
-  page: {
-    title: string
-    description: string
-    content: string
-    featuredPosts: Array<{ slug: string; title: string; description: string }>
-  }
+  page: Page
+  featuredPosts: Post[]
 }
 
 export const config = { amp: 'hybrid' }
 
-function Home({ page: { content, featuredPosts, title, description } }: Props) {
+function Home({
+  page: { body, title, description },
+  featuredPosts,
+}: Props): React.ReactNode {
   const intl = useIntl()
 
   return (
@@ -46,10 +45,9 @@ function Home({ page: { content, featuredPosts, title, description } }: Props) {
           <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
             {title}
           </h1>
-          <h2
-            className="prose text-gray-600 dark:text-gray-400 mb-16 text-base sm:text-lg md:text-xl mt-3"
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
+          <div className="prose text-gray-600 dark:text-gray-400 mb-16 text-base sm:text-lg md:text-xl mt-3">
+            <Content content={body} />
+          </div>
         </div>
 
         {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
@@ -96,25 +94,18 @@ function Home({ page: { content, featuredPosts, title, description } }: Props) {
 
 export default Home
 
-export const getStaticProps = async ({
-  locale = process.env.DEFAULT_LOCALE,
-}: any) => {
-  const page: any = getPageBySlug('home', locale, [
-    'title',
-    'description',
-    'content',
-  ])
-  const content = await markdownToHtml(page.content || '')
+export const getStaticProps = (): { props: Props } => {
+  const page = allPages.find(({ slug }) => slug === 'index')!
 
-  const featuredPosts = getStaticFeaturedPosts(locale, { number: 5 })
+  const featuredPosts: Post[] = allPosts
+    .filter(({ featured }) => featured)
+    .sort((post1, post2) => (post1.created > post2.created ? -1 : 1))
+    .slice(0, 5)
 
   return {
     props: {
-      page: {
-        ...page,
-        featuredPosts,
-        content,
-      },
+      page,
+      featuredPosts,
     },
   }
 }

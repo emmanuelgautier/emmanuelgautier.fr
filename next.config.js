@@ -1,6 +1,6 @@
-// const SEO = require('./next-seo.config')
 const withPlugins = require('next-compose-plugins')
 const optimizedImages = require('next-optimized-images')
+const { withContentlayer } = require('next-contentlayer')
 
 const nextConfig = {
   trailingSlash: true,
@@ -18,10 +18,11 @@ const nextConfig = {
 
 const config = withPlugins(
   [
+    withContentlayer,
     [
       optimizedImages,
       {
-        // optimisation disabled by default, to enable check https://github.com/cyrilwanner/next-optimized-images
+        // optimization disabled by default, to enable check https://github.com/cyrilwanner/next-optimized-images
         optimizeImages: false,
       },
     ],

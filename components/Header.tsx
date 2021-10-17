@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
+import ProfileImage from './ProfileImg'
 
 enum Theme {
   Dark = 'dark',
@@ -18,6 +19,22 @@ const Header: React.FC = () => {
 
   return (
     <nav className="sticky-nav flex justify-between items-center max-w-4xl w-full p-8 my-0 md:my-8 mx-auto bg-white dark:bg-black bg-opacity-60">
+      <div>
+        <Link href="/">
+          <a>
+            <ProfileImage
+              width={75}
+              height={75}
+              title={intl.formatMessage({ defaultMessage: 'Home' })}
+              className="p-1 sm:p-4 inline-block"
+            />
+          </a>
+        </Link>
+
+        <Link href="/blog">
+          <a className="p-1 sm:p-4 text-gray-800 dark:text-gray-100">Blog</a>
+        </Link>
+      </div>
       <button
         aria-label="Toggle Dark Mode"
         type="button"
@@ -52,17 +69,6 @@ const Header: React.FC = () => {
           </svg>
         )}
       </button>
-      <div>
-        <Link href="/blog">
-          <a className="p-1 sm:p-4 text-gray-900 dark:text-gray-100">Blog</a>
-        </Link>
-
-        <Link href="/">
-          <a className="p-1 sm:p-4 text-gray-900 dark:text-gray-100">
-            {intl.formatMessage({ defaultMessage: 'Home' })}
-          </a>
-        </Link>
-      </div>
     </nav>
   )
 }

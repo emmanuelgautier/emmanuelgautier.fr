@@ -1,14 +1,17 @@
+import { kebabCase, uniq } from 'lodash'
 import { NextSeo } from 'next-seo'
 
-import { getAllTags, getPostsByTag } from '../../../lib/api'
-import SEO from '../../../next-seo.config'
+import { allPosts } from '.contentlayer/data'
+import type { Post } from '.contentlayer/types'
+
+import SEO from '../../../next-seo.config.js'
 
 import BlogPostCard from '../../../components/BlogPostCard'
 import Layout from '../../../components/Layout'
 
 interface Props {
   page: {
-    posts: Array<{ title: string; slug: string; description: string }>
+    posts: Post[]
     slug: string
   }
 }
@@ -54,17 +57,13 @@ function BlogTag({ page }: Props) {
 
 export default BlogTag
 
-export const getStaticProps = async ({
+export function getStaticProps({
   params: { slug },
   locale = process.env.DEFAULT_LOCALE,
-}: any) => {
-  const posts: any[] = getPostsByTag(slug, locale, [
-    'title',
-    'slug',
-    'description',
-    'created',
-    'updated',
-  ]).sort((post1: any, post2: any) => (post1.created > post2.created ? -1 : 1))
+}: any) {
+  const posts: any[] = allPosts
+    .filter(({ tags }) => tags.some((tag) => kebabCase(tag) === slug))
+    .sort((post1: any, post2: any) => (post1.created > post2.created ? -1 : 1))
 
   return {
     props: {
@@ -77,19 +76,19 @@ export const getStaticProps = async ({
   }
 }
 
-export async function getStaticPaths({
-  locale = process.env.DEFAULT_LOCALE,
-}: any) {
-  const tags: Array<{ slug: string; tag: string }> = getAllTags(locale)
+export function getStaticPaths() {
+  // const tags: Array<{ slug: string; tag: string }> = getAllTags(locale)
+  const tags = allPosts
+    .reduce((acc, { tags }) => acc.concat(tags), [])
+    .filter((tag) => tag)
+  const uniqTags = uniq(tags)
 
   return {
-    paths: tags.map(({ slug }) => {
-      return {
-        params: {
-          slug,
-        },
-      }
-    }),
+    paths: uniqTags.map((tag) => ({
+      params: {
+        slug: kebabCase(tag),
+      },
+    })),
     fallback: false,
   }
 }
