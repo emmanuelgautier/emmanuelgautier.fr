@@ -23,7 +23,7 @@ const computedFields: ComputedFields = {
 
 const Post = defineDocumentType(() => ({
   name: 'Post',
-  filePathPattern: `_posts/${locale}/**/*.mdx`,
+  filePathPattern: '_posts/**/*.mdx',
   bodyType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
@@ -42,7 +42,7 @@ const Post = defineDocumentType(() => ({
 
 const Page = defineDocumentType(() => ({
   name: 'Page',
-  filePathPattern: `_pages/${locale}/*.mdx`,
+  filePathPattern: '_pages/*.mdx',
   bodyType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
@@ -53,7 +53,7 @@ const Page = defineDocumentType(() => ({
 }))
 
 const contentLayerConfig = makeSource({
-  contentDirPath: 'content',
+  contentDirPath: `content/${locale}`,
   documentTypes: [Post, Page],
   mdx: {
     remarkPlugins: [remarkGfm],
