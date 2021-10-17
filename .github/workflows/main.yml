@@ -12,6 +12,10 @@ jobs:
   ci:
     runs-on: ubuntu-latest
 
+    env:
+      DEFAULT_LOCALE: fr
+      DOMAIN: www.emmanuelgautier.fr
+
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@master
