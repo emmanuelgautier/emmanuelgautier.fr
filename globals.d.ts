@@ -11,7 +11,6 @@ declare namespace JSX {
   }
   interface AmpAnalytics {
     type: string
-    'data-credentials': string
     children: ReactElement
   }
   interface IntrinsicElements {

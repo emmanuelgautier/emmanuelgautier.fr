@@ -1,7 +1,7 @@
 import { NextSeo, SocialProfileJsonLd } from 'next-seo'
 import { useAmp } from 'next/amp'
 import { useRouter } from 'next/router'
-import Head from 'next/head'
+import type React from 'react'
 
 import { GTM_ID } from '../lib/gtm'
 import SEO from '../next-seo.config.js'
@@ -9,6 +9,9 @@ import SEO from '../next-seo.config.js'
 import Footer from './Footer'
 import HeaderAmp from './Header.amp'
 import Header from './Header'
+import AmpAnalytics from './amp/AmpAnalytics'
+
+const cloudflareInsightsToken = process.env.CLOUDFLARE_INSIGHTS_TOKEN
 
 type Props = {
   title: string
@@ -16,37 +19,49 @@ type Props = {
   children: React.ReactNode
 }
 
+const AmpWrap: React.FC<{
+  ampOnly?: React.ReactElement
+  nonAmp?: React.ReactElement
+}> = ({ ampOnly, nonAmp }) => {
+  const isAmp = useAmp()
+
+  if (ampOnly) {
+    return isAmp ? ampOnly : null
+  }
+
+  return !isAmp && nonAmp ? nonAmp : null
+}
+
 const Layout: React.FC<Props> = ({ title, description, children }) => {
   const router = useRouter()
   const { basePath, asPath } = router
-  const isAmp = useAmp()
 
   return (
     <>
-      <Head>
-        {/* Global site tag (gtag.js) - Google Analytics */}
-        {!isAmp ? (
+      <AmpWrap
+        ampOnly={
           <>
-            <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${GTM_ID}`}
-            />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GTM_ID}');`,
-              }}
-            />
-          </>
-        ) : (
-          <script
-            async
-            custom-element="amp-analytics"
-            src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"
-          ></script>
-        )}
+            {GTM_ID && (
+              <AmpAnalytics
+                type="googleanalytics"
+                script={{
+                  vars: {
+                    account: GTM_ID,
+                    gtag_id: GTM_ID,
+                    config: {
+                      [GTM_ID as string]: { groups: 'default' },
+                    },
+                  },
+                  triggers: {
+                    trackPageview: {
+                      on: 'visible',
+                      request: 'pageview',
+                    },
+                  },
+                }}
+              />
+            )}
 
-        {isAmp && (
-          <>
             <style amp-custom="true">{`
             @font-face {
               font-family: 'Inter';
@@ -60,28 +75,34 @@ const Layout: React.FC<Props> = ({ title, description, children }) => {
             code[class*=language-],pre[class*=language-]{color:#f8f8f2;background:0 0;text-shadow:0 1px rgba(0,0,0,.3);font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:1em;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto;border-radius:.3em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#272822}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#8292a2}.token.punctuation{color:#f8f8f2}.token.namespace{opacity:.7}.token.constant,.token.deleted,.token.property,.token.symbol,.token.tag{color:#f92672}.token.boolean,.token.number{color:#ae81ff}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#a6e22e}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url,.token.variable{color:#f8f8f2}.token.atrule,.token.attr-value,.token.class-name,.token.function{color:#e6db74}.token.keyword{color:#66d9ef}.token.important,.token.regex{color:#fd971f}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}
             `}</style>
           </>
-        )}
+        }
+      />
 
-        {!isAmp && (
-          <link
-            rel="amphtml"
-            href={`${basePath}${
-              asPath === '/' ? '/index' : asPath.substr(0, asPath.length - 1)
-            }.amp/`}
-          />
-        )}
-      </Head>
-
-      {isAmp && (
-        <amp-analytics type="gtag" data-credentials="include">
-          <script
-            type="application/json"
-            dangerouslySetInnerHTML={{
-              __html: `{ "vars" : { "gtag_id": "${GTM_ID}", "config" : { "${GTM_ID}": {"groups": "default" } } } }`,
-            }}
-          />
-        </amp-analytics>
-      )}
+      <AmpWrap
+        nonAmp={
+          <>
+            {GTM_ID && (
+              <>
+                <script
+                  async
+                  src={`https://www.googletagmanager.com/gtag/js?id=${GTM_ID}`}
+                />
+                <script
+                  dangerouslySetInnerHTML={{
+                    __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GTM_ID}');`,
+                  }}
+                />
+              </>
+            )}
+            <link
+              rel="amphtml"
+              href={`${basePath}${
+                asPath === '/' ? '/index' : asPath.substr(0, asPath.length - 1)
+              }.amp/`}
+            />
+          </>
+        }
+      />
 
       <NextSeo
         title={title}
@@ -96,12 +117,25 @@ const Layout: React.FC<Props> = ({ title, description, children }) => {
         sameAs={Object.values(SEO.socials)}
       />
 
-      {isAmp ? <HeaderAmp /> : <Header />}
+      <AmpWrap ampOnly={<HeaderAmp />} />
+      <AmpWrap nonAmp={<Header />} />
 
       <main className="flex flex-col justify-center bg-white dark:bg-black px-8">
         {children}
       </main>
       <Footer />
+
+      {cloudflareInsightsToken && (
+        <AmpWrap
+          nonAmp={
+            <script
+              defer
+              src="https://static.cloudflareinsights.com/beacon.min.js"
+              data-cf-beacon={`{"token": "${cloudflareInsightsToken}"}`}
+            ></script>
+          }
+        />
+      )}
     </>
   )
 }
