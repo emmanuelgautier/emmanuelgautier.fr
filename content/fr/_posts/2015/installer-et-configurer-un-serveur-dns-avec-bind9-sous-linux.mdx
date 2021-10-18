@@ -1,28 +1,30 @@
 ---
 title: Installer et configurer un serveur DNS avec Bind9 sous Linux
-description: Un service DNS (Domain Name Service) sert à la résolution de nom de domaine en adresse IP. C'est à dire que pour un nom de domaine est associée une IP. Ce service est utile notamment pour naviguer sur internet pour ne pas avoir à connaître les IPs des sites web.
+description: Un service DNS (Domain Name Service) sert à la résolution de noms de domaine en une adresse IP ou une autre ressource. Ce service est utile notamment pour naviguer sur internet pour ne pas avoir à connaître les IPs des sites web.
 image: /images/isc.png
 tags:
   - linux
   - dns
   - bind9
 slug: installer-et-configurer-un-serveur-dns-avec-bind9-sous-linux
+alternate:
+  en: install-and-configure-dns-server-with-bind9
 featured: true
-updated: '2015-04-19'
+updated: '2021-10-17'
 created: '2015-04-19'
 ---
 
-Un service DNS (Domain Name Service) sert à la résolution de nom de domaine en adresse IP. C'est à dire que pour un nom de domaine est associée une IP. Ce service est utile notamment pour naviguer sur internet pour ne pas avoir à connaître les IPs des sites web.
+Un service DNS (Domain Name Service) sert à la résolution de noms de domaine en une adresse IP ou une autre ressource. Ce service est utile notamment pour naviguer sur internet pour ne pas avoir à connaître les IPs des sites web.
 
 ### Introduction
 
-La mise en place d'un tel service requiert l'utilisation d'un logiciel spécifique. Le plus connu est certainement le logiciel [Bind](http://www.isc.org/downloads/bind/). Ce logiciel, maintenu par [Internet Systems Consortium](https://www.isc.org/) est utilisé sur la grande majorité des services DNS existant dans le monde et notamment par la plupart des serveurs DNS racines.
+La mise en place d'un tel service requiert l'utilisation d'un logiciel spécifique. Le plus utilisé est [Bind](http://www.isc.org/downloads/bind/). Cette technologie, maintenue par [Internet Systems Consortium](https://www.isc.org/) est utilisée sur la grande majorité des services DNS existant dans le monde dont la plupart des serveurs DNS racines.
 
-Dans ce tutoriel nous allons apprendre à mettre en place et configurer un service DNS avec Bind9. Pour ce faire, nous allons prendre le cas simple de la configuration d'un nom de domaine pour un site web. Nous mettrons en place un nom de domaine qui pointera vers différents services tel qu'un serveur HTTP, un serveur Mail, ... etc. Il n'est pas nécessaire que ces services existent réellement.
+Dans ce tutoriel nous allons apprendre à mettre en place et configurer un service DNS avec Bind9. Pour ce faire, nous allons prendre le cas simple de la configuration d'un nom de domaine pour un site web. Nous mettrons en place un nom de domaine qui pointera vers différents services tel qu'un serveur web HTTP, un serveur Mail, ... etc. Il n'est pas nécessaire que ces services existent réellement.
 
 ### Installation et configuration
 
-La première étape à effectuer est d'installer le package bind9 au moyen de la ligne de commande suivante.
+La première étape à effectuer est d'installer le package bind9. Si vous êtes sous une distribution linux Debian Like, vous pouvez le faire au moyen de la ligne de commande suivante:
 
 ```bash
 sudo apt-get install bind9 dnsutils
@@ -35,9 +37,11 @@ Il pourra vous être nécessaire de configurer votre système pour utiliser le s
 nameserver 127.0.0.1
 ```
 
-Une fois le serveur installé et démarré, configurons un premier site. Le nom de domaine choisi n'a pas d'importance, veillez toutefois à éviter d'utiliser un nom de domaine existant pour faciliter vos tests. Dans ce tutoriel nous utiliserons le nom de domaine `mysite.lan`.
+Une fois le serveur installé et démarré, configurons un premier site. Le nom de domaine choisi n'a pas d'importance, veillez simplement à éviter d'utiliser un nom de domaine existant pour faciliter vos tests. Dans ce tutoriel nous utiliserons le nom de domaine `mysite.lan`.
 
-La mise en place d'un nouveau nom de domaine, aussi appelé zone, se fait par la création d'un fichier. Ce fichier contient l'ensemble des enregistrements DNS du domaine. Ce sont ces informations qui seront envoyées lors d'une requête DNS. Ils donnent notamment les adresses IPs de plusieurs services, les IPs des sous-domaines, le temps de vie avant revérification des informations (TTL), ... etc. Voici un exemple de configuration d'un nom de domaine.
+La mise en place d'un nouveau nom de domaine, aussi appelé `zone`, se fait par la création d'un fichier. Ce fichier contient l'ensemble des enregistrements DNS du domaine. Ce sont ces informations qui seront envoyées lors d'une requête DNS. Ils donnent notamment les adresses IPs de plusieurs services, les IPs des sous-domaines, le temps de vie avant revérification des informations (TTL), ... etc.
+
+Voici un exemple de configuration d'un nom de domaine :
 
 ```bash
 # /etc/bind/db.mysite.lan
@@ -65,7 +69,7 @@ zone "mysite.lan" {
 };
 ```
 
-Avant de redémarrer le serveur, nous allons tester le fichier de domaine créé pour vérifier s'il est correcte afin d'éviter des erreurs au redémarrage de bind. La commande named-checkzone, inclue dans le package de bind9, va vérifier la syntaxe du fichier passé en paramètre.
+Avant de redémarrer le serveur, nous allons tester le fichier de domaine créé pour vérifier s'il est correcte afin d'éviter des erreurs au redémarrage de bind. La commande `named-checkzone`, inclue dans le package de bind9, va vérifier la syntaxe du fichier passé en paramètre.
 
 ```bash
 sudo named-checkzone mysite.lan /etc/bind/db.mysite.lan
@@ -109,7 +113,9 @@ www     IN    A      A.B.C.D
 
 #### Enregistrement MX (Mail Exchange)
 
-Il donne le serveur d'envoi d'emails. Cet enregistrement doit pointer obligatoirement vers un enregistrement de type A et pas un enregistrement CNAME. Il est possible de définir une priorité sur chaque enregistrement pour donne le serveur email à requêter en priorité. Si ce serveur est indisponible, le serveur ayant la priorité la plus proche sera requêté à la place.
+L'enregistrement MX point vers un serveur d'emails. Cet enregistrement doit pointer obligatoirement vers un enregistrement de type A ou AAAA et pas un enregistrement CNAME.
+
+Il est également possible de définir une priorité sur chaque enregistrement pour donne le serveur email à requêter en priorité. Si ce serveur est indisponible, le serveur ayant la priorité la plus proche sera requêté à la place.
 
 ```bash
          IN    MX  10  mail1
@@ -120,7 +126,7 @@ mail2    IN    A       A.B.C.D
 
 #### Enregistrement NS (Name Server)
 
-Il définit les serveurs DNS du domaine. Cet enregistrement doit pointer obligatoirement vers un enregistrement de type A et pas un enregistrement CNAME.
+Il définit les serveurs DNS du domaine.
 
 ```bash
       IN    NS    domain.tld.
@@ -129,7 +135,7 @@ ns    IN    A     A.B.C.D
 
 #### Enregistrement TXT
 
-Il permet de définir un enregistrement contenant un texte libre. Cet enregistrement est notamment utilisé pour confirmer le détenteur du domaine pour pouvoir utiliser certains services externes tel que Google Webmaster tools ou encore un service d'envoi de mails (Mandrill, Mailgun, ...).
+Il permet de définir un enregistrement contenant un texte libre. Cet enregistrement est notamment utilisé pour confirmer le détenteur d'un nom de domaine pour pouvoir utiliser certains services externes tel que Google Search Console, Github ou encore des solutions d'envoies de mail en mode SaaS.
 
 ```bash
 domain.tld.    IN    TXT    "text"
@@ -137,7 +143,7 @@ domain.tld.    IN    TXT    "text"
 
 ### Test
 
-Afin de s'assurer du bon fonctionnement de notre serveur et de vérifier que les enregistrements ont bien été pris en compte et son correctes, des tests vont être nécessaires. Pour tester ces enregistrements nous allons utiliser dig.
+Nous allons maintenant pour faire des tests, afin de s'assurer du bon fonctionnement de notre serveur et de vérifier que les enregistrements ont bien été pris en compte et son correctes. Pour tester ces enregistrements nous allons utiliser la ligne de commande `dig`. Selon votre distribution linux, il peut être nécesaire que vous installiez le paquet.
 
 ```bash
 dig -x 127.0.0.1
