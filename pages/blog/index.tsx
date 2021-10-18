@@ -20,7 +20,7 @@ function BlogIndex({ page }: Props): React.ReactNode {
   const { posts } = page
   const title = 'Blog'
   const description = ''
-  const url = `https://${SEO.siteUrl}/blog/`
+  const url = `https://${SEO.siteUrl}/blog`
 
   return (
     <Layout title={title} description={description}>
@@ -35,7 +35,7 @@ function BlogIndex({ page }: Props): React.ReactNode {
         languageAlternates={SEO.i18n.domains.map(
           ({ domain, defaultLocale }) => ({
             hrefLang: defaultLocale,
-            href: `https://${domain}/blog/`,
+            href: `https://${domain}/blog`,
           })
         )}
       />

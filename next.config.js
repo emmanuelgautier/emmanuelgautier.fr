@@ -3,7 +3,7 @@ const optimizedImages = require('next-optimized-images')
 const { withContentlayer } = require('next-contentlayer')
 
 const nextConfig = {
-  trailingSlash: true,
+  trailingSlash: false,
 
   images: {
     disableStaticImages: true,

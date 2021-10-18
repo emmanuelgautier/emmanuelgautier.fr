@@ -94,12 +94,6 @@ const Layout: React.FC<Props> = ({ title, description, children }) => {
                 />
               </>
             )}
-            <link
-              rel="amphtml"
-              href={`${basePath}${
-                asPath === '/' ? '/index' : asPath.substr(0, asPath.length - 1)
-              }.amp/`}
-            />
           </>
         }
       />

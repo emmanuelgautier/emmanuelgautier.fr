@@ -121,12 +121,12 @@ function BlogPost({
           {
             position: 1,
             name: intl.formatMessage({ defaultMessage: 'Home' }),
-            item: `${siteUrl}/`,
+            item: `${siteUrl}`,
           },
           {
             position: 2,
             name: intl.formatMessage({ defaultMessage: 'Blog' }),
-            item: `${siteUrl}/blog/`,
+            item: `${siteUrl}/blog`,
           },
           {
             position: 3,
@@ -180,7 +180,7 @@ function BlogPost({
           {Array.isArray(tags) && tags.length > 0 && (
             <div className="mt-8">
               {tags.map((tag) => (
-                <Link key={`${tag}-tag`} href={`/blog/tags/${kebabCase(tag)}/`}>
+                <Link key={`${tag}-tag`} href={`/blog/tags/${kebabCase(tag)}`}>
                   <a className="inline-block text-gray-100 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 rounded px-4 py-2 text-xs mr-2 mb-2">
                     {tag}
                   </a>
