@@ -31,12 +31,12 @@
     ]
   },
   "dependencies": {
-    "@formatjs/cli": "2.15.0",
-    "@formatjs/intl-datetimeformat": "2.8.4",
+    "@formatjs/cli": "4.3.2",
+    "@formatjs/intl-datetimeformat": "4.2.5",
     "@formatjs/intl-getcanonicallocales": "1.7.3",
-    "@formatjs/intl-numberformat": "5.7.6",
-    "@formatjs/intl-pluralrules": "3.5.6",
-    "@formatjs/intl-relativetimeformat": "7.3.6",
+    "@formatjs/intl-numberformat": "7.2.5",
+    "@formatjs/intl-pluralrules": "4.1.5",
+    "@formatjs/intl-relativetimeformat": "9.3.2",
     "@tailwindcss/typography": "0.4.1",
     "autoprefixer": "10.3.7",
     "babel-plugin-react-intl": "8.2.25",
