@@ -16,8 +16,6 @@ interface Props {
   }
 }
 
-export const config = { amp: 'hybrid' }
-
 function BlogTag({ page }: Props) {
   const { posts, slug } = page
   const tag = slug

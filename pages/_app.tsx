@@ -1,7 +1,6 @@
 import '../styles/globals.css'
 import '../styles/prism.css'
 
-import { useAmp } from 'next/amp'
 import App, { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -22,7 +21,6 @@ function MyApp({
   locale,
 }: Props): React.ReactNode {
   const router = useRouter()
-  const isAmp = useAmp()
   const { asPath, basePath } = router
   const url = `${SEO.siteUrl}${basePath}${asPath}`
 
@@ -32,9 +30,7 @@ function MyApp({
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="HandheldFriendly" content="True" />
 
-        {!isAmp && (
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-        )}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <IntlProvider

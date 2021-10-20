@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import { useAmp } from 'next/amp'
 
 import ProfilePic from '../public/images/profile.png'
 
@@ -16,18 +15,9 @@ const ProfileImage: React.FC<Props> = ({
   height = 100,
   width = 100,
 }) => {
-  const isAmp = useAmp()
   const classes = clsx('object-cover rounded-full', className)
 
-  return isAmp ? (
-    <amp-img
-      className={classes}
-      src={ProfilePic}
-      alt={title}
-      height={height.toString()}
-      width={width.toString()}
-    />
-  ) : (
+  return (
     <img
       className={classes}
       src={ProfilePic}

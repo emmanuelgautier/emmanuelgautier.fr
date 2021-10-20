@@ -14,8 +14,6 @@ interface Props {
   }
 }
 
-export const config = { amp: 'hybrid' }
-
 function BlogIndex({ page }: Props): React.ReactNode {
   const { posts } = page
   const title = 'Blog'

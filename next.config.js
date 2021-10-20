@@ -6,12 +6,6 @@ const nextConfig = {
   images: {
     disableStaticImages: true,
   },
-
-  experimental: {
-    amp: {
-      skipValidation: true,
-    },
-  },
 }
 
 const config = withPlugins(

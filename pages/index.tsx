@@ -18,8 +18,6 @@ interface Props {
   featuredPosts: Post[]
 }
 
-export const config = { amp: 'hybrid' }
-
 function Home({
   page: { body, title, description },
   featuredPosts,

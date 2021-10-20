@@ -37,8 +37,6 @@ interface Props {
 const discussUrl = (url: string) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(url)}`
 
-export const config = { amp: 'hybrid' }
-
 function BlogPost({
   locale,
   page,
