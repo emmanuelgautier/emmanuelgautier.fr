@@ -81,6 +81,11 @@ function BlogPost({
     })
   }
 
+  let images = []
+  if (image) {
+    images = [`${siteUrl}${image}`]
+  }
+
   return (
     <Layout title={title} description={description}>
       <NextSeo
@@ -97,23 +102,21 @@ function BlogPost({
             modifiedTime: updated,
             tags,
           },
-          images: [
-            {
-              url: `${siteUrl}${image}`,
-              alt: title,
-            },
-          ],
+          images: images.map((_image) => ({
+            url: image,
+            alt: title,
+          })),
         }}
       />
       <ArticleJsonLd
         url={url}
         title={title}
-        images={[`${siteUrl}${image}`]}
+        images={images}
         datePublished={created}
         dateModified={updated}
         authorName={[SEO.person.name]}
         publisherName={SEO.person.name}
-        publisherLogo={`${siteUrl}${SEO.person.image}`}
+        publisherLogo={SEO.person.image}
         description={description}
       />
       <BreadcrumbJsonLd

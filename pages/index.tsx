@@ -32,7 +32,7 @@ function Home({
         languageAlternates={SEO.i18n.domains.map(
           ({ domain, defaultLocale }) => ({
             hrefLang: defaultLocale,
-            href: `https://${domain}/`,
+            href: `https://${domain}`,
           })
         )}
       />
