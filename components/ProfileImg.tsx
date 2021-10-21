@@ -1,7 +1,5 @@
 import clsx from 'clsx'
 
-import ProfilePic from '../public/images/profile.png'
-
 interface Props {
   className?: string
   title: string
@@ -20,7 +18,7 @@ const ProfileImage: React.FC<Props> = ({
   return (
     <img
       className={classes}
-      src={ProfilePic}
+      src="./images/profile.png"
       alt={title}
       title={title}
       height={height}
