@@ -1,20 +1,17 @@
+import { InferGetStaticPropsType } from 'next'
 import { NextSeo } from 'next-seo'
-
 import { allPosts } from '.contentlayer/data'
-import type { Post } from '.contentlayer/types'
+
+import loadIntlMessages from '../../lib/loadIntlMessages'
 
 import BlogPostCard from '../../components/BlogPostCard'
 import Layout from '../../components/Layout'
 
 import SEO from '../../next-seo.config.js'
 
-interface Props {
-  page: {
-    posts: Post[]
-  }
-}
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-function BlogIndex({ page }: Props): React.ReactNode {
+function BlogIndex({ page }: PageProps): React.ReactNode {
   const { posts } = page
   const title = 'Blog'
   const description = ''
@@ -58,19 +55,17 @@ function BlogIndex({ page }: Props): React.ReactNode {
 
 export default BlogIndex
 
-export const getStaticProps = ({
-  locale = process.env.DEFAULT_LOCALE,
-}: any) => {
+export async function getStaticProps(ctx: any) {
   const posts = allPosts
     .sort((post1: any, post2: any) => (post1.created > post2.created ? -1 : 1))
     .slice(0, 30)
 
   return {
     props: {
+      intlMessages: await loadIntlMessages(ctx),
       page: {
         posts,
       },
-      locale,
     },
   }
 }

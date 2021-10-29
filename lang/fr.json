@@ -1,8 +1,20 @@
 {
-  "J5hfDc": "Discutons en sur Twitter",
-  "KGtd2k": "Articles sur le même sujet",
-  "UxTJRa": "Projets",
-  "ejEGdx": "Accueil",
-  "pYjtjn": "Articles mis en avant",
-  "tv5FG3": "Blog"
+  "J5hfDc": {
+    "defaultMessage": "Discutons en sur Twitter"
+  },
+  "KGtd2k": {
+    "defaultMessage": "Articles sur le même sujet"
+  },
+  "UxTJRa": {
+    "defaultMessage": "Projets"
+  },
+  "ejEGdx": {
+    "defaultMessage": "Accueil"
+  },
+  "pYjtjn": {
+    "defaultMessage": "Articles mis en avant"
+  },
+  "tv5FG3": {
+    "defaultMessage": "Blog"
+  }
 }

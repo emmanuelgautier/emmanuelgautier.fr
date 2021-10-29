@@ -11,7 +11,7 @@ import rehypeCodeTitles from 'rehype-code-titles'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrism from 'rehype-prism-plus'
 
-const locale = process.env.DEFAULT_LOCALE || 'en'
+const locale = process.env.LOCALE || 'en'
 
 const computedFields: ComputedFields = {
   readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },

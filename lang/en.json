@@ -1,8 +1,20 @@
 {
-  "J5hfDc": "Discuss on Twitter",
-  "KGtd2k": "Related Posts",
-  "UxTJRa": "Projects",
-  "ejEGdx": "Home",
-  "pYjtjn": "Featured Posts",
-  "tv5FG3": "Blog"
+  "J5hfDc": {
+    "defaultMessage": "Discuss on Twitter"
+  },
+  "KGtd2k": {
+    "defaultMessage": "Related Posts"
+  },
+  "UxTJRa": {
+    "defaultMessage": "Projects"
+  },
+  "ejEGdx": {
+    "defaultMessage": "Home"
+  },
+  "pYjtjn": {
+    "defaultMessage": "Featured Posts"
+  },
+  "tv5FG3": {
+    "defaultMessage": "Blog"
+  }
 }

@@ -1,27 +1,26 @@
 import { capitalize } from 'lodash'
+import { InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
 import { NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 import { allPages, allPosts } from '.contentlayer/data'
-import type { Page, Post } from '.contentlayer/types'
 
 import Layout from '../components/Layout'
 import ProfileImg from '../components/ProfileImg'
+
+import loadIntlMessages from '../lib/loadIntlMessages'
 
 import SEO from '../next-seo.config.js'
 import BlogPostCard from '../components/BlogPostCard'
 import ProjectCard from '../components/ProjectCart'
 import Content from '../components/Content'
 
-interface Props {
-  page: Page
-  featuredPosts: Post[]
-}
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 function Home({
   page: { body, title, description },
   featuredPosts,
-}: Props): React.ReactNode {
+}: PageProps): React.ReactNode {
   const intl = useIntl()
 
   return (
@@ -92,16 +91,17 @@ function Home({
 
 export default Home
 
-export const getStaticProps = (): { props: Props } => {
+export async function getStaticProps(ctx: any) {
   const page = allPages.find(({ slug }) => slug === 'index')!
 
-  const featuredPosts: Post[] = allPosts
+  const featuredPosts = allPosts
     .filter(({ featured }) => featured)
     .sort((post1, post2) => (post1.created > post2.created ? -1 : 1))
     .slice(0, 5)
 
   return {
     props: {
+      intlMessages: await loadIntlMessages(ctx),
       page,
       featuredPosts,
     },

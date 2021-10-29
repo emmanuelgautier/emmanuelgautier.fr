@@ -10,6 +10,7 @@ const siteUrl = `https://${siteDomain}`
 const person = 'Emmanuel Gautier'
 
 module.exports = {
+  siteDomain,
   siteUrl,
 
   socials: {
@@ -65,7 +66,7 @@ function getSiteDomain() {
     return process.env.DOMAIN
   }
 
-  switch (process.env.DEFAULT_LOCALE) {
+  switch (process.env.LOCALE) {
     case enLocale:
       return subdomainEn
 

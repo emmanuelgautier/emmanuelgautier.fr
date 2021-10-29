@@ -1,5 +1,6 @@
 import { format, parseISO } from 'date-fns'
 import { kebabCase } from 'lodash'
+import { InferGetStaticPropsType } from 'next'
 import {
   ArticleJsonLd,
   BreadcrumbJsonLd,
@@ -7,10 +8,12 @@ import {
   NextSeo,
 } from 'next-seo'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useIntl } from 'react-intl'
-
 import { allPosts } from '.contentlayer/data'
 import type { Post } from '.contentlayer/types'
+
+import loadIntlMessages from '../../lib/loadIntlMessages'
 
 import BlogPostCard from '../../components/BlogPostCard'
 import Content from '../../components/Content'
@@ -19,32 +22,19 @@ import OutboundLink from '../../components/OutboundLink'
 
 import SEO from '../../next-seo.config.js'
 
-interface PathParams {
-  slug: string
-}
-
-interface Props {
-  page: Post
-  relatedPosts: Array<Post>
-  featuredPosts: Array<Post>
-  questions?: Array<{
-    question: string
-    answer: string
-  }>
-  locale: string
-}
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const discussUrl = (url: string) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(url)}`
 
 function BlogPost({
-  locale,
   page,
   relatedPosts,
   featuredPosts,
   questions,
-}: Props): React.ReactNode {
+}: PageProps): React.ReactNode {
   const intl = useIntl()
+  const { locale = process.env.LOCALE as string } = useRouter()
 
   const siteUrl = SEO.siteUrl
   const {
@@ -79,7 +69,7 @@ function BlogPost({
     })
   }
 
-  let images = []
+  let images: string[] = []
   if (image) {
     images = [`${siteUrl}${image}`]
   }
@@ -101,7 +91,8 @@ function BlogPost({
             tags,
           },
           images: images.map((_image) => ({
-            url: image,
+            url: _image,
+            secureUrl: _image,
             alt: title,
           })),
         }}
@@ -229,13 +220,8 @@ function BlogPost({
 
 export default BlogPost
 
-export function getStaticProps({
-  params: { slug },
-  locale = process.env.DEFAULT_LOCALE,
-}: {
-  params: PathParams
-  locale: string | undefined
-}): { props: Props } {
+export async function getStaticProps(ctx: any) {
+  const { slug } = ctx.params
   const post = allPosts.find(({ slug: _slug }) => _slug === slug)
   if (!post) {
     throw new Error()
@@ -250,7 +236,7 @@ export function getStaticProps({
       .slice(0, 3)
   }
 
-  const featuredPosts: Post[] = allPosts
+  const featuredPosts = allPosts
     .filter(({ featured }) => featured)
     .filter(({ slug: _slug }) => _slug !== slug)
     .sort((post1, post2) => (post1.created > post2.created ? -1 : 1))
@@ -258,18 +244,16 @@ export function getStaticProps({
 
   return {
     props: {
+      intlMessages: await loadIntlMessages(ctx),
       page: post,
       relatedPosts,
       featuredPosts,
-      locale,
+      questions: [],
     },
   }
 }
 
-export function getStaticPaths(): {
-  paths: Array<{ params: PathParams }>
-  fallback: boolean
-} {
+export function getStaticPaths() {
   return {
     paths: allPosts.map(({ slug }) => ({ params: { slug } })),
     fallback: false,

@@ -5,24 +5,18 @@ interface Props {
   title: string
   height?: number
   width?: number
+  priority?: boolean
 }
 
-const ProfileImage: React.FC<Props> = ({
-  className,
-  title,
-  height = 100,
-  width = 100,
-}) => {
+const ProfileImage: React.FC<Props> = ({ className, ...props }) => {
   const classes = clsx('object-cover rounded-full', className)
 
   return (
     <img
       className={classes}
-      src="./images/profile.png"
-      alt={title}
-      title={title}
-      height={height}
-      width={width}
+      src="/images/profile.png"
+      alt={props.title}
+      {...props}
     />
   )
 }

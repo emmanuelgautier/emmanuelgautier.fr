@@ -21,6 +21,7 @@ const Header: React.FC = () => {
             <ProfileImage
               width={75}
               height={75}
+              priority
               title={intl.formatMessage({ defaultMessage: 'Home' })}
               className="p-1 sm:p-4 inline-block"
             />

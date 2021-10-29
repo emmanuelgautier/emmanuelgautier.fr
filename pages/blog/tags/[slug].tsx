@@ -1,22 +1,18 @@
 import { kebabCase, uniq } from 'lodash'
+import { InferGetStaticPropsType } from 'next'
 import { NextSeo } from 'next-seo'
-
 import { allPosts } from '.contentlayer/data'
-import type { Post } from '.contentlayer/types'
+
+import loadIntlMessages from '../../../lib/loadIntlMessages'
 
 import SEO from '../../../next-seo.config.js'
 
 import BlogPostCard from '../../../components/BlogPostCard'
 import Layout from '../../../components/Layout'
 
-interface Props {
-  page: {
-    posts: Post[]
-    slug: string
-  }
-}
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-function BlogTag({ page }: Props) {
+function BlogTag({ page }: PageProps) {
   const { posts, slug } = page
   const tag = slug
   const title = tag
@@ -55,21 +51,19 @@ function BlogTag({ page }: Props) {
 
 export default BlogTag
 
-export function getStaticProps({
-  params: { slug },
-  locale = process.env.DEFAULT_LOCALE,
-}: any) {
+export async function getStaticProps(ctx: any) {
+  const { slug } = ctx.params
   const posts: any[] = allPosts
     .filter(({ tags }) => tags.some((tag) => kebabCase(tag) === slug))
     .sort((post1: any, post2: any) => (post1.created > post2.created ? -1 : 1))
 
   return {
     props: {
+      intlMessages: await loadIntlMessages(ctx),
       page: {
         posts,
         slug,
       },
-      locale,
     },
   }
 }
@@ -77,7 +71,7 @@ export function getStaticProps({
 export function getStaticPaths() {
   // const tags: Array<{ slug: string; tag: string }> = getAllTags(locale)
   const tags = allPosts
-    .reduce((acc, { tags }) => acc.concat(tags), [])
+    .reduce<string[]>((acc, { tags }) => acc.concat(tags), [])
     .filter((tag) => tag)
   const uniqTags = uniq(tags)
 
