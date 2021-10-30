@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DEFAULT_LOCALE: fr
-      DOMAIN: www.emmanuelgautier.fr
+      LOCALE: en
+      DOMAIN: www.emmanuelgautier.com
 
     steps:
       - name: Checkout 🛎
