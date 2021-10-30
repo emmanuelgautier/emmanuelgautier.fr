@@ -23,7 +23,7 @@ const computedFields: ComputedFields = {
 
 const Post = defineDocumentType(() => ({
   name: 'Post',
-  filePathPattern: '_posts/**/*.mdx',
+  filePathPattern: `${locale}/_posts/**/*.mdx`,
   bodyType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
@@ -42,7 +42,7 @@ const Post = defineDocumentType(() => ({
 
 const Page = defineDocumentType(() => ({
   name: 'Page',
-  filePathPattern: '_pages/*.mdx',
+  filePathPattern: `${locale}/_pages/*.mdx`,
   bodyType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
@@ -52,9 +52,26 @@ const Page = defineDocumentType(() => ({
   computedFields,
 }))
 
+const Snippet = defineDocumentType(() => ({
+  name: 'Snippet',
+  filePathPattern: `_snippets/*.mdx`,
+  bodyType: 'mdx',
+  fields: {
+    title: { type: 'json', required: true },
+    description: { type: 'json', required: true },
+    slug: { type: 'string', required: true },
+    created: { type: 'string', required: true },
+    updated: { type: 'string', required: false },
+  },
+  computedFields: {
+    title: { type: 'string', resolve: (doc) => doc.title[locale] },
+    description: { type: 'string', resolve: (doc) => doc.description[locale] },
+  },
+}))
+
 const contentLayerConfig = makeSource({
-  contentDirPath: `content/${locale}`,
-  documentTypes: [Post, Page],
+  contentDirPath: 'content',
+  documentTypes: [Post, Page, Snippet],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [

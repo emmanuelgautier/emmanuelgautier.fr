@@ -31,6 +31,12 @@ const Header: React.FC = () => {
         <Link href="/blog">
           <a className="p-1 sm:p-4 text-gray-800 dark:text-gray-100">Blog</a>
         </Link>
+
+        <Link href="/blog/snippets">
+          <a className="p-1 sm:p-4 text-gray-800 dark:text-gray-100">
+            Snippets
+          </a>
+        </Link>
       </div>
       <button
         type="button"
