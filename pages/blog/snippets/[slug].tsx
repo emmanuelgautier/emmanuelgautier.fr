@@ -1,13 +1,11 @@
 import { format, parseISO } from 'date-fns'
 import { InferGetStaticPropsType } from 'next'
-import { useRouter } from 'next/router'
+import getConfig from 'next/config'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 import { allSnippets } from '.contentlayer/data'
 
 import loadIntlMessages from '../../../lib/loadIntlMessages'
-
-import SEO from '../../../next-seo.config.js'
 
 import Content from '../../../components/Content'
 import Layout from '../../../components/Layout'
@@ -18,14 +16,21 @@ const discussUrl = (url: string) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(url)}`
 
 function Snippet({ snippet }: PageProps): React.ReactNode {
+  const {
+    publicRuntimeConfig: {
+      seo: {
+        i18n: { domains },
+        person,
+        siteUrl,
+      },
+    },
+  } = getConfig()
   const intl = useIntl()
-  const { locale = process.env.LOCALE as string } = useRouter()
 
-  const siteUrl = SEO.siteUrl
   const { title, description, body, created, updated, slug } = snippet
   const url = `${siteUrl}/blog/snippets/${slug}`
 
-  const languageAlternates = SEO.i18n.domains.map(
+  const languageAlternates = (domains as any[]).map(
     ({ defaultLocale, domain }) => ({
       hrefLang: defaultLocale,
       href: `https://${domain}/blog/snippets/${slug}`,
@@ -75,7 +80,7 @@ function Snippet({ snippet }: PageProps): React.ReactNode {
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full">
                 <div className="flex items-center">
                   <p className="text-sm text-gray-700 dark:text-gray-300">
-                    <span>{`${SEO.person.name} / `}</span>
+                    <span>{`${person.name} / `}</span>
                     <span>{format(parseISO(created), 'MMMM dd, yyyy')}</span>
                   </p>
                 </div>

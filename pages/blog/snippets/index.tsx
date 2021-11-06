@@ -1,4 +1,5 @@
 import { InferGetStaticPropsType } from 'next'
+import getConfig from 'next/config'
 import { NextSeo } from 'next-seo'
 import { allSnippets } from '.contentlayer/data'
 
@@ -7,15 +8,22 @@ import loadIntlMessages from '../../../lib/loadIntlMessages'
 import SnippetCard from '../../../components/SnippetCard'
 import Layout from '../../../components/Layout'
 
-import SEO from '../../../next-seo.config.js'
-
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 function SnippetsIndex({ page }: PageProps): React.ReactNode {
+  const {
+    publicRuntimeConfig: {
+      seo: {
+        i18n: { domains },
+        siteUrl,
+      },
+    },
+  } = getConfig()
+
   const { snippets } = page
   const title = 'Snippets'
   const description = ''
-  const url = `https://${SEO.siteUrl}/blog/snippets`
+  const url = `${siteUrl}/blog/snippets`
 
   return (
     <Layout title={title} description={description}>
@@ -27,7 +35,7 @@ function SnippetsIndex({ page }: PageProps): React.ReactNode {
           description,
           url,
         }}
-        languageAlternates={SEO.i18n.domains.map(
+        languageAlternates={(domains as any[]).map(
           ({ domain, defaultLocale }) => ({
             hrefLang: defaultLocale,
             href: `https://${domain}/blog/snippets`,

@@ -1,4 +1,5 @@
 import { InferGetStaticPropsType } from 'next'
+import getConfig from 'next/config'
 import { NextSeo } from 'next-seo'
 import { allPosts } from '.contentlayer/data'
 
@@ -7,15 +8,22 @@ import loadIntlMessages from '../../lib/loadIntlMessages'
 import BlogPostCard from '../../components/BlogPostCard'
 import Layout from '../../components/Layout'
 
-import SEO from '../../next-seo.config.js'
-
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 function BlogIndex({ page }: PageProps): React.ReactNode {
+  const {
+    publicRuntimeConfig: {
+      seo: {
+        i18n: { domains },
+        siteUrl,
+      },
+    },
+  } = getConfig()
+
   const { posts } = page
   const title = 'Blog'
   const description = ''
-  const url = `https://${SEO.siteUrl}/blog`
+  const url = `${siteUrl}/blog`
 
   return (
     <Layout title={title} description={description}>
@@ -27,7 +35,7 @@ function BlogIndex({ page }: PageProps): React.ReactNode {
           description,
           url,
         }}
-        languageAlternates={SEO.i18n.domains.map(
+        languageAlternates={(domains as any[]).map(
           ({ domain, defaultLocale }) => ({
             hrefLang: defaultLocale,
             href: `https://${domain}/blog`,

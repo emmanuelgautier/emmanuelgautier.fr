@@ -2,13 +2,12 @@ import '../styles/globals.css'
 import '../styles/prism.css'
 
 import { AppProps } from 'next/app'
+import getConfig from 'next/config'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { DefaultSeo } from 'next-seo'
 import { ThemeProvider } from 'next-themes'
 import { IntlProvider } from 'react-intl'
-
-import SEO from '../next-seo.config.js'
 
 function MyApp({ Component, pageProps }: AppProps): React.ReactNode {
   const {
@@ -17,7 +16,12 @@ function MyApp({ Component, pageProps }: AppProps): React.ReactNode {
     locale = process.env.LOCALE as string,
     defaultLocale,
   } = useRouter()
-  const url = `${SEO.siteUrl}${basePath}${asPath}`
+  const {
+    publicRuntimeConfig: {
+      seo: { openGraph, siteUrl, twitter },
+    },
+  } = getConfig()
+  const url = `${siteUrl}${basePath}${asPath}`
 
   return (
     <>
@@ -35,15 +39,15 @@ function MyApp({ Component, pageProps }: AppProps): React.ReactNode {
       >
         <DefaultSeo
           {...{
-            siteUrl: SEO.siteUrl,
+            siteUrl,
 
             openGraph: {
               url,
               locale,
-              ...SEO.openGraph,
+              ...openGraph,
             },
 
-            twitter: SEO.twitter,
+            twitter,
           }}
         />
         <ThemeProvider attribute="class">

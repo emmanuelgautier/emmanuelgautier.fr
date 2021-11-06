@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { useIntl } from 'react-intl'
 
-import ProfileImage from './ProfileImg'
+import ProfileImg from './ProfileImg'
 
 enum Theme {
   Dark = 'dark',
@@ -18,9 +18,9 @@ const Header: React.FC = () => {
       <div>
         <Link href="/">
           <a>
-            <ProfileImage
-              width={75}
-              height={75}
+            <ProfileImg
+              width={40}
+              height={40}
               priority
               title={intl.formatMessage({ defaultMessage: 'Home' })}
               className="p-1 sm:p-4 inline-block"

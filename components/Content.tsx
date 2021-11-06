@@ -1,10 +1,11 @@
 import { getMDXComponent } from 'mdx-bundler/client'
+import Img, { ImageProps } from 'next/image'
 import Link from 'next/link'
 import { useMemo } from 'react'
 
 import OutboundLink from './OutboundLink'
 
-interface CustomLinkProps {
+type CustomLinkProps = {
   href: string
   children: React.ReactNode
 }
@@ -31,8 +32,18 @@ const CustomLink: React.FC<CustomLinkProps> = ({
   )
 }
 
+const Image: React.FC<ImageProps> = ({ alt, title, ...props }) => (
+  <Img
+    layout="responsive"
+    title={title || alt}
+    className="rounded-sm"
+    {...props}
+  />
+)
+
 const MDXComponents = {
   a: CustomLink,
+  Image,
 }
 
 interface ContentProps {

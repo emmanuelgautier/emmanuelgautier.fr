@@ -1,5 +1,6 @@
 import { capitalize } from 'lodash'
 import { InferGetStaticPropsType } from 'next'
+import getConfig from 'next/config'
 import Link from 'next/link'
 import { NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
@@ -10,7 +11,6 @@ import ProfileImg from '../components/ProfileImg'
 
 import loadIntlMessages from '../lib/loadIntlMessages'
 
-import SEO from '../next-seo.config.js'
 import BlogPostCard from '../components/BlogPostCard'
 import ProjectCard from '../components/ProjectCart'
 import Content from '../components/Content'
@@ -21,12 +21,19 @@ function Home({
   page: { body, title, description },
   featuredPosts,
 }: PageProps): React.ReactNode {
+  const {
+    publicRuntimeConfig: {
+      seo: {
+        i18n: { domains },
+      },
+    },
+  } = getConfig()
   const intl = useIntl()
 
   return (
     <Layout title={title} description={description}>
       <NextSeo
-        languageAlternates={SEO.i18n.domains.map(
+        languageAlternates={(domains as any[]).map(
           ({ domain, defaultLocale }) => ({
             hrefLang: defaultLocale,
             href: `https://${domain}`,
@@ -37,7 +44,7 @@ function Home({
       <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
         <div className="text-center mt-12 pb-4 border-b border-1 border-gray-200 dark:border-gray-800">
           <div className="h-40 w-40 mx-auto mb-4">
-            <ProfileImg title={title} />
+            <ProfileImg width={250} height={250} title={title} />
           </div>
           <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
             {title}
