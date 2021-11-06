@@ -1,0 +1,23 @@
+name: cloudinary
+
+on:
+  push:
+    # branches:
+    #   - master
+    # paths:
+    #   - './public/images/**/*'
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@master
+
+      - name: Upload images to Cloudinary
+        uses: emmanuelgautier/cloudinary-upload-action@v1.0
+        with:
+          cloud-name: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          api-key: ${{ secrets.CLOUDINARY_API_KEY }}
+          api-secret: ${{ secrets.CLOUDINARY_API_SECRET }}
+          images: "./public/images/**/*"
