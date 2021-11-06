@@ -1,9 +1,20 @@
 const withPlugins = require('next-compose-plugins')
 const { withContentlayer } = require('next-contentlayer')
 
+const seoConfig = require('./next-seo.config')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+
+  publicRuntimeConfig: {
+    seo: seoConfig,
+  },
+
+  images: {
+    loader: 'imgix',
+    path: 'https://emmanuelgautier-website.imgix.net/',
+  },
 
   webpack(config, { dev, ...other }) {
     if (!dev) {

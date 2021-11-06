@@ -1,11 +1,10 @@
 import { kebabCase, uniq } from 'lodash'
 import { InferGetStaticPropsType } from 'next'
+import getConfig from 'next/config'
 import { NextSeo } from 'next-seo'
 import { allPosts } from '.contentlayer/data'
 
 import loadIntlMessages from '../../../lib/loadIntlMessages'
-
-import SEO from '../../../next-seo.config.js'
 
 import BlogPostCard from '../../../components/BlogPostCard'
 import Layout from '../../../components/Layout'
@@ -13,11 +12,17 @@ import Layout from '../../../components/Layout'
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 function BlogTag({ page }: PageProps) {
+  const {
+    publicRuntimeConfig: {
+      seo: { siteUrl },
+    },
+  } = getConfig()
+
   const { posts, slug } = page
   const tag = slug
   const title = tag
   const description = `Articles about ${tag}`
-  const url = `${SEO.siteUrl}/blog/tags/${slug}`
+  const url = `${siteUrl}/blog/tags/${slug}`
 
   return (
     <Layout title={title} description={description}>

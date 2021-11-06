@@ -1,37 +1,42 @@
+import getConfig from 'next/config'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-
-import SEO from '../next-seo.config.js'
 
 export default class MyDocument extends Document {
   render() {
+    const {
+      publicRuntimeConfig: {
+        seo: { person, siteUrl },
+      },
+    } = getConfig()
+
     return (
       <Html lang={process.env.LOCALE}>
         <Head>
           <link
             rel="apple-touch-icon"
             sizes="180x180"
-            href={`${SEO.siteUrl}/apple-touch-icon.png`}
+            href={`${siteUrl}/apple-touch-icon.png`}
           />
           <link
             rel="icon"
             type="image/png"
-            href={`${SEO.siteUrl}/favicon-32x32.png`}
+            href={`${siteUrl}/favicon-32x32.png`}
             sizes="32x32"
           />
           <link
             rel="icon"
             type="image/png"
-            href={`${SEO.siteUrl}/favicon-16x16.png`}
+            href={`${siteUrl}/favicon-16x16.png`}
             sizes="16x16"
           />
           <link
             rel="alternate"
             type="application/rss+xml"
-            title={`${SEO.person.name} RSS Feed`}
+            title={`${person.name} RSS Feed`}
             href="/rss.xml"
           />
 
-          <link rel="manifest" href={`${SEO.siteUrl}/site.webmanifest`} />
+          <link rel="manifest" href={`${siteUrl}/site.webmanifest`} />
 
           <link
             rel="preconnect"

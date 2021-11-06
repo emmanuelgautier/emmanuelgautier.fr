@@ -1,12 +1,18 @@
+import getConfig from 'next/config'
 import Link from 'next/link'
 import { useIntl } from 'react-intl'
 
 import OutboundLink from './OutboundLink'
 
-import SEO from '../next-seo.config.js'
-
 const Footer: React.FC = () => {
   const intl = useIntl()
+  const {
+    publicRuntimeConfig: {
+      seo: {
+        socials: { twitter, github },
+      },
+    },
+  } = getConfig()
 
   return (
     <footer className="flex flex-col justify-center items-start max-w-2xl mx-auto w-full p-8 mb-4">
@@ -26,13 +32,13 @@ const Footer: React.FC = () => {
         <div className="flex flex-col space-y-4">
           <OutboundLink
             className="text-gray-500 hover:text-gray-600"
-            href={SEO.socials.twitter}
+            href={twitter}
           >
             Twitter
           </OutboundLink>
           <OutboundLink
             className="text-gray-500 hover:text-gray-600"
-            href={SEO.socials.github}
+            href={github}
           >
             GitHub
           </OutboundLink>

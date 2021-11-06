@@ -11,6 +11,8 @@ import rehypeCodeTitles from 'rehype-code-titles'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrism from 'rehype-prism-plus'
 
+import remarkImgToJsx from './lib/remark-img-to-jsx'
+
 const locale = process.env.LOCALE || 'en'
 
 const computedFields: ComputedFields = {
@@ -73,7 +75,7 @@ const contentLayerConfig = makeSource({
   contentDirPath: 'content',
   documentTypes: [Post, Page, Snippet],
   mdx: {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkGfm, remarkImgToJsx],
     rehypePlugins: [
       rehypeSlug,
       rehypeCodeTitles,

@@ -1,26 +1,26 @@
 import { format, parseISO } from 'date-fns'
 import { kebabCase } from 'lodash'
 import { InferGetStaticPropsType } from 'next'
+import getConfig from 'next/config'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import {
   ArticleJsonLd,
   BreadcrumbJsonLd,
   FAQPageJsonLd,
   NextSeo,
 } from 'next-seo'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useIntl } from 'react-intl'
 import { allPosts } from '.contentlayer/data'
 import type { Post } from '.contentlayer/types'
 
+import imgixLoader from '../../lib/imgix-loader'
 import loadIntlMessages from '../../lib/loadIntlMessages'
 
 import BlogPostCard from '../../components/BlogPostCard'
 import Content from '../../components/Content'
 import Layout from '../../components/Layout'
 import OutboundLink from '../../components/OutboundLink'
-
-import SEO from '../../next-seo.config.js'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -35,8 +35,16 @@ function BlogPost({
 }: PageProps): React.ReactNode {
   const intl = useIntl()
   const { locale = process.env.LOCALE as string } = useRouter()
+  const {
+    publicRuntimeConfig: {
+      seo: {
+        siteUrl,
+        i18n: { domains },
+        person,
+      },
+    },
+  } = getConfig()
 
-  const siteUrl = SEO.siteUrl
   const {
     alternate,
     title,
@@ -59,7 +67,7 @@ function BlogPost({
   ]
   if (alternate) {
     const [alternateLang, alternateSlug] = Object.entries(alternate)[0]
-    const alternateSubdomain = SEO.i18n.domains.find(
+    const alternateSubdomain = (domains as any[]).find(
       ({ defaultLocale }) => alternateLang === defaultLocale
     )?.domain
 
@@ -103,9 +111,9 @@ function BlogPost({
         images={images}
         datePublished={created}
         dateModified={updated}
-        authorName={[SEO.person.name]}
-        publisherName={SEO.person.name}
-        publisherLogo={SEO.person.image}
+        authorName={[person.name]}
+        publisherName={person.name}
+        publisherLogo={person.image}
         description={description}
       />
       <BreadcrumbJsonLd
@@ -148,7 +156,7 @@ function BlogPost({
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full">
                 <div className="flex items-center">
                   <p className="text-sm text-gray-700 dark:text-gray-300">
-                    <span>{`${SEO.person.name} / `}</span>
+                    <span>{`${person.name} / `}</span>
                     <span>{format(parseISO(created), 'MMMM dd, yyyy')}</span>
                   </p>
                 </div>

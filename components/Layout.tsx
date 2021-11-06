@@ -1,9 +1,9 @@
 import { NextSeo, SocialProfileJsonLd } from 'next-seo'
+import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import type React from 'react'
 
 import { GTM_ID } from '../lib/gtm'
-import SEO from '../next-seo.config.js'
 
 import Footer from './Footer'
 import Header from './Header'
@@ -19,6 +19,11 @@ type Props = {
 const Layout: React.FC<Props> = ({ title, description, children }) => {
   const router = useRouter()
   const { basePath, asPath } = router
+  const {
+    publicRuntimeConfig: {
+      seo: { person, siteUrl, socials },
+    },
+  } = getConfig()
 
   return (
     <>
@@ -39,14 +44,14 @@ const Layout: React.FC<Props> = ({ title, description, children }) => {
       <NextSeo
         title={title}
         description={description}
-        canonical={`${SEO.siteUrl}${basePath}${asPath}`}
+        canonical={`${siteUrl}${basePath}${asPath}`}
       />
 
       <SocialProfileJsonLd
         type="Person"
-        name={SEO.person.name}
-        url={`${SEO.siteUrl}/`}
-        sameAs={Object.values(SEO.socials)}
+        name={person.name}
+        url={`${siteUrl}/`}
+        sameAs={Object.values(socials)}
       />
 
       <Header />
