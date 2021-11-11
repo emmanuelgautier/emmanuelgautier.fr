@@ -10,19 +10,19 @@ slug: installer-et-configurer-un-serveur-dns-avec-bind9-sous-linux
 alternate:
   en: install-and-configure-dns-server-with-bind9
 featured: true
-updated: '2021-10-17'
+updated: '2021-11-11'
 created: '2015-04-19'
 ---
 
 Un service DNS (Domain Name Service) sert à la résolution de noms de domaine en une adresse IP ou une autre ressource. Ce service est utile notamment pour naviguer sur internet pour ne pas avoir à connaître les IPs des sites web.
 
-### Introduction
+## Introduction
 
 La mise en place d'un tel service requiert l'utilisation d'un logiciel spécifique. Le plus utilisé est [Bind](http://www.isc.org/downloads/bind/). Cette technologie, maintenue par [Internet Systems Consortium](https://www.isc.org/) est utilisée sur la grande majorité des services DNS existant dans le monde dont la plupart des serveurs DNS racines.
 
 Dans ce tutoriel nous allons apprendre à mettre en place et configurer un service DNS avec Bind9. Pour ce faire, nous allons prendre le cas simple de la configuration d'un nom de domaine pour un site web. Nous mettrons en place un nom de domaine qui pointera vers différents services tel qu'un serveur web HTTP, un serveur Mail, ... etc. Il n'est pas nécessaire que ces services existent réellement.
 
-### Installation et configuration
+## Installation et configuration
 
 La première étape à effectuer est d'installer le package bind9. Si vous êtes sous une distribution linux Debian Like, vous pouvez le faire au moyen de la ligne de commande suivante:
 
@@ -81,11 +81,11 @@ Il faut maintenant redémarrer le service pour prendre en compte les modificatio
 sudo service bind9 restart
 ```
 
-### Enregistrements
+## Enregistrements
 
 Il existe différents types d'enregistrements représentant chacun un type information différent. Voici une liste des plus courants :
 
-#### Enregistrement A
+### Enregistrement A
 
 C'est l'enregistrement le plus courant. Il fait correspondre une adresse IPv4 à un nom d'hôte.
 
@@ -93,7 +93,7 @@ C'est l'enregistrement le plus courant. Il fait correspondre une adresse IPv4 à
 www    IN    A    A.B.C.D
 ```
 
-#### Enregistrement AAAA
+### Enregistrement AAAA
 
 Variante de l'enregistrement A, il fait correspondre une adresse IPv6 à un nom d'hôte.
 
@@ -101,7 +101,7 @@ Variante de l'enregistrement A, il fait correspondre une adresse IPv6 à un nom 
 www    IN    AAAA    ::A
 ```
 
-#### Enregistrement CNAME (Canonical Name)
+### Enregistrement CNAME (Canonical Name)
 
 Il permet de créer un alias pointant vers un autre enregistrement du domaine courant ou d'un domaine externe. Il est possible de créer un enregistrement CNAME pointant vers un autre enregistrement CNAME mais cette pratique double le nombre de requêtes, il et donc déconseillé de la pratiquer.
 
@@ -111,7 +111,7 @@ ftp     IN    CNAME  ftp.domain.tld.
 www     IN    A      A.B.C.D
 ```
 
-#### Enregistrement MX (Mail Exchange)
+### Enregistrement MX (Mail Exchange)
 
 L'enregistrement MX point vers un serveur d'emails. Cet enregistrement doit pointer obligatoirement vers un enregistrement de type A ou AAAA et pas un enregistrement CNAME.
 
@@ -124,7 +124,7 @@ mail1    IN    A       A.B.C.D
 mail2    IN    A       A.B.C.D
 ```
 
-#### Enregistrement NS (Name Server)
+### Enregistrement NS (Name Server)
 
 Il définit les serveurs DNS du domaine.
 
@@ -133,7 +133,7 @@ Il définit les serveurs DNS du domaine.
 ns    IN    A     A.B.C.D
 ```
 
-#### Enregistrement TXT
+### Enregistrement TXT
 
 Il permet de définir un enregistrement contenant un texte libre. Cet enregistrement est notamment utilisé pour confirmer le détenteur d'un nom de domaine pour pouvoir utiliser certains services externes tel que Google Search Console, Github ou encore des solutions d'envoies de mail en mode SaaS.
 
@@ -141,7 +141,7 @@ Il permet de définir un enregistrement contenant un texte libre. Cet enregistre
 domain.tld.    IN    TXT    "text"
 ```
 
-### Test
+## Test
 
 Nous allons maintenant pour faire des tests, afin de s'assurer du bon fonctionnement de notre serveur et de vérifier que les enregistrements ont bien été pris en compte et son correctes. Pour tester ces enregistrements nous allons utiliser la ligne de commande `dig`. Selon votre distribution linux, il peut être nécesaire que vous installiez le paquet.
 

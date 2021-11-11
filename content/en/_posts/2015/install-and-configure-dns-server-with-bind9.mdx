@@ -1,5 +1,5 @@
 ---
-title: Install and configured a DNS server with Bind9 on Linux
+title: Install and configure a DNS server with Bind9 on Linux
 description: A service DNS (Domain Name Service) allows domain name resolution to an IP Address and other resources. This service is useful for example for browsing internet websites and not have to know IPs addresses for these websites.
 image: /images/isc.png
 tags:
@@ -10,19 +10,19 @@ slug: install-and-configure-dns-server-with-bind9
 alternate:
   fr: installer-et-configurer-un-serveur-dns-avec-bind9-sous-linux
 featured: true
-updated: '2021-10-17'
+updated: '2021-11-11'
 created: '2015-04-19'
 ---
 
 A service DNS (Domain Name Service) allows domain name resolution to an IP Address and other resources. This service is useful for example for browsing internet websites and not have to know IPs addresses for these websites.
 
-### Introduction
+## Introduction
 
 To put in place this kind of service, you need to use a specific technology. The most known one is [Bind](http://www.isc.org/downloads/bind/). This technology, maintained by the [Internet Systems Consortium](https://www.isc.org/), is used by most of the major existing DNS services across the world including most of the root DNS servers.
 
 In this tutorial, we will learn how to install and configure a DNS service with Bind9. We will use a simple configuration for an HTTP web server, a mail server, ... etc. You don't need to create real service here.
 
-### Installation et configuration
+## Installation et configuration
 
 The first step is installing the package bind9. If you are on a Debian Like distribution, you can install with the following command:
 
@@ -81,11 +81,11 @@ We can now restart the server to apply the new configuration.
 sudo service bind9 restart
 ```
 
-### Records
+## Records
 
 It exists different records type storing different information. Here is a list of the most common ones:
 
-#### A Record
+### A Record
 
 This record is the most used and indicates the IPv4 for a given domain name.
 
@@ -93,7 +93,7 @@ This record is the most used and indicates the IPv4 for a given domain name.
 www    IN    A    A.B.C.D
 ```
 
-#### AAAA Record
+### AAAA Record
 
 This record is similar to A record and indicates the IPv6 for a given domain this time.
 
@@ -101,7 +101,7 @@ This record is similar to A record and indicates the IPv6 for a given domain thi
 www    IN    AAAA    ::A
 ```
 
-#### CNAME Record (Canonical Name)
+### CNAME Record (Canonical Name)
 
 It allows creating an alias pointing to another record for the current domain name or another one. It is possible to create CNAME pointing to another CNAME record, but you should avoid it since it increases the number of DNS queries done before resolving the address.
 
@@ -111,7 +111,7 @@ ftp     IN    CNAME  ftp.domain.tld.
 www     IN    A      A.B.C.D
 ```
 
-#### MX Record (Mail Exchange)
+### MX Record (Mail Exchange)
 
 The MX record point to an email server. This record must point to a A or AAAA record and can't point to a CNAME record.
 
@@ -124,7 +124,7 @@ mail1    IN    A       A.B.C.D
 mail2    IN    A       A.B.C.D
 ```
 
-#### NS Record (Name Server)
+### NS Record (Name Server)
 
 The NS record indicates a DNS server for the domain.
 
@@ -133,7 +133,7 @@ The NS record indicates a DNS server for the domain.
 ns    IN    A     A.B.C.D
 ```
 
-#### TXT Record
+### TXT Record
 
 This type allows storing text content. This record is used a lot to verify you are the owner of a domain name. For example, some services like Google Search Console, Github, mail SaaS solutions use this verification method.
 
@@ -141,7 +141,7 @@ This type allows storing text content. This record is used a lot to verify you a
 domain.tld.    IN    TXT    "text"
 ```
 
-### Test
+## Test
 
 Now, it's time to check that our DNS server is working properly and check the records you configured are taken into account. For testing purposes, you can use the `dig` command line. You may need to install it first depending on your Linux distribution.
 
