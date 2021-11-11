@@ -1,0 +1,3 @@
+/blog.amp /blog/ 301
+/blog/:slug.amp /blog/:slug 301
+/blog/tags/:slug.amp /blog/tags/:slug 301
