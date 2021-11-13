@@ -1066,6 +1066,11 @@
   resolved "https://registry.npmjs.org/@types/mdurl/-/mdurl-1.0.2.tgz"
   integrity sha512-eC4U9MlIcu2q0KQmXszyn5Akca/0jrQmwDRgpAMJai7qBWq4amIQhZyNau4VYGtCeALvW1/NtjzJJ567aZxfKA==
 
+"@types/mdx@^2.0.0":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/mdx/-/mdx-2.0.1.tgz#e4c05d355d092d7b58db1abfe460e53f41102ac8"
+  integrity sha512-JPEv4iAl0I+o7g8yVWDwk30es8mfVrjkvh5UeVR2sYPpZCK44vrAPsbJpIS+rJAUxLgaSAMKTEH5Vn5qd9XsrQ==
+
 "@types/minimatch@*":
   version "3.0.5"
   resolved "https://registry.npmjs.org/@types/minimatch/-/minimatch-3.0.5.tgz"
@@ -4729,19 +4734,19 @@ mdurl@^1.0.0:
   resolved "https://registry.npmjs.org/mdurl/-/mdurl-1.0.1.tgz"
   integrity sha1-/oWy7HWlkDfyrf7BAP1sYBdhFS4=
 
-mdx-bundler@6.0.3:
-  version "6.0.3"
-  resolved "https://registry.npmjs.org/mdx-bundler/-/mdx-bundler-6.0.3.tgz"
-  integrity sha512-zkqqhH7H6sLKA98Dw63aXZOGMxmMy0oMQSfsJIb/g1zVrWOvMHw6G12qy/2MqiR8M1jj6Befsdd9hS/To1Ehqw==
+mdx-bundler@7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/mdx-bundler/-/mdx-bundler-7.0.0.tgz#f13d528f1d124c7f99868e709d5d87e8dde02ad1"
+  integrity sha512-68dbyNjOWU26c3xw2A/pnY4Mu61GYr8tJDSUFyXhGg8b9RwGCWfWB3UOXjGg0Bp/0Qv85o/Zn5cuHxcZv5Ww0w==
   dependencies:
     "@babel/runtime" "^7.15.4"
     "@esbuild-plugins/node-resolve" "^0.1.4"
     "@fal-works/esbuild-plugin-global-externals" "^2.1.2"
     gray-matter "^4.0.3"
-    remark-frontmatter "^4.0.0"
+    remark-frontmatter "^4.0.1"
     remark-mdx-frontmatter "^1.0.1"
     uuid "^8.3.2"
-    xdm "^2.1.0"
+    xdm "^3.2.0"
 
 mdx-bundler@^6.0.2:
   version "6.0.2"
@@ -6906,6 +6911,16 @@ remark-frontmatter@^4.0.0:
     micromark-extension-frontmatter "^1.0.0"
     unified "^10.0.0"
 
+remark-frontmatter@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/remark-frontmatter/-/remark-frontmatter-4.0.1.tgz#84560f7ccef114ef076d3d3735be6d69f8922309"
+  integrity sha512-38fJrB0KnmD3E33a5jZC/5+gGAC2WKNiPw1/fdXJvijBlhA7RCsvJklrYJakS0HedninvaCYW8lQGf9C918GfA==
+  dependencies:
+    "@types/mdast" "^3.0.0"
+    mdast-util-frontmatter "^1.0.0"
+    micromark-extension-frontmatter "^1.0.0"
+    unified "^10.0.0"
+
 remark-gfm@3.0.1:
   version "3.0.1"
   resolved "https://registry.npmjs.org/remark-gfm/-/remark-gfm-3.0.1.tgz"
@@ -8136,6 +8151,35 @@ xdm@^2.1.0:
     periscopic "^3.0.0"
     remark-parse "^10.0.0"
     remark-rehype "^9.0.0"
+    source-map "^0.7.0"
+    unified "^10.0.0"
+    unist-util-position-from-estree "^1.0.0"
+    unist-util-stringify-position "^3.0.0"
+    unist-util-visit "^4.0.0"
+    vfile "^5.0.0"
+  optionalDependencies:
+    deasync "^0.1.0"
+
+xdm@^3.2.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/xdm/-/xdm-3.3.0.tgz#6080ac156460b1dc6dcbc0b68ef3fdedd6ff7b8b"
+  integrity sha512-h8n2cHkwKX9Ewjow3hsqm7uaXq0qFjRW27ls/kQHRtT6pSesk5PgQcLnCD/VgW4UbLLkXzKu99NUXg75kw50dg==
+  dependencies:
+    "@rollup/pluginutils" "^4.0.0"
+    "@types/estree-jsx" "^0.0.1"
+    "@types/mdx" "^2.0.0"
+    astring "^1.6.0"
+    estree-util-build-jsx "^2.0.0"
+    estree-util-is-identifier-name "^2.0.0"
+    estree-walker "^3.0.0"
+    got "^11.0.0"
+    hast-util-to-estree "^2.0.0"
+    markdown-extensions "^1.0.0"
+    mdast-util-mdx "^1.0.0"
+    micromark-extension-mdxjs "^1.0.0"
+    periscopic "^3.0.0"
+    remark-parse "^10.0.0"
+    remark-rehype "^10.0.0"
     source-map "^0.7.0"
     unified "^10.0.0"
     unist-util-position-from-estree "^1.0.0"
