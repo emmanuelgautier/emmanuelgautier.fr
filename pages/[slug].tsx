@@ -21,7 +21,6 @@ function PagePost({ page }: PageProps): React.ReactNode {
   } = getConfig()
 
   const { title, description, body, slug } = page
-  const url = `${siteUrl}/blog/${slug}`
 
   return (
     <Layout title={title} description={description}>
@@ -37,7 +36,7 @@ function PagePost({ page }: PageProps): React.ReactNode {
           {
             position: 2,
             name: title,
-            item: url,
+            item: `${siteUrl}/${slug}`,
           },
         ]}
       />
