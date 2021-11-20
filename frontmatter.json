@@ -31,8 +31,5 @@
   "frontMatter.site.baseURL": "https://www.emmanuelgautier.com",
   "frontMatter.taxonomy.dateField": "created",
   "frontMatter.taxonomy.modifiedField": "updated",
-  "frontMatter.taxonomy.tags": [
-    "aws",
-    "docker"
-  ]
+  "frontMatter.taxonomy.tags": ["aws", "docker"]
 }
