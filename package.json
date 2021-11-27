@@ -76,7 +76,7 @@
     "@types/rss": "0.0.29",
     "babel-plugin-formatjs": "10.3.11",
     "cross-env": "7.0.3",
-    "cssnano": "5.0.11",
+    "cssnano": "5.0.12",
     "eslint": "8.3.0",
     "eslint-config-next": "12.0.4",
     "eslint-config-prettier": "8.3.0",
