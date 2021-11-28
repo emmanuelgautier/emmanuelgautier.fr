@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@emmanuelgautier/renovate-config": "1.2.2",
-    "@fullhuman/postcss-purgecss": "4.0.3",
+    "@fullhuman/postcss-purgecss": "4.1.1",
     "@types/lodash": "4.14.177",
     "@types/node": "16.11.10",
     "@types/react": "17.0.37",

@@ -490,12 +490,12 @@
     tslib "^2.1.0"
     typescript "^4.4"
 
-"@fullhuman/postcss-purgecss@4.0.3":
-  version "4.0.3"
-  resolved "https://registry.npmjs.org/@fullhuman/postcss-purgecss/-/postcss-purgecss-4.0.3.tgz"
-  integrity sha512-/EnQ9UDWGGqHkn1UKAwSgh+gJHPKmD+Z+5dQ4gWT4qq2NUyez3zqAfZNwFH3eSgmgO+wjTXfhlLchx2M9/K+7Q==
+"@fullhuman/postcss-purgecss@4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@fullhuman/postcss-purgecss/-/postcss-purgecss-4.1.1.tgz#74c828805ed300c933db46c942c3c31ebad674a5"
+  integrity sha512-446htL9EMif+3eaPuD0TqA49WnaDrClknNoo1WmQpKyqk4qDheyAomchetGYZnEzeAeoqd5/vpO8iUaG/e4M2Q==
   dependencies:
-    purgecss "^4.0.3"
+    purgecss "^4.1.1"
 
 "@grpc/grpc-js@^1.3.7":
   version "1.4.4"
@@ -2092,7 +2092,7 @@ commander@^7.2.0:
   resolved "https://registry.npmjs.org/commander/-/commander-7.2.0.tgz"
   integrity sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==
 
-commander@^8.3.0:
+commander@^8.0.0, commander@^8.3.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-8.3.0.tgz#4837ea1b2da67b9c616a67afbb0fafee567bca66"
   integrity sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==
@@ -6378,7 +6378,7 @@ postcss@8.2.15:
     nanoid "^3.1.23"
     source-map "^0.6.1"
 
-postcss@8.4.4:
+postcss@8.4.4, postcss@^8.3.5:
   version "8.4.4"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.4.tgz#d53d4ec6a75fd62557a66bb41978bf47ff0c2869"
   integrity sha512-joU6fBsN6EIer28Lj6GDFoC/5yOZzLCfn0zHAn/MYXI7aPt4m4hK5KC5ovEZXy+lnCjmYIbQWngvju2ddyEr8Q==
@@ -6507,6 +6507,16 @@ purgecss@^4.0.3:
     glob "^7.0.0"
     postcss "^8.2.1"
     postcss-selector-parser "^6.0.2"
+
+purgecss@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/purgecss/-/purgecss-4.1.1.tgz#d2bedc58fea3629b67abb6070d3827294092f270"
+  integrity sha512-oVNNzN9tRVoRCeITtpC3ofLU5wGLLYayXkOELeSr0FjwSVdxNK1GbIAvDQNSm5X1WFXGkfcb9JbvTsS2G364/w==
+  dependencies:
+    commander "^8.0.0"
+    glob "^7.1.7"
+    postcss "^8.3.5"
+    postcss-selector-parser "^6.0.6"
 
 querystring-es3@0.2.1:
   version "0.2.1"
