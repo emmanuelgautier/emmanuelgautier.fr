@@ -25,9 +25,9 @@ const Footer: React.FC = () => {
             </a>
           </Link>
 
-          <a href="/rss.xml" className="text-gray-500 hover:text-gray-600">
-            RSS
-          </a>
+          <Link href="/rss.xml">
+            <a className="text-gray-500 hover:text-gray-600">RSS</a>
+          </Link>
         </div>
         <div className="flex flex-col space-y-4">
           <OutboundLink
@@ -44,9 +44,9 @@ const Footer: React.FC = () => {
           </OutboundLink>
         </div>
         <div className="flex flex-col space-y-4">
-          <a href="/uses" className="text-gray-500 hover:text-gray-600">
-            Uses
-          </a>
+          <Link href="/uses">
+            <a className="text-gray-500 hover:text-gray-600">Uses</a>
+          </Link>
         </div>
       </div>
     </footer>
