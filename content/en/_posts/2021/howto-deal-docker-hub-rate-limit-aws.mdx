@@ -15,7 +15,7 @@ created: '2021-11-11'
 
 Since 2020, Docker Hub service has been rate limited to only 100, 200 container image pull requests per six hours. This limit is fair enough for personal or small team projects but can be a real limit if you have CI jobs or infrastructure deployment process pulling images from Docker hub registry. This article will help you to deal with this limitation on AWS.
 
-During your AWS Codebuild run or during an ECS task definition instantiation, AWS Services will try by default to pull images from Docker Hub registry. At the moment, the Docker Hub service rate limit can make the process fail. So we need to deal with this limitation. Many ways to do this are available.
+During your AWS Codebuild run or an ECS task instantiation, AWS Services will try by default to pull images from Docker Hub registry. At the moment, the Docker Hub service rate limit can make the process fail. So we need to deal with this limitation. Many ways to do this are available.
 
 ## What is Docker Hub limit?
 
@@ -59,24 +59,24 @@ The issue is that this public registry does not have as many images choices Dock
 
 Here is the link to the AWS Public ECR registry: [https://gallery.ecr.aws/](https://gallery.ecr.aws/)
 
-## Use AWS ECR
+## Use Amazon Elastic Container Registry
 
-The last option is to use AWS ECR service. This service is a private registry that allows you to store and pull your own images privately. You can both use private images from your own AWS ECR repositories and public images from AWS Public ECR repositories.
+The last option is to use AWS ECR service. This service is a private registry that allows you to store and pull your images privately. You can both use private images from your AWS ECR repositories and public images repositories hosted elsewhere.
 
-To pull and push images from AWS ECR, you need first to create a repository on AWS ECR. This repository will be used to store your images.
+Since end of November 2021, AWS announce the new `Pull Through Cache` feature. You can now use this feature to pull images from Docker Hub through ECR with a cache layer. This cache layer allows to reduce the number of images pulled from Docker Hub and exceed the rate limit.
+
+To pull and push images from AWS ECR, you need first to create a repository namespace on AWS ECR and configure a pull-through cache rule to the Docker Hub destination.
 
 Then you will need to retrieve an authentication token:
 
 ```bash
-aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account>.dkr.ecr.<region>.amazonaws.com
+aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account>.dkr.ecr.<region>.amazonaws.com/docker-hub
 ```
 
-To be able to push your images you will need to tag the image with the repository URL:
+You can now pull images from Docker Hub through AWS ECR:
 
 ```bash
-docker tag <image>:<tag> <account>.dkr.ecr.<region>.amazonaws.com/<image>:<tag>
+docker pull <account>.dkr.ecr.<region>.amazonaws.com/docker-hub/<image>:<tag>
 ```
-
-Now you can push your newly tagged image.
 
 Hope this article helped you to deal with the Docker Hub rate limitations on AWS.
