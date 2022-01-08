@@ -1939,6 +1939,11 @@ character-entities-legacy@^2.0.0:
   resolved "https://registry.npmjs.org/character-entities-legacy/-/character-entities-legacy-2.0.0.tgz"
   integrity sha512-YwaEtEvWLpFa6Wh3uVLrvirA/ahr9fki/NUd/Bd4OR6EdJ8D22hovYQEOUCBfQfcqnC4IAMGMsHXY1eXgL4ZZA==
 
+character-entities-legacy@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/character-entities-legacy/-/character-entities-legacy-3.0.0.tgz#76bc83a90738901d7bc223a9e93759fdd560125b"
+  integrity sha512-RpPp0asT/6ufRm//AJVwpViZbGM/MkjQFxJccQRHmISF/22NBtsHqAWmL+/pmkPWoIUJdWyeVleTl1wydHATVQ==
+
 character-entities@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/character-entities/-/character-entities-2.0.0.tgz"
@@ -2494,6 +2499,13 @@ debug@^4.3.3:
   integrity sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==
   dependencies:
     ms "2.1.2"
+
+decode-named-character-reference@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/decode-named-character-reference/-/decode-named-character-reference-1.0.1.tgz#57b2bd9112659cacbc449d3577d7dadb8e1f3d1b"
+  integrity sha512-YV/0HQHreRwKb7uBopyIkLG17jG6Sv2qUchk9qSoVJ2f+flwRsPNBO0hAnjt6mTNYUT+vw9Gy2ihXg4sUWPi2w==
+  dependencies:
+    character-entities "^2.0.0"
 
 decompress-response@^6.0.0:
   version "6.0.0"
@@ -5293,10 +5305,10 @@ next-seo@4.28.1:
   resolved "https://registry.npmjs.org/next-seo/-/next-seo-4.28.1.tgz"
   integrity sha512-WZgwdM+UhpNF3A37zFllzmPhnOVJ9vYeYlc0n3Z/kYfz/QQgy8NEdncNNggS9dU4JD8xriaCcyknhy5OsrFsJw==
 
-next-sitemap@1.6.245:
-  version "1.6.245"
-  resolved "https://registry.yarnpkg.com/next-sitemap/-/next-sitemap-1.6.245.tgz#01734931b1fbcf553e409053c77b32c2c473edc7"
-  integrity sha512-n7pfIWoL4UyA/HIB1V7btOEVe6978opDSQpRjE7SKI9b2+cTVtaRn1UiELfHxgZ9qC6PjZKpyu+3H9NTnOC8wQ==
+next-sitemap@1.6.261:
+  version "1.6.261"
+  resolved "https://registry.yarnpkg.com/next-sitemap/-/next-sitemap-1.6.261.tgz#550aeb40b6b1273628237ff7efcfacf9d0244f26"
+  integrity sha512-4RGogAJE2IsMffeH1Lfa6eT85BI1TWO8Fn1hmwX1h40UnvIaJKephlLnp+3F4C4jXKDAZ6P+xHLtVPmyQznVPQ==
   dependencies:
     "@corex/deepmerge" "^2.6.148"
     matcher "^4.0.0"
@@ -5692,6 +5704,20 @@ parse-entities@^3.0.0:
     character-entities "^2.0.0"
     character-entities-legacy "^2.0.0"
     character-reference-invalid "^2.0.0"
+    is-alphanumerical "^2.0.0"
+    is-decimal "^2.0.0"
+    is-hexadecimal "^2.0.0"
+
+parse-entities@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/parse-entities/-/parse-entities-4.0.0.tgz#f67c856d4e3fe19b1a445c3fabe78dcdc1053eeb"
+  integrity sha512-5nk9Fn03x3rEhGaX1FU6IDwG/k+GxLXlFAkgrbM1asuAFl3BhdQWvASaIsmwWypRNcZKHPYnIuOSfIWEyEQnPQ==
+  dependencies:
+    "@types/unist" "^2.0.0"
+    character-entities "^2.0.0"
+    character-entities-legacy "^3.0.0"
+    character-reference-invalid "^2.0.0"
+    decode-named-character-reference "^1.0.0"
     is-alphanumerical "^2.0.0"
     is-decimal "^2.0.0"
     is-hexadecimal "^2.0.0"
@@ -6389,10 +6415,10 @@ pretty-hrtime@^1.0.3:
   resolved "https://registry.npmjs.org/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz"
   integrity sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=
 
-prismjs@~1.25.0:
-  version "1.25.0"
-  resolved "https://registry.npmjs.org/prismjs/-/prismjs-1.25.0.tgz"
-  integrity sha512-WCjJHl1KEWbnkQom1+SzftbtXMKQoezOCYs5rECqMN+jP+apI7ftoflyqigqzopSO3hMhTEb0mFClA8lkolgEg==
+prismjs@~1.26.0:
+  version "1.26.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.26.0.tgz#16881b594828bb6b45296083a8cbab46b0accd47"
+  integrity sha512-HUoH9C5Z3jKkl3UunCyiD5jwk0+Hz0fIgQ2nbwU2Oo/ceuTAQAg+pPVnfdt2TJWRVLcxKh9iuoYDUSc8clb5UQ==
 
 process@0.11.10:
   version "0.11.10"
@@ -6664,16 +6690,16 @@ reading-time@1.5.0:
   resolved "https://registry.npmjs.org/reading-time/-/reading-time-1.5.0.tgz"
   integrity sha512-onYyVhBNr4CmAxFsKS7bz+uTLRakypIe4R+5A824vBSkQy/hB3fZepoVEf8OVAxzLvK+H/jm9TzpI3ETSm64Kg==
 
-refractor@^4.2.1:
-  version "4.2.1"
-  resolved "https://registry.npmjs.org/refractor/-/refractor-4.2.1.tgz"
-  integrity sha512-UhtiILJUJiKquZZPtPokJZAKu2a35cT6gPBXyv2FJj+3T+AC8fyUzVUvA0lyiiYNl9m2ShCW/SSDC9us/FsuvQ==
+refractor@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/refractor/-/refractor-4.4.0.tgz#093c3391c95e36e0fa1b630d7b13216cd7a0f643"
+  integrity sha512-JmpsdoB9Va7BxQAAsuFW4cvN6plRKmSVNua8vUjbB6uRv+9cwm5JDH67P8qYr0OAFXWE1D4WlrIAPzQNcyEaoQ==
   dependencies:
     "@types/hast" "^2.0.0"
     "@types/prismjs" "^1.0.0"
     hastscript "^7.0.0"
-    parse-entities "^3.0.0"
-    prismjs "~1.25.0"
+    parse-entities "^4.0.0"
+    prismjs "~1.26.0"
 
 regenerator-runtime@0.13.4:
   version "0.13.4"
@@ -6743,15 +6769,15 @@ rehype-parse@^8.0.2:
     parse5 "^6.0.0"
     unified "^10.0.0"
 
-rehype-prism-plus@1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/rehype-prism-plus/-/rehype-prism-plus-1.1.3.tgz#54437cd5a9550e0ffce11599fd4869c9cbac7eab"
-  integrity sha512-ADk7Wr5HJO0igRfwYOzBi2AYu8Wd9YRsDOxp/fRtZXjelujr8PHjEkYNmH9TEKTJp2U72vU4tKaOn/49MuhDUw==
+rehype-prism-plus@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/rehype-prism-plus/-/rehype-prism-plus-1.2.0.tgz#e68f4f47136677963988e906220454c262eca8c4"
+  integrity sha512-hjQhejE8sJahuKiEwP1pdC0IzxFaxVRx3ur+Zj8tCHLH2GLwaWi9LKy0WqrCop6J80auAvUpzrjtdGLDV5AG2g==
   dependencies:
     hast-util-to-html "^8.0.1"
     hast-util-to-string "^2.0.0"
     parse-numeric-range "^1.3.0"
-    refractor "^4.2.1"
+    refractor "^4.4.0"
     rehype-parse "^8.0.2"
     unified "^10.1.0"
     unist-util-filter "^4.0.0"
