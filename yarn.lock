@@ -6769,10 +6769,10 @@ rehype-parse@^8.0.2:
     parse5 "^6.0.0"
     unified "^10.0.0"
 
-rehype-prism-plus@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/rehype-prism-plus/-/rehype-prism-plus-1.2.0.tgz#e68f4f47136677963988e906220454c262eca8c4"
-  integrity sha512-hjQhejE8sJahuKiEwP1pdC0IzxFaxVRx3ur+Zj8tCHLH2GLwaWi9LKy0WqrCop6J80auAvUpzrjtdGLDV5AG2g==
+rehype-prism-plus@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/rehype-prism-plus/-/rehype-prism-plus-1.2.1.tgz#411015039addc04e491d8eb5feac1a8fa31fd732"
+  integrity sha512-oRHBDiPMZebHGHWuxxzG8zZbwVFSc21ovP9DLEwl7B1N3L3A39lair+3tlFvSg7/drl2tkYdhgtGeHCr8s7gjw==
   dependencies:
     hast-util-to-html "^8.0.1"
     hast-util-to-string "^2.0.0"
