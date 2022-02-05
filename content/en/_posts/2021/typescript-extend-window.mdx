@@ -10,18 +10,20 @@ tags:
   - angular
   - vuejs
 slug: typescript-extend-window
+alternate:
+  fr: typescript-etendre-window
 featured: false
-updated: '2021-11-27T17:39:33.843Z'
+updated: '2022-02-05T16:52:33.843Z'
 created: '2021-11-27'
 ---
 
-During typescript app development, we may need to access properties or functions of the `Window` object. Some of these properties or functions are not available in the `window` object defined by the browser. Those may be defined by Third-party libraries you can add to your pages like Google Tag Manager for example. Because of this, we need to extend the Window type with the properties or functions we need to access.
+During typescript app development, sometime you need to access properties or functions of the `Window` object. Some of these properties or functions are not available in the `window` object defined by the browser. Those may be defined by Third-party libraries you can add to your pages like Google Tag Manager for example. Because of this, you need to extend the Window type with the properties or functions you need to access.
 
 ## TypeScript Window type
 
 The `Window` type is defined in the `lib.dom` typescript module. You can find the definition of the `Window` type at the following [TSDoc](https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.window.html).
 
-When can we have new properties not defined by your code in the `Window` object? An example is when you want to add Google Tag Manager or Google Analytics to your page. Those scripts are not loaded by your code directly but you may communicate with them through some window object properties. For Google Tag Manager, the `datalayer` property is added and some of the functions are also added.
+When can you have new properties not defined by your code in the `Window` object? An example is when you want to add Google Tag Manager or Google Analytics to your page. Those scripts are not loaded by your code directly but you may communicate with them through some window object properties. For Google Tag Manager, the `datalayer` property is added and some of the functions are also added.
 
 In this case, you will have the following error:
 
@@ -31,7 +33,7 @@ Property does not exist on type 'window & typeof globalthis'
 
 ## Extend Window type with the missing properties
 
-In order to extend the Window type, we need to add the missing properties or functions.
+In order to extend the Window type, you need to add the missing properties or functions.
 
 The following code snippet will extend the `Window` type with the missing properties or functions.
 
@@ -46,4 +48,4 @@ declare global {
 
 Do not forget to add the file containing this snippet to the list of project files for the Typescript compilation. In a NextJS project, you can add the snippet in the `globals.d.ts` file.
 
-Hope this article helps you to avoid Typescript errors.
+Hope this article helps you to avoid this Typescript error.
