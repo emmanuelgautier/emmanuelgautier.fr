@@ -13,7 +13,7 @@ slug: typescript-extend-window
 alternate:
   fr: typescript-etendre-window
 featured: false
-updated: '2022-02-05T16:52:33.843Z'
+updated: '2022-02-12T15:33:56.493Z'
 created: '2021-11-27'
 ---
 
@@ -40,12 +40,21 @@ The following code snippet will extend the `Window` type with the missing proper
 ```typescript
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
-    dataLayer: Record<string, any>;
+    gtag: (...args: any[]) => void
+    dataLayer: Record<string, any>
   }
 }
 ```
 
-Do not forget to add the file containing this snippet to the list of project files for the Typescript compilation. In a NextJS project, you can add the snippet in the `globals.d.ts` file.
+Do not forget to add the file containing this snippet to the list of project files for the Typescript compilation.
+
+For example, in a NextJS project, you can add the snippet in the `globals.d.ts` file like this:
+
+```typescript
+interface Window {
+  gtag: (...args: any[]) => void
+  dataLayer: Record<string, any>
+}
+```
 
 Hope this article helps you to avoid this Typescript error.

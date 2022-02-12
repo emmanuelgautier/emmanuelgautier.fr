@@ -3,10 +3,10 @@ import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import type React from 'react'
 
-import { GTM_ID } from '../lib/gtm'
+import { GTM_ID } from '@lib/gtm'
 
 import Footer from './Footer'
-import Header from './Header'
+import Header from './Header/Header'
 
 const cloudflareInsightsToken = process.env.CLOUDFLARE_INSIGHTS_TOKEN
 
@@ -56,9 +56,7 @@ const Layout: React.FC<Props> = ({ title, description, children }) => {
 
       <Header />
 
-      <main className="flex flex-col justify-center bg-white dark:bg-black px-8">
-        {children}
-      </main>
+      <main className="flex flex-col justify-center px-8">{children}</main>
       <Footer />
 
       {cloudflareInsightsToken && (

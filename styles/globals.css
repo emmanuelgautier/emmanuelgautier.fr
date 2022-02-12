@@ -1,11 +1,4 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-display: optional;
-  src: url(/assets/fonts/inter/inter-latin-variable-full-normal.woff2)
-    format('woff2');
-}
+@tailwind variants;

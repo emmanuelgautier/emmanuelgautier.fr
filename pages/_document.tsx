@@ -43,16 +43,14 @@ export default class MyDocument extends Document {
             href="https://www.googletagmanager.com"
             crossOrigin="anonymous"
           />
+
           <link
-            rel="preload"
-            href="/assets/fonts/inter/inter-latin-variable-full-normal.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
+            href="https://fonts.googleapis.com/css2?family=Roboto&display=optional"
+            rel="stylesheet"
           />
         </Head>
 
-        <body className="bg-white dark:bg-black text-white dark:text-black">
+        <body className="bg-neutral-50 dark:bg-black text-black dark:text-neutral-50">
           <Main />
           <NextScript />
         </body>

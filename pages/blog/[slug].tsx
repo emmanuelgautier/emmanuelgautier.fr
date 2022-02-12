@@ -14,13 +14,13 @@ import { useIntl } from 'react-intl'
 import { allPosts } from '.contentlayer/data'
 import type { Post } from '.contentlayer/types'
 
-import imgixLoader from '../../lib/imgix-loader'
-import loadIntlMessages from '../../lib/loadIntlMessages'
+import loadIntlMessages from '@lib/loadIntlMessages'
 
-import BlogPostCard from '../../components/BlogPostCard'
-import Content from '../../components/Content'
-import Layout from '../../components/Layout'
-import OutboundLink from '../../components/OutboundLink'
+import BlogPostCard from '@components/BlogPostCard'
+import Content from '@components/Content'
+import Layout from '@components/Layout'
+import OutboundLink from '@components/OutboundLink'
+import Text from '@components/Text'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -149,26 +149,24 @@ function BlogPost({
         <article className="mx-auto max-w-3xl xl:max-w-5xl">
           <header className="pt-2">
             <div className="space-y-4 text-left">
-              <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
-                {title}
-              </h1>
+              <Text variant="pageHeading">{title}</Text>
 
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full mt-2 md:mt-0 text-sm text-gray-600 dark:text-gray-400">
                 <div className="flex items-center">
-                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                  <p>
                     <span>{`${person.name} / `}</span>
                     <span>{format(parseISO(created), 'MMMM dd, yyyy')}</span>
                   </p>
                 </div>
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 min-w-32 md:mt-0">
-                  {readingTime.text}
-                </p>
+                <p className="min-w-32">{readingTime.text}</p>
               </div>
             </div>
           </header>
 
           <div className="prose dark:prose-dark max-w-none w-full mt-8">
-            <Content content={body} />
+            <Text variant="body">
+              <Content content={body} />
+            </Text>
           </div>
 
           <div className="text-sm text-gray-700 dark:text-gray-300 mt-8">
@@ -191,15 +189,16 @@ function BlogPost({
 
           {Array.isArray(relatedPosts) && relatedPosts.length > 0 && (
             <div className="mt-8">
-              <h3 className="font-bold text-xl md:text-2xl tracking-tight mb-4 text-black dark:text-white">
+              <Text variant="sectionHeading">
                 {intl.formatMessage({ defaultMessage: 'Related Posts' })}
-              </h3>
+              </Text>
+
               {relatedPosts.map(({ description, slug, title }) => (
                 <BlogPostCard
                   key={`post-related-posts-${slug}`}
                   slug={slug}
                   title={title}
-                  summary={description}
+                  description={description}
                 />
               ))}
             </div>
@@ -207,15 +206,16 @@ function BlogPost({
 
           {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
             <div className="mt-8">
-              <h3 className="font-bold text-xl md:text-2xl tracking-tight mb-4 text-black dark:text-white">
+              <Text variant="sectionHeading">
                 {intl.formatMessage({ defaultMessage: 'Featured Posts' })}
-              </h3>
+              </Text>
+
               {featuredPosts.map(({ description, slug, title }) => (
                 <BlogPostCard
                   key={`post-featured-posts-${slug}`}
                   slug={slug}
                   title={title}
-                  summary={description}
+                  description={description}
                 />
               ))}
             </div>

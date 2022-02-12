@@ -4,10 +4,11 @@ import getConfig from 'next/config'
 import { NextSeo } from 'next-seo'
 import { allPosts } from '.contentlayer/data'
 
-import loadIntlMessages from '../../../lib/loadIntlMessages'
+import loadIntlMessages from '@lib/loadIntlMessages'
 
-import BlogPostCard from '../../../components/BlogPostCard'
-import Layout from '../../../components/Layout'
+import BlogPostCard from '@components/BlogPostCard'
+import Layout from '@components/Layout'
+import Text from '@components/Text'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -37,16 +38,14 @@ function BlogTag({ page }: PageProps) {
       />
 
       <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
-        <h1 className="font-bold text-xl md:text-3xl tracking-tight mb-4 text-black dark:text-white">
-          {title}
-        </h1>
+        <Text variant="pageHeading">{title}</Text>
 
         {posts.map(({ slug, title, description }) => (
           <BlogPostCard
             key={`tag-posts-${slug}`}
             title={title}
             slug={slug}
-            summary={description}
+            description={description}
           />
         ))}
       </div>

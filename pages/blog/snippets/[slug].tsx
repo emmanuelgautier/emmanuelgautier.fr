@@ -5,11 +5,12 @@ import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 import { allSnippets } from '.contentlayer/data'
 
-import loadIntlMessages from '../../../lib/loadIntlMessages'
+import loadIntlMessages from '@lib/loadIntlMessages'
 
-import Content from '../../../components/Content'
-import Layout from '../../../components/Layout'
-import OutboundLink from '../../../components/OutboundLink'
+import Content from '@components/Content'
+import Layout from '@components/Layout'
+import OutboundLink from '@components/OutboundLink'
+import Text from '@components/Text'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 const discussUrl = (url: string) =>
@@ -73,9 +74,7 @@ function Snippet({ snippet }: PageProps): React.ReactNode {
         <article className="mx-auto max-w-3xl xl:max-w-5xl">
           <header className="pt-2">
             <div className="space-y-4 text-left">
-              <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
-                {title}
-              </h1>
+              <Text variant="pageHeading">{title}</Text>
 
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full">
                 <div className="flex items-center">

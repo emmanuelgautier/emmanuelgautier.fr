@@ -3,12 +3,12 @@ import getConfig from 'next/config'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 import { allPages } from '.contentlayer/data'
-import type { Page } from '.contentlayer/types'
 
-import loadIntlMessages from '../lib/loadIntlMessages'
+import loadIntlMessages from '@lib/loadIntlMessages'
 
-import Content from '../components/Content'
-import Layout from '../components/Layout'
+import Content from '@components/Content'
+import Layout from '@components/Layout'
+import Text from '@components/Text'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -45,14 +45,14 @@ function PagePost({ page }: PageProps): React.ReactNode {
         <article className="mx-auto max-w-3xl xl:max-w-5xl">
           <header className="pt-2">
             <div className="space-y-4 text-left">
-              <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
-                {title}
-              </h1>
+              <Text variant="pageHeading">{title}</Text>
             </div>
           </header>
 
           <div className="prose dark:prose-dark max-w-none w-full mt-8">
-            <Content content={body} />
+            <Text variant="body">
+              <Content content={body} />
+            </Text>
           </div>
         </article>
       </div>

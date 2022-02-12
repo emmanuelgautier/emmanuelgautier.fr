@@ -1,19 +1,18 @@
 import { capitalize } from 'lodash'
 import { InferGetStaticPropsType } from 'next'
 import getConfig from 'next/config'
-import Link from 'next/link'
 import { NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 import { allPages, allPosts } from '.contentlayer/data'
 
-import Layout from '../components/Layout'
-import ProfileImg from '../components/ProfileImg'
+import loadIntlMessages from '@lib/loadIntlMessages'
 
-import loadIntlMessages from '../lib/loadIntlMessages'
-
-import BlogPostCard from '../components/BlogPostCard'
-import ProjectCard from '../components/ProjectCart'
-import Content from '../components/Content'
+import Layout from '@components/Layout'
+import ProfileImg from '@components/ProfileImg'
+import BlogPostCard from '@components/BlogPostCard'
+import ProjectCard from '@components/ProjectCard'
+import Content from '@components/Content'
+import Text from '@components/Text'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -41,43 +40,40 @@ function Home({
         )}
       />
 
-      <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
-        <div className="text-center mt-12 pb-4 border-b border-1 border-gray-200 dark:border-gray-800">
-          <div className="h-40 w-40 mx-auto mb-4">
-            <ProfileImg width={250} height={250} title={title} />
+      <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-8">
+        <div className="flex flex-col-reverse sm:flex-row items-start border-b border-1 border-gray-200 dark:border-gray-800 pb-8 mt-4">
+          <div className="flex flex-col pr-4">
+            <Text variant="heading">{title}</Text>
+            <div className="prose dark:prose-dark text-base sm:text-lg md:text-xl">
+              <Content content={body} />
+            </div>
           </div>
-          <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
-            {title}
-          </h1>
-          <div className="prose text-gray-600 dark:text-gray-400 mb-16 text-base sm:text-lg md:text-xl mt-3">
-            <Content content={body} />
+          <div className="h-40 w-40 mx-auto">
+            <ProfileImg width={250} height={250} title={title} />
           </div>
         </div>
 
         {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
-          <div className="mt-4">
-            <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 text-black dark:text-white">
+          <div className="border-b border-1 border-gray-200 dark:border-gray-800 pb-8 mt-8">
+            <Text variant="sectionHeading">
               {capitalize(intl.formatMessage({ defaultMessage: 'Blog' }))}
-            </h3>
+            </Text>
+
             {featuredPosts.map(({ slug, title, description }) => (
               <BlogPostCard
                 key={`homepage-featuredpost-${slug}`}
                 slug={slug}
                 title={title}
-                summary={description}
+                description={description}
               />
             ))}
           </div>
         )}
 
-        <div className="mt-4">
-          <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 text-black dark:text-white">
+        <div className="mt-8">
+          <Text variant="sectionHeading">
             {capitalize(intl.formatMessage({ defaultMessage: 'Projects' }))}
-          </h3>
-
-          <Link href="https://www.data-show.com/">
-            <a target="_blank">Data Show</a>
-          </Link>
+          </Text>
 
           <ProjectCard
             title="Data Show"

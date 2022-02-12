@@ -2,8 +2,6 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { useIntl } from 'react-intl'
 
-import ProfileImg from './ProfileImg'
-
 enum Theme {
   Dark = 'dark',
   Light = 'light',
@@ -14,27 +12,32 @@ const Header: React.FC = () => {
   const { theme, setTheme } = useTheme()
 
   return (
-    <nav className="sticky-nav flex justify-between items-center max-w-4xl w-full p-8 my-0 md:my-8 mx-auto bg-white dark:bg-black bg-opacity-60">
+    <nav className="sticky-nav flex justify-between items-center max-w-4xl w-full p-4 my-0 md:my-4 mx-auto bg-opacity-60">
       <div>
         <Link href="/">
-          <a>
-            <ProfileImg
-              width={40}
-              height={40}
-              priority
-              title={intl.formatMessage({ defaultMessage: 'Home' })}
-              className="p-1 sm:p-4 inline-block"
-            />
+          <a className="p-1 sm:p-4 text-gray-800 dark:text-gray-100">
+            {intl.formatMessage({
+              id: 'nav.home.text',
+              defaultMessage: 'Home',
+            })}
           </a>
         </Link>
 
         <Link href="/blog">
-          <a className="p-1 sm:p-4 text-gray-800 dark:text-gray-100">Blog</a>
+          <a className="p-1 sm:p-4 text-gray-800 dark:text-gray-100">
+            {intl.formatMessage({
+              id: 'nav.blog.text',
+              defaultMessage: 'Blog',
+            })}
+          </a>
         </Link>
 
         <Link href="/blog/snippets">
           <a className="p-1 sm:p-4 text-gray-800 dark:text-gray-100">
-            Snippets
+            {intl.formatMessage({
+              id: 'nav.snippets.text',
+              defaultMessage: 'Snippets',
+            })}
           </a>
         </Link>
       </div>

@@ -1,22 +1,21 @@
 import Link from 'next/link'
+import Card from './Card'
 
 interface Props {
+  className?: string
   title: string
-  summary: string
+  description: string
   slug: string
 }
 
-const SnippetCard: React.FC<Props> = ({ title, summary, slug }: Props) => (
+const SnippetCard: React.FC<Props> = ({
+  slug,
+  className = '',
+  ...props
+}: Props) => (
   <Link href={`/blog/snippets/${slug}`}>
-    <a className="w-full">
-      <div className="mb-8 w-full">
-        <div className="flex flex-col md:flex-row justify-between">
-          <h4 className="text-lg md:text-xl font-medium mb-2 w-full text-gray-900 dark:text-gray-100">
-            {title}
-          </h4>
-        </div>
-        <p className="text-gray-600 dark:text-gray-400">{summary}</p>
-      </div>
+    <a className={className}>
+      <Card {...props} />
     </a>
   </Link>
 )

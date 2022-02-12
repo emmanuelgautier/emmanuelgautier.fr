@@ -2,11 +2,11 @@ import Link from 'next/link'
 
 interface Props {
   title: string
-  summary: string
+  description: string
   slug: string
 }
 
-const BlogPostCard: React.FC<Props> = ({ title, summary, slug }: Props) => (
+const BlogPostCard: React.FC<Props> = ({ title, description, slug }: Props) => (
   <Link href={`/blog/${slug}`}>
     <a className="w-full">
       <div className="mb-8 w-full">
@@ -15,7 +15,7 @@ const BlogPostCard: React.FC<Props> = ({ title, summary, slug }: Props) => (
             {title}
           </h4>
         </div>
-        <p className="text-gray-600 dark:text-gray-400">{summary}</p>
+        <p className="text-gray-600 dark:text-gray-400">{description}</p>
       </div>
     </a>
   </Link>

@@ -14,6 +14,15 @@
   "ejEGdx": {
     "defaultMessage": "Home"
   },
+  "nav.blog.text": {
+    "defaultMessage": "Blog"
+  },
+  "nav.home.text": {
+    "defaultMessage": "Home"
+  },
+  "nav.snippets.text": {
+    "defaultMessage": "Snippets"
+  },
   "pYjtjn": {
     "defaultMessage": "Featured Posts"
   },
