@@ -54,10 +54,13 @@ const Layout: React.FC<Props> = ({ title, description, children }) => {
         sameAs={Object.values(socials)}
       />
 
-      <Header />
+      <div className="flex flex-col justify-center max-w-3xl mx-auto">
+        <Header />
 
-      <main className="flex flex-col justify-center px-8">{children}</main>
-      <Footer />
+        <main className="w-full md:my-4 px-8">{children}</main>
+
+        <Footer />
+      </div>
 
       {cloudflareInsightsToken && (
         <script

@@ -145,83 +145,81 @@ function BlogPost({
         />
       )}
 
-      <div className="container w-full max-w-prose mx-auto mb-8">
-        <article className="mx-auto max-w-3xl xl:max-w-5xl">
-          <header className="pt-2">
-            <div className="space-y-4 text-left">
-              <Text variant="pageHeading">{title}</Text>
+      <article>
+        <header className="pt-2">
+          <div className="space-y-4 text-left">
+            <Text variant="pageHeading">{title}</Text>
 
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full mt-2 md:mt-0 text-sm text-gray-600 dark:text-gray-400">
-                <div className="flex items-center">
-                  <p>
-                    <span>{`${person.name} / `}</span>
-                    <span>{format(parseISO(created), 'MMMM dd, yyyy')}</span>
-                  </p>
-                </div>
-                <p className="min-w-32">{readingTime.text}</p>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full mt-2 md:mt-0 text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center">
+                <p>
+                  <span>{`${person.name} / `}</span>
+                  <span>{format(parseISO(created), 'MMMM dd, yyyy')}</span>
+                </p>
               </div>
+              <p className="min-w-32">{readingTime.text}</p>
             </div>
-          </header>
+          </div>
+        </header>
 
-          <div className="prose dark:prose-dark max-w-none w-full mt-8">
-            <Text variant="body">
-              <Content content={body} />
+        <div className="prose dark:prose-dark max-w-none w-full mt-8">
+          <Text variant="body">
+            <Content content={body} />
+          </Text>
+        </div>
+
+        <div className="text-sm text-gray-700 dark:text-gray-300 mt-8">
+          <OutboundLink href={discussUrl(url)}>
+            {intl.formatMessage({ defaultMessage: 'Discuss on Twitter' })}
+          </OutboundLink>
+        </div>
+
+        {Array.isArray(tags) && tags.length > 0 && (
+          <div className="mt-8">
+            {tags.map((tag) => (
+              <Link key={`${tag}-tag`} href={`/blog/tags/${kebabCase(tag)}`}>
+                <a className="inline-block text-gray-100 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 rounded px-4 py-2 text-xs mr-2 mb-2">
+                  {tag}
+                </a>
+              </Link>
+            ))}
+          </div>
+        )}
+
+        {Array.isArray(relatedPosts) && relatedPosts.length > 0 && (
+          <div className="mt-8">
+            <Text variant="sectionHeading">
+              {intl.formatMessage({ defaultMessage: 'Related Posts' })}
             </Text>
+
+            {relatedPosts.map(({ description, slug, title }) => (
+              <BlogPostCard
+                key={`post-related-posts-${slug}`}
+                slug={slug}
+                title={title}
+                description={description}
+              />
+            ))}
           </div>
+        )}
 
-          <div className="text-sm text-gray-700 dark:text-gray-300 mt-8">
-            <OutboundLink href={discussUrl(url)}>
-              {intl.formatMessage({ defaultMessage: 'Discuss on Twitter' })}
-            </OutboundLink>
+        {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
+          <div className="mt-8">
+            <Text variant="sectionHeading">
+              {intl.formatMessage({ defaultMessage: 'Featured Posts' })}
+            </Text>
+
+            {featuredPosts.map(({ description, slug, title }) => (
+              <BlogPostCard
+                key={`post-featured-posts-${slug}`}
+                slug={slug}
+                title={title}
+                description={description}
+              />
+            ))}
           </div>
-
-          {Array.isArray(tags) && tags.length > 0 && (
-            <div className="mt-8">
-              {tags.map((tag) => (
-                <Link key={`${tag}-tag`} href={`/blog/tags/${kebabCase(tag)}`}>
-                  <a className="inline-block text-gray-100 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 rounded px-4 py-2 text-xs mr-2 mb-2">
-                    {tag}
-                  </a>
-                </Link>
-              ))}
-            </div>
-          )}
-
-          {Array.isArray(relatedPosts) && relatedPosts.length > 0 && (
-            <div className="mt-8">
-              <Text variant="sectionHeading">
-                {intl.formatMessage({ defaultMessage: 'Related Posts' })}
-              </Text>
-
-              {relatedPosts.map(({ description, slug, title }) => (
-                <BlogPostCard
-                  key={`post-related-posts-${slug}`}
-                  slug={slug}
-                  title={title}
-                  description={description}
-                />
-              ))}
-            </div>
-          )}
-
-          {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
-            <div className="mt-8">
-              <Text variant="sectionHeading">
-                {intl.formatMessage({ defaultMessage: 'Featured Posts' })}
-              </Text>
-
-              {featuredPosts.map(({ description, slug, title }) => (
-                <BlogPostCard
-                  key={`post-featured-posts-${slug}`}
-                  slug={slug}
-                  title={title}
-                  description={description}
-                />
-              ))}
-            </div>
-          )}
-        </article>
-      </div>
+        )}
+      </article>
     </Layout>
   )
 }

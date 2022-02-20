@@ -40,53 +40,51 @@ function Home({
         )}
       />
 
-      <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-8">
-        <div className="flex flex-col-reverse sm:flex-row items-start border-b border-1 border-gray-200 dark:border-gray-800 pb-8 mt-4">
-          <div className="flex flex-col pr-4">
-            <Text variant="heading">{title}</Text>
-            <div className="prose dark:prose-dark text-base sm:text-lg md:text-xl">
-              <Content content={body} />
-            </div>
-          </div>
-          <div className="h-40 w-40 mx-auto">
-            <ProfileImg width={250} height={250} title={title} />
+      <div className="flex flex-col-reverse sm:flex-row items-start border-b border-1 border-gray-200 dark:border-gray-800 pb-8 mt-4">
+        <div className="flex flex-col pr-4">
+          <Text variant="heading">{title}</Text>
+          <div className="prose dark:prose-dark text-base sm:text-lg md:text-xl">
+            <Content content={body} />
           </div>
         </div>
+        <div className="h-40 w-40 mx-auto">
+          <ProfileImg width={250} height={250} title={title} />
+        </div>
+      </div>
 
-        {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
-          <div className="border-b border-1 border-gray-200 dark:border-gray-800 pb-8 mt-8">
-            <Text variant="sectionHeading">
-              {capitalize(intl.formatMessage({ defaultMessage: 'Blog' }))}
-            </Text>
-
-            {featuredPosts.map(({ slug, title, description }) => (
-              <BlogPostCard
-                key={`homepage-featuredpost-${slug}`}
-                slug={slug}
-                title={title}
-                description={description}
-              />
-            ))}
-          </div>
-        )}
-
-        <div className="mt-8">
+      {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
+        <div className="border-b border-1 border-gray-200 dark:border-gray-800 pb-8 mt-8">
           <Text variant="sectionHeading">
-            {capitalize(intl.formatMessage({ defaultMessage: 'Projects' }))}
+            {capitalize(intl.formatMessage({ defaultMessage: 'Blog' }))}
           </Text>
 
-          <ProjectCard
-            title="Data Show"
-            href="https://www.data-show.com/"
-            description="Data Show makes data visualization notebooks with open data about economics and health topics."
-          />
-
-          <ProjectCard
-            title="Planète Durable"
-            href="https://www.planete-durable.fr/"
-            description="Chaque geste compte. Planète Durable partage des conseils, innovations et initiatives veillant à préserver notre planète."
-          />
+          {featuredPosts.map(({ slug, title, description }) => (
+            <BlogPostCard
+              key={`homepage-featuredpost-${slug}`}
+              slug={slug}
+              title={title}
+              description={description}
+            />
+          ))}
         </div>
+      )}
+
+      <div className="mt-8">
+        <Text variant="sectionHeading">
+          {capitalize(intl.formatMessage({ defaultMessage: 'Projects' }))}
+        </Text>
+
+        <ProjectCard
+          title="Data Show"
+          href="https://www.data-show.com/"
+          description="Data Show makes data visualization notebooks with open data about economics and health topics."
+        />
+
+        <ProjectCard
+          title="Planète Durable"
+          href="https://www.planete-durable.fr/"
+          description="Chaque geste compte. Planète Durable partage des conseils, innovations et initiatives veillant à préserver notre planète."
+        />
       </div>
     </Layout>
   )

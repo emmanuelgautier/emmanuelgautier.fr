@@ -41,21 +41,19 @@ function PagePost({ page }: PageProps): React.ReactNode {
         ]}
       />
 
-      <div className="container w-full max-w-prose mx-auto mb-8">
-        <article className="mx-auto max-w-3xl xl:max-w-5xl">
-          <header className="pt-2">
-            <div className="space-y-4 text-left">
-              <Text variant="pageHeading">{title}</Text>
-            </div>
-          </header>
-
-          <div className="prose dark:prose-dark max-w-none w-full mt-8">
-            <Text variant="body">
-              <Content content={body} />
-            </Text>
+      <article>
+        <header className="pt-2">
+          <div className="space-y-4 text-left">
+            <Text variant="pageHeading">{title}</Text>
           </div>
-        </article>
-      </div>
+        </header>
+
+        <div className="prose dark:prose-dark max-w-none w-full mt-8">
+          <Text variant="body">
+            <Content content={body} />
+          </Text>
+        </div>
+      </article>
     </Layout>
   )
 }

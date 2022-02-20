@@ -70,38 +70,36 @@ function Snippet({ snippet }: PageProps): React.ReactNode {
         ]}
       />
 
-      <div className="container w-full max-w-prose mx-auto mb-8">
-        <article className="mx-auto max-w-3xl xl:max-w-5xl">
-          <header className="pt-2">
-            <div className="space-y-4 text-left">
-              <Text variant="pageHeading">{title}</Text>
+      <article>
+        <header className="pt-2">
+          <div className="space-y-4 text-left">
+            <Text variant="pageHeading">{title}</Text>
 
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full">
-                <div className="flex items-center">
-                  <p className="text-sm text-gray-700 dark:text-gray-300">
-                    <span>{`${person.name} / `}</span>
-                    <span>{format(parseISO(created), 'MMMM dd, yyyy')}</span>
-                  </p>
-                </div>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full">
+              <div className="flex items-center">
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  <span>{`${person.name} / `}</span>
+                  <span>{format(parseISO(created), 'MMMM dd, yyyy')}</span>
+                </p>
               </div>
-
-              <p className="prose dark:prose-dark text-lg md:text-xl">
-                {description}
-              </p>
             </div>
-          </header>
 
-          <div className="prose dark:prose-dark max-w-none w-full mt-8">
-            <Content content={body} />
+            <p className="prose dark:prose-dark text-lg md:text-xl">
+              {description}
+            </p>
           </div>
+        </header>
 
-          <div className="text-sm text-gray-700 dark:text-gray-300 mt-8">
-            <OutboundLink href={discussUrl(url)}>
-              {intl.formatMessage({ defaultMessage: 'Discuss on Twitter' })}
-            </OutboundLink>
-          </div>
-        </article>
-      </div>
+        <div className="prose dark:prose-dark max-w-none w-full mt-8">
+          <Content content={body} />
+        </div>
+
+        <div className="text-sm text-gray-700 dark:text-gray-300 mt-8">
+          <OutboundLink href={discussUrl(url)}>
+            {intl.formatMessage({ defaultMessage: 'Discuss on Twitter' })}
+          </OutboundLink>
+        </div>
+      </article>
     </Layout>
   )
 }
