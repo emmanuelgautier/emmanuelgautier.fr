@@ -35,5 +35,6 @@ yarn-error.log*
 
 compiled-lang
 
+
 # Contentlayer
 .contentlayer

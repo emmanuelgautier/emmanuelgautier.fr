@@ -1,7 +1,7 @@
 import { writeFileSync } from 'fs'
 import RSS from 'rss'
-import { allPosts } from '.contentlayer/data'
 
+import { allPosts } from '../.contentlayer/generated/index.mjs'
 import config from '../next-seo.config.js'
 
 const { person, siteUrl, rss: rssConfig } = config

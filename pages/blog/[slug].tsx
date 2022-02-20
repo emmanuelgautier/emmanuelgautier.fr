@@ -11,8 +11,8 @@ import {
   NextSeo,
 } from 'next-seo'
 import { useIntl } from 'react-intl'
-import { allPosts } from '.contentlayer/data'
-import type { Post } from '.contentlayer/types'
+import { allPosts } from '.contentlayer/generated'
+import type { Post } from '.contentlayer/generated'
 
 import loadIntlMessages from '@lib/loadIntlMessages'
 

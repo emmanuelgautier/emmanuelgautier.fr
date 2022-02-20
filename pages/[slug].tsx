@@ -2,7 +2,7 @@ import { InferGetStaticPropsType } from 'next'
 import getConfig from 'next/config'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
-import { allPages } from '.contentlayer/data'
+import { allPages } from '.contentlayer/generated'
 
 import loadIntlMessages from '@lib/loadIntlMessages'
 

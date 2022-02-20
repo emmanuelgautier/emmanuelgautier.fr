@@ -1,7 +1,7 @@
 import { InferGetStaticPropsType } from 'next'
 import getConfig from 'next/config'
 import { NextSeo } from 'next-seo'
-import { allSnippets } from '.contentlayer/data'
+import { allSnippets } from '.contentlayer/generated'
 
 import loadIntlMessages from '@lib/loadIntlMessages'
 

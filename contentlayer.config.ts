@@ -26,7 +26,7 @@ const computedFields: ComputedFields = {
 const Post = defineDocumentType(() => ({
   name: 'Post',
   filePathPattern: `${locale}/_posts/**/*.mdx`,
-  bodyType: 'mdx',
+  contentType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
     slug: { type: 'string', required: true },
@@ -45,7 +45,7 @@ const Post = defineDocumentType(() => ({
 const Page = defineDocumentType(() => ({
   name: 'Page',
   filePathPattern: `${locale}/_pages/*.mdx`,
-  bodyType: 'mdx',
+  contentType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
     description: { type: 'string', required: true },
@@ -57,7 +57,7 @@ const Page = defineDocumentType(() => ({
 const Snippet = defineDocumentType(() => ({
   name: 'Snippet',
   filePathPattern: `_snippets/*.mdx`,
-  bodyType: 'mdx',
+  contentType: 'mdx',
   fields: {
     title: { type: 'json', required: true },
     description: { type: 'json', required: true },
