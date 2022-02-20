@@ -1,4 +1,13 @@
-# Emmanuel Gautier Website
+---
+updated: '2022-02-20T16:56:46.169Z'
+---
+
+# Emmanuel Gautier
+
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Deployment**: [Vercel](https://vercel.com)
+- **Content**: [MDX](https://github.com/mdx-js/mdx)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 
 ## Description
 
