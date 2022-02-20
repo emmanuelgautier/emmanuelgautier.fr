@@ -2,7 +2,7 @@ import { kebabCase, uniq } from 'lodash'
 import { InferGetStaticPropsType } from 'next'
 import getConfig from 'next/config'
 import { NextSeo } from 'next-seo'
-import { allPosts } from '.contentlayer/data'
+import { allPosts } from '.contentlayer/generated'
 
 import loadIntlMessages from '@lib/loadIntlMessages'
 

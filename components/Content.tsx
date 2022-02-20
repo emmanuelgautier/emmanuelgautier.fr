@@ -1,7 +1,6 @@
-import { getMDXComponent } from 'mdx-bundler/client'
+import { useMDXComponent } from 'next-contentlayer/hooks'
 import Img, { ImageProps } from 'next/image'
 import Link from 'next/link'
-import { useMemo } from 'react'
 
 import OutboundLink from './OutboundLink'
 
@@ -53,10 +52,10 @@ interface ContentProps {
 }
 
 const Content: React.FC<ContentProps> = ({ content, ...props }) => {
-  const Component = useMemo(() => getMDXComponent(content.code), [content.code])
+  const MDXContent = useMDXComponent(content.code)
 
   return (
-    <Component
+    <MDXContent
       components={
         {
           ...MDXComponents,
