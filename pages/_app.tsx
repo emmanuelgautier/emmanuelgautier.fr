@@ -8,9 +8,10 @@ import { useRouter } from 'next/router'
 import Script from 'next/script'
 import { DefaultSeo } from 'next-seo'
 import { ThemeProvider } from 'next-themes'
+import { useEffect } from 'react'
 import { IntlProvider } from 'react-intl'
 
-import { GTM_ID } from '@lib/gtm'
+import { GA_TRACKING_ID, pageview } from '@lib/gtm'
 
 const cloudflareInsightsToken = process.env.CLOUDFLARE_INSIGHTS_TOKEN
 
@@ -21,12 +22,20 @@ function MyApp({ Component, pageProps }: AppProps): React.ReactNode {
     locale = process.env.LOCALE as string,
     defaultLocale,
   } = useRouter()
+  const router = useRouter()
+
   const {
     publicRuntimeConfig: {
       seo: { openGraph, siteUrl, twitter },
     },
   } = getConfig()
   const url = `${siteUrl}${basePath}${asPath}`
+  useEffect(() => {
+    router.events.on('routeChangeComplete', pageview)
+    return () => {
+      router.events.off('routeChangeComplete', pageview)
+    }
+  }, [router.events])
 
   return (
     <>
@@ -37,23 +46,25 @@ function MyApp({ Component, pageProps }: AppProps): React.ReactNode {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      {GTM_ID && (
-        <>
-          <Script
-            strategy="afterInteractive"
-            src={`https://www.googletagmanager.com/gtag/js?id=${GTM_ID}`}
-            onLoad={() => {
-              window.dataLayer = window.dataLayer || []
-              function gtag(...args: any[]) {
-                window.dataLayer.push(args)
-              }
-
-              gtag('js', new Date())
-              gtag('config', '${GTM_ID}')
-            }}
-          />
-        </>
-      )}
+      {/* Global Site Tag (gtag.js) - Google Analytics */}
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+      />
+      <Script
+        id="gtag-init"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }}
+      />
 
       {cloudflareInsightsToken && (
         <Script
