@@ -98,7 +98,7 @@ export async function getStaticProps(ctx: any) {
   const featuredPosts = allPosts
     .filter(({ featured }) => featured)
     .sort((post1, post2) => (post1.created > post2.created ? -1 : 1))
-    .slice(0, 5)
+    .slice(0, 3)
 
   return {
     props: {

@@ -21,7 +21,7 @@ function BlogIndex({ page }: PageProps): React.ReactNode {
     },
   } = getConfig()
 
-  const { posts } = page
+  const { posts, featuredPosts } = page
   const title = 'Blog'
   const description = ''
   const url = `${siteUrl}/blog`
@@ -47,14 +47,31 @@ function BlogIndex({ page }: PageProps): React.ReactNode {
       <div className="flex flex-col justify-center items-start mb-16">
         <Text variant="pageHeading">{title}</Text>
 
-        {posts.map(({ slug, title, description }) => (
-          <BlogPostCard
-            key={`blog-posts-${slug}`}
-            title={title}
-            slug={slug}
-            description={description}
-          />
-        ))}
+        <section>
+          <Text variant="sectionHeading">Featured Posts</Text>
+
+          {featuredPosts.map(({ slug, title, description }) => (
+            <BlogPostCard
+              key={`blog-posts-${slug}`}
+              title={title}
+              slug={slug}
+              description={description}
+            />
+          ))}
+        </section>
+
+        <section>
+          <Text variant="sectionHeading">All Posts</Text>
+
+          {posts.map(({ slug, title, description }) => (
+            <BlogPostCard
+              key={`blog-posts-${slug}`}
+              title={title}
+              slug={slug}
+              description={description}
+            />
+          ))}
+        </section>
       </div>
     </Layout>
   )
@@ -63,15 +80,16 @@ function BlogIndex({ page }: PageProps): React.ReactNode {
 export default BlogIndex
 
 export async function getStaticProps(ctx: any) {
-  const posts = allPosts
-    .sort((post1: any, post2: any) => (post1.created > post2.created ? -1 : 1))
-    .slice(0, 30)
+  const posts = allPosts.sort((post1: any, post2: any) =>
+    post1.created > post2.created ? -1 : 1
+  )
 
   return {
     props: {
       intlMessages: await loadIntlMessages(ctx),
       page: {
         posts,
+        featuredPosts: posts.filter(({ featured }) => featured).slice(0, 10),
       },
     },
   }
