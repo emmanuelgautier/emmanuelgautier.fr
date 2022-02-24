@@ -42,6 +42,26 @@ const Post = defineDocumentType(() => ({
   computedFields,
 }))
 
+const Newsletter = defineDocumentType(() => ({
+  name: 'Newsletter',
+  filePathPattern: `_newsletter/**/*.mdx`,
+  contentType: 'mdx',
+  fields: {
+    title: { type: 'string', required: true },
+    created: { type: 'string', required: true },
+    updated: { type: 'string', required: false },
+    description: { type: 'string', required: true },
+    image: { type: 'string', required: false },
+  },
+  computedFields: {
+    ...computedFields,
+    slug: {
+      type: 'string',
+      resolve: (doc) => doc._raw.sourceFileName.replace(/\.mdx$/, ''),
+    },
+  },
+}))
+
 const Page = defineDocumentType(() => ({
   name: 'Page',
   filePathPattern: `${locale}/_pages/*.mdx`,
@@ -73,7 +93,7 @@ const Snippet = defineDocumentType(() => ({
 
 const contentLayerConfig = makeSource({
   contentDirPath: 'content',
-  documentTypes: [Post, Page, Snippet],
+  documentTypes: [Post, Newsletter, Page, Snippet],
   mdx: {
     remarkPlugins: [remarkGfm, remarkImgToJsx],
     rehypePlugins: [
