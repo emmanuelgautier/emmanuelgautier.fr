@@ -47,13 +47,14 @@ function SnippetsIndex({ page }: PageProps): React.ReactNode {
       <div className="flex flex-col justify-center items-start mb-16">
         <Text variant="pageHeading">{title}</Text>
 
-        {snippets.map(({ slug, title, description }) => (
+        {snippets.map(({ slug, title, description, image }) => (
           <SnippetCard
             key={`snippets-${slug}`}
             className="w-full"
             title={title}
             slug={slug}
             description={description}
+            icon={image}
           />
         ))}
       </div>

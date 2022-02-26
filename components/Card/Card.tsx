@@ -1,13 +1,15 @@
+import Image from "next/image"
+
 interface Props {
   title: string
   description: string
   icon?: string
 }
 
-const Card: React.FC<Props> = ({ title, description }) => {
+const Card: React.FC<Props> = ({ title, description, icon }) => {
   return (
-    <div className="flex items-center border border-gray-200 dark:border-gray-800 bg-white dark:bg-transparent rounded p-4 mb-4">
-      <div>
+    <div className="flex justify-between border border-gray-200 dark:border-gray-800 bg-white dark:bg-transparent rounded p-6 mb-4">
+      <div className="px-2">
         <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
           {title}
         </h3>
@@ -15,6 +17,12 @@ const Card: React.FC<Props> = ({ title, description }) => {
           {description}
         </p>
       </div>
+
+      {icon && (
+        <div className="px-2">
+          <Image src={icon} alt={title} title={title} width={56} height={56} className="rounded-full" />
+        </div>
+      )}
     </div>
   )
 }

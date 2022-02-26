@@ -10,7 +10,6 @@ import loadIntlMessages from '@lib/loadIntlMessages'
 import Layout from '@components/Layout'
 import ProfileImg from '@components/ProfileImg'
 import BlogPostCard from '@components/BlogPostCard'
-import ProjectCard from '@components/ProjectCard'
 import Content from '@components/Content'
 import Text from '@components/Text'
 
@@ -53,7 +52,7 @@ function Home({
       </div>
 
       {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
-        <div className="border-b border-1 border-gray-200 dark:border-gray-800 pb-8 mt-8">
+        <div className="my-8">
           <Text variant="sectionHeading">
             {capitalize(intl.formatMessage({ defaultMessage: 'Blog' }))}
           </Text>

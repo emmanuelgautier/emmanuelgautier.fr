@@ -6,6 +6,7 @@ interface Props {
   title: string
   description: string
   slug: string
+  icon?: string
 }
 
 const SnippetCard: React.FC<Props> = ({
