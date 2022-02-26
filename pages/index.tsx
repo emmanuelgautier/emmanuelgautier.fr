@@ -68,24 +68,6 @@ function Home({
           ))}
         </div>
       )}
-
-      <div className="mt-8">
-        <Text variant="sectionHeading">
-          {capitalize(intl.formatMessage({ defaultMessage: 'Projects' }))}
-        </Text>
-
-        <ProjectCard
-          title="Data Show"
-          href="https://www.data-show.com/"
-          description="Data Show makes data visualization notebooks with open data about economics and health topics."
-        />
-
-        <ProjectCard
-          title="Planète Durable"
-          href="https://www.planete-durable.fr/"
-          description="Chaque geste compte. Planète Durable partage des conseils, innovations et initiatives veillant à préserver notre planète."
-        />
-      </div>
     </Layout>
   )
 }
