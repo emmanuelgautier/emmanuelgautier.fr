@@ -12,7 +12,9 @@ export const getEnDomain = (): string => {
       },
     },
   } = getConfig()
-  const enDomain = domains.filter(({ defaultLocale }: Domain) => defaultLocale === 'en')
+  const enDomain = domains.filter(
+    ({ defaultLocale }: Domain) => defaultLocale === 'en'
+  )
   if (!enDomain) {
     throw new Error('No en domain found')
   }

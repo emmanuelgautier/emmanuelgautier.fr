@@ -1,18 +1,33 @@
 {
-  "J5hfDc": {
-    "defaultMessage": "Discutons en sur Twitter"
-  },
   "KGtd2k": {
     "defaultMessage": "Articles sur le même sujet"
   },
   "TQRrlM": {
     "defaultMessage": "Snippets"
   },
-  "UxTJRa": {
-    "defaultMessage": "Projets"
-  },
   "ejEGdx": {
     "defaultMessage": "Accueil"
+  },
+  "mmPYWx": {
+    "defaultMessage": "Newsletter"
+  },
+  "nav.blog.text": {
+    "defaultMessage": "Blog"
+  },
+  "nav.home.text": {
+    "defaultMessage": "Accueil"
+  },
+  "nav.snippets.text": {
+    "defaultMessage": "Snippets"
+  },
+  "newsletter.form.button": {
+    "defaultMessage": "S'inscrire"
+  },
+  "newsletter.form.description": {
+    "defaultMessage": "Recever les derniers articles à propos du développement web et pleins d'autre sujets à propos de la tech."
+  },
+  "newsletter.form.title": {
+    "defaultMessage": "Inscrivez-vous à la newsletter"
   },
   "pYjtjn": {
     "defaultMessage": "Articles mis en avant"

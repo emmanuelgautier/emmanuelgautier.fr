@@ -20,11 +20,9 @@ import Layout from '@components/Layout'
 import OutboundLink from '@components/OutboundLink'
 import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
+import NewsletterForm from '@components/NewsletterForm'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
-
-const discussUrl = (url: string) =>
-  `https://mobile.twitter.com/search?q=${encodeURIComponent(url)}`
 
 function BlogPost({
   page,
@@ -167,10 +165,8 @@ function BlogPost({
           </Text>
         </div>
 
-        <div className="text-sm text-gray-700 dark:text-gray-300 mt-8">
-          <OutboundLink href={discussUrl(url)}>
-            {intl.formatMessage({ defaultMessage: 'Discuss on Twitter' })}
-          </OutboundLink>
+        <div className="my-8">
+          <NewsletterForm />
         </div>
 
         {Array.isArray(tags) && tags.length > 0 && (

@@ -9,6 +9,7 @@ import Layout from '@components/Layout'
 import ProfileImg from '@components/ProfileImg'
 import BlogPostCard from '@components/BlogPostCard'
 import Content from '@components/Content'
+import NewsletterForm from '@components/NewsletterForm'
 import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
 
@@ -66,6 +67,10 @@ function Home({
           ))}
         </div>
       )}
+
+      <div className="mt-16">
+        <NewsletterForm />
+      </div>
     </Layout>
   )
 }

@@ -7,6 +7,7 @@ import { allSnippets } from '.contentlayer/generated'
 
 import Content from '@components/Content'
 import Layout from '@components/Layout'
+import NewsletterForm from '@components/NewsletterForm'
 import Text from '@components/Text'
 import { getEnDomain } from '@lib/get-localized-domain'
 import loadIntlMessages from '@lib/load-intl-messages'
@@ -15,7 +16,9 @@ type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 function Snippet({ snippet }: PageProps): React.ReactNode {
   const {
-    publicRuntimeConfig: { seo: { siteUrl, }, },
+    publicRuntimeConfig: {
+      seo: { siteUrl },
+    },
   } = getConfig()
   const intl = useIntl()
 
@@ -65,12 +68,23 @@ function Snippet({ snippet }: PageProps): React.ReactNode {
           </div>
 
           <div className="mt-2 sm:mt-0">
-            <Img src={image} alt={title} title={title} width={64} height={64} className="rounded-full" />
+            <Img
+              src={image}
+              alt={title}
+              title={title}
+              width={64}
+              height={64}
+              className="rounded-full"
+            />
           </div>
         </header>
 
         <div className="prose dark:prose-dark max-w-none w-full mt-8">
           <Content content={body} />
+        </div>
+
+        <div className="mt-16">
+          <NewsletterForm />
         </div>
       </article>
     </Layout>
