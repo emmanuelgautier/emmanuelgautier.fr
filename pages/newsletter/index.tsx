@@ -1,13 +1,12 @@
 import { InferGetStaticPropsType } from 'next'
 import getConfig from 'next/config'
+import Link from 'next/link'
 import { NextSeo } from 'next-seo'
 import { allNewsletters } from '.contentlayer/generated'
 
-import loadIntlMessages from '@lib/loadIntlMessages'
-
 import Layout from '@components/Layout'
 import Text from '@components/Text'
-import Link from 'next/link'
+import loadIntlMessages from '@lib/load-intl-messages'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 

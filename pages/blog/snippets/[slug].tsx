@@ -1,36 +1,42 @@
 import { InferGetStaticPropsType } from 'next'
-import getConfig from 'next/config'
 import Img from 'next/image'
+import getConfig from 'next/config'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 import { allSnippets } from '.contentlayer/generated'
 
-import loadIntlMessages from '@lib/loadIntlMessages'
-
 import Content from '@components/Content'
 import Layout from '@components/Layout'
 import Text from '@components/Text'
+import { getEnDomain } from '@lib/get-localized-domain'
+import loadIntlMessages from '@lib/load-intl-messages'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 function Snippet({ snippet }: PageProps): React.ReactNode {
   const {
-    publicRuntimeConfig: {
-      seo: {
-        siteUrl,
-      },
-    },
+    publicRuntimeConfig: { seo: { siteUrl, }, },
   } = getConfig()
   const intl = useIntl()
 
   const { title, description, image, body, slug } = snippet
+
   const url = `${siteUrl}/blog/snippets/${slug}`
+
+  const canonicalDomain = getEnDomain()
+  const canonicalUrl = `https://${canonicalDomain}/blog/snippets/${slug}`
 
   return (
     <Layout title={title} description={description}>
       <NextSeo
         title={title}
         description={description}
+        canonical={canonicalUrl}
+        openGraph={{
+          title,
+          description,
+          url,
+        }}
       />
       <BreadcrumbJsonLd
         itemListElements={[

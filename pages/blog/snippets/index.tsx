@@ -1,47 +1,56 @@
 import { InferGetStaticPropsType } from 'next'
+import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import getConfig from 'next/config'
-import { NextSeo } from 'next-seo'
+import { useIntl } from 'react-intl'
 import { allSnippets } from '.contentlayer/generated'
-
-import loadIntlMessages from '@lib/loadIntlMessages'
 
 import SnippetCard from '@components/SnippetCard'
 import Layout from '@components/Layout'
 import Text from '@components/Text'
+import { getEnDomain } from '@lib/get-localized-domain'
+import loadIntlMessages from '@lib/load-intl-messages'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 function SnippetsIndex({ page }: PageProps): React.ReactNode {
   const {
-    publicRuntimeConfig: {
-      seo: {
-        i18n: { domains },
-        siteUrl,
-      },
-    },
+    publicRuntimeConfig: { seo: { siteUrl, }, },
   } = getConfig()
+  const intl = useIntl()
 
   const { snippets } = page
   const title = 'Snippets'
   const description = ''
   const url = `${siteUrl}/blog/snippets`
 
+  const canonicalDomain = getEnDomain()
+  const canonicalUrl = `https://${canonicalDomain}/blog/snippets`
+
   return (
     <Layout title={title} description={description}>
       <NextSeo
         title={title}
         description={description}
+        canonical={canonicalUrl}
         openGraph={{
           title,
           description,
           url,
         }}
-        languageAlternates={(domains as any[]).map(
-          ({ domain, defaultLocale }) => ({
-            hrefLang: defaultLocale,
-            href: `https://${domain}/blog/snippets`,
-          })
-        )}
+      />
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: intl.formatMessage({ defaultMessage: 'Home' }),
+            item: `${siteUrl}`,
+          },
+          {
+            position: 2,
+            name: intl.formatMessage({ defaultMessage: 'Snippets' }),
+            item: url,
+          },
+        ]}
       />
 
       <div className="flex flex-col justify-center items-start mb-16">

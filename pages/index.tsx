@@ -5,13 +5,12 @@ import { NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 import { allPages, allPosts } from '.contentlayer/generated'
 
-import loadIntlMessages from '@lib/loadIntlMessages'
-
 import Layout from '@components/Layout'
 import ProfileImg from '@components/ProfileImg'
 import BlogPostCard from '@components/BlogPostCard'
 import Content from '@components/Content'
 import Text from '@components/Text'
+import loadIntlMessages from '@lib/load-intl-messages'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 

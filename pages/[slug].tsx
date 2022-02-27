@@ -4,11 +4,10 @@ import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 import { allPages } from '.contentlayer/generated'
 
-import loadIntlMessages from '@lib/loadIntlMessages'
-
 import Content from '@components/Content'
 import Layout from '@components/Layout'
 import Text from '@components/Text'
+import loadIntlMessages from '@lib/load-intl-messages'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 

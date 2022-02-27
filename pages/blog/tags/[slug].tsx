@@ -4,11 +4,10 @@ import getConfig from 'next/config'
 import { NextSeo } from 'next-seo'
 import { allPosts } from '.contentlayer/generated'
 
-import loadIntlMessages from '@lib/loadIntlMessages'
-
 import BlogPostCard from '@components/BlogPostCard'
 import Layout from '@components/Layout'
 import Text from '@components/Text'
+import loadIntlMessages from '@lib/load-intl-messages'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 

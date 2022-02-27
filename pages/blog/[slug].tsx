@@ -14,13 +14,12 @@ import { useIntl } from 'react-intl'
 import { allPosts } from '.contentlayer/generated'
 import type { Post } from '.contentlayer/generated'
 
-import loadIntlMessages from '@lib/loadIntlMessages'
-
 import BlogPostCard from '@components/BlogPostCard'
 import Content from '@components/Content'
 import Layout from '@components/Layout'
 import OutboundLink from '@components/OutboundLink'
 import Text from '@components/Text'
+import loadIntlMessages from '@lib/load-intl-messages'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
