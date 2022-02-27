@@ -1,0 +1,78 @@
+---
+title: Typescript Project Dockerfile
+description: A Dockerfile to build production-ready Typescript docker image.
+image: /images/docker.png
+slug: typescript-dockerfile
+updated: '2022-02-27T11:22:05.691Z'
+created: 2022-02-27T11:09:06.274Z
+---
+
+There are tons of other examples of Dockerfile to build a Typescript project. A lot of them are not using the multi-stage build, this is a shame in my opinion.
+
+Here are two examples using yarn or npm to make a production-ready, Typescript project docker image:
+
+## Using Yarn
+
+```dockerfile:Dockerfile
+FROM node as builder
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY package.json yarn.lock ./
+
+RUN yarn install --frozen-lockfile
+
+COPY . .
+
+RUN yarn build
+
+FROM node:slim
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY package.json yarn.lock ./
+
+RUN yarn install --production --frozen-lockfile
+
+COPY --from=builder /usr/src/app/dist ./dist
+
+EXPOSE 8080
+CMD [ "node", "dist/index.js" ]
+```
+
+## Using npm
+
+```dockerfile:Dockerfile
+FROM node as builder
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY package*.json ./
+
+RUN npm ci
+
+COPY . .
+
+RUN npm run build
+
+FROM node:slim
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY package*.json ./
+
+RUN npm ci --production
+
+COPY --from=builder /usr/src/app/dist ./dist
+
+EXPOSE 8080
+CMD [ "node", "dist/index.js" ]
+```
