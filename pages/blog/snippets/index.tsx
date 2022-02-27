@@ -14,7 +14,9 @@ type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 function SnippetsIndex({ page }: PageProps): React.ReactNode {
   const {
-    publicRuntimeConfig: { seo: { siteUrl, }, },
+    publicRuntimeConfig: {
+      seo: { siteUrl },
+    },
   } = getConfig()
   const intl = useIntl()
 

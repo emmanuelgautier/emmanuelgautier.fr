@@ -7,6 +7,15 @@ export const pageview = (url?: string) => {
   })
 }
 
+export const newsletterSubscribe = () => {
+  event({
+    action: 'subscribe_newsletter',
+    category: 'engagement',
+    label: 'Subscribe to newsletter',
+    value: 1,
+  })
+}
+
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
 export const event = ({
   action,

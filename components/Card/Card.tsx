@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from 'next/image'
 
 interface Props {
   title: string
@@ -20,7 +20,14 @@ const Card: React.FC<Props> = ({ title, description, icon }) => {
 
       {icon && (
         <div className="px-2">
-          <Image src={icon} alt={title} title={title} width={56} height={56} className="rounded-full" />
+          <Image
+            src={icon}
+            alt={title}
+            title={title}
+            width={56}
+            height={56}
+            className="rounded-full"
+          />
         </div>
       )}
     </div>

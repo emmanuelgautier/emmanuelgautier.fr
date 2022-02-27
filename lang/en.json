@@ -1,18 +1,15 @@
 {
-  "J5hfDc": {
-    "defaultMessage": "Discuss on Twitter"
-  },
   "KGtd2k": {
     "defaultMessage": "Related Posts"
   },
   "TQRrlM": {
     "defaultMessage": "Snippets"
   },
-  "UxTJRa": {
-    "defaultMessage": "Projects"
-  },
   "ejEGdx": {
     "defaultMessage": "Home"
+  },
+  "mmPYWx": {
+    "defaultMessage": "Newsletter"
   },
   "nav.blog.text": {
     "defaultMessage": "Blog"
@@ -22,6 +19,15 @@
   },
   "nav.snippets.text": {
     "defaultMessage": "Snippets"
+  },
+  "newsletter.form.button": {
+    "defaultMessage": "Subscribe"
+  },
+  "newsletter.form.description": {
+    "defaultMessage": "Get emails from me about web development and a lot of topics related to tech."
+  },
+  "newsletter.form.title": {
+    "defaultMessage": "Subscribe to our newsletter"
   },
   "pYjtjn": {
     "defaultMessage": "Featured Posts"
