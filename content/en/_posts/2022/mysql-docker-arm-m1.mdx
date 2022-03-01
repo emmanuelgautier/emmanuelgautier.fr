@@ -7,7 +7,7 @@ tags:
   - mysql
   - osx
 slug: mysql-docker-arm-m1
-updated: '2022-02-26T16:26:12.054Z'
+updated: '2022-03-01T18:37:12.783Z'
 created: 2022-02-26T13:46:49.039Z
 ---
 
@@ -15,7 +15,7 @@ For a few years now, Apple released a new SoC for Mac using ARM M1 CPU. It is a 
 
 The issue is that number of software are not compatible with the microarchitecture ARMv8. It is the case of MySQL official Docker image for example.
 
-To be able to use MySQL official Docker image on Mac with M1 CPU, you need to use the `arm64v8/mysql` image instead. More tags are available on the official [Docker Hub repository](https://hub.docker.com/r/arm64v8/mysql/tags).
+To be able to use MySQL official Docker image on Mac with M1 CPU, you need to use the `arm64v8/mysql` image instead or `mysql/mysql-server` maintained by the Oracle team. More tags are available on the official [Docker Hub repository](https://hub.docker.com/r/arm64v8/mysql/tags).
 
 This solution should also work for other SoC using AMRv8 micro-architecture and it is also available for other Docker Images like PHP, Python, Mongo, ... etc.
 
