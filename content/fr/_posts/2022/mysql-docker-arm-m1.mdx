@@ -1,0 +1,42 @@
+---
+title: MySQL Docker Image pour les Mac ARM M1
+description: Apple ARM M1 issue is that number of software are not compatible with the
+  microarchitecture ARMv8 like MySQL official Docker image for example. Here a
+  solution.
+image: /images/docker.png
+tags:
+  - docker
+  - mysql
+  - osx
+slug: mysql-docker-arm-m1
+alternate:
+  en: mysql-docker-arm-m1
+updated: 2022-03-08T23:26:52.749Z
+created: 2022-02-26T13:46:49.039Z
+---
+
+Depuis plusieurs années, Apple a sorti une nouvelle SoC pour Mac utilisant ARM M1 CPU. C'est un processeur ARMv8 spécialement conçu pour MacOS et iPadOS. Le noyau Linux supporte également cette SoC depuis la version 5.13.
+
+Le problème est que de nombreux logiciels ne sont pas compatibles avec la micro-architecture ARMv8. C'est le cas de l'image Docker officiel MySQL par example.
+
+Pour utiliser l'image Docker officiel MySQL sur Mac avec M1, vous devez utiliser l'image `arm64v8/mysql` ou `mysql/mysql-server` maintenu par l'équipe chez Oracle. Des tags supplémentaires sont disponibles sur le dépôt [Docker Hub](https://hub.docker.com/r/arm64v8/mysql/tags).
+
+Cette solution devrait également fonctionner pour d'autres SoC utilisant la micro-architecture ARMv8 et elle est également disponible pour d'autres images Docker comme PHP, Python, Mongo, ... etc.
+
+Une autre option est de créer votre propre image à partir du dépôt [Github](https://github.com/docker-library/mysql/tree/master).
+
+Un nouvel exemple de fichier docker-compose.yml utilisant l'image ci-dessus:
+
+```yaml:docker-compose.yml
+version: '3'
+
+services:
+  db:
+    image: arm64v8/mysql:oracle
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    expose:
+      - 3306
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
+```
