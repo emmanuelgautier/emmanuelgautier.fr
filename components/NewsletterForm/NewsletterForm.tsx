@@ -29,7 +29,7 @@ const NewsletterForm: React.FC<Props> = () => {
       <form
         className="relative my-4"
         onSubmit={subscribe}
-        action="http://newsletter.emmanuelgautier.com/add_subscriber"
+        action="https://newsletter.emmanuelgautier.com/add_subscriber"
         method="post"
         target="_blank"
       >
