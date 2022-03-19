@@ -1,0 +1,140 @@
+---
+title: Succeeding understanding tech as a non-technical person
+description: >
+  It exists a lot of technical terms. If you want to better understand the
+  product team, you are at the right place.
+image: /images/meeting.jpg
+tags:
+  - ddd
+  - agile
+  - scrum
+  - kanban
+  - git
+slug: understanding-tech-as-non-technical-person
+updated: 2022-03-19T22:13:33.922Z
+created: 2022-03-13T14:28:09.832Z
+---
+
+Sometimes it is quite hard to understand the product/tech team for a non-technical person. There is a lot of technical terms, concepts, and acronyms, and not understanding each other can drive to an inefficient collaboration. Even if, the technical team must vulgarize as much as possible, sometimes it is necessary to explain why a task takes so long, why there are performance issues, why there is a bug, what happens during a major outage, ...etc. In this case, there is no other way than to talk about some technical concepts.
+
+For this reason, let's try to share a bit some basic knowledge and vocabulary about the product and some technical terms. If you want to better understand your product team, you are at the right place.
+
+The product/tech point of view is partly covered by the DDD approach. If you are a tech or a product person, you can find interesting reading about it on [Martin Fowler blog](https://martinfowler.com/tags/domain%20driven%20design.html).
+
+It is barely impossible to summarize all the different concepts used in a product team. This post may forget some parts, simplify a lot some concepts and roles. This post is a continuous work in progress.
+
+## Work Framework
+
+Let's start easy, the product team often uses the term **Agile** to describe the way it works. Agile drives some principles:
+
+- Ship small software changes frequently
+- Have a self-organized team working autonomously when it is possible
+- Continuous improvement on how the team and process work
+
+The agile principle comes from the Agile Manifesto you can find [here](https://agilemanifesto.org/) with all the principles [here](https://agilemanifesto.org/principles.html).
+
+### Frameworks
+
+To put in place the agile principles, it exists frameworks. Here is the main frameworks used:
+
+- [Scrum](https://www.scrum.org/)
+- [Kanban](https://www.atlassian.com/agile/kanban)
+- [Scaled Agile Framework (aka SAFe)](https://www.scaledagileframework.com/)
+
+### Services
+
+Now, let's talk about some services used to applied Agile frameworks method for a product development. Here you should be able to follow what the product team is working on:
+
+- [JIRA](https://www.atlassian.com/software/jira)
+- [Trello](https://trello.com/en)
+- [Basecamp](https://basecamp.com/)
+- [Asana](https://asana.com/)
+
+### Vocabulary
+
+- Issue: An item representing a feature to make, a bug, a task. Sometimes, it can be assigned to a person or a team responsible for doing it.
+- Backlog: A list of tickets to be done.
+- Sprint: A period of time where a team works on issues.
+- Epic: A large issue that can be split into smaller issues. Example: The redesign of the website can be split into small issues per page or per component.
+
+<!-- ## Product Development
+
+### Frontend
+
+### Backend -->
+
+<!-- ## Developer Roles
+
+Development of a product implies a lot of roles. Here is a list of the most important roles:
+- Backend Developer: A developer who is in charge of the backend part of the software.
+- Frontend Developer: A developer who is in charge of the frontend part of the software, mostly the UI/UX integration part.
+- Fullstack Developer: It is quite an umbrella term for both backend and frontend development. The fullstack developer usually works on all the parts of the software from the frontend to the backend part.
+  Site Reliability Engineer (SRE): An engineer is responsible for making the service up and running with the best quality of service possible for the product users.
+- QA Enginner : A developer who is in charge of the quality of the software. Depending the company, he can make the quality assurance or help developers to put in place the quality into their development cycle. -->
+  <!-- UX/UI Designer :
+  Product Owner :
+  Software Architect:
+  Solutions Architect:
+  DevSecOps: -->
+
+<!-- TODO: Talk about languages, libraries, frameworks, ... -->
+
+<!-- TODO: What is Open Source? -->
+<!-- TODO: Code License -->
+
+## Code Hosting
+
+Developer host their code to be able to share it and collaborate on it. In addition to be able to share code, the way we host code allows also to make versioning on it and create workflow around this hosting.
+
+### Why code versioning?
+
+It is very important to have code versioning for a development. The different versions have at least the following benefits:
+
+- Know what the code changes has been done when, who done it, why, and how.
+- If a bug has been introduced, it is possible to revert the changes to a previous version without the bug.
+- Many developers can work on different code versions
+
+The main software used is Git but you can also head about SVN sometimes. Because Git is the most popular version control system, we will focus on this one.
+
+### Services
+
+Git is only a software providing code versioning and way to share it. There is also hosting providers bringing a more developer friendly collaborative workspace with Git.
+
+The main services are the following ones:
+
+- [Github](https://github.com/)
+- [Gitlab](https://gitlab.com/)
+- [Bitbucket](https://bitbucket.org/product/)
+
+## Running a Product
+
+The software the product team works need to be deployed for being accessible for users. This deployment is now mostly done on Cloud Hosting Providers. There is three main types of cloud computing as-a-service:
+
+- Infrastructure as a Service (IaaS): Provide basic computing resources and services (servers, storage, networking). Basically, for this type, you do not need to install the server hardware but you need to deploy yourself the database, the environment to run your software, and the software itself.
+- Platform as a Service (PaaS): Provide a platform ready to run your software. Basically, you need to deploy your software and configure the environment only. The computing resources, runtime environment, and all the scaling are fully managed by the platform.
+- Software as a Service (SaaS): All the software is provided by the platform. For example, it can be the CRM you use, the Analytics Platform, ... etc.
+
+### IaaS Providers
+
+- [Amazon Web Services (AWS)](https://aws.amazon.com/)
+- [Google Cloud Platform (GCP)](https://cloud.google.com/)
+- [Azure](https://azure.microsoft.com/)
+- [Digital Ocean](https://www.digitalocean.com/)
+- [OVH](https://www.ovh.com/)
+
+### PaaS Providers
+
+- [Heroku](https://www.heroku.com/)
+- [Netlify](https://www.netlify.com/)
+- [Vercel](https://vercel.com/)
+
+Depending on where you are, you may use also local hosting provider.
+
+## Additional List of acronyms
+
+- SLA: Service Level Agreement
+- SLO: Service Level Objective
+- SSO: Single Sign On
+- PR/MR: Pull Request / Merge Request
+- Repository (aka "Repo"): Git repository
+- DX: Developer Experience. A term used to describe concepts for developer experience improvements. Sometimes it is about developer productivity.
