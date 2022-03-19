@@ -16,7 +16,7 @@ const NewsletterForm: React.FC<Props> = () => {
       <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100">
         {intl.formatMessage({
           id: 'newsletter.form.title',
-          defaultMessage: 'Subscribe to our newsletter',
+          defaultMessage: 'Subscribe to the newsletter',
         })}
       </p>
       <p className="my-1 text-gray-800 dark:text-gray-200">

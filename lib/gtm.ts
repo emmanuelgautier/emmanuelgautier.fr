@@ -16,6 +16,24 @@ export const newsletterSubscribe = () => {
   })
 }
 
+export const rssFollow = () => {
+  event({
+    action: 'follow_rss',
+    category: 'engagement',
+    label: 'Follow RSS',
+    value: 1,
+  })
+}
+
+export const share = (network: string) => {
+  event({
+    action: `share_${network}`,
+    category: 'engagement',
+    label: `Share on ${network}`,
+    value: 1,
+  })
+}
+
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
 export const event = ({
   action,

@@ -20,7 +20,7 @@ type Variant =
   | 'body'
   | 'pageHeading'
   | 'sectionHeading'
-  | 'subSectionPage'
+  | 'subSectionHeading'
 
 const Text: FunctionComponent<TextProps> = ({
   style,
@@ -37,7 +37,7 @@ const Text: FunctionComponent<TextProps> = ({
     heading: 'h1',
     pageHeading: 'h1',
     sectionHeading: 'h2',
-    subSectionPage: 'h3',
+    subSectionHeading: 'h3',
   }
 
   const Component:
@@ -61,7 +61,7 @@ const Text: FunctionComponent<TextProps> = ({
           [s.heading]: variant === 'heading',
           [s.pageHeading]: variant === 'pageHeading',
           [s.sectionHeading]: variant === 'sectionHeading',
-          [s.subSectionPage]: variant === 'subSectionPage',
+          [s.subSectionHeading]: variant === 'subSectionHeading',
         },
         className
       )}

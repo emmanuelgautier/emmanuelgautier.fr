@@ -27,10 +27,16 @@
     "defaultMessage": "Get emails from me about web development and a lot of topics related to tech."
   },
   "newsletter.form.title": {
-    "defaultMessage": "Subscribe to our newsletter"
+    "defaultMessage": "Subscribe to the newsletter"
   },
   "pYjtjn": {
     "defaultMessage": "Featured Posts"
+  },
+  "share.buttons.follow_rss_feed": {
+    "defaultMessage": "Follow the RSS feed"
+  },
+  "share.buttons.share": {
+    "defaultMessage": "Share this post"
   },
   "tv5FG3": {
     "defaultMessage": "Blog"

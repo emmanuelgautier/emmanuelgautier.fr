@@ -1,6 +1,10 @@
 import '../styles/globals.css'
 import '../styles/prism.css'
 
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false
+
 import { AppProps } from 'next/app'
 import getConfig from 'next/config'
 import Head from 'next/head'

@@ -15,5 +15,5 @@
 }
 
 .subSectionHeading {
-  @apply pt-1 pb-1 text-xl font-bold tracking-wide mb-1;
+  @apply pt-1 pb-1 text-lg font-bold tracking-wide mb-1;
 }

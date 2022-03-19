@@ -32,6 +32,12 @@
   "pYjtjn": {
     "defaultMessage": "Articles mis en avant"
   },
+  "share.buttons.follow_rss_feed": {
+    "defaultMessage": "Suivre le flux RSS"
+  },
+  "share.buttons.share": {
+    "defaultMessage": "Partager cet article"
+  },
   "tv5FG3": {
     "defaultMessage": "Blog"
   }

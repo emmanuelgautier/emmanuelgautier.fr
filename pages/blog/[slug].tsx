@@ -1,5 +1,5 @@
 import { format, parseISO } from 'date-fns'
-import { kebabCase } from 'lodash'
+import { camelCase, kebabCase } from 'lodash'
 import { InferGetStaticPropsType } from 'next'
 import getConfig from 'next/config'
 import Link from 'next/link'
@@ -17,15 +17,16 @@ import type { Post } from '.contentlayer/generated'
 import BlogPostCard from '@components/BlogPostCard'
 import Content from '@components/Content'
 import Layout from '@components/Layout'
-import OutboundLink from '@components/OutboundLink'
 import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
 import NewsletterForm from '@components/NewsletterForm'
+import ShareButtons from '@components/ShareButtons'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 function BlogPost({
   page,
+  hashtags,
   relatedPosts,
   featuredPosts,
   questions,
@@ -166,13 +167,22 @@ function BlogPost({
         </div>
 
         <div className="my-8">
+          <ShareButtons
+            url={url}
+            title={title}
+            description={description}
+            tags={hashtags.map(({ hashtag }) => hashtag)}
+          />
+        </div>
+
+        <div className="my-8">
           <NewsletterForm />
         </div>
 
-        {Array.isArray(tags) && tags.length > 0 && (
+        {Array.isArray(hashtags) && hashtags.length > 0 && (
           <div className="mt-8">
-            {tags.map((tag) => (
-              <Link key={`${tag}-tag`} href={`/blog/tags/${kebabCase(tag)}`}>
+            {hashtags.map(({ tag, slug }) => (
+              <Link key={`post-tags-${slug}`} href={`/blog/tags/${slug}`}>
                 <a className="inline-block text-gray-100 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 rounded px-4 py-2 text-xs mr-2 mb-2">
                   {tag}
                 </a>
@@ -227,6 +237,11 @@ export async function getStaticProps(ctx: any) {
   if (!post) {
     throw new Error()
   }
+  const hashtags = post.tags.map((tag) => ({
+    tag,
+    hashtag: camelCase(tag),
+    slug: kebabCase(tag),
+  }))
 
   let relatedPosts: Post[] = []
   if (post.tags.length > 0) {
@@ -247,6 +262,7 @@ export async function getStaticProps(ctx: any) {
     props: {
       intlMessages: await loadIntlMessages(ctx),
       page: post,
+      hashtags,
       relatedPosts,
       featuredPosts,
       questions: [],

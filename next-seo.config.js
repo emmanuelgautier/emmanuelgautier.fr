@@ -57,6 +57,7 @@ module.exports = {
   twitter: {
     handle: '@gautier_manu',
     site: '@gautier_manu',
+    handle_simple: 'gautier_manu',
     cardType: 'summary_large_image',
   },
 }
