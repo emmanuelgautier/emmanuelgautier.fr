@@ -61,11 +61,11 @@ Voici une page html type qui afficherait seulement le captcha :
 <!-- your HTML content -->;
 <form action="verify.php" method="post">
   ;
-  <?php 
-        require_once('recaptchalib.php');  
-    
-        $publickey = "your_public_key"; // you got this from the signup page 
-        echo recaptcha_get_html($publickey); 
+  <?php
+        require_once('recaptchalib.php');
+
+        $publickey = "your_public_key"; // you got this from the signup page
+        echo recaptcha_get_html($publickey);
     ?>
 
   <input type="submit" />
@@ -149,7 +149,7 @@ var RecaptchaOptions = {
 }
 ```
 
-Pour voir quel design sont disponibles et aussi comment fabriquer son propre design je vous invite à regarder sur cette page : [https://developers.google.com/recaptcha/docs/customization](https://developers.google.com/recaptcha/docs/customization).
+Pour voir quel design sont disponibles et aussi comment fabriquer son propre design je vous invite à regarder sur cette [page](https://developers.google.com/recaptcha/docs/display).
 
 Mais mon site est en français, pourquoi le formulaire est en anglais ? Mes visiteurs ne vont rien comprendre ! Pas d'inquiétude, vous pouvez changer la langue du formulaire. Si vous voulez que votre formulaire soit en français, utilisez le code suivant :
 
