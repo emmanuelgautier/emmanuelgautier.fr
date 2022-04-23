@@ -44,9 +44,11 @@ const Footer: React.FC = () => {
           </OutboundLink>
         </div>
         <div className="flex flex-col space-y-4">
-          <Link href="/uses">
-            <a className="text-gray-500 hover:text-gray-600">Uses</a>
-          </Link>
+          {process.env.LOCALE === 'en' && (
+            <Link href="/uses">
+              <a className="text-gray-500 hover:text-gray-600">Uses</a>
+            </Link>
+          )}
         </div>
       </div>
     </footer>
