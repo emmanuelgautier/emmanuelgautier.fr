@@ -1,12 +1,12 @@
 ---
-updated: '2022-02-20T16:56:46.169Z'
+updated: 2022-04-28T11:25:03.400Z
 ---
 
 # Emmanuel Gautier
 
 - **Framework**: [Next.js](https://nextjs.org/)
-- **Deployment**: [Vercel](https://vercel.com)
-- **Content**: [MDX](https://github.com/mdx-js/mdx)
+- **Deployment**: [Cloudflare Pages](https://pages.cloudflare.com/)
+- **Content**: [MDX](https://github.com/mdx-js/mdx) and [Contentlayer](https://www.contentlayer.dev/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 
 ## Description
