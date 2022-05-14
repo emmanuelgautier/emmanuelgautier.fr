@@ -7,14 +7,16 @@ import { allSnippets } from '.contentlayer/generated'
 
 import Content from '@components/Content'
 import Layout from '@components/Layout'
+import Tags from '@components/Tags'
 import NewsletterForm from '@components/NewsletterForm'
 import Text from '@components/Text'
 import { getEnDomain } from '@lib/get-localized-domain'
 import loadIntlMessages from '@lib/load-intl-messages'
+import { getAllTagsForContent } from '@lib/content'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-function Snippet({ snippet }: PageProps): React.ReactNode {
+function Snippet({ snippet, tags }: PageProps): React.ReactNode {
   const {
     publicRuntimeConfig: {
       seo: { siteUrl },
@@ -50,7 +52,7 @@ function Snippet({ snippet }: PageProps): React.ReactNode {
           },
           {
             position: 2,
-            name: intl.formatMessage({ defaultMessage: 'Snippets' }),
+            name: intl.formatMessage({ id: 'snippets' }),
             item: `${siteUrl}/blog/snippets`,
           },
           {
@@ -86,6 +88,12 @@ function Snippet({ snippet }: PageProps): React.ReactNode {
         <div className="mt-16">
           <NewsletterForm />
         </div>
+
+        {Array.isArray(tags) && tags.length > 0 && (
+          <div className="mt-8">
+            <Tags tags={tags} />
+          </div>
+        )}
       </article>
     </Layout>
   )
@@ -100,10 +108,13 @@ export async function getStaticProps(ctx: any) {
     throw new Error()
   }
 
+  const tags = getAllTagsForContent(snippet)
+
   return {
     props: {
       intlMessages: await loadIntlMessages(ctx),
       snippet,
+      tags,
     },
   }
 }

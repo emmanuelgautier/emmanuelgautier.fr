@@ -49,7 +49,7 @@ function SnippetsIndex({ page }: PageProps): React.ReactNode {
           },
           {
             position: 2,
-            name: intl.formatMessage({ defaultMessage: 'Snippets' }),
+            name: intl.formatMessage({ id: 'snippets' }),
             item: url,
           },
         ]}

@@ -7,7 +7,6 @@ import {
   LinkedinShareButton,
   PocketShareButton,
   TwitterShareButton,
-
 } from 'react-share'
 
 import { rssFollow, share } from '@lib/gtm'

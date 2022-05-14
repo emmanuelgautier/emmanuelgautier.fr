@@ -35,8 +35,7 @@ const Header: React.FC = () => {
         <Link href="/blog/snippets">
           <a className="p-1 sm:p-4 text-gray-800 dark:text-gray-100">
             {intl.formatMessage({
-              id: 'nav.snippets.text',
-              defaultMessage: 'Snippets',
+              id: 'snippets',
             })}
           </a>
         </Link>

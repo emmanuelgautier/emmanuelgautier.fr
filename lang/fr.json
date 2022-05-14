@@ -2,9 +2,6 @@
   "KGtd2k": {
     "defaultMessage": "Articles sur le même sujet"
   },
-  "TQRrlM": {
-    "defaultMessage": "Snippets"
-  },
   "ejEGdx": {
     "defaultMessage": "Accueil"
   },
@@ -16,9 +13,6 @@
   },
   "nav.home.text": {
     "defaultMessage": "Accueil"
-  },
-  "nav.snippets.text": {
-    "defaultMessage": "Snippets"
   },
   "newsletter.form.button": {
     "defaultMessage": "S'inscrire"
@@ -32,11 +26,17 @@
   "pYjtjn": {
     "defaultMessage": "Articles mis en avant"
   },
+  "posts": {
+    "defaultMessage": "Posts"
+  },
   "share.buttons.follow_rss_feed": {
     "defaultMessage": "Suivre le flux RSS"
   },
   "share.buttons.share": {
     "defaultMessage": "Partager cet article"
+  },
+  "snippets": {
+    "defaultMessage": "Snippets"
   },
   "tv5FG3": {
     "defaultMessage": "Blog"

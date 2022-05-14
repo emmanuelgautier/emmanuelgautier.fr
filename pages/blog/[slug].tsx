@@ -1,8 +1,6 @@
 import { format, parseISO } from 'date-fns'
-import { camelCase, kebabCase } from 'lodash'
 import { InferGetStaticPropsType } from 'next'
 import getConfig from 'next/config'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import {
   ArticleJsonLd,
@@ -21,12 +19,14 @@ import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
 import NewsletterForm from '@components/NewsletterForm'
 import ShareButtons from '@components/ShareButtons'
+import { getAllTagsForContent } from '@lib/content'
+import Tags from '@components/Tags'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 function BlogPost({
   page,
-  hashtags,
+  tags,
   relatedPosts,
   featuredPosts,
   questions,
@@ -48,7 +48,6 @@ function BlogPost({
     title,
     description,
     image,
-    tags,
     body,
     created,
     updated,
@@ -94,7 +93,7 @@ function BlogPost({
           article: {
             publishedTime: created,
             modifiedTime: updated,
-            tags,
+            tags: tags.map(({ name }) => name),
           },
           images: images.map((_image) => ({
             url: _image,
@@ -171,7 +170,7 @@ function BlogPost({
             url={url}
             title={title}
             description={description}
-            tags={hashtags.map(({ hashtag }) => hashtag)}
+            tags={tags.map(({ hashtag }) => hashtag)}
           />
         </div>
 
@@ -179,15 +178,9 @@ function BlogPost({
           <NewsletterForm />
         </div>
 
-        {Array.isArray(hashtags) && hashtags.length > 0 && (
+        {Array.isArray(tags) && tags.length > 0 && (
           <div className="mt-8">
-            {hashtags.map(({ tag, slug }) => (
-              <Link key={`post-tags-${slug}`} href={`/blog/tags/${slug}`}>
-                <a className="inline-block text-gray-100 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 rounded px-4 py-2 text-xs mr-2 mb-2">
-                  {tag}
-                </a>
-              </Link>
-            ))}
+            <Tags tags={tags} />
           </div>
         )}
 
@@ -237,20 +230,14 @@ export async function getStaticProps(ctx: any) {
   if (!post) {
     throw new Error()
   }
-  const hashtags = post.tags.map((tag) => ({
-    tag,
-    hashtag: camelCase(tag),
-    slug: kebabCase(tag),
-  }))
 
-  let relatedPosts: Post[] = []
-  if (post.tags.length > 0) {
-    relatedPosts = allPosts
-      .filter(({ tags }) => tags.some((tag) => post.tags.includes(tag)))
-      .sort((post1, post2) => (post1.created > post2.created ? -1 : 1))
-      .filter(({ slug: _slug }) => _slug !== slug)
-      .slice(0, 3)
-  }
+  const tags = getAllTagsForContent(post)
+
+  const relatedPosts: Post[] = tags
+    .reduce<Post[]>((acc, { posts }) => acc.concat(posts), [])
+    .sort((post1, post2) => (post1.created > post2.created ? -1 : 1))
+    .filter(({ slug: _slug }) => _slug !== slug)
+    .slice(0, 3)
 
   const featuredPosts = allPosts
     .filter(({ featured }) => featured)
@@ -262,7 +249,7 @@ export async function getStaticProps(ctx: any) {
     props: {
       intlMessages: await loadIntlMessages(ctx),
       page: post,
-      hashtags,
+      tags,
       relatedPosts,
       featuredPosts,
       questions: [],

@@ -2,9 +2,6 @@
   "KGtd2k": {
     "defaultMessage": "Related Posts"
   },
-  "TQRrlM": {
-    "defaultMessage": "Snippets"
-  },
   "ejEGdx": {
     "defaultMessage": "Home"
   },
@@ -16,9 +13,6 @@
   },
   "nav.home.text": {
     "defaultMessage": "Home"
-  },
-  "nav.snippets.text": {
-    "defaultMessage": "Snippets"
   },
   "newsletter.form.button": {
     "defaultMessage": "Subscribe"
@@ -32,11 +26,17 @@
   "pYjtjn": {
     "defaultMessage": "Featured Posts"
   },
+  "posts": {
+    "defaultMessage": "Posts"
+  },
   "share.buttons.follow_rss_feed": {
     "defaultMessage": "Follow the RSS feed"
   },
   "share.buttons.share": {
     "defaultMessage": "Share this post"
+  },
+  "snippets": {
+    "defaultMessage": "Snippets"
   },
   "tv5FG3": {
     "defaultMessage": "Blog"
