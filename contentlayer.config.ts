@@ -76,7 +76,7 @@ const Page = defineDocumentType(() => ({
 
 const Snippet = defineDocumentType(() => ({
   name: 'Snippet',
-  filePathPattern: `_snippets/*.mdx`,
+  filePathPattern: `${locale}/_snippets/*.mdx`,
   contentType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
