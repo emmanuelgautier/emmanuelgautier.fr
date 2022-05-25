@@ -84,6 +84,7 @@ const Snippet = defineDocumentType(() => ({
     image: { type: 'string', required: true },
     slug: { type: 'string', required: true },
     tags: { type: 'list', required: true, of: { type: 'string' } },
+    alternate: { type: 'json', required: false },
     created: { type: 'string', required: true },
     updated: { type: 'string', required: false },
   },

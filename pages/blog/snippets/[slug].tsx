@@ -1,6 +1,7 @@
 import { InferGetStaticPropsType } from 'next'
 import Img from 'next/image'
 import getConfig from 'next/config'
+import { useRouter } from 'next/router'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 import { allSnippets } from '.contentlayer/generated'
@@ -10,33 +11,51 @@ import Layout from '@components/Layout'
 import Tags from '@components/Tags'
 import NewsletterForm from '@components/NewsletterForm'
 import Text from '@components/Text'
-import { getEnDomain } from '@lib/get-localized-domain'
 import loadIntlMessages from '@lib/load-intl-messages'
 import { getAllTagsForContent } from '@lib/content'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 function Snippet({ snippet, tags }: PageProps): React.ReactNode {
+  const intl = useIntl()
+  const { locale = process.env.LOCALE as string } = useRouter()
   const {
     publicRuntimeConfig: {
-      seo: { siteUrl },
+      seo: {
+        siteUrl,
+        i18n: { domains },
+      },
     },
   } = getConfig()
-  const intl = useIntl()
 
-  const { title, description, image, body, slug } = snippet
+  const { title, description, image, body, slug, alternate } = snippet
 
   const url = `${siteUrl}/blog/snippets/${slug}`
 
-  const canonicalDomain = getEnDomain()
-  const canonicalUrl = `https://${canonicalDomain}/blog/snippets/${slug}`
+  const languageAlternates = [
+    {
+      hrefLang: locale,
+      href: url,
+    },
+  ]
+  if (alternate) {
+    const [alternateLang, alternateSlug] = Object.entries(alternate)[0]
+    const alternateSubdomain = (domains as any[]).find(
+      ({ defaultLocale }) => alternateLang === defaultLocale
+    )?.domain
+
+    languageAlternates.push({
+      hrefLang: alternateLang,
+      href: `https://${alternateSubdomain}/blog/${alternateSlug}`,
+    })
+  }
 
   return (
     <Layout title={title} description={description}>
       <NextSeo
         title={title}
         description={description}
-        canonical={canonicalUrl}
+        languageAlternates={languageAlternates}
         openGraph={{
           title,
           description,
