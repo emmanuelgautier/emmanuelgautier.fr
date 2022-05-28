@@ -4,32 +4,32 @@
   "frontMatter.content.autoUpdateDate": true,
   "frontMatter.content.pageFolders": [
     {
-      "title": "Snippets",
-      "path": "content/_snippets",
-      "excludeSubdir": true
+      "title": "English Posts",
+      "path": "[[workspace]]/content/en/_posts"
     },
     {
-      "title": "French Pages",
-      "path": "content/fr/_pages",
-      "excludeSubdir": true
+      "title": "English Snippets",
+      "path": "[[workspace]]/content/en/_snippets"
     },
     {
       "title": "English Pages",
-      "path": "[[workspace]]/content/en/_pages",
-      "excludeSubdir": true
+      "path": "[[workspace]]/content/en/_pages"
     },
     {
-      "title": "French Blog posts",
-      "path": "content/fr/_posts"
+      "title": "French Posts",
+      "path": "[[workspace]]/content/fr/_posts"
     },
     {
-      "title": "English Blog posts",
-      "path": "content/en/_posts"
+      "title": "French Snippets",
+      "path": "[[workspace]]/content/fr/_snippets"
+    },
+    {
+      "title": "French Pages",
+      "path": "[[workspace]]/content/fr/_pages"
     }
   ],
   "frontMatter.content.publicFolder": "out",
   "frontMatter.site.baseURL": "https://www.emmanuelgautier.com",
-  "frontMatter.taxonomy.dateField": "created",
-  "frontMatter.taxonomy.modifiedField": "updated",
-  "frontMatter.taxonomy.tags": ["aws", "docker"]
+  "frontMatter.taxonomy.isPublishedDate": "created",
+  "frontMatter.taxonomy.isModifiedDate": "updated"
 }
