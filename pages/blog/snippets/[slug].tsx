@@ -10,6 +10,7 @@ import Content from '@components/Content'
 import Layout from '@components/Layout'
 import Tags from '@components/Tags'
 import NewsletterForm from '@components/NewsletterForm'
+import ShareButtons from '@components/ShareButtons'
 import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
 import { getAllTagsForContent } from '@lib/content'
@@ -102,6 +103,15 @@ function Snippet({ snippet, tags }: PageProps): React.ReactNode {
 
         <div className="prose dark:prose-dark max-w-none w-full mt-8">
           <Content content={body} />
+        </div>
+
+        <div className="my-8">
+          <ShareButtons
+            url={url}
+            title={title}
+            description={description}
+            tags={tags.map(({ hashtag }) => hashtag)}
+          />
         </div>
 
         <div className="mt-16">
