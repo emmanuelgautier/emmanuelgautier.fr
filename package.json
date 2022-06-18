@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "test": "yarn run build",
+    "test": "yarn build",
     "build": "run-s build:contentlayer build:next",
     "build:contentlayer": "./node_modules/.bin/contentlayer build",
     "build:css": "CSS_ENV=build postcss styles/globals.css --config postcss.config.js -o styles/output.css",
@@ -16,7 +16,7 @@
     "serve": "serve out",
     "i18n:extract": "formatjs extract 'pages/**/*.ts*' 'components/**/*.ts*' --out-file lang/en.json",
     "i18n:compile": "formatjs compile-folder lang compiled-lang",
-    "prebuild": "npm run i18n:compile",
+    "prebuild": "yarn i18n:compile",
     "postbuild": "run-s build:rss build:sitemap",
     "check:format": "tsc --pretty --noEmit",
     "format": "prettier --write .",
