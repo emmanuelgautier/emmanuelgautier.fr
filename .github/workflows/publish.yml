@@ -6,12 +6,24 @@ on:
       - master
 
 jobs:
-  ci:
+  publish:
     runs-on: ubuntu-latest
 
     permissions:
       contents: read
       deployments: write
+
+    strategy:
+      matrix:
+        include:
+          - projectName: "emmanuelgautier-com"
+            locale: "en"
+            domainName: "www.emmanuelgautier.com"
+            googleAnalyticsId: "G-R1SBQW90ML"
+          - projectName: "emmanuelgautier-fr"
+            locale: "fr"
+            domainName: "www.emmanuelgautier.fr"
+            googleAnalyticsId: "G-5FCQT74WKC"
 
     steps:
       - name: Checkout 🛎
@@ -29,34 +41,18 @@ jobs:
       - name: Run build
         run: yarn build
 
-      - name: Export for emmanuelgautier.com
+      - name: Export
         run: yarn export
         env:
-          LOCALE: en
-          DOMAIN: www.emmanuelgautier.com
-          NEXT_PUBLIC_GA_ID: G-R1SBQW90ML
+          LOCALE: ${{ matrix.locale }}
+          DOMAIN: ${{ matrix.domainName }}
+          NEXT_PUBLIC_GA_ID: ${{ matrix.googleAnalyticsId }}
 
-      - name: Publish emmanuelgautier.com
+      - name: Publish
         uses: cloudflare/pages-action@1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: emmanuelgautier-com
-          directory: ./out
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Export for emmanuelgautier.fr
-        run: yarn export
-        env:
-          LOCALE: en
-          DOMAIN: www.emmanuelgautier.fr
-          NEXT_PUBLIC_GA_ID: G-5FCQT74WKC
-
-      - name: Publish emmanuelgautier.fr
-        uses: cloudflare/pages-action@1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: emmanuelgautier-fr
+          projectName: ${{ matrix.projectName }}
           directory: ./out
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
