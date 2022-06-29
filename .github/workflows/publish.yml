@@ -40,6 +40,10 @@ jobs:
 
       - name: Run build
         run: yarn build
+        env:
+          LOCALE: ${{ matrix.locale }}
+          DOMAIN: ${{ matrix.domainName }}
+          NEXT_PUBLIC_GA_ID: ${{ matrix.googleAnalyticsId }}
 
       - name: Export
         run: yarn export
