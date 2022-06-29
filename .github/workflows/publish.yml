@@ -1,0 +1,62 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      deployments: write
+
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@master
+
+      - name: Setup node env 🏗
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/gallium
+          cache: 'yarn'
+
+      - name: Install dependencies 👨🏻‍💻
+        run: yarn --frozen-lockfile --silent
+
+      - name: Run build
+        run: yarn build
+
+      - name: Export for emmanuelgautier.com
+        run: yarn export
+        env:
+          LOCALE: en
+          DOMAIN: www.emmanuelgautier.com
+          NEXT_PUBLIC_GA_ID: G-R1SBQW90ML
+
+      - name: Publish emmanuelgautier.com
+        uses: cloudflare/pages-action@1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: emmanuelgautier-com
+          directory: ./out
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Export for emmanuelgautier.fr
+        run: yarn export
+        env:
+          LOCALE: en
+          DOMAIN: www.emmanuelgautier.fr
+          NEXT_PUBLIC_GA_ID: G-5FCQT74WKC
+
+      - name: Publish emmanuelgautier.fr
+        uses: cloudflare/pages-action@1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: emmanuelgautier-fr
+          directory: ./out
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
