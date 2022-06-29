@@ -17,8 +17,6 @@ import { IntlProvider } from 'react-intl'
 
 import { GA_TRACKING_ID, pageview } from '@lib/gtm'
 
-const cloudflareInsightsToken = process.env.CLOUDFLARE_INSIGHTS_TOKEN
-
 function MyApp({ Component, pageProps }: AppProps): React.ReactNode {
   const {
     asPath,
@@ -69,14 +67,6 @@ function MyApp({ Component, pageProps }: AppProps): React.ReactNode {
           `,
         }}
       />
-
-      {cloudflareInsightsToken && (
-        <Script
-          strategy="lazyOnload"
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon={`{"token": "${cloudflareInsightsToken}"}`}
-        ></Script>
-      )}
 
       <IntlProvider
         locale={locale}
