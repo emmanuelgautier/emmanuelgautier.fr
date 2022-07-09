@@ -8,13 +8,14 @@ tags:
   - dockerfile
   - javascript
   - typescript
-updated: 2022-05-28T10:46:21.566Z
+updated: 2022-07-09T09:50:05.323Z
 created: 2022-02-27T11:09:06.274Z
+lastmod: 2022-07-09T09:50:11.035Z
 ---
 
-There are tons of other examples of Dockerfile to build a Typescript project. A lot of them are not using the multi-stage build, this is a shame in my opinion.
+There are tons of other examples of Dockerfile to build a Typescript project but a lot of them are not using multi-stage build. Multi-stage build offers you a better building performance thanks to the cache layers. It also reduces the production image size because do not install the dependencies to build the project but only what you really need to run the project only.
 
-Here are two examples using yarn or npm to make a production-ready, Typescript project docker image:
+Here are two examples of using yarn or npm to build a production-ready Typescript project docker image:
 
 ## Using Yarn
 
