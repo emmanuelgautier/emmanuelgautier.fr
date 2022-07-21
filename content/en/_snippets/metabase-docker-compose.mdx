@@ -1,0 +1,87 @@
+---
+title: Metabase Docker Compose
+description: A docker-compose file for the Metabase Open Source solution with the Metabase
+  official Docker image and Postgres database.
+image: /images/docker.png
+slug: metabase-docker-compose
+tags:
+  - docker
+  - metabase
+updated: 2022-07-21T20:58:09.425Z
+created: 2022-07-21T20:58:09.425Z
+lastmod: 2022-07-21T21:00:48.189Z
+---
+
+Metabase is a Free and Open Source Business Intelligence and Dashboarding platform. It allows employees to answer some questions thanks to the data visualization.
+
+To make some tests or developments, it can be useful to deploy the local environment. One way is to create a local Docker environment. Metabase provides an official Docker image.
+
+Here you can find a `docker-compose` file with the Metabase image and a Postgres database. You will need to configure the Metabase instance by yourself.
+
+First of all, you have to create a `db_user.txt` and `db_password.txt` files with the postgres credentials. This database is not the one containing the business data but the DB with all the metabase configurations.
+
+```yaml:docker-compose.yml
+version: '3.9'
+
+services:
+  metabase-secrets:
+    image: metabase/metabase:v0.43.4
+    container_name: metabase-secrets
+    hostname: metabase-secrets
+    volumes:
+    - /dev/urandom:/dev/random:ro
+    ports:
+      - 3000:3000
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: metabase
+      MB_DB_PORT: 5432
+      MB_DB_USER_FILE: /run/secrets/db_user
+      MB_DB_PASS_FILE: /run/secrets/db_password
+      MB_DB_HOST: postgres-secrets
+    networks:
+      - metanet1-secrets
+    depends_on:
+      - postgres-secrets
+    secrets:
+      - db_password
+      - db_user
+
+  postgres-secrets:
+    image: postgres:14
+    container_name: postgres-secrets
+    hostname: postgres-secrets
+    environment:
+      POSTGRES_USER_FILE: /run/secrets/db_user
+      POSTGRES_DB: metabase
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+    networks:
+      - metanet1-secrets
+    secrets:
+      - db_password
+      - db_user
+
+  postgres-example:
+    image: postgres:latest
+    container_name: postgres-example
+    hostname: postgres-example
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_DB: metabase
+      POSTGRES_PASSWORD: password
+    networks:
+      - metanet1-secrets
+    secrets:
+      - db_password
+      - db_user
+
+networks:
+  metanet1-secrets:
+    driver: bridge
+
+secrets:
+   db_password:
+     file: db_password.txt
+   db_user:
+     file: db_user.txt
+```
