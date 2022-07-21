@@ -1,0 +1,43 @@
+---
+title: Odoo Docker Compose
+description: A docker-compose file for the Odoo Open Source solution with the Odoo
+  official Docker image and Postgres database.
+image: /images/docker.png
+slug: odoo-docker-compose
+tags:
+  - docker
+  - odoo
+updated: 2022-07-21T21:05:15.425Z
+created: 2022-07-21T21:05:15.425Z
+---
+
+Odoo is an Free and Open Source ERP and CRM platform. This solution has a lot of features including CRM, ERP but also E-Commerce, Project Management, ... etc.
+
+To make some tests or developments, it can be useful to deploy the local environment. One way is to create a local Docker environment. Odoo provides an official Docker image.
+
+Here you can find a `docker-compose` file with the Odoo image and a Postgres database. You will need to configure the Odoo instance by yourself.
+
+```yaml:docker-compose.yml
+version: '3.9'
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - POSTGRES_DB=postgres
+    restart: always
+
+  odoo:
+    image: odoo:15
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+      - "8072:8072" # live chat
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+```
