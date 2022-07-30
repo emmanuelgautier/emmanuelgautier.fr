@@ -1,0 +1,15 @@
+.root {
+  @apply mb-8 w-full;
+}
+
+.titleContainer {
+  @apply flex flex-col md:flex-row justify-between;
+}
+
+.title {
+  @apply text-lg md:text-xl font-medium mb-2 w-full text-gray-900 dark:text-gray-100;
+}
+
+.description {
+  @apply text-gray-600 dark:text-gray-400;
+}

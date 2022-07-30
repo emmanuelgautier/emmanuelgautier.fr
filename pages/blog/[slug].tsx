@@ -21,6 +21,7 @@ import NewsletterForm from '@components/NewsletterForm'
 import ShareButtons from '@components/ShareButtons'
 import { getAllTagsForContent } from '@lib/content'
 import Tags from '@components/Tags'
+import FeaturedPosts from '@components/FeaturedPosts'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -28,7 +29,6 @@ function BlogPost({
   page,
   tags,
   relatedPosts,
-  featuredPosts,
   questions,
 }: PageProps): React.ReactNode {
   const intl = useIntl()
@@ -201,22 +201,13 @@ function BlogPost({
           </div>
         )}
 
-        {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
-          <div className="mt-8">
-            <Text variant="sectionHeading">
-              {intl.formatMessage({ defaultMessage: 'Featured Posts' })}
-            </Text>
+        <div className="mt-8">
+          <Text variant="sectionHeading">
+            {intl.formatMessage({ defaultMessage: 'Featured Posts' })}
+          </Text>
 
-            {featuredPosts.map(({ description, slug, title }) => (
-              <BlogPostCard
-                key={`post-featured-posts-${slug}`}
-                slug={slug}
-                title={title}
-                description={description}
-              />
-            ))}
-          </div>
-        )}
+          <FeaturedPosts />
+        </div>
       </article>
     </Layout>
   )
@@ -239,19 +230,12 @@ export async function getStaticProps(ctx: any) {
     .filter(({ slug: _slug }) => _slug !== slug)
     .slice(0, 3)
 
-  const featuredPosts = allPosts
-    .filter(({ featured }) => featured)
-    .filter(({ slug: _slug }) => _slug !== slug)
-    .sort((post1, post2) => (post1.created > post2.created ? -1 : 1))
-    .slice(0, 3)
-
   return {
     props: {
       intlMessages: await loadIntlMessages(ctx),
       page: post,
       tags,
       relatedPosts,
-      featuredPosts,
       questions: [],
     },
   }

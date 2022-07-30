@@ -2,7 +2,9 @@ import { useMDXComponent } from 'next-contentlayer/hooks'
 import Img, { ImageProps } from 'next/image'
 import Link from 'next/link'
 
+import FeaturedPosts from './FeaturedPosts'
 import OutboundLink from './OutboundLink'
+import ProfileImg from './ProfileImg'
 
 type CustomLinkProps = {
   href: string
@@ -43,6 +45,8 @@ const Image: React.FC<ImageProps> = ({ alt, title, ...props }) => (
 const MDXComponents = {
   a: CustomLink,
   Image,
+  FeaturedPosts,
+  ProfileImg
 }
 
 interface ContentProps {

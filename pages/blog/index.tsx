@@ -1,16 +1,19 @@
 import { InferGetStaticPropsType } from 'next'
 import getConfig from 'next/config'
 import { NextSeo } from 'next-seo'
+import { useIntl } from 'react-intl'
 import { allPosts } from '.contentlayer/generated'
 
 import BlogPostCard from '@components/BlogPostCard'
 import Layout from '@components/Layout'
 import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
+import FeaturedPosts from '@components/FeaturedPosts'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-function BlogIndex({ page }: PageProps): React.ReactNode {
+function BlogIndex({ page: { posts } }: PageProps): React.ReactNode {
+  const intl = useIntl()
   const {
     publicRuntimeConfig: {
       seo: {
@@ -20,7 +23,6 @@ function BlogIndex({ page }: PageProps): React.ReactNode {
     },
   } = getConfig()
 
-  const { posts, featuredPosts } = page
   const title = 'Blog'
   const description = ''
   const url = `${siteUrl}/blog`
@@ -47,16 +49,11 @@ function BlogIndex({ page }: PageProps): React.ReactNode {
         <Text variant="pageHeading">{title}</Text>
 
         <section>
-          <Text variant="sectionHeading">Featured Posts</Text>
+          <Text variant="sectionHeading">
+            {intl.formatMessage({ defaultMessage: 'Featured Posts' })}
+          </Text>
 
-          {featuredPosts.map(({ slug, title, description }) => (
-            <BlogPostCard
-              key={`blog-posts-${slug}`}
-              title={title}
-              slug={slug}
-              description={description}
-            />
-          ))}
+          <FeaturedPosts />
         </section>
 
         <section>
@@ -88,7 +85,6 @@ export async function getStaticProps(ctx: any) {
       intlMessages: await loadIntlMessages(ctx),
       page: {
         posts,
-        featuredPosts: posts.filter(({ featured }) => featured).slice(0, 10),
       },
     },
   }
