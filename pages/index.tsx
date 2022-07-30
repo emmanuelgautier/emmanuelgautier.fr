@@ -12,6 +12,7 @@ import Content from '@components/Content'
 import NewsletterForm from '@components/NewsletterForm'
 import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
+import ProjectCard from '@components/ProjectCard'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -52,7 +53,7 @@ function Home({
       </div>
 
       {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
-        <div className="my-8">
+        <div className="my-4 border-b border-1 border-gray-200 dark:border-gray-800 pb-8">
           <Text variant="sectionHeading">
             {capitalize(intl.formatMessage({ defaultMessage: 'Blog' }))}
           </Text>
@@ -68,7 +69,23 @@ function Home({
         </div>
       )}
 
-      <div className="mt-16">
+      {process.env.LOCALE === 'fr' && (
+        <div className="my-4 border-b border-1 border-gray-200 dark:border-gray-800 pb-8">
+          <ProjectCard
+            title="Planète Durable"
+            description="Chaque geste compte. Planète Durable partage des conseils, innovations et initiatives veillant à préserver notre planète."
+            href="https://www.planete-durable.fr/"
+          />
+
+          <ProjectCard
+            title="Filendy"
+            description="Gérer son portefeuille de projets des plateformes de crownlending sera bientôt plus facile avec Filendy."
+            href="https://www.filendy.com/"
+          />
+        </div>
+      )}
+
+      <div className="mt-8">
         <NewsletterForm />
       </div>
     </Layout>

@@ -1,5 +1,5 @@
-import Card from './Card'
-import OutboundLink from './OutboundLink'
+import Card from '../Card'
+import OutboundLink from '../OutboundLink'
 
 interface Props {
   title: string
