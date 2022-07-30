@@ -1,6 +1,7 @@
 ---
 title: Publish multiple projects on a Monorepo on Cloudflare Pages
-description: All the tooling provided by service providers is great and makes the
+description:
+  All the tooling provided by service providers is great and makes the
   developer's life much easier. Usually, those providers connect one git
   repository to an application. It works fine but it is not so easy when you
   work on a monorepo or if you want to make multiple deployments for more than
@@ -54,10 +55,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - projectName: "project-en"
-            googleAnalyticsId: "G-XXXXXXXXXX"
-          - projectName: "project-fr"
-            googleAnalyticsId: "G-XXXXXXXXXX"
+          - projectName: 'project-en'
+            googleAnalyticsId: 'G-XXXXXXXXXX'
+          - projectName: 'project-fr'
+            googleAnalyticsId: 'G-XXXXXXXXXX'
 
     steps:
       - name: Checkout 🛎
