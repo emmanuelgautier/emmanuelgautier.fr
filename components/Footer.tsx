@@ -1,3 +1,4 @@
+import { getLocale } from '@lib/get-localized-domain'
 import getConfig from 'next/config'
 import Link from 'next/link'
 import { useIntl } from 'react-intl'
@@ -44,7 +45,7 @@ const Footer: React.FC = () => {
           </OutboundLink>
         </div>
         <div className="flex flex-col space-y-4">
-          {process.env.LOCALE === 'en' && (
+          {getLocale() === 'en' && (
             <Link href="/uses">
               <a className="text-gray-500 hover:text-gray-600">Uses</a>
             </Link>

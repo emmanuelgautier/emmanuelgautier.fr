@@ -10,6 +10,7 @@ import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
 import { getAllTags, getTagBySlug } from '@lib/content'
 import SnippetCard from '@components/SnippetCard'
+import { getLocale } from '@lib/get-localized-domain'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -47,11 +48,11 @@ function BlogTag({ page }: PageProps) {
             {capitalize(intl.formatMessage({ id: 'posts' }))}
           </Text>
 
-          {posts.map(({ slug, title, description }) => (
+          {posts.map(({ slug, title, description, url }) => (
             <BlogPostCard
               key={`tag-posts-${slug}`}
               title={title}
-              slug={slug}
+              url={url}
               description={description}
             />
           ))}
@@ -106,7 +107,7 @@ export async function getStaticProps(ctx: any) {
 }
 
 export function getStaticPaths() {
-  const tags = getAllTags()
+  const tags = getAllTags(getLocale())
 
   return {
     paths: tags.map(({ slug }) => ({

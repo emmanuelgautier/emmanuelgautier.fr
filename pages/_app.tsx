@@ -16,14 +16,10 @@ import { useEffect } from 'react'
 import { IntlProvider } from 'react-intl'
 
 import { GA_TRACKING_ID, pageview } from '@lib/gtm'
+import { getLocale } from '@lib/get-localized-domain'
 
 function MyApp({ Component, pageProps }: AppProps): React.ReactNode {
-  const {
-    asPath,
-    basePath,
-    locale = process.env.LOCALE as string,
-    defaultLocale,
-  } = useRouter()
+  const { asPath, basePath, locale = getLocale(), defaultLocale } = useRouter()
   const router = useRouter()
 
   const {

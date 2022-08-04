@@ -3,7 +3,7 @@ import { InferGetStaticPropsType } from 'next'
 import getConfig from 'next/config'
 import { NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
-import { allPages, allPosts } from '.contentlayer/generated'
+import { allPages } from '.contentlayer/generated'
 
 import Layout from '@components/Layout'
 import ProfileImg from '@components/ProfileImg'
@@ -13,6 +13,8 @@ import NewsletterForm from '@components/NewsletterForm'
 import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
 import ProjectCard from '@components/ProjectCard'
+import { getAllPosts } from '@lib/content'
+import { getLocale } from '@lib/get-localized-domain'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -58,10 +60,10 @@ function Home({
             {capitalize(intl.formatMessage({ defaultMessage: 'Blog' }))}
           </Text>
 
-          {featuredPosts.map(({ slug, title, description }) => (
+          {featuredPosts.map(({ slug, title, description, url }) => (
             <BlogPostCard
               key={`homepage-featuredpost-${slug}`}
-              slug={slug}
+              url={url}
               title={title}
               description={description}
             />
@@ -69,7 +71,7 @@ function Home({
         </div>
       )}
 
-      {process.env.LOCALE === 'fr' && (
+      {getLocale() === 'fr' && (
         <div className="my-4 border-b border-1 border-gray-200 dark:border-gray-800 pb-8">
           <ProjectCard
             title="Planète Durable"
@@ -97,7 +99,7 @@ export default Home
 export async function getStaticProps(ctx: any) {
   const page = allPages.find(({ slug }) => slug === 'index')!
 
-  const featuredPosts = allPosts
+  const featuredPosts = getAllPosts(getLocale())
     .filter(({ featured }) => featured)
     .sort((post1, post2) => (post1.created > post2.created ? -1 : 1))
     .slice(0, 3)

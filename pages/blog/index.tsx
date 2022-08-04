@@ -1,12 +1,13 @@
 import { InferGetStaticPropsType } from 'next'
 import getConfig from 'next/config'
 import { NextSeo } from 'next-seo'
-import { allPosts } from '.contentlayer/generated'
 
 import BlogPostCard from '@components/BlogPostCard'
 import Layout from '@components/Layout'
 import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
+import { getAllPosts } from '@lib/content'
+import { getLocale } from '@lib/get-localized-domain'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -49,11 +50,11 @@ function BlogIndex({ page }: PageProps): React.ReactNode {
         <section>
           <Text variant="sectionHeading">Featured Posts</Text>
 
-          {featuredPosts.map(({ slug, title, description }) => (
+          {featuredPosts.map(({ slug, title, description, url }) => (
             <BlogPostCard
               key={`blog-posts-${slug}`}
               title={title}
-              slug={slug}
+              url={url}
               description={description}
             />
           ))}
@@ -62,11 +63,11 @@ function BlogIndex({ page }: PageProps): React.ReactNode {
         <section>
           <Text variant="sectionHeading">All Posts</Text>
 
-          {posts.map(({ slug, title, description }) => (
+          {posts.map(({ url, title, description, slug }) => (
             <BlogPostCard
               key={`blog-posts-${slug}`}
               title={title}
-              slug={slug}
+              url={url}
               description={description}
             />
           ))}
@@ -79,9 +80,15 @@ function BlogIndex({ page }: PageProps): React.ReactNode {
 export default BlogIndex
 
 export async function getStaticProps(ctx: any) {
-  const posts = allPosts.sort((post1: any, post2: any) =>
-    post1.created > post2.created ? -1 : 1
-  )
+  const posts = getAllPosts(getLocale(), true)
+    .sort((post1: any, post2: any) => (post1.created > post2.created ? -1 : 1))
+    .map(({ title, description, featured = false, slug, url }) => ({
+      title,
+      description,
+      featured,
+      slug,
+      url,
+    }))
 
   return {
     props: {

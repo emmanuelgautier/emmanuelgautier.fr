@@ -3,11 +3,11 @@ import Link from 'next/link'
 interface Props {
   title: string
   description: string
-  slug: string
+  url: string
 }
 
-const BlogPostCard: React.FC<Props> = ({ title, description, slug }: Props) => (
-  <Link href={`/blog/${slug}`}>
+const BlogPostCard: React.FC<Props> = ({ title, description, url }: Props) => (
+  <Link href={url}>
     <a className="w-full">
       <div className="mb-8 w-full">
         <div className="flex flex-col md:flex-row justify-between">

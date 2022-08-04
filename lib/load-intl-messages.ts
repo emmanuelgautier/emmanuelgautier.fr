@@ -1,5 +1,6 @@
 import fs from 'fs/promises'
 import path from 'path'
+import { getLocale } from './get-localized-domain'
 
 type LoadI18nMessagesProps = {
   locale: string
@@ -9,7 +10,7 @@ type LoadI18nMessagesProps = {
 type MessageConfig = { [key: string]: string }
 
 export default async function loadI18nMessages({
-  locale = process.env.LOCALE as string,
+  locale = getLocale(),
   defaultLocale,
 }: LoadI18nMessagesProps): Promise<MessageConfig | undefined> {
   // If the default locale is being used we can skip it

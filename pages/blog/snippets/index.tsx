@@ -2,13 +2,13 @@ import { InferGetStaticPropsType } from 'next'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import getConfig from 'next/config'
 import { useIntl } from 'react-intl'
-import { allSnippets } from '.contentlayer/generated'
 
 import SnippetCard from '@components/SnippetCard'
 import Layout from '@components/Layout'
 import Text from '@components/Text'
-import { getEnDomain } from '@lib/get-localized-domain'
 import loadIntlMessages from '@lib/load-intl-messages'
+import { getAllSnippets } from '@lib/content'
+import { getLocale } from '@lib/get-localized-domain'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -25,15 +25,11 @@ function SnippetsIndex({ page }: PageProps): React.ReactNode {
   const description = ''
   const url = `${siteUrl}/blog/snippets`
 
-  const canonicalDomain = getEnDomain()
-  const canonicalUrl = `https://${canonicalDomain}/blog/snippets`
-
   return (
     <Layout title={title} description={description}>
       <NextSeo
         title={title}
         description={description}
-        canonical={canonicalUrl}
         openGraph={{
           title,
           description,
@@ -76,7 +72,7 @@ function SnippetsIndex({ page }: PageProps): React.ReactNode {
 export default SnippetsIndex
 
 export async function getStaticProps(ctx: any) {
-  const snippets = allSnippets
+  const snippets = getAllSnippets(getLocale(), true)
     .sort((snippet1: any, snippet2: any) =>
       snippet1.created > snippet2.created ? -1 : 1
     )

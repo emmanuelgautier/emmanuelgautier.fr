@@ -1,3 +1,4 @@
+import { getLocale } from '@lib/get-localized-domain'
 import getConfig from 'next/config'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
@@ -10,7 +11,7 @@ export default class MyDocument extends Document {
     } = getConfig()
 
     return (
-      <Html lang={process.env.LOCALE}>
+      <Html lang={getLocale()}>
         <Head>
           <link
             rel="apple-touch-icon"

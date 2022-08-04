@@ -2,7 +2,7 @@ import Link from 'next/link'
 import type { ContentTag } from '@lib/content'
 
 interface Props {
-  tags: ContentTag[]
+  tags: Pick<ContentTag, 'name' | 'slug'>[]
 }
 
 const Tags: React.FC<Props> = ({ tags }) => {

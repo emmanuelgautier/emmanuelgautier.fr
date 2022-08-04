@@ -1,23 +1,15 @@
-import getConfig from 'next/config'
+import { i18n } from '../next-seo.config'
 
-type Domain = {
-  [key: string]: string
-}
-
-export const getEnDomain = (): string => {
-  const {
-    publicRuntimeConfig: {
-      seo: {
-        i18n: { domains },
-      },
-    },
-  } = getConfig()
-  const enDomain = domains.filter(
-    ({ defaultLocale }: Domain) => defaultLocale === 'en'
+export const getDomainFromLocale = (locale: string): string => {
+  const { domains } = i18n
+  const localizedDomain = domains.find(
+    ({ defaultLocale }) => defaultLocale === locale
   )
-  if (!enDomain) {
-    throw new Error('No en domain found')
+  if (!localizedDomain) {
+    throw new Error('No localized domain found')
   }
 
-  return enDomain[0].domain
+  return localizedDomain.domain
 }
+
+export const getLocale = () => process.env.LOCALE || 'en'

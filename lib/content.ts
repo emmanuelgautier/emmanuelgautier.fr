@@ -14,9 +14,12 @@ type Content = Post | Snippet
 
 let computedTags: ContentTag[] | null = null
 
-const computeTags = (): ContentTag[] => {
+const computeTags = (locale: string): ContentTag[] => {
+  const localizedAllPosts = getAllPosts(locale)
+  const localizedAllSnippets = getAllSnippets(locale)
+
   const tags = ([] as Content[])
-    .concat(allPosts, allSnippets)
+    .concat(localizedAllPosts, localizedAllSnippets)
     .reduce<string[]>((acc, { tags }) => acc.concat(tags), [])
   const uniqTags = uniq(tags)
 
@@ -24,16 +27,59 @@ const computeTags = (): ContentTag[] => {
     name: tag,
     slug: kebabCase(tag),
     hashtag: camelCase(tag),
-    posts: allPosts.filter((post) => post.tags.includes(tag)),
-    snippets: allSnippets.filter((snippet) => snippet.tags.includes(tag)),
+    posts: localizedAllPosts.filter((post) => post.tags.includes(tag)),
+    snippets: localizedAllSnippets.filter((snippet) =>
+      snippet.tags.includes(tag)
+    ),
   }))
 
   return computedTags
 }
 
-export const getAllTags = (): ContentTag[] => {
+const getAllContent = <T extends Post | Snippet>(
+  allContents: T[],
+  locale = 'en',
+  includeAllLocales = false
+): T[] => {
+  const localeContent = allContents.filter(
+    ({ locale: _locale }) => _locale === locale
+  )
+  if (!includeAllLocales) {
+    return localeContent
+  }
+
+  return allContents.reduce((acc, curr) => {
+    if (
+      acc.findIndex(
+        ({ slug, alternate = {} }) =>
+          slug === curr.slug ||
+          Object.values(alternate).indexOf(curr.slug) !== -1
+      ) !== -1
+    ) {
+      return acc
+    }
+
+    return acc.concat(curr)
+  }, localeContent)
+}
+
+export const getAllPosts = (
+  locale = 'en',
+  includeAllLocales = false
+): Post[] => {
+  return getAllContent(allPosts, locale, includeAllLocales)
+}
+
+export const getAllSnippets = (
+  locale = 'en',
+  includeAllLocales = false
+): Snippet[] => {
+  return getAllContent(allSnippets, locale, includeAllLocales)
+}
+
+export const getAllTags = (locale = 'en'): ContentTag[] => {
   if (computedTags === null) {
-    return computeTags()
+    return computeTags(locale)
   }
 
   return computedTags

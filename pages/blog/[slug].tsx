@@ -9,7 +9,6 @@ import {
   NextSeo,
 } from 'next-seo'
 import { useIntl } from 'react-intl'
-import { allPosts } from '.contentlayer/generated'
 import type { Post } from '.contentlayer/generated'
 
 import BlogPostCard from '@components/BlogPostCard'
@@ -19,8 +18,9 @@ import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
 import NewsletterForm from '@components/NewsletterForm'
 import ShareButtons from '@components/ShareButtons'
-import { getAllTagsForContent } from '@lib/content'
+import { getAllPosts, getAllTagsForContent } from '@lib/content'
 import Tags from '@components/Tags'
+import { getLocale } from '@lib/get-localized-domain'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -32,7 +32,7 @@ function BlogPost({
   questions,
 }: PageProps): React.ReactNode {
   const intl = useIntl()
-  const { locale = process.env.LOCALE as string } = useRouter()
+  const { locale = getLocale() } = useRouter()
   const {
     publicRuntimeConfig: {
       seo: {
@@ -190,10 +190,10 @@ function BlogPost({
               {intl.formatMessage({ defaultMessage: 'Related Posts' })}
             </Text>
 
-            {relatedPosts.map(({ description, slug, title }) => (
+            {relatedPosts.map(({ description, slug, title, url }) => (
               <BlogPostCard
                 key={`post-related-posts-${slug}`}
-                slug={slug}
+                url={url}
                 title={title}
                 description={description}
               />
@@ -207,10 +207,10 @@ function BlogPost({
               {intl.formatMessage({ defaultMessage: 'Featured Posts' })}
             </Text>
 
-            {featuredPosts.map(({ description, slug, title }) => (
+            {featuredPosts.map(({ description, slug, title, url }) => (
               <BlogPostCard
                 key={`post-featured-posts-${slug}`}
-                slug={slug}
+                url={url}
                 title={title}
                 description={description}
               />
@@ -226,6 +226,7 @@ export default BlogPost
 
 export async function getStaticProps(ctx: any) {
   const { slug } = ctx.params
+  const allPosts = getAllPosts(getLocale())
   const post = allPosts.find(({ slug: _slug }) => _slug === slug)
   if (!post) {
     throw new Error()
@@ -233,23 +234,35 @@ export async function getStaticProps(ctx: any) {
 
   const tags = getAllTagsForContent(post)
 
-  const relatedPosts: Post[] = tags
+  const relatedPosts = tags
     .reduce<Post[]>((acc, { posts }) => acc.concat(posts), [])
     .sort((post1, post2) => (post1.created > post2.created ? -1 : 1))
     .filter(({ slug: _slug }) => _slug !== slug)
     .slice(0, 3)
+    .map(({ title, description, slug, url }) => ({
+      title,
+      description,
+      slug,
+      url,
+    }))
 
   const featuredPosts = allPosts
     .filter(({ featured }) => featured)
     .filter(({ slug: _slug }) => _slug !== slug)
     .sort((post1, post2) => (post1.created > post2.created ? -1 : 1))
     .slice(0, 3)
+    .map(({ title, description, slug, url }) => ({
+      title,
+      description,
+      slug,
+      url,
+    }))
 
   return {
     props: {
       intlMessages: await loadIntlMessages(ctx),
       page: post,
-      tags,
+      tags: tags.map(({ hashtag, name, slug }) => ({ hashtag, name, slug })),
       relatedPosts,
       featuredPosts,
       questions: [],
@@ -259,7 +272,7 @@ export async function getStaticProps(ctx: any) {
 
 export function getStaticPaths() {
   return {
-    paths: allPosts.map(({ slug }) => ({ params: { slug } })),
+    paths: getAllPosts(getLocale()).map(({ slug }) => ({ params: { slug } })),
     fallback: false,
   }
 }

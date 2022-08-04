@@ -4,7 +4,6 @@ import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
-import { allSnippets } from '.contentlayer/generated'
 
 import Content from '@components/Content'
 import Layout from '@components/Layout'
@@ -13,13 +12,14 @@ import NewsletterForm from '@components/NewsletterForm'
 import ShareButtons from '@components/ShareButtons'
 import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
-import { getAllTagsForContent } from '@lib/content'
+import { getAllSnippets, getAllTagsForContent } from '@lib/content'
+import { getLocale } from '@lib/get-localized-domain'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 function Snippet({ snippet, tags }: PageProps): React.ReactNode {
   const intl = useIntl()
-  const { locale = process.env.LOCALE as string } = useRouter()
+  const { locale = getLocale() } = useRouter()
   const {
     publicRuntimeConfig: {
       seo: {
@@ -132,12 +132,18 @@ export default Snippet
 
 export async function getStaticProps(ctx: any) {
   const { slug } = ctx.params
-  const snippet = allSnippets.find(({ slug: _slug }) => _slug === slug)
+  const snippet = getAllSnippets(getLocale()).find(
+    ({ slug: _slug }) => _slug === slug
+  )
   if (!snippet) {
     throw new Error()
   }
 
-  const tags = getAllTagsForContent(snippet)
+  const tags = getAllTagsForContent(snippet).map(({ hashtag, name, slug }) => ({
+    hashtag,
+    name,
+    slug,
+  }))
 
   return {
     props: {
@@ -150,7 +156,9 @@ export async function getStaticProps(ctx: any) {
 
 export function getStaticPaths() {
   return {
-    paths: allSnippets.map(({ slug }) => ({ params: { slug } })),
+    paths: getAllSnippets(getLocale()).map(({ slug }) => ({
+      params: { slug },
+    })),
     fallback: false,
   }
 }

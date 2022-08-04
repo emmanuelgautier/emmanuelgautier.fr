@@ -16,6 +16,7 @@ function generate() {
   })
 
   allPosts
+    .filter(({ locale }) => locale === process.env.LOCALE)
     .sort((a, b) => new Date(b.created) - new Date(a.created))
     .map((post) => {
       feed.item({
