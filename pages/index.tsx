@@ -71,21 +71,19 @@ function Home({
         </div>
       )}
 
-      {getLocale() === 'fr' && (
-        <div className="my-4 border-b border-1 border-gray-200 dark:border-gray-800 pb-8">
-          <ProjectCard
-            title="Planète Durable"
-            description="Chaque geste compte. Planète Durable partage des conseils, innovations et initiatives veillant à préserver notre planète."
-            href="https://www.planete-durable.fr/"
-          />
+      <div className="my-4 border-b border-1 border-gray-200 dark:border-gray-800 pb-8">
+        <ProjectCard
+          title="Planète Durable"
+          description="Chaque geste compte. Planète Durable partage des conseils, innovations et initiatives veillant à préserver notre planète."
+          href="https://www.planete-durable.fr/"
+        />
 
-          <ProjectCard
-            title="Filendy"
-            description="Gérer son portefeuille de projets des plateformes de crownlending sera bientôt plus facile avec Filendy."
-            href="https://www.filendy.com/"
-          />
-        </div>
-      )}
+        <ProjectCard
+          title="Filendy"
+          description="Gérer son portefeuille de projets des plateformes de crownlending sera bientôt plus facile avec Filendy."
+          href="https://www.filendy.com/"
+        />
+      </div>
 
       <div className="mt-8">
         <NewsletterForm />
