@@ -83,7 +83,7 @@
     "babel-plugin-macros": "3.1.0",
     "cross-env": "7.0.3",
     "cssnano": "5.1.13",
-    "eslint": "8.21.0",
+    "eslint": "8.22.0",
     "eslint-config-next": "12.2.5",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-formatjs": "4.1.0",
