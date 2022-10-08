@@ -7,7 +7,7 @@ type LoadI18nMessagesProps = {
   defaultLocale: string
 }
 
-type MessageConfig = { [key: string]: string }
+export type MessageConfig = { [key: string]: string }
 
 export default async function loadI18nMessages({
   locale = getLocale(),

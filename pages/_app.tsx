@@ -5,7 +5,7 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
 
-import { AppProps } from 'next/app'
+import type { AppProps } from 'next/app'
 import getConfig from 'next/config'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -16,9 +16,10 @@ import { useEffect } from 'react'
 import { IntlProvider } from 'react-intl'
 
 import { GA_TRACKING_ID, pageview } from '@lib/gtm'
+import type { MessageConfig } from '@lib/load-intl-messages'
 import { getLocale } from '@lib/get-localized-domain'
 
-function MyApp({ Component, pageProps }: AppProps): React.ReactNode {
+function MyApp({ Component, pageProps }: AppProps<{ intlMessages: MessageConfig }>): React.ReactNode {
   const { asPath, basePath, locale = getLocale(), defaultLocale } = useRouter()
   const router = useRouter()
 
