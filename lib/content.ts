@@ -1,6 +1,6 @@
 import { camelCase, kebabCase, uniq } from 'lodash'
 
-import { allPosts, allSnippets, Post, Snippet } from '.contentlayer/generated'
+import { allPosts, allSnippets, type Post, type Snippet } from '.contentlayer/generated'
 
 export type ContentTag = {
   name: string
@@ -15,6 +15,10 @@ type Content = Post | Snippet
 let computedTags: ContentTag[] | null = null
 
 const computeTags = (locale: string): ContentTag[] => {
+  if (Array.isArray(computedTags)) {
+    return computedTags
+  }
+
   const localizedAllPosts = getAllPosts(locale)
   const localizedAllSnippets = getAllSnippets(locale)
 
@@ -78,11 +82,7 @@ export const getAllSnippets = (
 }
 
 export const getAllTags = (locale = 'en'): ContentTag[] => {
-  if (computedTags === null) {
-    return computeTags(locale)
-  }
-
-  return computedTags
+  return computeTags(locale)
 }
 
 export const getTagBySlug = (slug: string): ContentTag | null => {
