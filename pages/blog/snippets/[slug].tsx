@@ -1,5 +1,5 @@
 import { InferGetStaticPropsType } from 'next'
-import Img from 'next/image'
+import Img from 'next/image';
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
@@ -97,7 +97,10 @@ function Snippet({ snippet, tags }: PageProps): React.ReactNode {
               width={64}
               height={64}
               className="rounded-full"
-            />
+              style={{
+                maxWidth: "100%",
+                height: "auto"
+              }} />
           </div>
         </header>
 
@@ -125,7 +128,7 @@ function Snippet({ snippet, tags }: PageProps): React.ReactNode {
         )}
       </article>
     </Layout>
-  )
+  );
 }
 
 export default Snippet

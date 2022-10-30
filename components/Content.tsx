@@ -1,5 +1,5 @@
 import { useMDXComponent } from 'next-contentlayer/hooks'
-import Img, { ImageProps } from 'next/image'
+import Img, { ImageProps } from 'next/image';
 import Link from 'next/link'
 
 import OutboundLink from './OutboundLink'
@@ -18,8 +18,8 @@ const CustomLink: React.FC<CustomLinkProps> = ({
 
   if (isInternalLink) {
     return (
-      <Link href={href}>
-        <a {...props}>{children}</a>
+      <Link href={href} {...props}>
+        {children}
       </Link>
     )
   }
@@ -33,11 +33,14 @@ const CustomLink: React.FC<CustomLinkProps> = ({
 
 const Image: React.FC<ImageProps> = ({ alt, title, ...props }) => (
   <Img
-    layout="responsive"
     title={title || alt}
     className="rounded-sm"
     {...props}
-  />
+    sizes="100vw"
+    style={{
+      width: "100%",
+      height: "auto"
+    }} />
 )
 
 const MDXComponents = {

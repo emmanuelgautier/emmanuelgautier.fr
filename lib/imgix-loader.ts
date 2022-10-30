@@ -1,4 +1,4 @@
-import { ImageLoaderProps } from 'next/image'
+import { ImageLoaderProps } from 'next/legacy/image';
 
 function normalizeSrc(src: string): string {
   return src[0] === '/' ? src.slice(1) : src

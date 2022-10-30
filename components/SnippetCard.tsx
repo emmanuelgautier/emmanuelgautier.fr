@@ -14,10 +14,8 @@ const SnippetCard: React.FC<Props> = ({
   className = '',
   ...props
 }: Props) => (
-  <Link href={`/blog/snippets/${slug}`}>
-    <a className={className}>
-      <Card {...props} />
-    </a>
+  <Link className={className} href={`/blog/snippets/${slug}`}>
+    <Card {...props} />
   </Link>
 )
 

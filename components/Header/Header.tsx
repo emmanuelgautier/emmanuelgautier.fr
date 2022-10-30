@@ -14,30 +14,24 @@ const Header: React.FC = () => {
   return (
     <nav className="sticky-nav flex justify-between items-center w-full p-4 my-0 md:my-4 mx-auto bg-opacity-60">
       <div>
-        <Link href="/">
-          <a className="p-1 sm:p-4 text-gray-800 dark:text-gray-100">
-            {intl.formatMessage({
-              id: 'nav.home.text',
-              defaultMessage: 'Home',
-            })}
-          </a>
+        <Link className="p-1 sm:p-4 text-gray-800 dark:text-gray-100" href="/">
+          {intl.formatMessage({
+            id: 'nav.home.text',
+            defaultMessage: 'Home',
+          })}
         </Link>
 
-        <Link href="/blog">
-          <a className="p-1 sm:p-4 text-gray-800 dark:text-gray-100">
-            {intl.formatMessage({
-              id: 'nav.blog.text',
-              defaultMessage: 'Blog',
-            })}
-          </a>
+        <Link className="p-1 sm:p-4 text-gray-800 dark:text-gray-100" href="/blog">
+          {intl.formatMessage({
+            id: 'nav.blog.text',
+            defaultMessage: 'Blog',
+          })}
         </Link>
 
-        <Link href="/blog/snippets">
-          <a className="p-1 sm:p-4 text-gray-800 dark:text-gray-100">
-            {intl.formatMessage({
-              id: 'snippets',
-            })}
-          </a>
+        <Link className="p-1 sm:p-4 text-gray-800 dark:text-gray-100" href="/blog/snippets">
+          {intl.formatMessage({
+            id: 'snippets',
+          })}
         </Link>
       </div>
       <button

@@ -1,4 +1,4 @@
-import Img from 'next/image'
+import Img from 'next/image';
 import clsx from 'clsx'
 
 interface Props {
@@ -18,8 +18,11 @@ const ProfileImg: React.FC<Props> = ({ className, ...props }) => {
       src="/images/profile.png"
       alt={props.title}
       {...props}
-    />
-  )
+      style={{
+        maxWidth: "100%",
+        height: "auto"
+      }} />
+  );
 }
 
 export default ProfileImg

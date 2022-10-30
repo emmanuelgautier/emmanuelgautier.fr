@@ -52,12 +52,11 @@ function NewsletterIndex({ page }: PageProps): React.ReactElement {
 
           {newsletters.map(({ slug, title }) => (
             <Link
+              className="block mb-4"
               key={`newsletter-issues-${slug}`}
               href={`/newsletter/${slug}`}
             >
-              <a className="block mb-4">
-                <Text>{title}</Text>
-              </a>
+              <Text>{title}</Text>
             </Link>
           ))}
         </section>

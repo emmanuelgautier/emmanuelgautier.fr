@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/image';
 
 import s from './Card.module.css'
 
@@ -25,11 +25,14 @@ const Card: React.FC<Props> = ({ title, description, icon }) => {
             width={56}
             height={56}
             className="rounded-full"
-          />
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }} />
         </div>
       )}
     </div>
-  )
+  );
 }
 
 export default Card

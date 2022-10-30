@@ -1,6 +1,10 @@
-import { getLocale } from '@lib/get-localized-domain'
+import { Roboto } from '@next/font/google';
 import getConfig from 'next/config'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+
+import { getLocale } from '@lib/get-localized-domain'
+
+const roboto = Roboto({ weight: "300" });
 
 export default class MyDocument extends Document {
   render() {
@@ -11,7 +15,7 @@ export default class MyDocument extends Document {
     } = getConfig()
 
     return (
-      <Html lang={getLocale()}>
+      <Html lang={getLocale()} className={roboto.className}>
         <Head>
           <link
             rel="apple-touch-icon"
