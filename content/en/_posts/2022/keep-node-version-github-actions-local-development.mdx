@@ -1,0 +1,43 @@
+---
+title: Keep the same Node.js version between local environment and Github Actions
+description: It can be complicated to have the same Node version between the local environment and the CI/CD. The latest Node.js version or the latest lts is released recently and if you want to upgrade to the Node version, usually you can forget to configure one environment.
+image: /images/javascript.png
+tags:
+  - javascript
+  - nodejs
+  - github
+  - github-actions
+slug: keep-node-version-github-actions-local-development
+locale: en
+updated: 2022-10-30
+created: 2022-10-30
+---
+
+It can be complicated to have the same Node version between the local environment and the CI/CD. The latest Node.js version or the latest lts is released recently and if you want to upgrade to the Node version, usually you can forget to configure one environment. For that reason, it can be important to have only one source of truth to define the Node version, so you change in one place it impacts every environment.
+
+Here we will use nvm and have the CI/CD example with Github Actions. Some other CI/CD solutions can exist elsewhere using a similar configuration and reproduce the common configuration.
+
+First of all, you should configure a `.nvmrc` file defining the version you want to use. This version will be used in your local environment. To use it, you can either make an `nvm use` each time you go to the project's local directory or configure your bash to use it automatically.
+
+Here is an example of a `.nvmrc` file content:
+
+```text
+lts/hydrogen
+
+```
+
+Then, you can configure the Github Action so to use the same .nvmrc file.
+
+```text
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node env
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+```
+
+Now, when you change the .nvmrc file, it changes the version used for your local environment, the Node environment for all your team, and the CI/CD running on Github.
