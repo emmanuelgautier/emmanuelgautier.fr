@@ -14,9 +14,9 @@ updated: 2022-10-30
 created: 2022-10-30
 ---
 
-Express Session provides a way to store data shared across differents HTTP Requests. The mechanism is to set a cookie with a session id, then retrieve and store data by this id during each request processing. This mechanism allows to store a lot of different data. There is a Typescript type named `SessionData` which allow to know what contains a session but not the data you will defined after without defining them.
+Express Session provides a way to store data shared across different HTTP Requests. The mechanism is to set a cookie with a session id, then retrieve and store data by this id during each request processing. This mechanism allows to store a lot of different data. There is a Typescript type named `SessionData` which allows knowing what contains a session but not the data you will define after without defining them.
 
-To define what is the content of the SessionData type globally in the application, you have to define a file `global.d.ts` and declare the content of the typing. Here an example of can contains the `global.d.ts` defined:
+To define what is the content of the SessionData type globally in the application, you have to define a file `global.d.ts` and declare the content of the typing. Here is an example of what can contain the `global.d.ts` defined:
 
 ```typescript
 declare global {
@@ -30,4 +30,4 @@ declare global {
 
 The properties should be always optional since the session created is empty when created.
 
-This way to define session data is the same of every framework using express-session package. NestJS exposes a way to access session with express session or the fastify equivalent. This typing definition is exactly the same with NestJS.
+This way to define session data is the same as every framework using express-session package. NestJS exposes a way to access sessions with express session or the fastify equivalent. This typing definition is exactly the same as NestJS.
