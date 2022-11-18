@@ -1,0 +1,64 @@
+---
+title: How to fix DNS Internal Resolution inside the Nginx docker container
+description: Sometimes, errors with Docker and some containers can become cryptic when it is about networking. Today, it was Nginx that was not able to reach another container.
+image: /images/docker.png
+tags:
+  - nginx
+  - docker
+  - dns
+slug: nginx-docker-dns-resolution
+locale: en
+updated: 2022-11-19
+created: 2022-11-19
+---
+
+Sometimes, errors with Docker and some containers can become cryptic when it is about networking. Today, it was Nginx that was not able to reach another container. Here is the docker-compose used:
+
+```yaml
+version: '3'
+
+services:
+  containername:
+    ...
+    container_name: containername
+    networks:
+      - intranet
+
+  nginx:
+    image: nginx:1
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./.docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - intranet
+
+networks:
+  intranet:
+```
+
+And the Nginx configuration used:
+
+```nginx
+server {
+    listen       8080;
+    listen  [::]:8080;
+    server_name  localhost;
+
+    location / {
+        proxy_pass http://containername:3000;
+    }
+}
+```
+
+Even after defining a container name and ensuring that the two containers can communicate inside the same docker network, Nginx continues throwing the following error: `no resolver defined to resolve container_name`
+
+Thanks for this Stack Overflow [answer](https://stackoverflow.com/a/37656784) for helping me figure out what was the root cause. The problem is that Nginx's default behavior is not to make a DNS resolution with Docker's internal DNS so he can not resolve a container by name. To fix this issue, you need to make possible the resolution with the Docker internal DNS. Just add this line in the Nginx configuration and you should be OK:
+
+```nginx
+http {
+    resolver 127.0.0.11;
+}
+```
+
+Hope this quick post helps you fix a similar issue.
