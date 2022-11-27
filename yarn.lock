@@ -435,10 +435,10 @@
   resolved "https://registry.yarnpkg.com/@effect-ts/system/-/system-0.57.4.tgz#d67700a6cc13ee883cdeddea7da8e302cc8011e6"
   integrity sha512-gGnOCvDv6829EeeC+NgTnwIt4XxclR0KqrG7BRemmNX5cm75cF0CKiuEB/o902wjAlt+MdrxTtFC+XsYdLnxzA==
 
-"@emmanuelgautier/renovate-config@1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@emmanuelgautier/renovate-config/-/renovate-config-1.5.0.tgz#5a0b30deaf35c581358d0b89dc0ec07586b750e9"
-  integrity sha512-n5txy3UgumlnP2gsKzwRtqNiHlYfHr9j639Jj/ylpbb+o0zUt0ZeE+TaUHomMphzR8lrmdP8eUdlcIWotE94sg==
+"@emmanuelgautier/renovate-config@1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@emmanuelgautier/renovate-config/-/renovate-config-1.5.1.tgz#ad81a2e71fb36e2a99d3b56f798d5af418d099e9"
+  integrity sha512-vv5CJbWOpIXOG/22tLwmfZXzi9HOoCgGkYJTVMe1RscERPlyFc+mo+UmYe3SvVUnVtvIAeHCKWOOqKXUksA9ag==
 
 "@esbuild-plugins/node-resolve@^0.1.4":
   version "0.1.4"
