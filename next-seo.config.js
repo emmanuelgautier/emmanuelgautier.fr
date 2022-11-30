@@ -17,6 +17,7 @@ module.exports = {
     github: 'https://github.com/emmanuelgautier',
     twitter: 'https://twitter.com/gautier_manu',
     linkedin: 'https://www.linkedin.com/in/emmanuelgautier1',
+    mastodon: 'https://mastodon.online/@emmanuelgautier',
   },
 
   blog: {

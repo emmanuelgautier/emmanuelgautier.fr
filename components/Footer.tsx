@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
   const {
     publicRuntimeConfig: {
       seo: {
-        socials: { twitter, github },
+        socials: { twitter, github, linkedin, mastodon },
       },
     },
   } = getConfig()
@@ -42,6 +42,19 @@ const Footer: React.FC = () => {
             href={github}
           >
             GitHub
+          </OutboundLink>
+          <OutboundLink
+            className="text-gray-500 hover:text-gray-600"
+            href={linkedin}
+          >
+            Linkedin
+          </OutboundLink>
+          <OutboundLink
+            className="text-gray-500 hover:text-gray-600"
+            href={mastodon}
+            rel='me'
+          >
+            Mastodon
           </OutboundLink>
         </div>
         <div className="flex flex-col space-y-4">
