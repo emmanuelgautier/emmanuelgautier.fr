@@ -28,7 +28,7 @@ const NewsletterForm: React.FC<Props> = () => {
         })}
       </p>
       <div className="w-full text-center mt-4">
-        <OutboundLink href="http://l.emmanuelgautier.com/newsletter">
+        <OutboundLink href="https://l.emmanuelgautier.com/newsletter">
           <button
             type="button"
             className="px-6 py-2 bg-gray-900 hover:bg-gray-100 dark:bg-gray-300 text-gray-100 hover:text-gray-900 dark:text-gray-700 rounded"

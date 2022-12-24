@@ -63,11 +63,11 @@ function BlogTag({ page }: PageProps) {
             {capitalize(intl.formatMessage({ id: 'snippets' }))}
           </Text>
 
-          {snippets.map(({ slug, title, description, image }) => (
+          {snippets.map(({ url, slug, title, description, image }) => (
             <SnippetCard
               key={`tag-snippets-${slug}`}
               title={title}
-              slug={slug}
+              url={url}
               description={description}
               icon={image}
             />

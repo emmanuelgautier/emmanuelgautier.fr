@@ -106,8 +106,8 @@ const Snippet = defineDocumentType(() => ({
       type: 'string',
       resolve: (doc) =>
         doc.locale === locale
-          ? `/blog/${doc.slug}`
-          : `${getDomainFromLocale(doc.locale)}/blog/${doc.slug}`,
+          ? `/blog/snippets/${doc.slug}`
+          : `${getDomainFromLocale(doc.locale)}/blog/snippets/${doc.slug}`,
     },
   },
 }))

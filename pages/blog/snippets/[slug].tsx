@@ -47,7 +47,7 @@ function Snippet({ snippet, tags }: PageProps): React.ReactNode {
 
     languageAlternates.push({
       hrefLang: alternateLang,
-      href: `https://${alternateSubdomain}/blog/${alternateSlug}`,
+      href: `https://${alternateSubdomain}/blog/snippets/${alternateSlug}`,
     })
   }
 

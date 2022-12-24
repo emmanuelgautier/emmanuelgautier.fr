@@ -5,16 +5,12 @@ interface Props {
   className?: string
   title: string
   description: string
-  slug: string
+  url: string
   icon?: string
 }
 
-const SnippetCard: React.FC<Props> = ({
-  slug,
-  className = '',
-  ...props
-}: Props) => (
-  <Link href={`/blog/snippets/${slug}`}>
+const SnippetCard: React.FC<Props> = ({ className = '', url, ...props }: Props) => (
+  <Link href={url}>
     <a className={className}>
       <Card {...props} />
     </a>
