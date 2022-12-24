@@ -9,7 +9,11 @@ interface Props {
   icon?: string
 }
 
-const SnippetCard: React.FC<Props> = ({ className = '', url, ...props }: Props) => (
+const SnippetCard: React.FC<Props> = ({
+  className = '',
+  url,
+  ...props
+}: Props) => (
   <Link href={url}>
     <a className={className}>
       <Card {...props} />

@@ -2,7 +2,7 @@ interface Props {
   className?: string
   href: string
   children: React.ReactNode
-  rel?: string,
+  rel?: string
   onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
 }
 

@@ -1,6 +1,11 @@
 import { camelCase, kebabCase, uniq } from 'lodash'
 
-import { allPosts, allSnippets, type Post, type Snippet } from '.contentlayer/generated'
+import {
+  allPosts,
+  allSnippets,
+  type Post,
+  type Snippet,
+} from '.contentlayer/generated'
 
 export type ContentTag = {
   name: string

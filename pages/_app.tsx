@@ -19,7 +19,10 @@ import { GA_TRACKING_ID, pageview } from '@lib/gtm'
 import type { MessageConfig } from '@lib/load-intl-messages'
 import { getLocale } from '@lib/get-localized-domain'
 
-function MyApp({ Component, pageProps }: AppProps<{ intlMessages: MessageConfig }>): React.ReactNode {
+function MyApp({
+  Component,
+  pageProps,
+}: AppProps<{ intlMessages: MessageConfig }>): React.ReactNode {
   const { asPath, basePath, locale = getLocale(), defaultLocale } = useRouter()
   const router = useRouter()
 

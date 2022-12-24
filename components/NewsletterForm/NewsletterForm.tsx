@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 import OutboundLink from '@components/OutboundLink'
 import { newsletterSubscribe } from '@lib/gtm'
 
-interface Props { }
+interface Props {}
 
 const NewsletterForm: React.FC<Props> = () => {
   const intl = useIntl()
