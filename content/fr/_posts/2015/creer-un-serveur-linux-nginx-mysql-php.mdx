@@ -20,23 +20,23 @@ Apache n'est pas le seul serveur HTTP existant pour desservir des applications �
 
 ### Nginx
 
-[Nginx](http://nginx.com/) est un serveur HTTP créé en 2002 par Igor Sysoev. Devenu populaire peu après 2006, le nombre de serveurs web l'utilisant est en constante augmentation et il séduit de plus en plus de développeurs et administrateurs système. Selon un récent sondage de [Netcraft](http://news.netcraft.com/archives/category/web-server-survey/), on dénombrerait près de 15% de l'ensemble des serveurs utilisant comme serveur HTTP Nginx. Il a pour avantage principal d'être léger et modulaire se qui est atout de performance non négligeable. Il peut également avec le rôle de proxy inversé à travers l'utilisation d'une interface FastCGI.
+[Nginx](https://nginx.com/) est un serveur HTTP créé en 2002 par Igor Sysoev. Devenu populaire peu après 2006, le nombre de serveurs web l'utilisant est en constante augmentation et il séduit de plus en plus de développeurs et administrateurs système. Selon un récent sondage de [Netcraft](https://news.netcraft.com/archives/category/web-server-survey/), on dénombrerait près de 15% de l'ensemble des serveurs utilisant comme serveur HTTP Nginx. Il a pour avantage principal d'être léger et modulaire se qui est atout de performance non négligeable. Il peut également avec le rôle de proxy inversé à travers l'utilisation d'une interface FastCGI.
 
 Dans ce tutoriel nous allons vous faire installer la dernière version du serveur. Pour ce faire nous n'utiliserons pas les dépôts officiels de la distribution linux mais les dépôts de Nginx eux-mêmes. Il vous faudra remplacer codename par le nom de version de Ubuntu dans les lignes de commandes suivantes.
 
-Attention les dépôts pris dans ce tutoriel fonctionnent pour la distribution Ubuntu. Pour toute autre distribution, vous pouvez trouver le lien vers les dépôts correspondants sur la [documentation](http://nginx.org/en/linux_packages.html)
+Attention les dépôts pris dans ce tutoriel fonctionnent pour la distribution Ubuntu. Pour toute autre distribution, vous pouvez trouver le lien vers les dépôts correspondants sur la [documentation](https://nginx.org/en/linux_packages.html)
 
 ```bash
-sudo echo "deb http://nginx.org/packages/ubuntu/ $(lsb_release -sc) nginx
-    deb-src http://nginx.org/packages/ubuntu/ $(lsb_release -sc) nginx" > /etc/apt/sources.list.d/nginx-stable.list
-wget -O - http://nginx.org/keys/nginx_signing.key | sudo apt-key add -
+sudo echo "deb https://nginx.org/packages/ubuntu/ $(lsb_release -sc) nginx
+    deb-src https://nginx.org/packages/ubuntu/ $(lsb_release -sc) nginx" > /etc/apt/sources.list.d/nginx-stable.list
+wget -O - https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
 sudo apt-get update && sudo apt-get install nginx
 ```
 
 Pour certaines raisons il est possible que la ligne d'ajout de clé ne fonctionne pas. Si tel est le cas, il vous faut remplacer la ligne précédante par la suivante.
 
 ```bash
-wget -O - http://nginx.org/keys/nginx_signing.key > key.gpg && sudo apt-key add key.gpg
+wget -O - https://nginx.org/keys/nginx_signing.key > key.gpg && sudo apt-key add key.gpg
 ```
 
 Pour les utilisateurs d'ubuntu, vous avez également la possibilité d'utiliser le [dépot Launchpad](https://launchpad.net/~nginx/+archive/ubuntu/stable) de Nginx. Voici comment procéder.
@@ -63,7 +63,7 @@ sudo /usr/bin/mysql_secure_installation
 
 ### PHP-FPM
 
-L'installation de PHP au sein d'un serveur web est souvent associée à l'installation d'un module apache, or l'interpréteur de ce langage peut bien entendu être exécuté hors du contexte de Apache. [PHP-FPM](http://php-fpm.org) est une interface de communication avec PHP par le protocole FastCGI. Dans notre cas Nginx pourra donc communiquer avec PHP via le protocole FastCGI grâce à PHP-FPM.
+L'installation de PHP au sein d'un serveur web est souvent associée à l'installation d'un module apache, or l'interpréteur de ce langage peut bien entendu être exécuté hors du contexte de Apache. [PHP-FPM](https://php-fpm.org) est une interface de communication avec PHP par le protocole FastCGI. Dans notre cas Nginx pourra donc communiquer avec PHP via le protocole FastCGI grâce à PHP-FPM.
 
 Voici maintenant comment installer PHP-FPM :
 

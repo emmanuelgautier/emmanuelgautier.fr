@@ -42,7 +42,7 @@ Puis, si vous voulez utiliser reCaptcha avec du php allez à la partie avec le p
 
 ### reCaptcha avec le plugin
 
-Tout d'abord, téléchargez le [plugin](http://code.google.com/p/recaptcha/downloads/list?q=label:phplib-Latest). Puis, afin d'afficher le
+Tout d'abord, téléchargez le [plugin](https://code.google.com/p/recaptcha/downloads/list?q=label:phplib-Latest). Puis, afin d'afficher le
 captcha, insérez le code suivant dans votre code :
 
 ```php
@@ -105,11 +105,11 @@ Dans ce cas vous allez devoir demander le formulaire via du code html ou du Java
 ```html
 <script
   type="text/javascript"
-  src="http://www.google.com/recaptcha/api/challenge?k=your_public_key"
+  src="https://www.google.com/recaptcha/api/challenge?k=your_public_key"
 ></script>
 <noscript>
   <iframe
-    src="http://www.google.com/recaptcha/api/noscript?k=your_public_key"
+    src="https://www.google.com/recaptcha/api/noscript?k=your_public_key"
     height="300"
     width="500"
     frameborder="0"
@@ -124,7 +124,7 @@ Dans ce cas vous allez devoir demander le formulaire via du code html ou du Java
 ```
 
 Maintenant on veut vérifier si le captcha rentré est bon mais cette fois-çi sans utiliser du PHP. Pour ce faire nous allons devoir envoyer une requête POST à la page suivante
-: [http://www.google.com/recaptcha/api/verify](http://www.google.com/recaptcha/api/verify)
+: [https://www.google.com/recaptcha/api/verify](https://www.google.com/recaptcha/api/verify)
 
 Voici regroupé dans un tableau les paramètres à passer en POST :
 
@@ -154,11 +154,11 @@ Pour voir quel design sont disponibles et aussi comment fabriquer son propre des
 
 Mais mon site est en français, pourquoi le formulaire est en anglais ? Mes visiteurs ne vont rien comprendre ! Pas d'inquiétude, vous pouvez changer la langue du formulaire. Si vous voulez que votre formulaire soit en français, utilisez le code suivant :
 
-````javascript
+```javascript
 var RecaptchaOptions = { lang : 'fr' };
 ``` 
 
 ### Liens connexes
-* [site officiel](http://recaptcha.net)
+* [site officiel](https://www.google.com/recaptcha/about/)
 * [Documentation](https://developers.google.com/recaptcha/)
 ````

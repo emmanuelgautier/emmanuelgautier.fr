@@ -19,7 +19,7 @@ L’entête `Server` de Nginx donnent deux informations importantes que sont le 
 server_tokens off;
 ```
 
-Vous pouvez également supprimer totalement l’entête `server` au moyen du module [NginxHttpHeadersMoreModule](http://wiki.nginx.org/NginxHttpHeadersMoreModule). Attention ! Ce module n’est pas intégré de base à tout les packaging de Nginx. Pour avoir accès à ce module, vous devrez installer le paquet nginx-extras ou compiler à partir des sources en prenant soin d’intégrer le module à la compilation. Maintenant, pour supprimer l’entête, vous devez ajouter la ligne de configurations suivante à la configuration de vos sites.
+Vous pouvez également supprimer totalement l’entête `server` au moyen du module [NginxHttpHeadersMoreModule](https://wiki.nginx.org/NginxHttpHeadersMoreModule). Attention ! Ce module n’est pas intégré de base à tout les packaging de Nginx. Pour avoir accès à ce module, vous devrez installer le paquet nginx-extras ou compiler à partir des sources en prenant soin d’intégrer le module à la compilation. Maintenant, pour supprimer l’entête, vous devez ajouter la ligne de configurations suivante à la configuration de vos sites.
 
 ```bash
 more_clear_headers 'Server';

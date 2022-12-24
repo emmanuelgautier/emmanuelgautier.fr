@@ -74,7 +74,7 @@ function anti_script($string)
 
 Pourtant, cette méthode pose quelques problème et est même totalement inefficace contre les attaques. En effet, ce filtre est facilement contournable car au lieu de mettre `<script></script>` mettons `<scscriptript></scrscriptipt>`. Lorsque les filtres vont faire leur actions le code résultant sera `<script></script>` et le code pourra s’exécuter. Autre chose qui est embêtant, c'est que sur un site d'informatique, on ne pourra pas mettre le texte `script` dans ses messages car ils seront automatiquement effacés du message. Pas très commode pour expliquer son code !
 
-On peut utiliser la fonction [htmlspecialchars()](http://www.php.net/manual/fr/function.htmlspecialchars.php). Cette fonction va remplacer certains caractères html par leur entités correspondantes. On peut utiliser de la même manière la fonction [htmlentitites()](http://www.php.net/manual/fr/function.htmlentities.php) qui a exactement la même utilitée que htmlspecialchars mais en plus complet. Une autre méthode encore plus radicale supprimera toute les balises html et php, c'est la fonction [strip_tags()](http://php.net/manual/fr/function.strip-tags.php).
+On peut utiliser la fonction [htmlspecialchars()](https://www.php.net/manual/fr/function.htmlspecialchars.php). Cette fonction va remplacer certains caractères html par leur entités correspondantes. On peut utiliser de la même manière la fonction [htmlentitites()](https://www.php.net/manual/fr/function.htmlentities.php) qui a exactement la même utilitée que htmlspecialchars mais en plus complet. Une autre méthode encore plus radicale supprimera toute les balises html et php, c'est la fonction [strip_tags()](https://php.net/manual/fr/function.strip-tags.php).
 
 ### Injection Sql
 
@@ -121,9 +121,9 @@ Pour l'éviter deux possibilités :
 - Échapper les caractères
 - Préparer les requêtes
 
-La fonction [addslashes()](http://php.net/manual/fr/function.addslashes.php) permet d'ajouter un antislash devant certain caractère ce qui permet d'échapper les caractères qui nous embêtes et qui pourraient fausser notre requêtes.
+La fonction [addslashes()](https://php.net/manual/fr/function.addslashes.php) permet d'ajouter un antislash devant certain caractère ce qui permet d'échapper les caractères qui nous embêtes et qui pourraient fausser notre requêtes.
 
-De la même manière les fonctions qui nous permettes les accès à la base nous donne l'accès à des fonctions qui peuvent échapper ces mêmes caractères. Pour les connexions avec l'objet [mysqli](http://www.php.net/manual/en/book.mysqli.php) on pourra échapper la chaîne grâce à [`MySQLi::mysqli_real_escape_string()`](http://www.php.net/manual/en/mysqli.real-escape-string.php). Pour les connexions avec l'objet `PDO`, on pourra échapper les caractères avec la fonction [`PDO::quote()`](http://php.net/manual/en/pdo.quote.php).
+De la même manière les fonctions qui nous permettes les accès à la base nous donne l'accès à des fonctions qui peuvent échapper ces mêmes caractères. Pour les connexions avec l'objet [mysqli](https://www.php.net/manual/en/book.mysqli.php) on pourra échapper la chaîne grâce à [`MySQLi::mysqli_real_escape_string()`](https://www.php.net/manual/en/mysqli.real-escape-string.php). Pour les connexions avec l'objet `PDO`, on pourra échapper les caractères avec la fonction [`PDO::quote()`](https://php.net/manual/en/pdo.quote.php).
 
 Une autre méthode est de préparer ses requêtes. Nous pourrons voir un exemple avec PDO.
 
@@ -242,11 +242,11 @@ Ou alors vous pouvez tout simplement vérifier le fichier à inclure. Pour ce fa
 
 ### Quelques bonnes pratiques
 
-#### Fonction [error_reporting()](http://php.net/manual/fr/function.error-reporting.php)
+#### Fonction [error_reporting()](https://php.net/manual/fr/function.error-reporting.php)
 
 Cette fonction permet d’empêcher que dans le cas d’une éventuel erreurs, celle-ci soit affichée. Cette découverte qui aurait été au mieux à l’utilisateur et au pire au pirate pour révéler des informations précieuses tel que le nom de variables, le nom de table sql, nom de répertoires, de fichiers, …. etc.
 
-#### Fonction [set_error_handler()](http://php.net/manual/fr/function.set-error-handler.php)
+#### Fonction [set_error_handler()](https://php.net/manual/fr/function.set-error-handler.php)
 
 Cette fonction permet de gérer vos erreurs. Vous pouvez donc, en cas d’erreur, enregistrer ces erreurs dans une base de données afin d’en prendre connaissance, les résoudre et faire une redirection vers une page d’erreur, évitant ainsi que l’erreur soit visible par le pirate.
 
