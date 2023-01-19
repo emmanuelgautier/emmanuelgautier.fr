@@ -1,9 +1,8 @@
 ---
 title: MySQL Docker Image for Mac ARM M1
 description:
-  Apple ARM M1 issue is that number of software are not compatible with the
-  microarchitecture ARMv8 like MySQL official Docker image for example. Here a
-  solution.
+  Apple ARM-based M1 and M2 issue is that number of software are not compatible with the
+  microarchitecture ARMv8 like MySQL official Docker image for example.
 image: /images/docker.png
 tags:
   - docker
@@ -17,7 +16,7 @@ updated: 2022-03-08T23:23:39.413Z
 created: 2022-02-26T13:46:49.039Z
 ---
 
-For a few years now, Apple released a new SoC for Mac using ARM M1 CPU. It is a 64-bit ARMv8 processor specially designed for their MacOS and iPadOS. Linux Kernel also supports it now since version 5.13.
+For a few years now, Apple released new ARM-based SoC for Mac, the Apple M1 and Apple M2 CPU. It is a 64-bit ARMv8 processor specially designed for their MacOS and iPadOS. Linux Kernel also supports it now since version 5.13.
 
 The issue is that number of software are not compatible with the microarchitecture ARMv8. It is the case of MySQL official Docker image for example.
 
