@@ -1,0 +1,79 @@
+---
+title: How to use Chakra UI Button and Link components with NextJS Link
+description: There is some glue to add to make Chakra UI and NextJS work together. The Chakra UI components do not generate the "a" tag by default for a link. Let's see how to use the Chakra button to generate links between pages.
+image: /images/nextjs.jpg
+slug: chakra-link-button-nextjs-link
+tags:
+  - javascript
+  - react
+  - nextjs
+  - chakra
+locale: en
+updated: 2023-02-04T15:17:37.429Z
+created: 2023-02-04T15:17:37.429Z
+---
+
+Chakra UI and Next.js work great together but there is some glue to add to make them work together. My last experiment about it was with the Button and Link Chakra UI components and the Next.js Link components for a website where SEO is important. The Chakra UI components do not generate the HTML `<a>` tags as I first expected and that broke the website's internal links.
+
+## A non-optimal way to use Chakra Button with Next.js Link
+
+As a first tentative to create a link with a button, I write this React code.
+
+```ts
+import { Button } from '@chakra-ui/react'
+import NextLink from 'next/link'
+
+const MyButton: React.FC = () => (
+  <NextLink href="https://app.filendy.com">
+    <Button>
+      Get Started
+    </Button>
+  </NextLink>
+)
+```
+
+This code renders the following DOM nodes and some JS code to make the link behavior works which works great for user interaction.
+
+```html
+<button type="button" class="chakra-button css-1t9x4xi">Get Started</button>
+```
+
+The user views a button, then click on it, and finally, the browser navigates to the new link. Everything is right, isn't it? Not really since this is not a link for crawlers. In my case, it is ahrefs crawler that warns me about some Orphan Pages. Since every link is not rendered as a link, the crawler detects no internal link. The internal linking is broken.
+
+## A better way
+
+To replace the `button` tag with an `a` tag, you must first `passHref` to the child components from the Next Link components and use the `as` props with the tag `a` to render the Chakra button as a link.
+
+```ts
+import { Button } from '@chakra-ui/react'
+import NextLink from 'next/link'
+
+const MyButton: React.FC = () => (
+  <NextLink href="https://app.filendy.com" passHref>
+    <Button as="a">
+      Get Started
+    </Button>
+  </NextLink>
+)
+```
+
+Here is the HTML generated from the code above:
+
+```html
+<a class="chakra-button css-13t2jeh" href="https://app.filendy.com">Get Started</a>
+```
+
+This is the same behavior with the Chakra UI Link and the same solutions. Here is an example with the Chakra Link:
+
+```ts
+import { Link } from '@chakra-ui/react'
+import NextLink from 'next/link'
+
+const MyButton: React.FC = () => (
+  <NextLink href="https://app.filendy.com" passHref>
+    <Link as="a">
+      Get Started
+    </Link>
+  </NextLink>
+)
+```
