@@ -14,8 +14,4 @@ module.exports = {
       },
     ],
   },
-  alternateRefs: i18n.domains.map(({ domain, defaultLocale }) => ({
-    href: domain,
-    hreflang: defaultLocale,
-  })),
 }
