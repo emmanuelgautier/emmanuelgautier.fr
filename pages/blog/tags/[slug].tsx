@@ -43,36 +43,40 @@ function BlogTag({ page }: PageProps) {
       <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
         <Text variant="pageHeading">{title}</Text>
 
-        <section>
-          <Text variant="sectionHeading">
-            {capitalize(intl.formatMessage({ id: 'posts' }))}
-          </Text>
+        {posts.length > 0 && (
+          <section>
+            <Text variant="sectionHeading">
+              {capitalize(intl.formatMessage({ id: 'posts' }))}
+            </Text>
 
-          {posts.map(({ slug, title, description, url }) => (
-            <BlogPostCard
-              key={`tag-posts-${slug}`}
-              title={title}
-              url={url}
-              description={description}
-            />
-          ))}
-        </section>
+            {posts.map(({ slug, title, description, url }) => (
+              <BlogPostCard
+                key={`tag-posts-${slug}`}
+                title={title}
+                url={url}
+                description={description}
+              />
+            ))}
+          </section>
+        )}
 
-        <section>
-          <Text variant="sectionHeading">
-            {capitalize(intl.formatMessage({ id: 'snippets' }))}
-          </Text>
+        {snippets.length > 0 && (
+          <section>
+            <Text variant="sectionHeading">
+              {capitalize(intl.formatMessage({ id: 'snippets' }))}
+            </Text>
 
-          {snippets.map(({ url, slug, title, description, image }) => (
-            <SnippetCard
-              key={`tag-snippets-${slug}`}
-              title={title}
-              url={url}
-              description={description}
-              icon={image}
-            />
-          ))}
-        </section>
+            {snippets.map(({ url, slug, title, description, image }) => (
+              <SnippetCard
+                key={`tag-snippets-${slug}`}
+                title={title}
+                url={url}
+                description={description}
+                icon={image}
+              />
+            ))}
+          </section>
+        )}
       </div>
     </Layout>
   )
