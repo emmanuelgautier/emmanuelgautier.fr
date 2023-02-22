@@ -10,6 +10,7 @@ import getConfig from 'next/config'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
+import PlausibleProvider from 'next-plausible'
 import { DefaultSeo } from 'next-seo'
 import { ThemeProvider } from 'next-themes'
 import { useEffect } from 'react'
@@ -28,7 +29,7 @@ function MyApp({
 
   const {
     publicRuntimeConfig: {
-      seo: { openGraph, siteUrl, twitter },
+      seo: { analyticsDomain, openGraph, siteUrl, twitter },
     },
   } = getConfig()
   const url = `${siteUrl}${basePath}${asPath}`
@@ -68,28 +69,35 @@ function MyApp({
         }}
       />
 
-      <IntlProvider
-        locale={locale}
-        defaultLocale={defaultLocale}
-        messages={pageProps.intlMessages}
+      <PlausibleProvider
+        domain={analyticsDomain}
+        customDomain={`https://a.${analyticsDomain}`}
+        selfHosted={true}
+        trackOutboundLinks={true}
       >
-        <DefaultSeo
-          {...{
-            siteUrl,
+        <IntlProvider
+          locale={locale}
+          defaultLocale={defaultLocale}
+          messages={pageProps.intlMessages}
+        >
+          <DefaultSeo
+            {...{
+              siteUrl,
 
-            openGraph: {
-              url,
-              locale,
-              ...openGraph,
-            },
+              openGraph: {
+                url,
+                locale,
+                ...openGraph,
+              },
 
-            twitter,
-          }}
-        />
-        <ThemeProvider attribute="class">
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </IntlProvider>
+              twitter,
+            }}
+          />
+          <ThemeProvider attribute="class">
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </IntlProvider>
+      </PlausibleProvider>
     </>
   )
 }

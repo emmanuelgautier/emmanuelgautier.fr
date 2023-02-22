@@ -18,11 +18,9 @@ jobs:
         include:
           - projectName: 'emmanuelgautier-com'
             locale: 'en'
-            domainName: 'www.emmanuelgautier.com'
             googleAnalyticsId: 'G-R1SBQW90ML'
           - projectName: 'emmanuelgautier-fr'
             locale: 'fr'
-            domainName: 'www.emmanuelgautier.fr'
             googleAnalyticsId: 'G-5FCQT74WKC'
 
     steps:
@@ -42,14 +40,12 @@ jobs:
         run: yarn build
         env:
           LOCALE: ${{ matrix.locale }}
-          DOMAIN: ${{ matrix.domainName }}
           NEXT_PUBLIC_GA_ID: ${{ matrix.googleAnalyticsId }}
 
       - name: Export
         run: yarn export
         env:
           LOCALE: ${{ matrix.locale }}
-          DOMAIN: ${{ matrix.domainName }}
           NEXT_PUBLIC_GA_ID: ${{ matrix.googleAnalyticsId }}
 
       - name: Publish
