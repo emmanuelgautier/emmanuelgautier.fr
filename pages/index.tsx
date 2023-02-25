@@ -1,6 +1,7 @@
 import { capitalize } from 'lodash'
 import { InferGetStaticPropsType } from 'next'
 import getConfig from 'next/config'
+import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 import { allPages } from '.contentlayer/generated'
@@ -30,6 +31,7 @@ function Home({
     },
   } = getConfig()
   const intl = useIntl()
+  const { locale = getLocale() } = useRouter()
 
   return (
     <Layout title={title} description={description}>
@@ -72,16 +74,26 @@ function Home({
       )}
 
       <div className="my-4 border-b border-1 border-gray-200 dark:border-gray-800 pb-8">
-        <ProjectCard
-          title="Planète Durable"
-          description="Chaque geste compte. Planète Durable partage des conseils, innovations et initiatives veillant à préserver notre planète."
-          href="https://www.planete-durable.fr/"
-        />
+        {locale === 'fr' && (
+          <>
+            <ProjectCard
+              title="Planète Durable"
+              description="Chaque geste compte. Planète Durable partage des conseils, innovations et initiatives veillant à préserver notre planète."
+              href="https://www.planete-durable.fr/"
+            />
+
+            <ProjectCard
+              title="Filendy"
+              description="Gérer son portefeuille de projets des plateformes de crownlending sera bientôt plus facile avec Filendy."
+              href="https://www.filendy.com/"
+            />
+          </>
+        )}
 
         <ProjectCard
-          title="Filendy"
-          description="Gérer son portefeuille de projets des plateformes de crownlending sera bientôt plus facile avec Filendy."
-          href="https://www.filendy.com/"
+          title="CerberAuth"
+          description="Exploring OAuth, OpenID Connect, and IAM Solutions for Modern Security."
+          href="https://www.cerberauth.com/"
         />
       </div>
 
