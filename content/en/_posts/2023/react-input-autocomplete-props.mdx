@@ -1,0 +1,26 @@
+---
+title: Solve React error "Property autocomplete does not exist on type"
+description: Sometimes, it happens that an easy-to-solve issue takes you more time than it should. The Typescript React error "Property autocomplete does not exist on type" is maybe one of them.
+image: /images/react.png
+slug: react-input-autocomplete-props
+tags:
+  - typescript
+  - react
+locale: en
+updated: 2023-02-28T23:23:25.268Z
+created: 2023-02-28T23:23:25.268Z
+---
+
+Sometimes, it happens that an easy-to-solve issue takes you more time than it should because there are several solutions after making some search and you can not figure out what is the right one. The Typescript React error `Property 'autocomplete' does not exist on type` is maybe one of them.
+
+This error usually occurs when you try to use the autocomplete property on an HTML input element in a React component and TypeScript doesn't recognize it as a valid property.
+
+This is just a matter of case-sensitive property! In order to solve this issue, you can change the `autocomplete` property to the `autoComplete` property. Here's an example:
+
+```tsx
+function MyInput() {
+  return <input type="text" autoComplete="off" />;
+}
+```
+
+Hope this post saved you some time.
