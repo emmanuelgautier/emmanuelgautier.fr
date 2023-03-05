@@ -1,3 +1,4 @@
+import '@fontsource/roboto'
 import '../styles/globals.css'
 import '../styles/prism.css'
 

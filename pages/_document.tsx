@@ -38,11 +38,6 @@ export default class MyDocument extends Document {
           />
 
           <link rel="manifest" href={`${siteUrl}/site.webmanifest`} />
-
-          <link
-            href="https://fonts.googleapis.com/css2?family=Roboto&display=optional"
-            rel="stylesheet"
-          />
         </Head>
 
         <body className="bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50">
