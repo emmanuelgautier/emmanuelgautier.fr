@@ -40,25 +40,6 @@ export default class MyDocument extends Document {
           <link rel="manifest" href={`${siteUrl}/site.webmanifest`} />
 
           <link
-            rel="dns-prefetch"
-            key="dns-prefetch-l-emmanuelgautier"
-            href="https://l.emmanuelgautier.com"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="dns-prefetch"
-            key="dns-prefetch-googletagmanager"
-            href="https://www.googletagmanager.com"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preconnect"
-            key="preconnect-googletagmanager"
-            href="https://www.googletagmanager.com"
-            crossOrigin="anonymous"
-          />
-
-          <link
             href="https://fonts.googleapis.com/css2?family=Roboto&display=optional"
             rel="stylesheet"
           />

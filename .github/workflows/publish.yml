@@ -18,10 +18,8 @@ jobs:
         include:
           - projectName: 'emmanuelgautier-com'
             locale: 'en'
-            googleAnalyticsId: 'G-R1SBQW90ML'
           - projectName: 'emmanuelgautier-fr'
             locale: 'fr'
-            googleAnalyticsId: 'G-5FCQT74WKC'
 
     steps:
       - name: Checkout 🛎
@@ -40,13 +38,11 @@ jobs:
         run: yarn build
         env:
           LOCALE: ${{ matrix.locale }}
-          NEXT_PUBLIC_GA_ID: ${{ matrix.googleAnalyticsId }}
 
       - name: Export
         run: yarn export
         env:
           LOCALE: ${{ matrix.locale }}
-          NEXT_PUBLIC_GA_ID: ${{ matrix.googleAnalyticsId }}
 
       - name: Publish
         uses: cloudflare/pages-action@1

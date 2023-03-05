@@ -1,15 +1,16 @@
 import { useIntl } from 'react-intl'
+import { usePlausible } from 'next-plausible'
 
 import OutboundLink from '@components/OutboundLink'
-import { newsletterSubscribe } from '@lib/gtm'
 
 interface Props {}
 
 const NewsletterForm: React.FC<Props> = () => {
+  const plausible = usePlausible()
   const intl = useIntl()
 
   const _handleSubscribe = () => {
-    newsletterSubscribe()
+    plausible('subscribeNewsletter')
   }
 
   return (

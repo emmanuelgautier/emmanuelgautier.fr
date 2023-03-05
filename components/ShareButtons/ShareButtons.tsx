@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // @ts-ignore: Implicity has an any type
 import { brands, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import getConfig from 'next/config'
+import { usePlausible } from 'next-plausible'
 import { useIntl } from 'react-intl'
 import {
   LinkedinShareButton,
@@ -9,7 +10,6 @@ import {
   TwitterShareButton,
 } from 'react-share'
 
-import { rssFollow, share } from '@lib/gtm'
 import OutboundLink from '@components/OutboundLink'
 
 interface Props {
@@ -20,6 +20,7 @@ interface Props {
 }
 
 const ShareButtons: React.FC<Props> = ({ url, title, description, tags }) => {
+  const plausible = usePlausible()
   const intl = useIntl()
   const {
     publicRuntimeConfig: {
@@ -29,11 +30,11 @@ const ShareButtons: React.FC<Props> = ({ url, title, description, tags }) => {
   const rssFeedUrl = `${siteUrl}/rss.xml`
 
   const _handleRssFollow = () => {
-    rssFollow()
+    plausible('rssFollow')
   }
 
   const _handleShare = (network: string) => () => {
-    share(network)
+    plausible('clickShare', { props: { network } })
   }
 
   return (
