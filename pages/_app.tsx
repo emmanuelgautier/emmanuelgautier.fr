@@ -41,7 +41,7 @@ function MyApp({
 
       <PlausibleProvider
         domain={analyticsDomain}
-        customDomain={`https://${analyticsDomain}`}
+        customDomain={`https://a.${analyticsDomain}`}
         selfHosted={true}
         trackOutboundLinks={true}
       >

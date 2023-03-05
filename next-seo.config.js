@@ -70,7 +70,7 @@ function getDomains() {
     case enLocale:
       return {
         siteDomain: subdomainEn,
-        analyticsDomain: 'a.emmanuelgautier.com',
+        analyticsDomain: 'emmanuelgautier.com',
         commentsDomain: 'comments.emmanuelgautier.com',
       }
 
@@ -78,7 +78,7 @@ function getDomains() {
     default:
       return {
         siteDomain: subdomainFr,
-        analyticsDomain: 'a.emmanuelgautier.fr',
+        analyticsDomain: 'emmanuelgautier.fr',
         commentsDomain: 'comments.emmanuelgautier.fr',
       }
   }
