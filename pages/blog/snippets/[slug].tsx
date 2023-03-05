@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 
+import { Comments } from '@components/Comments'
 import Content from '@components/Content'
 import Layout from '@components/Layout'
 import Tags from '@components/Tags'
@@ -117,6 +118,8 @@ function Snippet({ snippet, tags }: PageProps): React.ReactNode {
         <div className="mt-16">
           <NewsletterForm />
         </div>
+
+        <Comments url={url} title={title} />
 
         {Array.isArray(tags) && tags.length > 0 && (
           <div className="mt-8">

@@ -4,7 +4,7 @@ const enLocale = 'en'
 const subdomainFr = 'www.emmanuelgautier.fr'
 const subdomainEn = 'www.emmanuelgautier.com'
 
-const { siteDomain, analyticsDomain } = getDomains()
+const { siteDomain, analyticsDomain, commentsDomain } = getDomains()
 const siteUrl = `https://${siteDomain}`
 
 const person = 'Emmanuel Gautier'
@@ -13,6 +13,7 @@ module.exports = {
   siteDomain,
   siteUrl,
   analyticsDomain,
+  commentsDomain,
 
   socials: {
     github: 'https://github.com/emmanuelgautier',
@@ -69,14 +70,16 @@ function getDomains() {
     case enLocale:
       return {
         siteDomain: subdomainEn,
-        analyticsDomain: 'emmanuelgautier.com'
+        analyticsDomain: 'a.emmanuelgautier.com',
+        commentsDomain: 'comments.emmanuelgautier.com',
       }
 
     case frLocale:
     default:
       return {
         siteDomain: subdomainFr,
-        analyticsDomain: 'emmanuelgautier.fr'
+        analyticsDomain: 'a.emmanuelgautier.fr',
+        commentsDomain: 'comments.emmanuelgautier.fr',
       }
   }
 }

@@ -19,6 +19,7 @@ import loadIntlMessages from '@lib/load-intl-messages'
 import NewsletterForm from '@components/NewsletterForm'
 import ShareButtons from '@components/ShareButtons'
 import { getAllPosts, getAllTagsForContent } from '@lib/content'
+import { Comments } from '@components/Comments'
 import Tags from '@components/Tags'
 import { getLocale } from '@lib/get-localized-domain'
 
@@ -177,6 +178,8 @@ function BlogPost({
         <div className="my-8">
           <NewsletterForm />
         </div>
+
+        <Comments url={url} title={title} />
 
         {Array.isArray(tags) && tags.length > 0 && (
           <div className="mt-8">
