@@ -142,6 +142,38 @@ Il permet de définir un enregistrement contenant un texte libre. Cet enregistre
 domain.tld.    IN    TXT    "text"
 ```
 
+### Enregistrement SOA
+
+Un enregistrement SOA (Start of Authority) est un type d'enregistrement DNS qui fournit des informations d'autorité sur une zone DNS, notamment le serveur de noms principal pour la zone, l'adresse e-mail de la personne responsable de la zone, ainsi que diverses valeurs de synchronisation qui contrôlent la manière dont les informations DNS sont mises en cache et mises à jour.
+
+L'enregistrement SOA est généralement le premier enregistrement DNS dans un fichier de zone et contient les champs suivants :
+
+- `name` : le nom de la zone, généralement le nom de domaine suivi d'un point.
+- `ttl` : la valeur de temps de vie pour la zone, qui détermine pendant combien de temps les autres serveurs DNS doivent mettre en cache les informations de la zone avant de demander des mises à jour.
+- `class` : la classe DNS, généralement IN pour Internet.
+- `type` : le type d'enregistrement, toujours SOA.
+- `primary nameserver` : le nom d'hôte du serveur de noms principal pour la zone.
+- `responsible person` : l'adresse e-mail de la personne responsable de la zone, en utilisant un format spécial avec le @ remplacé par un . et le . remplacé par \..
+- `serial number` : un numéro de version pour la zone qui est incrémenté à chaque fois que la zone est mise à jour.
+- `refresh` : l'intervalle auquel les serveurs de noms secondaires doivent vérifier le serveur de noms principal pour les mises à jour.
+- `retry` : l'intervalle auquel les serveurs de noms secondaires doivent réessayer une tentative de transfert de zone échouée.
+- `expire` : le temps maximum que les serveurs de noms secondaires doivent utiliser les données de la zone avant de les considérer comme expirées.
+- `minimum TTL` : la valeur de temps de vie minimale qui doit être utilisée pour tout enregistrement dans la zone.
+
+Voici un exemple d'enregistrement SOA :
+
+```bash
+example.com. IN SOA ns1.example.com. hostmaster.example.com. (
+  2022030101 ; numéro de série
+  86400      ; rafraîchir toutes les 24 heures
+  7200       ; réessayer toutes les 2 heures
+  604800     ; expirer après 1 semaine
+  3600       ; temps de vie minimum de 1 heure
+)
+```
+
+
+
 ## Test
 
 Nous allons maintenant pour faire des tests, afin de s'assurer du bon fonctionnement de notre serveur et de vérifier que les enregistrements ont bien été pris en compte et son correctes. Pour tester ces enregistrements nous allons utiliser la ligne de commande `dig`. Selon votre distribution linux, il peut être nécesaire que vous installiez le paquet.

@@ -142,6 +142,72 @@ This type allows storing text content. This record is used a lot to verify you a
 domain.tld.    IN    TXT    "text"
 ```
 
+### SPF Record
+
+An SPF record (Sender Policy Framework record) is a type of DNS record that specifies which mail servers are authorized to send email messages on behalf of a domain name. It helps prevent email spoofing and improves email deliverability by allowing mail servers to check if incoming email messages come from a legitimate source.
+
+The SPF record contains a list of authorized IP addresses and/or hostnames that are allowed to send email messages for a particular domain name. When a recipient mail server receives an email message, it checks the SPF record of the sending domain to verify that the message was sent from an authorized server. If the SPF record doesn't list the sending server, the recipient mail server may reject the message or mark it as spam.
+
+Here's an example SPF record:
+
+```bash
+v=spf1 ip4:192.0.2.0/24 ip4:198.51.100.123 a -all
+```
+
+### DKIM Record
+
+A DKIM record (DomainKeys Identified Mail record) is a type of DNS record that provides a digital signature for email messages to verify that they were sent by an authorized sender and have not been tampered with in transit. DKIM is used for email authentication and can help prevent email spoofing and phishing.
+
+To use DKIM, the sender's mail server signs outgoing email messages with a private key, and the recipient's mail server verifies the signature using a public key published in the DKIM record. If the signature is valid, the message is considered authentic and is more likely to be delivered to the recipient's inbox.
+
+Here's an example DKIM record:
+
+```bash
+selector1._domainkey.example.com IN TXT "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCdZiQO4OvAK8nhxWgFphLT0y+WJ...more key data...yQIDAQAB"
+```
+
+In this example, the DKIM record specifies a selector (selector1) and a domain (`example.com`) that correspond to the DKIM signature applied to the outgoing email messages. The `v=DKIM1` tag indicates the version of the DKIM protocol used, and the k=rsa tag specifies the algorithm used for the signature. The `p` tag contains the public key data for the domain, which is used to verify the signature.
+
+### SRV Record
+
+A SRV record (Service record) is a type of DNS record that specifies the location of a service on a domain name, such as a SIP server for VoIP, a LDAP server for directory services, or a XMPP server for instant messaging.
+
+The SRV record contains several fields of information, including the service name, the protocol used, the domain name of the service, and the port number where the service is located. The record also specifies a priority and weight value that can be used to determine the order of preference for multiple service providers.
+
+Here's an example SRV record:
+
+```bash
+_sip._tcp.example.com. IN SRV 10 60 5060 sipserver.example.com.
+```
+
+### SOA Record
+
+A SOA record (Start of Authority record) is a type of DNS record that provides authoritative information about a DNS zone, including the primary nameserver for the zone, the email address of the responsible person for the zone, and various timing values that control how DNS information is cached and updated.
+
+The SOA record is usually the first DNS record in a zone file and contains the following fields:
+
+- `name`: the name of the zone, typically the domain name followed by a period.
+- `ttl`: the time to live value for the zone, which determines how long other DNS servers should cache the information in the zone before requesting updates.
+- `class`: the DNS class, typically IN for Internet.
+- `type`: the record type, always SOA.
+- `primary nameserver`: the hostname of the primary nameserver for the zone.
+- `responsible person`: the email address of the person responsible for the zone, using a special format with the @ replaced by a . and the . replaced by \..
+- `serial number`: a version number for the zone that is incremented each time the zone is updated.
+- `refresh`: the interval at which secondary nameservers should check the primary nameserver for updates.
+- `retry`: the interval at which secondary nameservers should retry a failed zone transfer.
+- `expire`: the maximum time that secondary nameservers should use the zone data before considering it expired.
+- `minimum TTL`: the minimum time to live value that should be used for any record in the zone.
+
+```bash
+example.com. IN SOA ns1.example.com. hostmaster.example.com. (
+  2022030101 ; serial number
+  86400      ; refresh every 24 hours
+  7200       ; retry every 2 hours
+  604800     ; expire after 1 week
+  3600       ; minimum TTL of 1 hour
+)
+```
+
 ## Test
 
 Now, it's time to check that our DNS server is working properly and check the records you configured are taken into account. For testing purposes, you can use the `dig` command line. You may need to install it first depending on your Linux distribution.
