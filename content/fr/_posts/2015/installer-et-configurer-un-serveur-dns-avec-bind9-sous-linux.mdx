@@ -11,7 +11,7 @@ alternate:
   en: install-and-configure-dns-server-with-bind9
 featured: true
 locale: fr
-updated: '2021-11-11'
+updated: '2023-03-11'
 created: '2015-04-19'
 ---
 
@@ -88,11 +88,22 @@ Il existe différents types d'enregistrements représentant chacun un type infor
 
 ### Enregistrement A
 
-C'est l'enregistrement le plus courant. Il fait correspondre une adresse IPv4 à un nom d'hôte.
+Un enregistrement A est un type d'enregistrement DNS qui associe un nom de domaine à une adresse IPv4. Un résolveur DNS utilise les enregistrements A pour trouver l'adresse IP associée à un nom de domaine, permettant aux navigateurs web et autres applications de se connecter à des serveurs sur Internet.
+
+Un enregistrement A comprend généralement les parties suivantes :
+- `name` : le nom de domaine pour lequel l'enregistrement s'applique, tel que example.com.
+- `ttl` : la valeur de temps de vie pour l'enregistrement, qui détermine pendant combien de temps les autres serveurs DNS et clients doivent mettre en cache l'enregistrement avant de demander une mise à jour.
+- `class` : la classe DNS, généralement IN pour Internet.
+- `type` : le type d'enregistrement DNS, toujours A.
+- `address` : l'adresse IPv4 associée au nom de domaine, telle que 192.0.2.1.
+
+Voici un exemple d'enregistrement A :
 
 ```bash
-www    IN    A    A.B.C.D
+example.com. 3600 IN A 192.0.2.1
 ```
+
+Dans cet exemple, l'enregistrement A associe le nom de domaine example.com à l'adresse IPv4 192.0.2.1. La valeur 3600 spécifie une durée de vie de 3600 secondes (1 heure), ce qui signifie que d'autres serveurs DNS et clients peuvent mettre en cache l'enregistrement pendant jusqu'à 1 heure avant de demander une mise à jour.
 
 ### Enregistrement AAAA
 

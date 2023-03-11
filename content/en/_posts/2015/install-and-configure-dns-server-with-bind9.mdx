@@ -11,7 +11,7 @@ locale: en
 alternate:
   fr: installer-et-configurer-un-serveur-dns-avec-bind9-sous-linux
 featured: true
-updated: '2021-11-11'
+updated: '2023-03-11'
 created: '2015-04-19'
 ---
 
@@ -88,11 +88,22 @@ It exists different records type storing different information. Here is a list o
 
 ### A Record
 
-This record is the most used and indicates the IPv4 for a given domain name.
+An A record is a type of DNS record that maps a domain name to an IPv4 address. A DNS resolver uses A records to find the IP address associated with a domain name, allowing web browsers and other applications to connect to servers on the internet.
+
+An A record typically consists of the following parts:
+- `name`: the domain name for which the record applies, such as example.com.
+- `ttl`: the time-to-live value for the record, which determines how long other DNS servers and clients should cache the record before requesting an update.
+- `class`: the DNS class, usually IN for internet.
+- `type`: the type of DNS record, always A.
+- `address`: the IPv4 address associated with the domain name, such as 192.0.2.1.
+
+Here is an example of an A record:
 
 ```bash
 www    IN    A    A.B.C.D
 ```
+
+In this example, the A record maps the domain name `example.com` to the IPv4 address `192.0.2.1`. The `3600 ` value specifies a TTL of 3600 seconds (1 hour), meaning that other DNS servers and clients can cache the record for up to 1 hour before requesting an update.
 
 ### AAAA Record
 
