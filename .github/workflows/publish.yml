@@ -37,12 +37,12 @@ jobs:
       - name: Run build
         run: yarn build
         env:
-          LOCALE: ${{ matrix.locale }}
+          NEXT_LOCALE: ${{ matrix.locale }}
 
       - name: Export
         run: yarn export
         env:
-          LOCALE: ${{ matrix.locale }}
+          NEXT_LOCALE: ${{ matrix.locale }}
 
       - name: Publish
         uses: cloudflare/pages-action@1

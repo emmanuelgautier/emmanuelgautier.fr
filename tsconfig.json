@@ -21,6 +21,6 @@
       "@lib/*": ["lib/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "lib/get-localized-domain.mjs"],
   "exclude": ["node_modules"]
 }

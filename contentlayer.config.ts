@@ -12,7 +12,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrism from 'rehype-prism-plus'
 
 import remarkImgToJsx from './lib/remark-img-to-jsx'
-import { getDomainFromLocale, getLocale } from './lib/get-localized-domain'
+import { getDomainFromLocale, getLocale } from './lib/get-localized-domain.mjs'
 
 const locale = getLocale()
 

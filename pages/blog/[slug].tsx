@@ -21,7 +21,7 @@ import ShareButtons from '@components/ShareButtons'
 import { getAllPosts, getAllTagsForContent } from '@lib/content'
 import { Comments } from '@components/Comments'
 import Tags from '@components/Tags'
-import { getLocale } from '@lib/get-localized-domain'
+import { getLocale } from '@lib/get-localized-domain.mjs'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 

@@ -16,7 +16,7 @@ import { ThemeProvider } from 'next-themes'
 import { IntlProvider } from 'react-intl'
 
 import type { MessageConfig } from '@lib/load-intl-messages'
-import { getLocale } from '@lib/get-localized-domain'
+import { getLocale } from '@lib/get-localized-domain.mjs'
 
 function MyApp({
   Component,

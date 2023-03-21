@@ -1,6 +1,6 @@
 import fs from 'fs/promises'
 import path from 'path'
-import { getLocale } from './get-localized-domain'
+import { getLocale } from './get-localized-domain.mjs'
 
 type LoadI18nMessagesProps = {
   locale: string

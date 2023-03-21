@@ -7,7 +7,7 @@ import Layout from '@components/Layout'
 import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
 import { getAllPosts } from '@lib/content'
-import { getLocale } from '@lib/get-localized-domain'
+import { getLocale } from '@lib/get-localized-domain.mjs'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 

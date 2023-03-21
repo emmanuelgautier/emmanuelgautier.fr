@@ -10,7 +10,7 @@ import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
 import { getAllTags, getTagBySlug } from '@lib/content'
 import SnippetCard from '@components/SnippetCard'
-import { getLocale } from '@lib/get-localized-domain'
+import { getLocale } from '@lib/get-localized-domain.mjs'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -86,7 +86,7 @@ export default BlogTag
 
 export async function getStaticProps(ctx: any) {
   const { slug } = ctx.params
-  const tag = getTagBySlug(slug)
+  const tag = getTagBySlug(slug, getLocale())
   if (!tag) {
     throw new Error(`Tag not found: ${slug}`)
   }

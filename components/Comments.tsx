@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useIntl } from 'react-intl'
-import { getLocale } from '@lib/get-localized-domain'
+import { getLocale } from '@lib/get-localized-domain.mjs'
 
 import Text from './Text';
 import { useTheme } from 'next-themes';
@@ -76,15 +76,10 @@ type CommentsProps = {
   title: string
 }
 
-export const Comments: React.FC<CommentsProps> = ({ url, title }) => {
+const CommentsWidget: React.FC<CommentsProps & { commentsDomain: string }> = ({ url, title, commentsDomain }) => {
   const intl = useIntl()
   const { theme } = useTheme()
   const locale = getLocale()
-  const {
-    publicRuntimeConfig: {
-      seo: { commentsDomain },
-    },
-  } = getConfig()
   useEffect(() => manageScript(commentsDomain, {
     siteId: `emmanuelgautier-${locale}`,
     url,
@@ -100,5 +95,22 @@ export const Comments: React.FC<CommentsProps> = ({ url, title }) => {
       </Text>
       <div id="remark42" />
     </>
+  )
+}
+
+export const Comments: React.FC<CommentsProps> = (props) => {
+  const {
+    publicRuntimeConfig: {
+      seo: { commentsDomain },
+    },
+  } = getConfig()
+  if (!commentsDomain) {
+    return (
+      <></>
+    )
+  }
+
+  return (
+    <CommentsWidget {...props} commentsDomain={commentsDomain} />
   )
 }

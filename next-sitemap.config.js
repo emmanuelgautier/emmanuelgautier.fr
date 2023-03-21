@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 
-const { siteUrl, i18n } = require('./next-seo.config')
+const { siteUrl } = require('./next-seo.config')
 
 module.exports = {
   siteUrl,

@@ -1,8 +1,8 @@
-import { getLocale } from '@lib/get-localized-domain'
 import getConfig from 'next/config'
 import Link from 'next/link'
 import { useIntl } from 'react-intl'
 
+import { getLocale } from '@lib/get-localized-domain.mjs'
 import OutboundLink from './OutboundLink'
 
 const Footer: React.FC = () => {

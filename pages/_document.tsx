@@ -1,6 +1,7 @@
-import { getLocale } from '@lib/get-localized-domain'
 import getConfig from 'next/config'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+
+import { getLocale } from '@lib/get-localized-domain.mjs'
 
 export default class MyDocument extends Document {
   render() {

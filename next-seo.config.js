@@ -66,7 +66,7 @@ module.exports = {
 }
 
 function getDomains() {
-  switch (process.env.LOCALE) {
+  switch (process.env.NEXT_LOCALE) {
     case enLocale:
       return {
         siteDomain: subdomainEn,
@@ -79,7 +79,6 @@ function getDomains() {
       return {
         siteDomain: subdomainFr,
         analyticsDomain: 'emmanuelgautier.fr',
-        commentsDomain: 'comments.emmanuelgautier.fr',
       }
   }
 }
