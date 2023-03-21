@@ -12,7 +12,7 @@ alternate:
   en: nextjs-ssg-i18n-routing
 featured: true
 locale: fr
-updated: '2021-09-04'
+updated: 2023-03-21T21:19:14.821Z
 created: '2021-03-14'
 ---
 
@@ -47,19 +47,19 @@ Le serveur pour le SSR est inutile si vous voulez seulement la partie SSG égale
 
 Quand vous génerez votre site statiquement, il n'est plus possible d'utiliser l'entête de la requête du navigateur ou toute autre information du navigateur pour savoir quelle langue utiliser.
 
-Nous avons besoin d'introduire une nouvelle variable d'environnement `NEXT_LOCALE` qui va contenir la locale du site géneré durant le process d'export.
+Nous avons besoin d'introduire une nouvelle variable d'environnement `NEXT_PUBLIC_LOCALE` qui va contenir la locale du site géneré durant le process d'export.
 
 Exemple de contenu dans un fichier `.env.*`
 
 ```
-NEXT_LOCALE=fr
+NEXT_PUBLIC_LOCALE=fr
 ```
 
-Vous pouvez maintenant utiliser la variable `NEXT_LOCALE` dans le fichier `_app.tsx` dans la fonction `getInitialProps` pour définir la langue.
+Vous pouvez maintenant utiliser la variable `NEXT_PUBLIC_LOCALE` dans le fichier `_app.tsx` dans la fonction `getInitialProps` pour définir la langue.
 
 ```ts
 const getInitialProps: typeof App.getInitialProps = async (appContext) => {
-  const locale = appContext.router.locale || process.env.NEXT_LOCALE
+  const locale = appContext.router.locale || process.env.NEXT_PUBLIC_LOCALE
   const [supportedLocale, messagePromise] = getMessages(locale)
 
   const [, messages, appProps] = await Promise.all([

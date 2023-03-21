@@ -13,8 +13,7 @@ type Props = {
 }
 
 const Layout: React.FC<Props> = ({ title, description, children }) => {
-  const router = useRouter()
-  const { basePath, asPath } = router
+  const { basePath, asPath } = useRouter()
   const {
     publicRuntimeConfig: {
       seo: { person, siteUrl, socials },

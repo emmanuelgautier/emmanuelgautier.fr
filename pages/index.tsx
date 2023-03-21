@@ -1,7 +1,6 @@
 import { capitalize } from 'lodash'
 import { InferGetStaticPropsType } from 'next'
 import getConfig from 'next/config'
-import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 import { allPages } from '.contentlayer/generated'
@@ -20,9 +19,11 @@ import { getLocale } from '@lib/get-localized-domain.mjs'
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 function Home({
+  locale,
   page: { body, title, description },
   featuredPosts,
 }: PageProps): React.ReactNode {
+  const intl = useIntl()
   const {
     publicRuntimeConfig: {
       seo: {
@@ -30,8 +31,6 @@ function Home({
       },
     },
   } = getConfig()
-  const intl = useIntl()
-  const { locale = getLocale() } = useRouter()
 
   return (
     <Layout title={title} description={description}>
@@ -119,6 +118,7 @@ export async function getStaticProps(ctx: any) {
       intlMessages: await loadIntlMessages(ctx),
       page,
       featuredPosts,
+      locale: getLocale(),
     },
   }
 }

@@ -66,7 +66,7 @@ module.exports = {
 }
 
 function getDomains() {
-  switch (process.env.NEXT_LOCALE) {
+  switch (process.env.NEXT_PUBLIC_LOCALE) {
     case enLocale:
       return {
         siteDomain: subdomainEn,
