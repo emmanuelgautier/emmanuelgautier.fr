@@ -20,7 +20,6 @@ import NewsletterForm from '@components/NewsletterForm'
 import ShareButtons from '@components/ShareButtons'
 import { getAllPosts, getAllTagsForContent } from '@lib/content'
 import { Comments } from '@components/Comments'
-import Tags from '@components/Tags'
 import { getLocale } from '@lib/get-localized-domain.mjs'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
@@ -180,12 +179,6 @@ function BlogPost({
         </div>
 
         <Comments url={url} title={title} />
-
-        {Array.isArray(tags) && tags.length > 0 && (
-          <div className="mt-8">
-            <Tags tags={tags} />
-          </div>
-        )}
 
         {Array.isArray(relatedPosts) && relatedPosts.length > 0 && (
           <div className="mt-8">

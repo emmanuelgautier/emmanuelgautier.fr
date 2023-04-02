@@ -8,7 +8,6 @@ import { useIntl } from 'react-intl'
 import { Comments } from '@components/Comments'
 import Content from '@components/Content'
 import Layout from '@components/Layout'
-import Tags from '@components/Tags'
 import NewsletterForm from '@components/NewsletterForm'
 import ShareButtons from '@components/ShareButtons'
 import Text from '@components/Text'
@@ -120,12 +119,6 @@ function Snippet({ snippet, tags }: PageProps): React.ReactNode {
         </div>
 
         <Comments url={url} title={title} />
-
-        {Array.isArray(tags) && tags.length > 0 && (
-          <div className="mt-8">
-            <Tags tags={tags} />
-          </div>
-        )}
       </article>
     </Layout>
   )
