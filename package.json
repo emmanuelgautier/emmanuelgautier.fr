@@ -78,7 +78,7 @@
     "@fullhuman/postcss-purgecss": "5.0.0",
     "@types/lodash": "4.14.192",
     "@types/node": "18.15.11",
-    "@types/react": "18.0.31",
+    "@types/react": "18.0.32",
     "@types/react-dom": "18.0.11",
     "@types/rss": "0.0.30",
     "babel-plugin-formatjs": "10.4.0",
