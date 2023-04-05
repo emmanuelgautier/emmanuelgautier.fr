@@ -5,7 +5,7 @@ const seoConfig = require('./next-seo.config')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
 
   publicRuntimeConfig: {
     seo: seoConfig,

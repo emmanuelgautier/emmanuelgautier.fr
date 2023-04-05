@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
   } = getConfig()
 
   return (
-    <footer className="flex flex-col justify-center items-start mx-auto w-full p-8 mb-4">
+    <footer className="flex flex-col justify-center max-w-4xl mx-auto items-start mx-auto w-full p-8 mb-4">
       <hr className="w-full border-1 border-gray-200 dark:border-gray-800 mb-8" />
       <div className="w-full max-w-2xl grid grid-cols-3 gap-2 pb-16">
         <div className="flex flex-col space-y-4">

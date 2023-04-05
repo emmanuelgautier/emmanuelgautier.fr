@@ -6,13 +6,13 @@ import type React from 'react'
 import Footer from './Footer'
 import Header from './Header/Header'
 
-type Props = {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   title: string
   description: string
   children: React.ReactNode
 }
 
-const Layout: React.FC<Props> = ({ title, description, children }) => {
+const Layout: React.FC<Props> = ({ title, description, children, ...props }) => {
   const { basePath, asPath } = useRouter()
   const {
     publicRuntimeConfig: {
@@ -35,13 +35,11 @@ const Layout: React.FC<Props> = ({ title, description, children }) => {
         sameAs={Object.values(socials)}
       />
 
-      <div className="flex flex-col justify-center max-w-3xl mx-auto">
-        <Header />
+      <Header />
 
-        <main className="w-full md:my-4 px-8">{children}</main>
+      <main {...props}>{children}</main>
 
-        <Footer />
-      </div>
+      <Footer />
     </>
   )
 }

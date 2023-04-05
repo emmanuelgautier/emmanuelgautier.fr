@@ -20,6 +20,7 @@ import NewsletterForm from '@components/NewsletterForm'
 import ShareButtons from '@components/ShareButtons'
 import { getAllPosts, getAllTagsForContent } from '@lib/content'
 import { Comments } from '@components/Comments'
+import CarbonAds from '@components/CarbonAds'
 import { getLocale } from '@lib/get-localized-domain.mjs'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
@@ -142,12 +143,12 @@ function BlogPost({
         />
       )}
 
-      <article>
-        <header className="pt-2">
-          <div className="space-y-4 text-left">
+      <article className="px-4 md:px-8">
+        <header className="my-4 flex flex-col lg:grid lg:grid-cols-8 lg:gap-4 max-w-8xl mx-auto">
+          <div className="col-start-3 col-span-4">
             <Text variant="pageHeading">{title}</Text>
 
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full mt-2 md:mt-0 text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex flex-row justify-between items-start w-full mt-1 text-sm text-gray-600 dark:text-gray-400">
               <div className="flex items-center">
                 <p>
                   <span>{`${person.name} / `}</span>
@@ -157,62 +158,66 @@ function BlogPost({
               <p className="min-w-32">{readingTime.text}</p>
             </div>
           </div>
+
+          <div className="col-span-2">
+            <CarbonAds />
+          </div>
         </header>
 
-        <div className="prose dark:prose-dark max-w-none w-full mt-8">
-          <Text variant="body">
-            <Content content={body} />
-          </Text>
-        </div>
+        <div className="flex flex-col lg:grid lg:grid-cols-8 lg:gap-4 justify-center max-w-8xl mx-auto">
+          <div className="flex flex-col col-start-3 col-span-4">
+            <div className="prose dark:prose-dark max-w-none w-full">
+              <Text variant="body">
+                <Content content={body} />
+              </Text>
+            </div>
 
-        <div className="my-8">
-          <ShareButtons
-            url={url}
-            title={title}
-            description={description}
-            tags={tags.map(({ hashtag }) => hashtag)}
-          />
-        </div>
+            <ShareButtons
+              url={url}
+              title={title}
+              description={description}
+              tags={tags.map(({ hashtag }) => hashtag)}
+            />
 
-        <div className="my-8">
-          <NewsletterForm />
-        </div>
+            <NewsletterForm />
 
-        <Comments url={url} title={title} />
+            <Comments url={url} title={title} />
 
-        {Array.isArray(relatedPosts) && relatedPosts.length > 0 && (
-          <div className="mt-8">
-            <Text variant="sectionHeading">
-              {intl.formatMessage({ defaultMessage: 'Related Posts' })}
-            </Text>
+            {Array.isArray(relatedPosts) && relatedPosts.length > 0 && (
+              <div className="mt-8">
+                <Text variant="sectionHeading">
+                  {intl.formatMessage({ defaultMessage: 'Related Posts' })}
+                </Text>
 
-            {relatedPosts.map(({ description, slug, title, url }) => (
-              <BlogPostCard
-                key={`post-related-posts-${slug}`}
-                url={url}
-                title={title}
-                description={description}
-              />
-            ))}
+                {relatedPosts.map(({ description, slug, title, url }) => (
+                  <BlogPostCard
+                    key={`post-related-posts-${slug}`}
+                    url={url}
+                    title={title}
+                    description={description}
+                  />
+                ))}
+              </div>
+            )}
+
+            {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
+              <div className="mt-8">
+                <Text variant="sectionHeading">
+                  {intl.formatMessage({ defaultMessage: 'Featured Posts' })}
+                </Text>
+
+                {featuredPosts.map(({ description, slug, title, url }) => (
+                  <BlogPostCard
+                    key={`post-featured-posts-${slug}`}
+                    url={url}
+                    title={title}
+                    description={description}
+                  />
+                ))}
+              </div>
+            )}
           </div>
-        )}
-
-        {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
-          <div className="mt-8">
-            <Text variant="sectionHeading">
-              {intl.formatMessage({ defaultMessage: 'Featured Posts' })}
-            </Text>
-
-            {featuredPosts.map(({ description, slug, title, url }) => (
-              <BlogPostCard
-                key={`post-featured-posts-${slug}`}
-                url={url}
-                title={title}
-                description={description}
-              />
-            ))}
-          </div>
-        )}
+        </div>
       </article>
     </Layout>
   )

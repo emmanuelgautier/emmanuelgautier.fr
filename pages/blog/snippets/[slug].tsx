@@ -13,6 +13,7 @@ import ShareButtons from '@components/ShareButtons'
 import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
 import { getAllSnippets, getAllTagsForContent } from '@lib/content'
+import CarbonAds from '@components/CarbonAds'
 import { getLocale } from '@lib/get-localized-domain.mjs'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
@@ -83,42 +84,37 @@ function Snippet({ snippet, tags }: PageProps): React.ReactNode {
         ]}
       />
 
-      <article className="pt-2">
-        <header className="flex justify-between w-full mb-8">
-          <div className="space-y-4 text-left">
+      <article className="px-4 md:px-8">
+        <header className="my-4 flex flex-col lg:grid lg:grid-cols-8 lg:gap-4 max-w-8xl mx-auto">
+          <div className="col-start-3 col-span-4">
             <Text variant="pageHeading">{title}</Text>
           </div>
 
-          <div className="mt-2 sm:mt-0">
-            <Img
-              src={image}
-              alt={title}
-              title={title}
-              width={64}
-              height={64}
-              className="rounded-full"
-            />
+          <div className="col-span-2">
+            <CarbonAds />
           </div>
         </header>
 
-        <div className="prose dark:prose-dark max-w-none w-full mt-8">
-          <Content content={body} />
-        </div>
+        <div className="flex flex-col lg:grid lg:grid-cols-8 lg:gap-4 justify-center max-w-8xl mx-auto">
+          <div className="flex flex-col col-start-3 col-span-4">
+            <div className="prose dark:prose-dark max-w-none w-full">
+              <Text variant="body">
+                <Content content={body} />
+              </Text>
+            </div>
 
-        <div className="my-8">
-          <ShareButtons
-            url={url}
-            title={title}
-            description={description}
-            tags={tags.map(({ hashtag }) => hashtag)}
-          />
-        </div>
+            <ShareButtons
+              url={url}
+              title={title}
+              description={description}
+              tags={tags.map(({ hashtag }) => hashtag)}
+            />
 
-        <div className="mt-16">
-          <NewsletterForm />
-        </div>
+            <NewsletterForm />
 
-        <Comments url={url} title={title} />
+            <Comments url={url} title={title} />
+          </div>
+        </div>
       </article>
     </Layout>
   )

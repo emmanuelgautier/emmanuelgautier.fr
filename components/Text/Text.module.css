@@ -3,17 +3,17 @@
 }
 
 .heading {
-  @apply text-5xl pt-1 pb-2 font-semibold tracking-wide mb-2;
+  @apply text-3xl sm:text-4xl md:text-5xl pt-1 pb-2 font-semibold tracking-wide mb-2;
 }
 
 .pageHeading {
-  @apply pt-1 pb-4 text-5xl font-bold tracking-wide;
+  @apply text-3xl sm:text-4xl md:text-5xl pt-1 pb-2 md:pb-4 font-bold tracking-wide;
 }
 
 .sectionHeading {
-  @apply pt-1 pb-2 text-2xl font-bold tracking-wide mb-2;
+  @apply text-xl md:text-2xl py-1 font-bold tracking-wide mb-2;
 }
 
 .subSectionHeading {
-  @apply pt-1 pb-1 text-lg font-bold tracking-wide mb-1;
+  @apply py-1 text-lg font-bold tracking-wide mb-1;
 }

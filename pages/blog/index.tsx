@@ -27,7 +27,7 @@ function BlogIndex({ page }: PageProps): React.ReactNode {
   const url = `${siteUrl}/blog`
 
   return (
-    <Layout title={title} description={description}>
+    <Layout title={title} description={description} className="flex flex-col px-8 justify-center max-w-4xl mx-auto">
       <NextSeo
         title={title}
         description={description}

@@ -12,7 +12,7 @@ const Header: React.FC = () => {
   const { theme, setTheme } = useTheme()
 
   return (
-    <nav className="sticky-nav flex justify-between items-center w-full p-4 my-0 md:my-4 mx-auto bg-opacity-60">
+    <nav className="hidden md:flex justify-center max-w-4xl mx-auto justify-between items-center w-full p-4 mb-8 my-4 mx-auto">
       <div>
         <Link href="/">
           <a className="p-1 sm:p-4 text-gray-800 dark:text-gray-100">

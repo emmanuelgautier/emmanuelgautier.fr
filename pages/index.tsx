@@ -33,7 +33,7 @@ function Home({
   } = getConfig()
 
   return (
-    <Layout title={title} description={description}>
+    <Layout title={title} description={description} className="flex flex-col px-8 justify-center max-w-4xl mx-auto">
       <NextSeo
         languageAlternates={(domains as any[]).map(
           ({ domain, defaultLocale }) => ({
