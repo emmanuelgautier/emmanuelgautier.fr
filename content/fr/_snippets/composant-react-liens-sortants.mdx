@@ -1,0 +1,38 @@
+---
+title: Composant React pour les liens sortants
+description:
+  Dans cet article, je vais vous montrer comment créer un composant React personnalisé pour les liens sortants qui inclut les attributs spécifiques répondant aux différentes problèmatiques de référencement, tels que rel="noopener noreferrer" et target="_blank".
+image: /images/react.png
+slug: composant-react-liens-sortants
+alternate:
+  en: react-component-outbound-links
+tags:
+  - react
+  - typescript
+locale: en
+updated: 2023-04-06T22:12:25.571Z
+created: 2023-04-06T22:12:25.571Z
+---
+
+Dans cet article, je vais vous montrer comment créer un composant React personnalisé pour les liens sortants qui inclut les attributs spécifiques répondant aux différentes problèmatiques de référencement, tels que rel="noopener noreferrer" et target="_blank".
+
+Ce code met en place un composant React simple et réutilisable qui affiche un lien sortant (`<a>`) avec les attributs de sécurité recommandés. Il est conçu pour être flexible et facilement personnalisable avec des `props` supplémentaires.
+
+```typescript
+import React from 'react'
+
+interface OutboundLinkProps extends React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> {}
+
+const OutboundLink: React.FC<OutboundLinkProps> = ({
+  rel='nofollow noopener noreferrer',
+  ...props
+}) => (
+  <a target="_blank" rel={rel} {...props} />
+)
+
+export default OutboundLink
+```
+
+L'interface `OutboundLinkProps` définit les props attendues par le composant `OutboundLink`. Elle étend le type utilisé par l'élément `a` rendu par React.
+
+Dans le composant, la prop `rel` est définie par défaut sur `'nofollow noopener noreferrer'`, un ensemble de valeurs recommandées à des fins de sécurité. Ces valeurs empêchent notamment la page liée d'accéder à l'objet `window` de la page de lien, ce qui pourrait être potentiellement utilisé à des fins malveillantes.

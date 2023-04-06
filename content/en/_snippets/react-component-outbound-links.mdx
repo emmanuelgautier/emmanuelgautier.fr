@@ -1,0 +1,38 @@
+---
+title: React Component for Outbound Links
+description:
+  In this snippet, I will show you how to create a custom React component for outbound links that includes specific attributes for SEO concerns, such as rel="noopener noreferrer" and target="_blank".
+image: /images/react.png
+slug: react-component-outbound-links
+alternate:
+  fr: composant-react-liens-sortants
+tags:
+  - react
+  - typescript
+locale: en
+updated: 2023-04-06T22:12:25.571Z
+created: 2023-04-06T22:12:25.571Z
+---
+
+In this snippet, I will show you how to create a custom React component for outbound links that includes specific attributes for SEO concerns, such as rel="noopener noreferrer" and target="_blank".
+
+This code defines a simple and reusable React component that renders an outbound link (`<a>` element) with recommended security attributes. It is designed to be flexible and easily customizable with additional props.
+
+```typescript
+import React from 'react'
+
+interface OutboundLinkProps extends React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> {}
+
+const OutboundLink: React.FC<OutboundLinkProps> = ({
+  rel='nofollow noopener noreferrer',
+  ...props
+}) => (
+  <a target="_blank" rel={rel} {...props} />
+)
+
+export default OutboundLink
+```
+
+The interface `OutboundLinkProps` declaration defines the props expected by the `OutboundLink` component. It extends the type used by the `a` element rendered by React.
+
+Within the component, the rel prop is set to `'nofollow noopener noreferrer'` by default, which is a recommended set of values for security purposes. These values prevent the linked page from being able to access the `window` object of the linking page, which could potentially be used for malicious purposes.
