@@ -9,7 +9,7 @@ interface Props {
 }
 
 const ProjectCard: React.FC<Props> = ({ href, ...props }) => (
-  <OutboundLink href={href}>
+  <OutboundLink rel="noopener" href={href}>
     <Card {...props} />
   </OutboundLink>
 )

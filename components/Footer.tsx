@@ -25,10 +25,6 @@ const Footer: React.FC = () => {
               {intl.formatMessage({ defaultMessage: 'Home' })}
             </a>
           </Link>
-
-          <Link href="/rss.xml">
-            <a className="text-gray-500 hover:text-gray-600">RSS</a>
-          </Link>
         </div>
         <div className="flex flex-col space-y-4">
           <OutboundLink

@@ -1,28 +1,12 @@
-interface Props {
-  className?: string
-  href: string
-  children: React.ReactNode
-  rel?: string
-  onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
-}
+import React from 'react'
+
+interface Props extends React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> {}
 
 const OutboundLink: React.FC<Props> = ({
-  className,
-  href,
-  children,
-  rel = '',
-  onClick,
+  rel='nofollow noopener noreferrer',
+  ...props
 }) => (
-  // eslint-disable-next-line react/jsx-no-target-blank
-  <a
-    className={className}
-    target="_blank"
-    rel={`${rel && rel + ' '}noopener noreferrer`}
-    href={href}
-    onClick={onClick}
-  >
-    {children}
-  </a>
+  <a target="_blank" rel={rel} {...props} />
 )
 
 export default OutboundLink
