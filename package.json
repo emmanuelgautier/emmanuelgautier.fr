@@ -78,24 +78,24 @@
     "@fullhuman/postcss-purgecss": "5.0.0",
     "@types/lodash": "4.14.192",
     "@types/node": "18.15.11",
-    "@types/react": "18.0.32",
+    "@types/react": "18.0.33",
     "@types/react-dom": "18.0.11",
     "@types/rss": "0.0.30",
     "babel-plugin-formatjs": "10.4.0",
     "babel-plugin-macros": "3.1.0",
     "cross-env": "7.0.3",
     "cssnano": "6.0.0",
-    "eslint": "8.37.0",
+    "eslint": "8.38.0",
     "eslint-config-next": "12.3.4",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-formatjs": "4.9.1",
     "husky": "8.0.3",
-    "lint-staged": "13.2.0",
+    "lint-staged": "13.2.1",
     "npm-run-all": "4.1.5",
     "postcss-cli": "10.1.0",
     "postcss-preset-env": "8.3.0",
     "prettier": "2.8.7",
     "serve": "14.2.0",
-    "typescript": "5.0.3"
+    "typescript": "5.0.4"
   }
 }
