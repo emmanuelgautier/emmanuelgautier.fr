@@ -6,9 +6,9 @@ import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 
 import { Comments } from '@components/Comments'
+import { ConsultingCTA } from '@components/ConsultingCTA'
 import Content from '@components/Content'
 import Layout from '@components/Layout'
-import NewsletterForm from '@components/NewsletterForm'
 import ShareButtons from '@components/ShareButtons'
 import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
@@ -97,11 +97,13 @@ function Snippet({ snippet, tags }: PageProps): React.ReactNode {
 
         <div className="flex flex-col lg:grid lg:grid-cols-8 lg:gap-4 justify-center max-w-8xl mx-auto">
           <div className="flex flex-col col-start-3 col-span-4">
-            <div className="prose dark:prose-dark max-w-none w-full">
+            <div className="prose dark:prose-dark max-w-none w-full mb-8">
               <Text variant="body">
                 <Content content={body} />
               </Text>
             </div>
+
+            <ConsultingCTA />
 
             <ShareButtons
               url={url}
@@ -109,8 +111,6 @@ function Snippet({ snippet, tags }: PageProps): React.ReactNode {
               description={description}
               tags={tags.map(({ hashtag }) => hashtag)}
             />
-
-            <NewsletterForm />
 
             <Comments url={url} title={title} />
           </div>

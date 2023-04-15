@@ -15,6 +15,7 @@ import loadIntlMessages from '@lib/load-intl-messages'
 import ProjectCard from '@components/ProjectCard'
 import { getAllPosts } from '@lib/content'
 import { getLocale } from '@lib/get-localized-domain.mjs'
+import { ConsultingCTA } from '@components/ConsultingCTA'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -73,6 +74,10 @@ function Home({
       )}
 
       <div className="my-4 border-b border-1 border-gray-200 dark:border-gray-800 pb-8">
+        <Text variant="sectionHeading">
+          {capitalize(intl.formatMessage({ defaultMessage: 'Projects' }))}
+        </Text>
+
         {locale === 'fr' && (
           <>
             <ProjectCard
@@ -97,9 +102,11 @@ function Home({
       </div>
 
       <div className="mt-8">
+        <ConsultingCTA />
+
         <NewsletterForm />
       </div>
-    </Layout>
+    </Layout >
   )
 }
 

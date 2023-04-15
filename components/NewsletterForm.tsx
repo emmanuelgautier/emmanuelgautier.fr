@@ -1,9 +1,10 @@
 import { useIntl } from 'react-intl'
 import { usePlausible } from 'next-plausible'
 
-import OutboundLink from '@components/OutboundLink'
+import { CTACard } from './CTACard'
+import OutboundLink from './OutboundLink'
 
-interface Props {}
+interface Props { }
 
 const NewsletterForm: React.FC<Props> = () => {
   const plausible = usePlausible()
@@ -14,21 +15,17 @@ const NewsletterForm: React.FC<Props> = () => {
   }
 
   return (
-    <div className="border border-gray-100 rounded p-6 my-4 w-full dark:border-gray-700 bg-sky-100 dark:bg-sky-800">
-      <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100">
-        {intl.formatMessage({
-          id: 'newsletter.form.title',
-          defaultMessage: 'Subscribe to the newsletter',
-        })}
-      </p>
-      <p className="my-1 text-gray-800 dark:text-gray-200">
-        {intl.formatMessage({
-          id: 'newsletter.form.description',
-          defaultMessage:
-            'Get the latest news about tech new articles and projects.',
-        })}
-      </p>
-      <div className="w-full text-center mt-4">
+    <CTACard
+      title={intl.formatMessage({
+        id: 'newsletter.form.title',
+        defaultMessage: 'Subscribe to the newsletter',
+      })}
+      description={intl.formatMessage({
+        id: 'newsletter.form.description',
+        defaultMessage:
+          'Get the latest news about tech new articles and projects.',
+      })}
+      button={(
         <OutboundLink href="https://l.emmanuelgautier.com/newsletter">
           <button
             type="button"
@@ -41,8 +38,8 @@ const NewsletterForm: React.FC<Props> = () => {
             })}
           </button>
         </OutboundLink>
-      </div>
-    </div>
+      )}
+    />
   )
 }
 

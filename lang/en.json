@@ -2,6 +2,18 @@
   "KGtd2k": {
     "defaultMessage": "Related Posts"
   },
+  "UxTJRa": {
+    "defaultMessage": "Projects"
+  },
+  "book-call.cta.button": {
+    "defaultMessage": "Book a call"
+  },
+  "book-call.cta.description": {
+    "defaultMessage": "If you're seeking solutions to a problem or need expert advice, I'm here to help! Don't hesitate to book a call with me for a consulting session. Let's discuss your situation and find the best solution together."
+  },
+  "book-call.cta.title": {
+    "defaultMessage": "Consulting"
+  },
   "ejEGdx": {
     "defaultMessage": "Home"
   },
@@ -40,5 +52,8 @@
   },
   "tv5FG3": {
     "defaultMessage": "Blog"
+  },
+  "wCgTu5": {
+    "defaultMessage": "Comments"
   }
 }

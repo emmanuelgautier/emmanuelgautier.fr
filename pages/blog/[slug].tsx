@@ -18,9 +18,10 @@ import Text from '@components/Text'
 import loadIntlMessages from '@lib/load-intl-messages'
 import NewsletterForm from '@components/NewsletterForm'
 import ShareButtons from '@components/ShareButtons'
-import { getAllPosts, getAllTagsForContent } from '@lib/content'
-import { Comments } from '@components/Comments'
 import CarbonAds from '@components/CarbonAds'
+import { Comments } from '@components/Comments'
+import { ConsultingCTA } from '@components/ConsultingCTA'
+import { getAllPosts, getAllTagsForContent } from '@lib/content'
 import { getLocale } from '@lib/get-localized-domain.mjs'
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>
@@ -166,11 +167,13 @@ function BlogPost({
 
         <div className="flex flex-col lg:grid lg:grid-cols-8 lg:gap-4 justify-center max-w-8xl mx-auto">
           <div className="flex flex-col col-start-3 col-span-4">
-            <div className="prose dark:prose-dark max-w-none w-full">
+            <div className="prose dark:prose-dark max-w-none w-full my-2 mb-8">
               <Text variant="body">
                 <Content content={body} />
               </Text>
             </div>
+
+            <ConsultingCTA />
 
             <ShareButtons
               url={url}
