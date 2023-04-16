@@ -56,23 +56,6 @@ function Home({
         </div>
       </div>
 
-      {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
-        <div className="my-4 border-b border-1 border-gray-200 dark:border-gray-800 pb-8">
-          <Text variant="sectionHeading">
-            {capitalize(intl.formatMessage({ defaultMessage: 'Blog' }))}
-          </Text>
-
-          {featuredPosts.map(({ slug, title, description, url }) => (
-            <BlogPostCard
-              key={`homepage-featuredpost-${slug}`}
-              url={url}
-              title={title}
-              description={description}
-            />
-          ))}
-        </div>
-      )}
-
       <div className="my-4 border-b border-1 border-gray-200 dark:border-gray-800 pb-8">
         <Text variant="sectionHeading">
           {capitalize(intl.formatMessage({ defaultMessage: 'Projects' }))}
@@ -101,11 +84,26 @@ function Home({
         />
       </div>
 
-      <div className="mt-8">
-        <ConsultingCTA />
+      <ConsultingCTA />
 
-        <NewsletterForm />
-      </div>
+      {Array.isArray(featuredPosts) && featuredPosts.length > 0 && (
+        <div className="my-4 border-b border-1 border-gray-200 dark:border-gray-800 pb-8">
+          <Text variant="sectionHeading">
+            {capitalize(intl.formatMessage({ defaultMessage: 'Blog' }))}
+          </Text>
+
+          {featuredPosts.map(({ slug, title, description, url }) => (
+            <BlogPostCard
+              key={`homepage-featuredpost-${slug}`}
+              url={url}
+              title={title}
+              description={description}
+            />
+          ))}
+        </div>
+      )}
+
+      <NewsletterForm />
     </Layout >
   )
 }
