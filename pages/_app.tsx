@@ -44,6 +44,7 @@ function MyApp({
         customDomain={`https://a.${analyticsDomain}`}
         selfHosted={true}
         trackOutboundLinks={true}
+        taggedEvents={true}
       >
         <IntlProvider
           locale={locale}

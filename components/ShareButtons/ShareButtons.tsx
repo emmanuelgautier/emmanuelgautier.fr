@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // @ts-ignore: Implicity has an any type
 import { brands, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import getConfig from 'next/config'
-import { usePlausible } from 'next-plausible'
 import { useIntl } from 'react-intl'
 import {
   LinkedinShareButton,
@@ -20,7 +19,6 @@ interface Props {
 }
 
 const ShareButtons: React.FC<Props> = ({ url, title, description, tags }) => {
-  const plausible = usePlausible()
   const intl = useIntl()
   const {
     publicRuntimeConfig: {
@@ -28,14 +26,6 @@ const ShareButtons: React.FC<Props> = ({ url, title, description, tags }) => {
     },
   } = getConfig()
   const rssFeedUrl = `${siteUrl}/rss.xml`
-
-  const _handleRssFollow = () => {
-    plausible('rssFollow')
-  }
-
-  const _handleShare = (network: string) => () => {
-    plausible('clickShare', { props: { network } })
-  }
 
   return (
     <div className="flex flex-col md:flex-row md:space-x-3">
@@ -49,12 +39,12 @@ const ShareButtons: React.FC<Props> = ({ url, title, description, tags }) => {
 
         <div className="mt-4 flex items-center justify-center space-x-1">
           <TwitterShareButton
+            className="plausible-event-name=clickShare+twitter"
             url={url}
             title={title}
             via={twitter.handle_simple}
             hashtags={tags}
             related={[twitter.handle_simple]}
-            onClick={_handleShare('twitter')}
           >
             <span className="bg-blue-300 px-4 py-2 font-semibold text-white text-xl inline-flex items-center rounded">
               <FontAwesomeIcon icon={brands('twitter')} />
@@ -62,11 +52,11 @@ const ShareButtons: React.FC<Props> = ({ url, title, description, tags }) => {
           </TwitterShareButton>
 
           <LinkedinShareButton
+            className="plausible-event-name=clickShare+linkedin"
             url={url}
             title={title}
             summary={description}
             source={person.name}
-            onClick={_handleShare('linkedin')}
           >
             <span className="bg-blue-500 px-4 py-2 font-semibold text-white text-xl inline-flex items-center rounded">
               <FontAwesomeIcon icon={brands('linkedin')} />
@@ -74,8 +64,8 @@ const ShareButtons: React.FC<Props> = ({ url, title, description, tags }) => {
           </LinkedinShareButton>
 
           <OutboundLink
+            className="plausible-event-name=clickShare+hacker_news"
             href={`https://news.ycombinator.com/submitlink?u=${url}`}
-            onClick={_handleShare('hacker_news')}
           >
             <span className="bg-orange-500 px-4 py-2 font-semibold text-white text-xl inline-flex items-center rounded">
               <FontAwesomeIcon icon={brands('hacker-news')} />
@@ -83,9 +73,9 @@ const ShareButtons: React.FC<Props> = ({ url, title, description, tags }) => {
           </OutboundLink>
 
           <PocketShareButton
+            className="plausible-event-name=clickShare+pocket"
             url={url}
             title={title}
-            onClick={_handleShare('pocket')}
           >
             <span className="bg-red-400 px-4 py-2 font-semibold text-white text-xl inline-flex items-center rounded">
               <FontAwesomeIcon icon={brands('get-pocket')} />
@@ -103,11 +93,10 @@ const ShareButtons: React.FC<Props> = ({ url, title, description, tags }) => {
         </span>
 
         <OutboundLink
-          className="mt-4"
+          className="mt-4 plausible-event-name=rssFollow"
           href={`https://feedly.com/i/subscription/feed/${encodeURIComponent(
             rssFeedUrl
           )}`}
-          onClick={_handleRssFollow}
         >
           <span className="bg-orange-400 px-4 py-2 font-semibold text-white text-lg rounded">
             <FontAwesomeIcon icon={solid('rss')} />
