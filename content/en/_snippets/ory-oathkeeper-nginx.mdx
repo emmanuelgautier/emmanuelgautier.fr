@@ -1,0 +1,61 @@
+---
+title: How to Configure Nginx with OAuthkeeper for API Proxy Authentication
+description:
+  Learn how to secure your API gateway by configuring Nginx with OAuthkeeper for API proxy authentication. This blog post will show you configure Nginx and OAuthkeeper to ensure that only authenticated users or applications can access your APIs.
+image: /images/ory.png
+slug: ory-oathkeeper-nginx
+tags:
+  - oathkeeper
+  - nginx
+locale: en
+updated: 2023-04-19T13:32:19.377Z
+created: 2023-04-19T13:32:19.377Z
+---
+
+In this blog post, I will explain how to configure Nginx with OAuthkeeper for API proxy authentication. As a developer, one of the most important tasks is to ensure the security of the APIs that our organization exposes. API proxy authentication is an essential part of this security strategy, and Nginx with OAuthkeeper can help achieve this.
+
+By configuring Nginx with OAuthkeeper, you can ensure that only authenticated users or applications can access your APIs. OAuthkeeper provides authentication, authorization, making it an excellent choice for securing your API gateway. In the following sections, I will explain how to configure Nginx with OAuthkeeper for API proxy authentication.
+
+## Configure Nginx
+
+To configure Nginx with OAuthkeeper, you need to modify the Nginx configuration file. Here's an example configuration that shows how to use OAuthkeeper as a authentication decision API:
+
+```nginx
+http {
+  upstream backend {
+    server localhost:8080;
+  }
+
+  server {
+      listen       80;
+      listen  [::]:80;
+      server_name  api.example.com;
+
+      location / {
+          auth_request     /auth;
+          auth_request_set $auth_status $upstream_status;
+
+          proxy_pass http://backend;
+      }
+
+      location = /auth {
+          internal;
+          proxy_pass              http://oathkeeper:4456/decisions;
+          proxy_method            $request_method;
+          proxy_http_version      1.1;
+          proxy_connect_timeout   2s;
+          proxy_pass_request_body off;
+          proxy_set_header        Content-Length "";
+          proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header        X-Original-URI $request_uri;
+          proxy_set_header        X-Forwarded-Host $host:$server_port;
+          proxy_set_header        X-Forwarded-Proto $scheme;
+          proxy_set_header        X-Forwarded-Uri $request_uri;
+      }
+  }
+}
+```
+
+You can now test the API by sending a request to api.example.com. You should receive a response only if you provide a valid OAuth token in the Authorization header.
+
+That's it! You have now configured Nginx with OAuthkeeper for API proxy authentication. This configuration ensures that only authenticated users or applications can access your APIs, improving the security of your API gateway.
