@@ -39,7 +39,7 @@ const ShareButtons: React.FC<Props> = ({ url, title, description, tags }) => {
 
         <div className="mt-4 flex items-center justify-center space-x-1">
           <TwitterShareButton
-            className="plausible-event-name=clickShare+twitter"
+            className="plausible-event-name=shareButtonClick plausible-event-network=twitter"
             url={url}
             title={title}
             via={twitter.handle_simple}
@@ -52,7 +52,7 @@ const ShareButtons: React.FC<Props> = ({ url, title, description, tags }) => {
           </TwitterShareButton>
 
           <LinkedinShareButton
-            className="plausible-event-name=clickShare+linkedin"
+            className="plausible-event-name=shareButtonClick plausible-event-network=linkedin"
             url={url}
             title={title}
             summary={description}
@@ -64,7 +64,7 @@ const ShareButtons: React.FC<Props> = ({ url, title, description, tags }) => {
           </LinkedinShareButton>
 
           <OutboundLink
-            className="plausible-event-name=clickShare+hacker_news"
+            className="plausible-event-name=shareButtonClick plausible-event-network=hacker_news"
             href={`https://news.ycombinator.com/submitlink?u=${url}`}
           >
             <span className="bg-orange-500 px-4 py-2 font-semibold text-white text-xl inline-flex items-center rounded">
@@ -73,7 +73,7 @@ const ShareButtons: React.FC<Props> = ({ url, title, description, tags }) => {
           </OutboundLink>
 
           <PocketShareButton
-            className="plausible-event-name=clickShare+pocket"
+            className="plausible-event-name=shareButtonClick plausible-event-network=pocket"
             url={url}
             title={title}
           >
