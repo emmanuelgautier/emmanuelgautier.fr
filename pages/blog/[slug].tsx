@@ -166,7 +166,7 @@ function BlogPost({
 
         <div className="flex flex-col lg:grid lg:grid-cols-8 lg:gap-4 justify-center max-w-8xl mx-auto">
           <div className="flex flex-col col-start-3 col-span-4">
-            <div className="prose dark:prose-dark max-w-none w-full my-2 mb-8">
+            <div className="prose dark:prose-dark max-w-none w-full mb-8">
               <Text variant="body">
                 <Content content={body} />
               </Text>

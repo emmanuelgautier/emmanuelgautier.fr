@@ -3,6 +3,10 @@
 @tailwind utilities;
 @tailwind variants;
 
+#carbon-container {
+  min-height: 100px;
+}
+
 #carbonads {
   margin: 1rem auto 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, sans-serif;
