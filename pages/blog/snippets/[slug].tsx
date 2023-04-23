@@ -1,11 +1,9 @@
 import { InferGetStaticPropsType } from 'next'
-import Img from 'next/image'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 
-import { Comments } from '@components/Comments'
 import { ConsultingCTA } from '@components/ConsultingCTA'
 import Content from '@components/Content'
 import Layout from '@components/Layout'
@@ -111,8 +109,6 @@ function Snippet({ snippet, tags }: PageProps): React.ReactNode {
               description={description}
               tags={tags.map(({ hashtag }) => hashtag)}
             />
-
-            <Comments url={url} title={title} />
           </div>
         </div>
       </article>

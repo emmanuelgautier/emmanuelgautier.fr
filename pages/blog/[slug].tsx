@@ -19,7 +19,6 @@ import loadIntlMessages from '@lib/load-intl-messages'
 import NewsletterForm from '@components/NewsletterForm'
 import ShareButtons from '@components/ShareButtons'
 import CarbonAds from '@components/CarbonAds'
-import { Comments } from '@components/Comments'
 import { ConsultingCTA } from '@components/ConsultingCTA'
 import { getAllPosts, getAllTagsForContent } from '@lib/content'
 import { getLocale } from '@lib/get-localized-domain.mjs'
@@ -183,8 +182,6 @@ function BlogPost({
             />
 
             <NewsletterForm />
-
-            <Comments url={url} title={title} />
 
             {Array.isArray(relatedPosts) && relatedPosts.length > 0 && (
               <div className="mt-8">
