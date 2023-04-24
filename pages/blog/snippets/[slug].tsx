@@ -1,7 +1,7 @@
 import { InferGetStaticPropsType } from 'next'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
-import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
+import { ArticleJsonLd, BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { useIntl } from 'react-intl'
 
 import { ConsultingCTA } from '@components/ConsultingCTA'
@@ -24,11 +24,12 @@ function Snippet({ snippet, tags }: PageProps): React.ReactNode {
       seo: {
         siteUrl,
         i18n: { domains },
+        person,
       },
     },
   } = getConfig()
 
-  const { title, description, image, body, slug, alternate } = snippet
+  const { title, description, image, body, slug, alternate, created, updated } = snippet
 
   const url = `${siteUrl}/blog/snippets/${slug}`
 
@@ -61,6 +62,17 @@ function Snippet({ snippet, tags }: PageProps): React.ReactNode {
           description,
           url,
         }}
+      />
+      <ArticleJsonLd
+        url={url}
+        title={title}
+        images={[image]}
+        datePublished={created}
+        dateModified={updated}
+        authorName={[person.name]}
+        publisherName={person.name}
+        publisherLogo={person.image}
+        description={description}
       />
       <BreadcrumbJsonLd
         itemListElements={[
