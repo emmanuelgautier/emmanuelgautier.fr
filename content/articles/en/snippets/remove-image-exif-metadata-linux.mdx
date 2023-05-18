@@ -1,0 +1,44 @@
+---
+name: Removing Exif Data from an Image on Linux using exiftool
+description:
+  you can use the exiftool command line tool to remove Exif data from an image on Linux. Here's how you can use it.
+image:
+  contentUrl: /images/linux.png
+identifier: remove-image-exif-metadata-linux
+translationOfWork:
+  "@id": supprimer-donnees-exif-image-linux
+keywords:
+  - linux
+inLanguage: en
+isPartOf: snippets
+dateModified: 2023-02-07T22:50:42.251Z
+dateCreated: 2023-02-07T22:50:42.251Z
+---
+
+Exif data, also known as metadata, contains information about the camera settings, location, and other details about an image. Those metatada can be useful for photographers and image editors, but in some cases, you may want to remove Exif data from an image for privacy or security reasons. In this blog post, we will show how to remove Exif data from an image on Linux using the exiftool command line tool.
+
+## Installing exiftool
+
+`exiftool` is a command line tool available on Linux distributions for reading, writing, and manipulating Exif metadata in image files. Before you can use exiftool, you need to install it. If you are using a Debian-based distribution such as Ubuntu, you can install exiftool by running the following command in your terminal:
+
+```bash
+sudo apt-get install libimage-exiftool-perl
+```
+
+## Removing Exif data from an image
+
+Once you have installed exiftool, you can use the following command to remove all Exif data from an image:
+
+```bash
+exiftool -all= image.jpg
+```
+
+This command will remove all Exif metadata from the image.jpg file and save the output to a new file with the same name, but with the original file backed up with a `_original` suffix.
+
+If you want to save the output to a new file with a different name, you can use the following command:
+
+```bash
+exiftool -all= -o output_image.jpg image.jpg
+```
+
+This will save the Exif-stripped image to `output_image.jpg` file.

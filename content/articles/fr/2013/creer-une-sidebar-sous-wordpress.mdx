@@ -1,0 +1,61 @@
+---
+name: Créer une sidebar sous wordpress
+description: Si vous voulez personnaliser au maximum vos pages, vous avez normalement recours aux widget. Maintenant si vous voulez avoir une serie de widget sur un type de page particulier, ça commence à devenir plus difficile. Le recours de sidebar devient une nécessitée mais il n’en existe que deux sur le wordpress de base et cela peut faire peu. Nous allons donc voir la manière de créer de nouvelles sidebar et de les placer là où vous le souhaitez.
+image:
+  contentUrl: /images/wordpress.png
+keywords:
+  - php
+  - wordpress
+identifier: creer-une-sidebar-sous-wordpress
+inLanguage: fr
+isPartOf: blog
+dateModified: 2013-10-20
+dateCreated: 2013-10-20
+---
+
+Si vous voulez personnaliser au maximum vos pages, vous avez normalement recours aux widget. Maintenant si vous voulez avoir une serie de widget sur un type de page particulier, ça commence à devenir plus difficile. Le recours de sidebar devient une nécessitée mais il n’en existe que deux sur le wordpress de base et cela peut faire peu. Nous allons donc voir la manière de créer de nouvelles sidebar et de les placer là où vous le souhaitez.
+
+### Qu’est ce qu’une sidebar ?
+
+Une sidebar, autrement appelée zone de widget, est comme son nom l’indique une zone pouvant contenir plusieurs widgets. Cette zone de widget peut être utilisable n’importe où sur votre site et administrable à partir de l’espace d’administration de wordpress. Son administration est simple, vous placez des widgets à l’intérieur et les personnalisez avec les options de personnalisation propres aux widget placés. Cette personnalisation de widget est propre à celle-ci et les widget peuvent être utilisables un nombre de fois indéfini. Donc, vous pouvez très bien mettre un widget de post récent dans une sidebar et ce même widget dans une autre sidebar avec des options de personnalisation différentes.
+
+![Nombre de sidebar avant](/images/sidebar1.jpg)
+
+### Création d’une sidebar
+
+La manière de créer une sidebar est très proche de celle de créer un widget. Pour ce faire, rendez-vous dans le fichier `functions.php` de votre thème et retrouvez la fonction permettant l’initialisation des widgets (en général `nomduthème_widgets_init`). Si plusieurs sidebar existent dans votre espace d’administration, vous devriez voir plusieurs appelles à la fonction `register_sidebar`. Le plus simple et le plus rapide ici est de faire un copier / coller de l’appelle d’une des fonctions `register_sidebar`. Maintenant, remplacez le nom par le nom que vous voulez donner à la sidebar ainsi que sa description. Vous allez devoir aussi indiquer un id différent, c’est avec cette id que nous allons appeler votre sidebar.
+
+Code d'exemple de création d'une sidebar :
+
+```php
+<?php
+
+register_sidebar(array(
+    'name'          => 'Third Widget Area',
+    'id'            => 'sidebar-3',
+    'description'   => 'Ma zone de widget supplémentaire',
+    'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+    'after_widget'  => '</aside>',
+    'before_title'  => '<h3 class="widget-title">',
+    'after_title'   => '</h3>',
+));
+
+```
+
+### Appelle et affichage
+
+Maintenant que la sidebar a été référencée, il ne nous reste plus qu’à l’appeler pour pouvoir l’afficher. Tout d’abord, il faut voir si la sidebar est active, c’est à dire qu’elle contient un ou plusieurs widgets. Pour ce faire, utilisez le code suivant :
+
+```php
+<?php if ( is_active_sidebar( 'sidebar-3' ) ) : ?>
+```
+
+Et n’oublions pas le principal, l’affichage grâce à la ligne suivante :
+
+```php
+<?php dynamic_sidebar( 'sidebar-2' ); ?>
+```
+
+Si vous voulez voir un exemple d’appelle d’une sidebar, rendez-vous dans le fichier `sidebar.php` de votre thème.
+
+![Nombre de sidebar après](/images/sidebar2.jpg)

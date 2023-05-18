@@ -1,0 +1,51 @@
+---
+name: Gogs Docker Compose
+description: Gogs git repositories self-hosting solution docker-compose file.
+image:
+  contentUrl: /images/docker.png
+identifier: gogs-docker-compose
+keywords:
+  - docker
+  - git
+  - gogs
+inLanguage: en
+isPartOf: snippets
+dateModified: 2022-02-26T11:30:22.839Z
+dateCreated: 2021-10-30T00:00:00.000Z
+---
+
+Gogs is an open source Git service written in Go. It allows users Git self-hosting to create private and public repositories, and collaborate with others. It is more lightweight than GitLab if you don't need all the Gitlab provide for example.
+
+If you want to use Gogs with Docker locally, you may want to use a docker-compose file. You can find one here:
+
+```yaml docker-compose.yml
+version: "3"
+
+services:
+  gogs:
+    image:
+  contentUrl: gogs/gogs
+    volumes:
+      - "gogs_data:/data"
+    ports:
+      - "10022:22"
+      - "3000:3000"
+    links:
+      - db
+    depends_on:
+      - db
+
+  db:
+    image:
+  contentUrl: postgres
+    volumes:
+      - "pg_data:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_DB: gogs
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+
+volumes:
+  gogs_data:
+  pg_data:
+```

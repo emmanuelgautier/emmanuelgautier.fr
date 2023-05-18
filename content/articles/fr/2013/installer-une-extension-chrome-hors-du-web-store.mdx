@@ -1,0 +1,42 @@
+---
+name: Installer une extension chrome hors du Web Store
+description: 'Dans cet article, nous allons voir comment installer une extension Chrome hors du WebStore.'
+image:
+  contentUrl: /images/webstore.jpg
+keywords:
+  - chrome
+  - google
+identifier: installer-une-extension-chrome-hors-du-web-store
+translationOfWork:
+  "@id": install-chrome-extension-outside-from-webstore
+inLanguage: fr
+isPartOf: blog
+dateModified: 2021-11-19T00:15:17.940Z
+dateCreated: 2013-08-13
+---
+
+Il vous est peut être déjà arrivé de tomber sur des extensions ou des codes sources d'extensions chrome qui sont hors du Web Store et de ne pas savoir comment les installer. Ou encore, dans le cas, où vous développez une extension chrome et que vous ne savez pas comment la tester, ce qui va suivre va vous intéresser.
+
+Si vous avez le fichier `.crx` de l'extension, c'est que vous possédez la version empaquetée de l'extension. Dans ce cas allez à la partie 1, sinon passez directement à la partie 2.
+
+## Installer à partir de l'extension empaqueté
+
+Pour installer une extension empaqueté, suivez les étapes suivantes :
+
+1. Télécharger l'extension au format `.crx` (si déjà fait passez au troisième point)
+2. Si vous avez désactivé la protection contre les installations à partir de site hors du Chrome Web Store, l'installation devrait être automatique lors de l'ouverture du fichier.
+3. Sinon, ouvrez le gestionnaire d'extensions (Menu > Outils > Extensions) et faites-y un glisser/déposer du fichier `.crx`.
+
+## Installer à partir des sources
+
+Pour installer à partir des sources, suivez les étapes suivantes :
+
+1. Téléchargez le dossier contenant les sources
+2. Vérifiez que ce dossier contient le fichier `manifest.json`
+3. Rendez-vous dans le gestionnaire d'extensions (Menu > Outils > Extensions)
+4. Passez en ' Mode développeur ' en cochant la case correspondante en haut à droite de votre écran.
+5. Trois boutons devraient apparaître. Cliquez sur ' Charger l'extension non empaquetée... ', puis choisissez le dossier contenant les codes sources et le précieux `manifest.json`.
+
+## Notes
+
+Ce tutoriel est compatible avec les navigateurs basés sur Chromium (Chrome, Opera, Edge, ...). En cas d'erreur, vérifiez la présence de fichier `manifest.json` dans les sources et qu'il ne manque pas de fichier tel que des images ou des fichiers Javascript.

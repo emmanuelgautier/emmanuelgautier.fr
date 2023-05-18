@@ -1,0 +1,39 @@
+---
+name: Liens symboliques et materiels sous Windows avec Mklink
+description: Tout comme linux, Windows permet de créer entre autre des liens matériels (**hardlink**) et des liens symboliques (**symlink**) en ligne de commande. La ligne de commande Mklink est l’équivalent sous Windows de la célèbre commande ```ln``` sous linux. Voici, plus bas, une série d’exemple de son utilisation.
+image:
+  contentUrl: /images/windows.jpg
+keywords:
+  - windows
+identifier: liens-symboliques-et-materiels-sous-windows-avec-mklink
+inLanguage: fr
+isPartOf: blog
+dateModified: 2014-11-19
+dateCreated: 2014-11-19
+---
+
+Tout comme linux, Windows permet de créer entre autre des liens matériels (**hardlink**) et des liens symboliques (**symlink**) en ligne de commande. La ligne de commande Mklink est l’équivalent sous Windows de la célèbre commande `ln` sous linux. Voici, plus bas, une série d’exemple de son utilisation.
+
+Attention cette commande semble ne pas marcher sous le powershell. Il vous faut utiliser la ligne de commande " classique " (Windows + R puis cmd).
+
+Avant tout, si vous ne connaissez pas la différence entre les différents types de liens, je vous invite à consulter les documentations MSDN de Microsoft sur les [liens symboliques](https://msdn.microsoft.com/en-us/library/aa363878(v=vs.85).aspx) et sur les [liens materiels et jonctions](https://msdn.microsoft.com/en-us/library/aa365006%28VS.85%29.aspx).
+
+### Lien symbolique
+
+```bash
+mklink /D dir_link dir_target
+```
+
+### Lien materiel
+
+```bash
+mklink /H link dir
+```
+
+### Jonction
+
+```bash
+mklink /J dir_link dir_target
+```
+
+[Documentation](https://technet.microsoft.com/en-us/library/cc753194%28WS.10%29.aspx)

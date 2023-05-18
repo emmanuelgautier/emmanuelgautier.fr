@@ -1,0 +1,105 @@
+---
+name: Changing Document Field Types with MongoDB
+description: This article explains how to convert document field types during query execution and how to use MongoDB's built-in aggregation operators $convert. The article also provides practical examples and code snippets to demonstrate how to change field types in MongoDB.
+image:
+  contentUrl: /images/mongodb.png
+identifier: mongodb-convert-operator
+keywords:
+  - mongodb
+  - javascript
+inLanguage: en
+isPartOf: blog
+dateModified: 2023-03-30T12:20:42.774Z
+dateCreated: 2023-03-30T12:20:42.774Z
+---
+
+MongoDB is a flexible and versatile database system that can handle a wide variety of data types. However, there are situations where you may need to change the data type of a document field during query execution. For example, you may want to convert a string field to a date field, or vice versa. Fortunately, MongoDB provides various aggregation operators, such as `$convert`, that allow you to manipulate document field types during query execution.
+
+The `$convert` operator is a MongoDB aggregation pipeline stage that converts a value to a specified data type. It is useful when you want to convert a value in a document from one data type to another. This operator takes three parameters:
+
+- `input`: The value to be converted
+- `to`: The target data type to which the input value should be converted. Valid data types include "double", "string", "objectId", "bool", "date", "int", "long", "decimal", "timestamp", and "binary".
+- `onError` (optional): Specifies the behavior in case an error occurs during the conversion. Valid options are "error", "null", or "skip".
+- `onNull` (optional): Specifies the behavior in case of null value
+
+More details and examples about the `$convert` operator are available on the [official MongoDB manual](https://www.mongodb.com/docs/manual/reference/operator/aggregation/convert/).
+
+## MongoDB $convert example
+
+Here's an example usage of the `$convert` operator to convert a string field to a date:
+
+```
+db.collection.aggregate([
+   {
+      $project: {
+         convertedDate: {
+          $convert: {
+            input: "$stringField",
+            to: "date",
+            onError: {
+              $concat:
+                [
+                  "Could not convert ",
+                  { $toString: "$stringField" },
+                  " to type integer."
+                ]
+            },
+            onNull: null
+          }
+        }
+      }
+   }
+])
+```
+
+In this example, we use the operator within a `$project` stage to convert the stringField to a date and store the result in a new field called convertedDate.
+
+## Javascript MongoDB $convert Example
+
+Here is the same example but with the JavaScript SDK:
+
+```javascript
+const { MongoClient } = require('mongodb');
+
+// Replace the connection string with your own.
+const uri = 'mongodb+srv://<username>:<password>@<cluster>/<database>?retryWrites=true&w=majority';
+const client = new MongoClient(uri);
+
+async function run() {
+  try {
+    await client.connect();
+
+    const database = client.db('mydb');
+    const collection = database.collection('mycollection');
+
+    const pipeline = [
+      {
+        $project: {
+          convertedDate: {
+            $convert: {
+              input: '$stringField',
+              to: 'date',
+              onError: {
+                $concat:
+                  [
+                    'Could not convert ',
+                    { $toString: '$stringField' },
+                    ' to type integer.'
+                  ]
+              },
+              onNull: null
+            }
+          }
+        }
+      }
+    ];
+
+    const result = await collection.aggregate(pipeline).toArray();
+    console.log(result);
+  } finally {
+    await client.close();
+  }
+}
+
+run().catch(console.dir);
+```

@@ -1,0 +1,57 @@
+---
+name: Mettre à jour NodeJS via npm
+description: De nouvelles versions de NodeJS sortent régulièrement et il vous faut donc mettre à jour votre installation. Pour ce faire vous pouvez le faire via le gestionnaire de paquets de votre distribution si vous êtes sous linux (apt, dnf, ...) ou brew si vous êtes sous OSX. Une autre manière simple peut être d'utiliser npm.
+image:
+  contentUrl: /images/nodejs.jpg
+keywords:
+  - javascript
+  - nodejs
+identifier: mettre-a-jour-nodejs-via-npm
+# questions:
+#   - question: Comment mettre à jour Nodejs sous Linux ?
+#     answer:
+#       Voici le détail en lignes de commande pour mettre à jour NodeJS sur votre machine. La mise à jour prendra la dernière version stable du langage.
+
+#       ```shell
+#       sudo npm cache clean -f
+#       sudo npm install -g n
+#       sudo n stable
+#       ```
+#   - question: Comment connaître la version de NodeJS ?
+#     answer:
+#       Pour connaître la version installée de NodeJS, vous pouvez lancer la ligne suivante
+
+#       ```shell
+#       node -v
+#       ```
+translationOfWork:
+  "@id": update-nodejs-with-npm
+inLanguage: fr
+isPartOf: blog
+dateModified: 2021-02-20
+dateCreated: 2014-10-26
+---
+
+**Mise à jour** : Il est plus simple désormais d'utiliser [nvm](https://github.com/creationix/nvm). Vous pouvez installer la version que vous souhaitez et installer une version différente par projet à l'aide du fichier et partager cette version à l'aide du fichier `.nvmrc`. Plus d'informations sur le [README](https://github.com/creationix/nvm/blob/master/README.md) de nvm.
+
+De nouvelles versions de NodeJS sortent régulièrement et il vous faut donc mettre à jour votre installation. Pour ce faire vous pouvez le faire via le gestionnaire de paquets de votre distribution si vous êtes sous linux (apt, dnf, ...) ou brew si vous êtes sous OSX. Une autre manière simple peut être d'utiliser npm.
+
+Voici le détail en lignes de commande pour mettre à jour NodeJS sur votre machine. La mise à jour prendra la dernière version stable du langage.
+
+```shell
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+```
+
+Si vous désirez simplement changer de version, remplacez la ligne précédente par la ligne ci-dessous, en modifiant bien entendu le numéro de version que vous souhaitez utiliser.
+
+```shell
+sudo n 0.10.33
+```
+
+Maintenant que l'installation est effectuée, vérifiez le numéro de version avec la commande suivante :
+
+```shell
+node -v
+```

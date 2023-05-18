@@ -1,0 +1,55 @@
+---
+name: PHP Ternary Operator
+description: The usage of the ternary operator is not the simplest and the most readable way to develop but can be useful for simple conditions. The implementation of the ternary operator depends on the language, let's see how to do it in PHP.
+image:
+  contentUrl: /images/php.jpg
+keywords:
+  - php
+identifier: php-ternary-operator
+inLanguage: en
+isPartOf: blog
+translationOfWork:
+  "@id": loperateur-ternaire-en-php
+dateModified: 2021-04-20
+dateCreated: 2014-10-31
+---
+
+The usage of the ternary operator is not the simplest and the most readable way to develop but can be useful for simple conditions. The implementation of the ternary operator depends on the language, let's see how to do it in PHP.
+
+## What is the ternary operator?
+
+It is a one line way to write some conditions like the following example:
+
+```php
+if($boolean) {
+  echo "foo";
+} else {
+  echo "bar";
+}
+```
+
+This condition is simple but takes 5 lines of code. The ternary operator allows to have this condition in only one line without removing too much readability here:
+
+```php
+echo ($boolean ? "foo" : "bar");
+```
+
+You write your code like this for every use case and have a ternary operator into a ternary operator. But this way can lower the readability of your code, so making the application harder to understand and to maintain:
+
+```php
+echo ($boolean ? ($boolean2 ? "true true" : "true false") : "false");
+```
+
+The ternary operator could be write as following as well:
+
+```php
+$value = $value ?: $othervalue;
+```
+
+This way could be useful to assign a default value. Let's take as an example one use case where we want to display as name, the family name if exists else the username :
+
+```php
+$display_name = $lastname ?: $username;
+```
+
+[Documentation](https://php.net/manual/fr/language.operators.comparison.php#language.operators.comparison.ternary)

@@ -1,0 +1,51 @@
+---
+name: MySQL Docker Image for Mac ARM M1
+description:
+  MySQL official Docker image is not available for Apple ARM-based M1 and M2 CPUs. But there is some options to use mysql image on Mac and more globally on ARMv8 microarchitecture.
+image:
+  contentUrl: /images/docker.png
+keywords:
+  - docker
+  - mysql
+  - osx
+  - apple
+  - arm
+identifier: mysql-docker-arm-m1
+translationOfWork:
+  "@id": mysql-docker-arm-m1
+inLanguage: en
+isPartOf: blog
+dateModified: 2023-02-22T16:56:15.229Z
+dateCreated: 2022-02-26T13:46:49.039Z
+---
+
+For a few years now, Apple released new ARM-based SoC for Mac: Apple M1 and Apple M2 CPU. There are 64-bit ARMv8 processors specially designed for MacOS and iPadOS. Linux Kernel also brings supports this SoC since version 5.13.
+
+Various software and Docker images are not compatible with the microarchitecture ARMv8 and the MySQL official Docker image is one of them. Let's see how using MySQL with Apple M1, Apple M2, and more globally ARMv8.
+
+## Use ARM64v8 Docker Image
+
+In order to use a MySQL Docker image with ARMv8, you need to use the `arm64v8/mysql` docker image instead of the official `mysql/mysql-server`. More tags are available on the official [Docker Hub ARM64v8 repository](https://hub.docker.com/r/arm64v8/mysql/tags).
+
+This solution should also work for other SoC using AMRv8 micro-architecture. Those kind of ARM-compatible docker images are also available for other technologies like PHP, Python, Mongo, ... etc.
+
+Here is an additional example of `docker-compose` file using the above image:
+
+```yaml docker-compose.yml
+version: '3'
+
+services:
+  db:
+    image:
+  contentUrl: arm64v8/mysql:oracle
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    expose:
+      - 3306
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
+```
+
+## Build your own image
+
+When a docker image is not available for an architecture, another option is basically to build the image on this architecture. This way, you can build your own image from the official [Docker Github repository](https://github.com/docker-library/mysql/tree/master).

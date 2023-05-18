@@ -1,0 +1,54 @@
+---
+name: Convert a JavaScript object to queryparams string
+description:
+  This post describes two very simple ways to convert a JavaScript object to a
+  querystring both in a browser environment or server environment.
+image:
+  contentUrl: /images/javascript.png
+keywords:
+  - javascript
+  - nodejs
+identifier: convert-object-to-querystring
+inLanguage: en
+isPartOf: blog
+dateModified: 2022-05-16T22:33:37.313Z
+dateCreated: 2022-05-16T21:33:24.331Z
+---
+
+Converting a JS object to parameters in a URL is a common task for web developers but there are different ways to do it in depending on the context. Let's see two options depending whether your code is running in a browser or on a NodeJS server.
+
+## Browser Side Using URLSearchParams API
+
+The [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) interface is available in the browser. It is used to manipulate the query string of a URL. This API is [compatible](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams#browser_compatibility) with all modern browsers including the latest browser versions and excluding Internet Explorer.
+
+Here is an example:
+
+```javascript
+const params = {
+  name: 'John',
+  age: 30,
+}
+
+const qs = new URLSearchParams(params)
+console.log(qs.toString())
+```
+
+If you are in the case you need to support Internet Explorer 11 or lower, you can use a URLSearchParams [polyfill](https://github.com/zloirock/core-js#url-and-urlsearchparams) or the [querystringify](https://www.npmjs.com/package/querystringify) npm package.
+
+## Server Side Using querystring
+
+The [querystring](https://nodejs.org/api/querystring.html) module is part of NodeJS built-in modules. It is used to manipulate the query string of a URL as well.
+
+Here is an example:
+
+```javascript
+const querystring = require('querystring')
+
+const params = {
+  name: 'John',
+  age: 30,
+}
+
+const qs = querystring.stringify(params)
+console.log(qs)
+```

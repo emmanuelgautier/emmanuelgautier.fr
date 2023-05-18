@@ -1,0 +1,53 @@
+---
+name: Etendre le type Window avec Typescript
+description: Certaine des propriétés et fonctions du type Window avec Typescript, ne sont pas disponibles. Ce post a pour but d'expliquer comme étendre le type Window avec les propriétés manquantes.
+image:
+  contentUrl: /images/typescript.png
+keywords:
+  - javascript
+  - typescript
+  - react
+  - nextjs
+  - angular
+  - vuejs
+identifier: typescript-etendre-window
+translationOfWork:
+  "@id": typescript-extend-window
+inLanguage: fr
+isPartOf: blog
+dateModified: 2022-02-05T16:52:33.843Z
+dateCreated: 2021-11-27
+---
+
+Lors du développement d'une application TypeScript, vous devez parfois accéder aux propriétés ou aux fonctions de l'objet "Window". Certaines de ces propriétés ou fonctions ne sont pas disponibles dans l'objet `window` défini par le navigateur. Ceux-ci peuvent être définis par des bibliothèques tierces que vous pouvez ajouter à vos pages comme Google Tag Manager par exemple. Pour cette raison, vous devez étendre le type de Window avec les propriétés ou les fonctions auxquelles vous devez accéder.
+
+## Type de Window avec TypeScript
+
+Le type `Window` est défini dans le module de TypeScript `lib.dom`. Vous pouvez trouver la définition du type `Window` dans la documentation de [TSDoc](https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.window.html).
+
+Quand pouvez-vous avoir de nouvelles propriétés non définies par votre code dans l'objet `Window` ? Par exemple, lorsque vous souhaitez ajouter Google Tag Manager ou Google Analytics à votre page. Ces scripts ne sont pas chargés directement par votre code, mais vous pouvez communiquer avec eux via certaines propriétés d'objet de Window. Pour Google Tag Manager, la propriété `datalayer` est ajoutée et certaines fonctions sont également ajoutées.
+
+Dans ce cas, vous aurez l'erreur suivante :
+
+```
+Property does not exist on type 'window & typeof globalthis'
+```
+
+## Étendre le type Window avec les propriétés manquantes
+
+Afin d'étendre le type Window, vous devez ajouter les propriétés ou fonctions manquantes.
+
+L'extrait de code suivant étendra le type 'Window' avec les propriétés ou fonctions manquantes.
+
+```typescript
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void
+    dataLayer: Record<string, any>
+  }
+}
+```
+
+N'oubliez pas d'ajouter le fichier contenant cet extrait à la liste des fichiers de projet pour la compilation Typescript. Dans un projet NextJS, vous pouvez ajouter l'extrait de code dans le fichier `globals.d.ts`.
+
+J'espère que cet article vous aidera à éviter cette erreur Typescript.

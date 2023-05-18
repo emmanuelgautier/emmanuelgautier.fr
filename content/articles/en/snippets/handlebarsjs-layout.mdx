@@ -1,0 +1,50 @@
+---
+name: Create layout with HandlebarsJS
+description:
+  Layout template is a good practice to not repeat ourselves (DRY). Handlebars
+  templates engine does not provide a layout feature out of the box but it still
+  is possible to create a layout. principle. Handlebars template engine, there
+  is no out-of-the-box layout feature but it is possible to create a layout.
+image:
+  contentUrl: /images/handlebars-js.png
+identifier: handlebarsjs-layout
+keywords:
+  - handlebarsjs
+  - javascript
+inLanguage: en
+isPartOf: snippets
+dateModified: 2022-05-26T17:27:35.495Z
+dateCreated: 2022-05-26T17:25:54.928Z
+---
+
+Layout template is a good practice following the DRY (Don't Repeat Yourself) principle. This file contains the skeleton of the pages and the remaining templates will only add the content to the skeleton. In most of the cases, the layout contains the HTML skeleton with the main CSS, JS, Fonts files, but also some main UI components like the header, footer, the navigation bar.
+
+Handlebars templates engine does not provides layout feature out of the box but it still be possible to create a layout with `Partial Blocks` like the following code.
+
+First, create a layout template with Partial Blocks slot. You can have one or several additional variables.
+
+```hbs layout.hbs
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+{{> @partial-block }}
+</body>
+</html>
+```
+
+Then, use it as a Partial Block.
+
+```hbs homepage.hbs
+{{#> layout title='Homepage' }}
+<h1>Welcome to my website</h1>
+<p>This is the home page</p>
+{{/layout}}
+```

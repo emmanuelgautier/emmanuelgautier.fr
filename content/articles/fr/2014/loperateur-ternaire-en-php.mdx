@@ -1,0 +1,55 @@
+---
+name: L’opérateur ternaire en PHP
+description: L’utilisation de l’opérateur ternaire n’est certes pas la méthode de développer la plus lisible dans la majorité des cas mais elle s’avère pratique dans la lisibilité de conditions simples. L’implémentation de cet opérateur peut différer selon les langages, voyons dans le cas de PHP.
+image:
+  contentUrl: /images/php.jpg
+keywords:
+  - php
+identifier: loperateur-ternaire-en-php
+translationOfWork:
+  "@id": php-ternary-operator
+inLanguage: fr
+isPartOf: blog
+dateModified: 2021-04-20
+dateCreated: 2014-10-31
+---
+
+L’utilisation de l’opérateur ternaire n’est certes pas la méthode de développer la plus lisible dans la majorité des cas mais elle s’avère pratique dans la lisibilité de conditions simples. L’implémentation de cet opérateur peut différer selon les langages, voyons dans le cas de PHP.
+
+## Qu’est ce que l’opérateur ternaire ?
+
+Simplement, il s’agit de mettre une condition logique sur un seul ligne. Voyons par exemple :
+
+```php
+if($boolean) {
+  echo "foo";
+} else {
+  echo "bar";
+}
+```
+
+Cette condition est relativement simple et prend tout de même 5 lignes de code. L’opérateur ternaire va nous permettre de mettre cette condition sur une seul ligne de la manière suivante :
+
+```php
+echo ($boolean ? "foo" : "bar");
+```
+
+Vous pouvez faire ceci à l’infini mais ceci dégrade, bien évidement la lisibilité du code et peut s’avérer un frein dans la maintenance d’une application.
+
+```php
+echo ($boolean ? ($boolean2 ? "true true" : "true false") : "false");
+```
+
+L’opérateur ternaire peut également se représenter de la forme suivante
+
+```php
+$value = $value ?: $othervalue;
+```
+
+Cette méthode peut être pratique dans le cas de l’assignation d’une valeur par défaut. Prenons comme exemple le cas où l’on veut afficher comme nom le nom de famille s’il existe sinon le nom d’utilisateur :
+
+```php
+$display_name = $lastname ?: $username;
+```
+
+[Documentation](https://php.net/manual/fr/language.operators.comparison.php#language.operators.comparison.ternary)

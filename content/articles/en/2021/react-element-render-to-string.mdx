@@ -1,0 +1,55 @@
+---
+name: How to render a React element to an HTML string?
+description: What happens when you want to render a React string to HTML? For some reasons, you may want to have the generated HTML string from your React component instead of a mounted component and render it on the page.
+image:
+  contentUrl: /images/nextjs.jpg
+keywords:
+  - javascript
+  - react
+identifier: react-element-render-to-string
+translationOfWork:
+  "@id": rendre-element-react-string
+inLanguage: en
+isPartOf: blog
+dateModified: 2023-02-15
+dateCreated: 2021-05-02
+---
+
+What happens when you want to render a React string or element to an HTML string? For some reasons, you may want to have the generated HTML string from your React component instead of a mounted component and render it on the page.
+
+If you want to render an HTML String for SSR purposes, you may consider using a framework like [Next.js](https://nextjs.org/) instead of manually rendering a React string to HTML. Using a framework like Next.js can offer a wide range of features and tools for building server-rendered applications like abstracting away a lot of the complexity of setting up server rendering, automatic code splitting, significant performance improvements, ... etc.
+
+## What is ReactDOMServer?
+
+The ReactDOMServer module is a part of the official React library. It provides methods for rendering React components to static HTML. It's useful for server-side rendering, where you want to generate HTML on the server and send it to the client.
+
+## Converting a React String to an HTML String
+
+To convert a React string to an HTML string, we need to use the renderToString method provided by ReactDOMServer. The renderToString method takes a React component as an argument and returns a string of HTML.
+
+Here is an example of how to use the renderToString method to convert a React string to an HTML string:
+
+```js
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+
+const reactString = '<div>Hello, world!</div>';
+const htmlString = ReactDOMServer.renderToString(React.createElement('div', { dangerouslySetInnerHTML: { __html: reactString } }));
+
+console.log(htmlString);
+// Output: <div>Hello, world!</div>
+```
+
+In this example, we are using React.createElement to create a React element with the dangerouslySetInnerHTML prop set to `{ __html: reactString }`. The `dangerouslySetInnerHTML` prop is used to render HTML directly to the page. Then, the `ReactDOMServer.renderToString` function convert the React element to an HTML string.
+
+Here is another example but with a custom component you already created before. This example convert a JSX to string.
+
+```jsx
+import { renderToString } from 'react-dom/server'
+
+renderToString(<YourAwesomeComponent props1="value1" props2={{ value: '2' }} />)
+```
+
+The `renderToString` function can be used on both server-side and client-side. If you want to render all page server-side for SEO or UX purposes for example, you can use the `ReactDOMServer.renderToNodeStream` function to improve your load time or the `ReactDOMServer.renderToPipeableStream` in newer React versions. You can find an example for this last method on the [renderToPipeableStream Documentation](https://beta.reactjs.org/reference/react-dom/server/renderToPipeableStream#rendering-a-react-tree-as-html-to-a-nodejs-stream).
+
+More informations on the React [documentation](https://reactjs.org/docs/react-dom-server.html).

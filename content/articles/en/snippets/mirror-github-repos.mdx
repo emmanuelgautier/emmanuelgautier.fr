@@ -1,0 +1,52 @@
+---
+name: Github Action for mirroring repositories
+description:
+  In some cases, it is useful to mirror a repository on GitHub. Unfortunately,
+  Github does not provide an automatic mirroring feature so far. The only way to
+  make mirroring is to do it yourself manually or automate it. Thanks to Github
+  Actions, we will be able to mirror a repository on GitHub automatically.
+image:
+  contentUrl: /images/github.png
+identifier: mirror-github-repos
+keywords:
+  - github
+  - github-actions
+  - git
+inLanguage: en
+isPartOf: snippets
+dateModified: 2022-05-28T14:36:55.003Z
+dateCreated: 2022-05-26T17:31:28.819Z
+---
+
+In some cases, it is useful to mirror a repository on GitHub. Unfortunately, Github does not provide an automatic mirroring feature so far. The only way to make mirroring is to do it yourself [manually](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository) or automate it. Thanks to Github Actions, we will be able to mirror a repository on GitHub automatically.
+
+To do so, we will need to create a new repository on GitHub and then we will need to create a new Github action using `repo-sync/github-sync` action. You can copy the code below and paste it into your mirrored repository.
+
+```yaml .github/workflows/repo-sync.yml
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: repo-sync
+        uses: repo-sync/github-sync@v2
+        with:
+          source_repo: 'org/repo'
+          source_branch: 'main'
+          destination_branch: 'main'
+          github_token: ${{ secrets.PAT }}
+```
+
+You will need to update the `source_repo`, `source_branch`, and `destination_branch` values to match your repository.
+
+Do not forget to fill in the `PAT` Github secret. For creating a new Personal Access Token, please follow the [Github docs](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+
+For more information about this Github Action, please visit [here](https://github.com/marketplace/actions/github-repo-sync).

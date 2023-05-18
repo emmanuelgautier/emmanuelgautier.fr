@@ -1,0 +1,112 @@
+---
+name: Créer un serveur Web Lighttpd sur Ubuntu
+description: Lighttpd est un serveur web au même titre que le plus célèbre, Apache. Comme son nom l’indique il se veut léger. Il comporte toutefois, malgré cette légèreté, un nombre de fonctionnalités comparables à ces homologues pour des performances aussi bonnes sinon meilleurs sur les tests benchmarks réalisés.
+image:
+  contentUrl: /images/lighttpd.jpg
+keywords:
+  - lighttpd
+  - ubuntu
+  - linux
+identifier: creer-un-serveur-web-lighttpd-sur-ubuntu
+inLanguage: fr
+isPartOf: blog
+dateModified: 2014-10-21
+dateCreated: 2014-10-21
+---
+
+[Lighttpd](https://www.lighttpd.net/) est un serveur web au même titre que le plus célèbre, Apache. Comme son nom l’indique il se veut léger. Il comporte toutefois, malgré cette légèreté, un nombre de fonctionnalités comparables à ces homologues pour des performances aussi bonnes sinon meilleurs sur les tests benchmarks réalisés.
+
+Par rapport à Apache, il ne supporte pas les fichiers `.htaccess` et `.htpasswd` mais ces deux fonctionnalités peuvent vous être inutiles si vous avez accès aux configurations du serveur.
+
+### Installation
+
+Commençons par l’installation du paquet :
+
+```bash
+sudo apt-get install lighttpd
+```
+
+### Configuration
+
+Il convient maintenant de configurer notre nouveau serveur.
+
+```bash
+cd /etc/lighttpd/ && sudo nano lighttpd.conf
+```
+
+Vous pouvez activer ou désactiver les modules qui vous sont nécessaires
+
+```bash
+server.modules = (
+  "mod_access",
+  "mod_alias",
+  "mod_compress",
+  "mod_redirect",
+# "mod_rewrite",
+)
+```
+
+Voici quelques autres configurations que nous n’expliquerons pas dans ce tutoriel
+
+```bash
+server.document-root        = "/var/www"
+server.upload-dirs          = ( "/var/cache/lighttpd/uploads" )
+server.errorlog             = "/var/log/lighttpd/error.log"
+server.pid-file             = "/var/run/lighttpd.pid"
+server.username             = "www-data"
+server.groupname            = "www-data"
+server.port                 = 80
+
+index-file.names            = ( "index.php", "index.html", "index.lighttpd.html" )
+url.access-deny             = ( "~", ".inc" )
+static-file.exclude-extensions = ( ".php", ".pl", ".fcgi" )
+
+compress.cache-dir          = "/var/cache/lighttpd/compress/"
+compress.filetype           = ( "application/javascript", "text/css", "text/html", "text/plain" )
+
+# default listening port for IPv6 falls back to the IPv4 port
+## Use ipv6 if available
+# include_shell "/usr/share/lighttpd/use-ipv6.pl " + server.port
+include_shell "/usr/share/lighttpd/create-mime.assign.pl"
+include_shell "/usr/share/lighttpd/include-conf-enabled.pl"
+```
+
+### Configurer un site web
+
+Nous allons maintenant regarder la manière d’ajouter et configurer un nouveau site web à votre serveur.
+
+Tout d’abord, afin de bien séparer les configurations des sites web de celui du serveur, nous mettrons toutes les configurations dans un dossier “ sites “ qu’il convient de créer.
+
+```bash
+sudo mkdir sites && cd $_
+```
+
+Nous pouvons maintenant créer notre site qui se nommera `mysite.lan`
+
+```bash
+sudo nano mysite.lan
+```
+
+Contenu du fichier `mysite.lan`
+
+```bash
+$HTTP["host"] == "www.mysite.lan" {
+  server.document-root = "/var/www/mysite.lan"
+}
+```
+
+Le fichier précédant configure un site pour répondre à l’url `www.mysite.lan` ainsi que définit la racine sur le repertoire `/var/www/mysite.lan`
+
+Maintenant, il nous faut inclure ce fichier de configuration à la configuration générale de notre serveur. Ajouter la ligne suivante à la fin du fichier `lighttpd.conf`
+
+```bash
+include "/etc/lighttpd/sites/mysite.lan"
+```
+
+Redémarrer ensuite le service
+
+```bash
+sudo service lighttpd restart
+```
+
+Vous pouvez maintenant mettre votre site web dans le répertoire qui lui est associé.

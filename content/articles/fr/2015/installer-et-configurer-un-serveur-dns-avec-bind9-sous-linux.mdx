@@ -1,0 +1,220 @@
+---
+name: Installer et configurer un serveur DNS avec Bind9 sous Linux
+description: Un service DNS (Domain Name Service) sert à la résolution de noms de domaine en une adresse IP ou une autre ressource. Ce service est utile notamment pour naviguer sur internet pour ne pas avoir à connaître les IPs des sites web.
+image:
+  contentUrl: /images/isc.png
+keywords:
+  - linux
+  - dns
+  - bind9
+identifier: installer-et-configurer-un-serveur-dns-avec-bind9-sous-linux
+translationOfWork:
+  "@id": install-and-configure-dns-server-with-bind9
+inLanguage: fr
+isPartOf: blog
+dateModified: 2023-03-11
+dateCreated: 2015-04-19
+---
+
+Un service DNS (Domain Name Service) sert à la résolution de noms de domaine en une adresse IP ou une autre ressource. Ce service est utile notamment pour naviguer sur internet pour ne pas avoir à connaître les IPs des sites web.
+
+## Introduction
+
+La mise en place d'un tel service requiert l'utilisation d'un logiciel spécifique. Le plus utilisé est [Bind](https://www.isc.org/downloads/bind/). Cette technologie, maintenue par [Internet Systems Consortium](https://www.isc.org/) est utilisée sur la grande majorité des services DNS existant dans le monde dont la plupart des serveurs DNS racines.
+
+Dans ce tutoriel nous allons apprendre à mettre en place et configurer un service DNS avec Bind9. Pour ce faire, nous allons prendre le cas simple de la configuration d'un nom de domaine pour un site web. Nous mettrons en place un nom de domaine qui pointera vers différents services tel qu'un serveur web HTTP, un serveur Mail, ... etc. Il n'est pas nécessaire que ces services existent réellement.
+
+## Installation et configuration
+
+La première étape à effectuer est d'installer le package bind9. Si vous êtes sous une distribution linux Debian Like, vous pouvez le faire au moyen de la ligne de commande suivante:
+
+```bash
+sudo apt-get install bind9 dnsutils
+```
+
+Il pourra vous être nécessaire de configurer votre système pour utiliser le serveur DNS créé sur votre machine. Pour ce faire, modifiez le fichier `resolv.conf` de la manière suivante. Les requêtes DNS se feront désormais vers le DNS local.
+
+```bash
+# /etc/resolv.conf
+nameserver 127.0.0.1
+```
+
+Une fois le serveur installé et démarré, configurons un premier site. Le nom de domaine choisi n'a pas d'importance, veillez simplement à éviter d'utiliser un nom de domaine existant pour faciliter vos tests. Dans ce tutoriel nous utiliserons le nom de domaine `mysite.lan`.
+
+La mise en place d'un nouveau nom de domaine, aussi appelé `zone`, se fait par la création d'un fichier. Ce fichier contient l'ensemble des enregistrements DNS du domaine. Ce sont ces informations qui seront envoyées lors d'une requête DNS. Ils donnent notamment les adresses IPs de plusieurs services, les IPs des sous-domaines, le temps de vie avant revérification des informations (TTL), ... etc.
+
+Voici un exemple de configuration d'un nom de domaine :
+
+```bash
+# /etc/bind/db.mysite.lan
+$TTL    604800
+@       IN      SOA     ns.mysite.lan. root.mysite.lan. (
+                        2           ; Serial
+                        604800      ; Refresh
+                        86400       ; Retry
+                        2419200     ; Expire
+                        604800 )    ; Negative Cache TTL
+;
+@       IN      NS      ns.mysite.lan.
+ns      IN      A       192.168.1.10
+www     IN      A       192.168.1.100
+```
+
+La configuration du domaine terminée, il est nécessaire maintenant d'inclure cette configuration dans la liste des domaines de bind9.
+
+```bash
+# /etc/bind/named.conf.local
+
+zone "mysite.lan" {
+	type master;
+	file "/etc/bind/db.mysite.lan";
+};
+```
+
+Avant de redémarrer le serveur, nous allons tester le fichier de domaine créé pour vérifier s'il est correcte afin d'éviter des erreurs au redémarrage de bind. La commande `named-checkzone`, inclue dans le package de bind9, va vérifier la syntaxe du fichier passé en paramètre.
+
+```bash
+sudo named-checkzone mysite.lan /etc/bind/db.mysite.lan
+```
+
+Il faut maintenant redémarrer le service pour prendre en compte les modifications.
+
+```bash
+sudo service bind9 restart
+```
+
+## Enregistrements
+
+Il existe différents types d'enregistrements représentant chacun un type information différent. Voici une liste des plus courants :
+
+### Enregistrement A
+
+Un enregistrement A est un type d'enregistrement DNS qui associe un nom de domaine à une adresse IPv4. Un résolveur DNS utilise les enregistrements A pour trouver l'adresse IP associée à un nom de domaine, permettant aux navigateurs web et autres applications de se connecter à des serveurs sur Internet.
+
+Un enregistrement A comprend généralement les parties suivantes :
+- `name` : le nom de domaine pour lequel l'enregistrement s'applique, tel que example.com.
+- `ttl` : la valeur de temps de vie pour l'enregistrement, qui détermine pendant combien de temps les autres serveurs DNS et clients doivent mettre en cache l'enregistrement avant de demander une mise à jour.
+- `class` : la classe DNS, généralement IN pour Internet.
+- `type` : le type d'enregistrement DNS, toujours A.
+- `address` : l'adresse IPv4 associée au nom de domaine, telle que 192.0.2.1.
+
+Voici un exemple d'enregistrement A :
+
+```bash
+example.com. 3600 IN A 192.0.2.1
+```
+
+Dans cet exemple, l'enregistrement A associe le nom de domaine example.com à l'adresse IPv4 192.0.2.1. La valeur 3600 spécifie une durée de vie de 3600 secondes (1 heure), ce qui signifie que d'autres serveurs DNS et clients peuvent mettre en cache l'enregistrement pendant jusqu'à 1 heure avant de demander une mise à jour.
+
+### Enregistrement AAAA
+
+Variante de l'enregistrement A, il fait correspondre une adresse IPv6 à un nom d'hôte.
+
+```bash
+www    IN    AAAA    ::A
+```
+
+### Enregistrement CNAME (Canonical Name)
+
+Il permet de créer un alias pointant vers un autre enregistrement du domaine courant ou d'un domaine externe. Il est possible de créer un enregistrement CNAME pointant vers un autre enregistrement CNAME mais cette pratique double le nombre de requêtes, il et donc déconseillé de la pratiquer.
+
+```bash
+mail    IN    CNAME  www
+ftp     IN    CNAME  ftp.domain.tld.
+www     IN    A      A.B.C.D
+```
+
+### Enregistrement MX (Mail Exchange)
+
+L'enregistrement MX point vers un serveur d'emails. Cet enregistrement doit pointer obligatoirement vers un enregistrement de type A ou AAAA et pas un enregistrement CNAME.
+
+Il est également possible de définir une priorité sur chaque enregistrement pour donne le serveur email à requêter en priorité. Si ce serveur est indisponible, le serveur ayant la priorité la plus proche sera requêté à la place.
+
+```bash
+         IN    MX  10  mail1
+         IN    MX  50  mail2
+mail1    IN    A       A.B.C.D
+mail2    IN    A       A.B.C.D
+```
+
+### Enregistrement NS (Name Server)
+
+Il définit les serveurs DNS du domaine.
+
+```bash
+      IN    NS    domain.tld.
+ns    IN    A     A.B.C.D
+```
+
+### Enregistrement TXT
+
+Il permet de définir un enregistrement contenant un texte libre. Cet enregistrement est notamment utilisé pour confirmer le détenteur d'un nom de domaine pour pouvoir utiliser certains services externes tel que Google Search Console, Github ou encore des solutions d'envoies de mail en mode SaaS.
+
+```bash
+domain.tld.    IN    TXT    "text"
+```
+
+### Enregistrement SOA
+
+Un enregistrement SOA (Start of Authority) est un type d'enregistrement DNS qui fournit des informations d'autorité sur une zone DNS, notamment le serveur de noms principal pour la zone, l'adresse e-mail de la personne responsable de la zone, ainsi que diverses valeurs de synchronisation qui contrôlent la manière dont les informations DNS sont mises en cache et mises à jour.
+
+L'enregistrement SOA est généralement le premier enregistrement DNS dans un fichier de zone et contient les champs suivants :
+
+- `name` : le nom de la zone, généralement le nom de domaine suivi d'un point.
+- `ttl` : la valeur de temps de vie pour la zone, qui détermine pendant combien de temps les autres serveurs DNS doivent mettre en cache les informations de la zone avant de demander des mises à jour.
+- `class` : la classe DNS, généralement IN pour Internet.
+- `type` : le type d'enregistrement, toujours SOA.
+- `primary nameserver` : le nom d'hôte du serveur de noms principal pour la zone.
+- `responsible person` : l'adresse e-mail de la personne responsable de la zone, en utilisant un format spécial avec le @ remplacé par un . et le . remplacé par \..
+- `serial number` : un numéro de version pour la zone qui est incrémenté à chaque fois que la zone est mise à jour.
+- `refresh` : l'intervalle auquel les serveurs de noms secondaires doivent vérifier le serveur de noms principal pour les mises à jour.
+- `retry` : l'intervalle auquel les serveurs de noms secondaires doivent réessayer une tentative de transfert de zone échouée.
+- `expire` : le temps maximum que les serveurs de noms secondaires doivent utiliser les données de la zone avant de les considérer comme expirées.
+- `minimum TTL` : la valeur de temps de vie minimale qui doit être utilisée pour tout enregistrement dans la zone.
+
+Voici un exemple d'enregistrement SOA :
+
+```bash
+example.com. IN SOA ns1.example.com. hostmaster.example.com. (
+  2022030101 ; numéro de série
+  86400      ; rafraîchir toutes les 24 heures
+  7200       ; réessayer toutes les 2 heures
+  604800     ; expirer après 1 semaine
+  3600       ; temps de vie minimum de 1 heure
+)
+```
+
+
+
+## Test
+
+Nous allons maintenant pour faire des tests, afin de s'assurer du bon fonctionnement de notre serveur et de vérifier que les enregistrements ont bien été pris en compte et son correctes. Pour tester ces enregistrements nous allons utiliser la ligne de commande `dig`. Selon votre distribution linux, il peut être nécesaire que vous installiez le paquet.
+
+```bash
+dig -x 127.0.0.1
+```
+
+Vous devriez voir une sortie console similaire à celle-ci :
+
+```bash
+; <<>> DiG 9.9.5-3ubuntu0.2-Ubuntu <<>> -x 127.0.0.1
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 63705
+;; flags: qr rd ra ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+[...]
+
+;; Query time: 4 msec
+;; SERVER: 192.168.245.2#53(192.168.245.2)
+;; WHEN: Wed Apr 08 16:30:11 CEST 2015
+;; MSG SIZE  rcvd: 63
+```
+
+Vous pouvez également demander de voir les enregistrements DNS pour un domaine spécifique.
+
+```bash
+dig mysite.lan
+```
+
+Il ne vous reste plus qu'à comparer le retour de la commande avec les enregistrements que vous avez rentrez précédemment pour le domaine. Les enregistrements sont normalement les mêmes.

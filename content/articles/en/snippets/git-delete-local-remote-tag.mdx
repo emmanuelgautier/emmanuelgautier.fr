@@ -1,0 +1,36 @@
+---
+name: Git command for deleting local and remote tag
+description:
+  Git tags are used to store a specific version of a file and more globally tag
+  specific commits in the history of a repository. For some reason, you may want
+  to remove this tag from your local repository and from the remote repository.
+image:
+  contentUrl: /images/git.jpg
+identifier: git-delete-local-remote-tag
+keywords:
+  - git
+inLanguage: en
+isPartOf: snippets
+dateModified: 2022-06-18T14:55:44.106Z
+dateCreated: 2022-06-18T14:32:16.380Z
+---
+
+Git tags are used to store a specific version of a file and more globally tag specific commits in the history of a repository. On Github, for example, release are attached to a tag, so a point in the Git commits history.
+
+For some reason, you may want to remove this tag from your local repository and from the remote repository.
+
+## Delete a local Git Tag
+
+The local part is pretty simple, you just need to run the following command:
+
+```bash
+git tag -d <tag>
+```
+
+## Delete a remote Git Tag
+
+In order to remove a tag from the remote repository, you need to push the command to the origin. You need to run the following command:
+
+```bash
+git push --delete origin <tag>
+```

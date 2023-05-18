@@ -1,0 +1,44 @@
+---
+name: How to enable Python type checking in VSCode
+description: Python now has support for type hints. In this article, we will see how to enable better IntelliSense and type checking analysis in VSCode.
+image:
+  contentUrl: /images/python.png
+keywords:
+  - python
+  - vscode
+  - typing
+identifier: enable-vscode-python-type-checking
+inLanguage: en
+isPartOf: blog
+translationOfWork:
+  "@id": activer-python-type-checking-vscode
+dateModified: 2021-08-18
+dateCreated: 2021-08-18
+---
+
+Since version 3.5, Python now has [support for type hints](https://docs.python.org/3/library/typing.html). This typing is a cool new feature allowing type checking across your code for more quality and also help when you are using some packages or call some functions your colleague did in a large codebase. In this article, we will see how to enable type IntelliSense and type checking analysis in Visual Studio Code editor.
+
+First of all, you need to install the Microsoft extension [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance). This extension provides a set of useful features powered with [Pyright](https://github.com/microsoft/pyright), the Microsoft static type checking tool.
+
+With the extension installed and enabled, you should now have better IntelliSense with typing information when you are calling some package function for example. For the type checking analysis, it is not enabled by default, you need to configure it by yourself.
+
+In your `settings.json` file, add a new line with the following setting:
+
+```json
+{
+  "python.analysis.typeCheckingMode": "basic"
+}
+```
+
+The default value for this line is `off` meaning the static analysis is disabled. You have two other possible values which are:
+
+- `basic`: basic type checking rules
+- `strict`: All type checking rules at the highest error severity
+
+If you test on the code below you should have a type error in VSCode now
+
+```python
+# Wrong type between expected return type and the value type really returned by this function
+def wrong_return_type() -> str:
+    return False
+```

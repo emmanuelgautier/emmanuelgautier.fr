@@ -1,0 +1,31 @@
+---
+name: Retirer une page supprimée de Google
+description: Google ne voit pas d’un très bon œil les erreurs HTTP 404. Seulement, lorsque vous supprimez une page, un article, une image, … , Google ne voit plus ce qui a été supprimé et c’est l’erreur ! Pour éviter de tomber dans ce piège, il vous faut supprimer le lien dans l’index du moteur de recherche.
+image:
+  contentUrl: /images/google.jpg
+keywords:
+  - google
+  - seo
+identifier: retirer-une-page-supprimee-de-google
+inLanguage: fr
+isPartOf: blog
+dateModified: 2014-11-04
+dateCreated: 2014-11-04
+---
+
+Google ne voit pas d’un très bon œil les erreurs HTTP 404. Seulement, lorsque vous supprimez une page, un article, une image, … , Google ne voit plus ce qui a été supprimé et c’est l’erreur ! Pour éviter de tomber dans ce piège, il vous faut supprimer le lien dans l’index du moteur de recherche.
+
+Pour ce faire, vous devez remplacer le lien par une réponse HTTP 410. Le code HTTP 410 spécifie que le lien a été définitivement supprimé. De ce constat, google va le supprimer de son index et aucun erreur ne sera levé.
+
+Voici la configuration pour effectuer une réponse HTTP 410 sous Apache. Cette configuration peut être mise dans le fichier de configuration Apache du site web ou tout simplement dans un fichier `.htaccess` à la racine de votre projet.
+
+```bash
+<IfModule mod_rewrite.c>
+    Options +FollowSymlinks
+    RewriteEngine On
+    RewriteBase /
+    RewriteRule ^page-a-supprimer.html$ - [G]
+</IfModule>
+```
+
+Pour plus de renseignements sur les codes HTTP, vous pouvez vous rendre sur la documentation de [Google Webmaster tools](https://support.google.com/webmasters/answer/40132)

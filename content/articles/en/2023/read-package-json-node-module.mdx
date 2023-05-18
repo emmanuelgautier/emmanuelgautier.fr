@@ -1,0 +1,25 @@
+---
+name: Read Package.json file from Node.JS module
+description: When you write a program you may want to read the content of the package.json file like what is the current package version. Here is one very simple way to read the content of this file.
+image:
+  contentUrl: /images/nodejs.png
+identifier: read-package-json-node-module
+keywords:
+  - nodejs
+  - json
+inLanguage: en
+isPartOf: blog
+dateModified: 2023-05-22T20:00:22.193Z
+dateCreated: 2023-05-22T20:00:22.193Z
+---
+
+When you write a program you may want to read the content of the package.json file like what is the current package version. Here is one very simple way to read the content of this file.
+
+With Node.JS module, is very simple to import the content of a JSON and `package.json` is no more than a JSON file so the simple code below works fine:
+
+```javascript example.mjs
+import packageJSON from './package.json' assert { type: 'json' };
+
+console.log(packageJSON.version);
+// Output: 1.0.0
+```

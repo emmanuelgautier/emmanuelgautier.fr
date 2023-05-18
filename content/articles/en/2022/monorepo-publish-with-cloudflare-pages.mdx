@@ -1,0 +1,104 @@
+---
+name: Publish multiple projects on a Monorepo on Cloudflare Pages
+description:
+  All the tooling provided by service providers is great and makes the
+  developer's life much easier. Usually, those providers connect one git
+  repository to an application. It works fine but it is not so easy when you
+  work on a monorepo or if you want to make multiple deployments for more than
+  one locale from only one source code.
+image:
+  contentUrl: /images/cloudflare.png
+keywords:
+  - cloudflare
+  - git
+  - github
+  - github-actions
+  - monorepo
+  - jamstack
+identifier: monorepo-publish-with-cloudflare-pages
+inLanguage: en
+isPartOf: blog
+dateModified: 2022-10-30T12:02:35.159Z
+dateCreated: 2022-06-29T21:49:05.897Z
+---
+
+All the tooling provided by service providers is great and makes the developer's life much easier. Usually, those providers connect one git repository to an application (or a project depending on the provider naming). It works fine but it is not so easy when you work on a monorepo or if you want to make multiple deployments for more than one locale from only one source code.
+
+This is the case for Cloudflare Pages. For now, you can not connect one Github repository to multiple Cloudflare Pages projects. In my case, this blog is available in English and French and linked to two domain names. So I have to make two deployments from the same source code. Hopefully, there are solutions.
+
+## Direct Upload with Continous integration
+
+The first solution is to deploy with Direct Uploads, a way to upload files directly to Cloudflare without having to build on Cloudflare build environment. One month ago, Cloudflare [announced](https://blog.cloudflare.com/cloudflare-pages-direct-uploads/) that the deployment on Cloudflare Pages with Direct Uploads is available. So, it is now possible to build multiple versions of a website and make multiple uploads for each project.
+
+Here I am using it for one project having multiple Cloudflare Pages projects. This solution can be used the same way when you have multiple packages on monorepo and you want to publish the different websites on Cloudflare Pages.
+
+### Getting started with Direct Uploads
+
+The publishing can be done with the Wrangler CLI developed by Cloudflare with the command `npx wrangler pages publish <directory>`. That is pretty simple, isn't it?
+
+The build and publish should be delegated to a software responsible for CI/CD like Github Actions or Travis CI. Cloudflare provided some support for some of them. Check out the [Cloudflare Documentation](https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/) for more informations. If you use software not mentioned in this documentation like Jenkins, you still can use the wrangler command directly which will make the same action at the end as using existing tooling.
+
+Here you can find one Github Actions workflow example deploying one project on different Cloudflare Pages projects and using the `cloudflare/pages-action` action.
+
+```yaml
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      deployments: write
+
+    strategy:
+      matrix:
+        include:
+          - projectName: 'project-en'
+            googleAnalyticsId: 'G-XXXXXXXXXX'
+          - projectName: 'project-fr'
+            googleAnalyticsId: 'G-XXXXXXXXXX'
+
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v3
+
+      - name: Setup node env 🏗
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/gallium
+          cache: 'yarn'
+
+      - name: Install dependencies 👨🏻‍💻
+        run: yarn --frozen-lockfile --silent
+
+      - name: Run build
+        run: yarn build
+        env:
+          NEXT_PUBLIC_GA_ID: ${{ matrix.googleAnalyticsId }}
+
+      - name: Export
+        run: yarn export
+        env:
+          NEXT_PUBLIC_GA_ID: ${{ matrix.googleAnalyticsId }}
+
+      - name: Publish
+        uses: cloudflare/pages-action@1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ matrix.projectName }}
+          directory: ./out
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+```
+
+## Mirroring GIT Repository
+
+Another solution that can be used as a workaround to the limitation of having only one project per GIT repository is to create multiple GIT repositories. It can be quite painful to maintain multiple repositories so it is possible to configure automatic synchronization. You can find one example with Github Actions on the [Github Action for mirroring repositories snippet](./snippets/mirror-github-repos).
+
+This solution can be used not only for Cloudflare but also with Vercel.

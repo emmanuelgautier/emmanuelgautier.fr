@@ -1,0 +1,23 @@
+---
+name: Améliorations de performance pour PHP
+description: Dimitry Stogov, ingénieur chez Zend Technologies, a annoncé il y a quelques jour par un post sur les news du site officiel du langage PHP des améliorations effectuées sur le moteur. Ces améliorations sont le fruit d'intenses travaux de refactoring sur celui-ci. Pour rappel le moteur interne de PHP est tenu par la société Zend qui a donné son nom au moteur.
+image:
+  contentUrl: /images/php.jpg
+keywords:
+  - php
+identifier: ameliorations-de-performance-pour-php
+inLanguage: fr
+isPartOf: blog
+dateModified: 2014-05-15
+dateCreated: 2014-05-15
+---
+
+Dimitry Stogov, ingénieur chez Zend Technologies, a annoncé il y a quelques jour par un post sur les news du site officiel du langage PHP des améliorations effectuées sur le moteur. Ces améliorations sont le fruit d'intenses travaux de refactoring sur celui-ci. Pour rappel le moteur interne de PHP est tenu par la société Zend qui a donné son nom au moteur.
+
+L'amélioration de la vitesse d'exécution a été la principale préoccupation de Dimitry Stogov depuis la version 5.0. Sa première approche fut celle d'analyser les cycles d'utilisation du CPU ce qui le conduit à mettre en oeuvre des technologies [JIT](https://en.wikipedia.org/wiki/Just-in-time_compilation). Néanmoins les gains de performances furent assez pauvres. Face à ce peu d'améliorations, un refactoring fut décidé.
+
+Ce refactoring consiste en le changement de représentation de certaines variables, passant celles-ci de représentation sous forme de pointeurs et de références en données structurées. Ce changement a pour but de minimiser la masse d'allocation mémoire effectués et donc d'améliorer les performances par ce biais. Afin de connaître les résultats de ce refactoring des tests ont été effectués sur des applications et on constate un gain de performance plus que significatif. On note un gain de 20% pour Wordpress 3.6, 11.7% pour Drupal 6.1 et 30.5% pour une application fait avec Zend Framework.
+
+Ces améliorations sont effectives dans la version 5.5 du langage PHP et d'autre améliorations devraient apparaître pour les versions à venir. Cette news est une bonne nouvelle pour une majorité des sites web étant basés sur ce langage. Même si les résultats de ces améliorations différeront d'un site web à un autre, elles devraient tout de même donner un coup de vitesse à vos sites web.
+
+[News de Dimitry Stogov](https://news.php.net/php.internals/73888), [Détails Techniques](https://wiki.php.net/phpng-int)

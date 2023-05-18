@@ -1,0 +1,74 @@
+---
+name: Migrer son Wordpress simplement
+description: Il n'est pas rare de développer son site en local par soucis pratique ou bien dans le cas d'une attente d'hébergement. Il peut arriver, de la même manière, de changer d'hébergement ou tout simplement changer de nom de domaine. Dans ce cas, une migration du site wordpress est nécessaire et s'accompagne souvent de manipulation différentes que d'habitude. Nous allons donc voir comment faire pour faire migrer son site wordpress proprement et en toute simplicité.
+image:
+  contentUrl: /images/wordpress.png
+keywords:
+  - php
+  - wordpress
+  - sql
+identifier: migrer-son-wordpress-simplement
+inLanguage: fr
+isPartOf: blog
+dateModified: 2013-11-15
+dateCreated: 2013-11-15
+---
+
+Il n'est pas rare de développer son site en local par soucis pratique ou bien dans le cas d'une attente d'hébergement. Il peut arriver, de la même manière, de changer d'hébergement ou tout simplement changer de nom de domaine. Dans ce cas, une migration du site wordpress est nécessaire et s'accompagne souvent de manipulation différentes que d'habitude. Nous allons donc voir comment faire pour faire migrer son site wordpress proprement et en toute simplicité.
+
+### Premiers pas
+
+Pour faire migrer son site, vous devez bien entendu déplacer tout le contenu faisant fonctionner votre site. Il s'agit donc de faire un simple transfert de l'intégralité des fichiers présent sur le ftp ou sur votre local vers le nouveau ftp. Comme un wordpress ne marche pas sans base de données, faite aussi un export de l'intégralité de votre base, puis réimporter ces données dans la nouvelle base.
+
+### Connexion à la base de donnée
+
+Lors de la première installation de wordpress, l'installateur vous a demandé des informations de connexion pour se connecter à la base. Dans ce même temps, le gestionnaire s'est chargé de faire les modifications nécessaires pour pouvoir se connecter ultérieurement à cette base. Mais maintenant, cet installateur n'existe plus et c'est donc à nous de faire les manipulations nécessaires.
+
+Les données de connexion nécessaires sont l'hôte de la base, le nom de la base (qui sera dans la plupart des cas le même que précédemment), le nom d'utilisateur de connexion ainsi que le mot de passe qui lui est associé. Ces informations sont contenues dans le fichier `wp-config.php` à la racine du CMS. Il va s'agir de changer les lignes présentées ci-dessous pour permettre la connexion à la base :
+
+```php
+<?php
+
+// ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define('DB_NAME', 'wordpress');
+
+/** MySQL database username */
+define('DB_USER', 'root');
+
+/** MySQL database password */
+define('DB_PASSWORD', '');
+
+/** MySQL hostname */
+define('DB_HOST', 'localhost');
+
+/** Database Charset to use in creating database tables. */
+define('DB_CHARSET', 'utf8');
+
+```
+
+Remplacez maintenant ces paramètres par les vôtres.
+
+### Accéder au bon site
+
+Maintenant qu'une connexion à la base est établie, le CMS va se baser sur l'url du site existant dans la base, c'est à dire l'ancienne url que vous avez spécifiée. Le problème est que cette url influence également la page de connexion à l'espace d'administration ce qui, en plus de donner des erreurs 404 pour l'intégralité des pages du site, vous empêche de changer les configurations de celui-ci. Il va donc nous être obligé de changer ces paramètres directement dans la base.
+
+Pour ce faire utilisez la méthode qui vous est habituelle. Par phpMyAdmin, rendez-vous à la table `wp_options` et modifiez `option_value` à la première ligne.
+
+![phpMyAdmin wordpress](/images/migrer-wordpress1.jpg)
+
+Si vous n'utilisez pas cette interface, vous pouvez toutefois exécuter la requête SQL suivante :
+
+```sql
+UPDATE wp_options SET option_value = 'nouvelle url' WHERE option_name = 'siteurl';
+```
+
+La nouvelle valeur doit être la nouvelle url de votre site dans les deux cas.
+
+### Finissez de paramétrer
+
+Maintenant que vous avez pu mettre la nouvelle url, vous allez pouvoir accéder à votre espace d'administration avec votre login et mot de passe habituel. Une fois connecté rendez-vous dans `Settings` > `General` et modifiez le quatrième champ en indiquant de la même manière que précédemment la nouvelle url du site.
+
+![Administration Wordpress](/images/migrer-wordpress2.jpg)
+
+Et voilà, votre migration a été effectuée avec succès. Simple, non ?
