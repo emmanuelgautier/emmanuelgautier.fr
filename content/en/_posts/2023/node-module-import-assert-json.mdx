@@ -1,0 +1,26 @@
+---
+title: Import a JSON file content from a Node.JS module
+description: With the new Node.JS module it is possible to read the content of a JSON file with the import function but there is the right way to do it.
+image: /images/nodejs.png
+slug: node-module-import-assert-json
+tags:
+  - nodejs
+  - json
+locale: en
+updated: 2023-05-22T19:49:03.973Z
+created: 2023-05-22T19:49:03.973Z
+---
+
+With the new Node.JS modules, it is possible to read JSON file content with the import function which is quite simple but you have to do it the right way.
+
+If you just make as follow you will have the `needs an import assertion of type "json"` error:
+
+```javascript:example.mjs
+import packageJSON from './package.json';
+```
+
+The reason is that you have to assert the type even if Node.js understand it is a JSON. According to [tc39/proposal-import-attributes](https://github.com/tc39/proposal-import-attributes), you should write the import with an assertion like this:
+
+```javascript:example.mjs
+import packageJSON from './package.json' assert { type: 'json' };
+```
