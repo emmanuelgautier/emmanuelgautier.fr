@@ -74,7 +74,7 @@
     "unist-util-visit": "4.1.2"
   },
   "devDependencies": {
-    "@emmanuelgautier/renovate-config": "1.5.3",
+    "@emmanuelgautier/renovate-config": "1.5.4",
     "@fullhuman/postcss-purgecss": "5.0.0",
     "@types/lodash": "4.14.195",
     "@types/node": "18.16.19",
