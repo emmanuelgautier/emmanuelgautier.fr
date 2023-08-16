@@ -1,0 +1,40 @@
+---
+title: Inject HTML content into an Astro component
+description: While working on a project within the Astro framework, I encountered a scenario where I needed to fill HTML content within a script tag.
+image: /images/astro.png
+slug: astro-script-tag-html-content
+tags:
+  - astro
+  - javascript
+locale: en
+updated: 2023-08-16T16:39:01.515Z
+created: 2023-08-16T16:39:01.515Z
+---
+
+## The Challenge putting script tag content with Astro
+
+While working on a project within the Astro framework, I encountered a scenario where I needed to fill HTML content within a `<script>` tag. However, the moment I implemented this, the smooth functioning of my web application turned into a jittery experience. It was clear that the `<script>` content was not playing well with the rest of the page.
+
+```jsx
+<script type="application/ld+json">{JSON.stringify(schema)}</script>
+```
+
+But the render was not the one expected:
+
+```html
+<script type="application/ld+json">{JSON.stringify(schema)}</script>
+```
+
+## How to inject HTML into an Astro element
+
+After some investigation, I discovered that Astro web framework has his own way to inject HTML string into an element, the directive [set:html](https://docs.astro.build/en/reference/directives-reference/#sethtml).
+
+For the developer more familiar with the React ecosystem, it is similar to the [React dangerouslySetInnerHTML](https://legacy.reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml)
+
+Here is the final solution after reading the documentation:
+
+```jsx
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+```
+
+Hope that can help other developers!
