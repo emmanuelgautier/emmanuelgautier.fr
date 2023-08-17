@@ -1,0 +1,71 @@
+---
+title: Création de PDFs à partir de plusieurs images sur Linux
+description: |
+  Je souhaitais partager avec vous une petite astuce que j'ai récemment découverte : comment fusionner plusieurs images en un seul fichier PDF en utilisant la ligne de commande sur Linux.
+image: /images/bash.png
+slug: creation-pdf-images-linux
+alternate:
+  en: create-pdf-from-images-linux
+tags:
+  - linux
+  - bash
+  - imagemagick
+  - pdf
+locale: fr
+updated: 2023-08-17T14:41:39.281Z
+created: 2023-08-17T14:41:39.281Z
+---
+
+Salut à tous ! Aujourd'hui, je souhaitais partager avec vous une petite astuce que j'ai récemment découverte : comment fusionner plusieurs images en un seul fichier PDF en utilisant la ligne de commande sur Linux.
+
+## La commande : convert (du package ImageMagick)
+
+L'outil magique que nous allons utiliser ici est `convert`, qui fait partie du package `ImageMagick` - une suite puissante d'outils en ligne de commande pour la manipulation d'images. Si vous ne l'avez pas installé, vous pouvez généralement le faire à l'aide de votre gestionnaire de paquets. Par exemple, sur les systèmes basés sur Debian, vous exécuteriez :
+
+```bash
+sudo apt-get install imagemagick
+```
+
+## Configurer les politiques ImageMagick afin de permettre l'écriture de PDF
+
+Les politiques de sécurité d'ImageMagick sont conçues pour garantir que les opérations d'image et de fichier sont effectuées de manière sûre et sécurisée, afin de prévenir les abus potentiels. Cela signifie que certaines fonctionnalités, comme l'écriture de fichiers PDF, peuvent être désactivées par défaut pour des raisons de sécurité.
+
+Dans ce cas, vous pourriez avoir l'erreur suivante
+
+```bash
+attempt to perform an operation not allowed by the security policy 'PDF' @ error/constitute.c/IsCoderAuthorized/421
+```
+
+Pour activer l'écriture de fichiers PDF en utilisant la commande `convert`, vous devrez modifier les politiques de sécurité d'ImageMagick. Voici comment faire :
+
+1. Localiser le fichier de politique : Les fichiers de politique d'ImageMagick sont généralement situés dans le répertoire `/etc/ImageMagick-<version>/`. Le nom du fichier est `policy.xml`.
+
+2. Éditer le fichier de politique : Ouvrez le fichier `policy.xml` avec un éditeur de texte en tant qu'administrateur (utilisez sudo pour les droits d'administration).
+
+3. Rechercher la section `<policymap>` : À l'intérieur du fichier `policy.xml`, vous trouverez une section `<policymap>`. C'est là que vous définirez les politiques pour chaque format de fichier.
+
+4. Activer l'écriture PDF : Pour activer l'écriture de fichiers PDF, recherchez la ligne qui correspond au pattern PDF. Modifiez la valeur de rights pour autoriser l'écriture de PDF. Par exemple :
+
+```xml
+<policy domain="coder" rights="read | write" pattern="PDF" />
+```
+
+## The Command Syntax
+
+La syntaxe de base de la commande `convert` pour fusionner des images en un PDF est la suivante :
+
+```bash
+convert image1.jpg image2.png output.pdf
+```
+
+Vous énumérez simplement les images d'entrée dans l'ordre dans lequel vous souhaitez qu'elles apparaissent dans le PDF, suivi du nom du fichier PDF de sortie souhaité.
+
+## Fusionner plusieurs images
+
+Mais que faire si vous avez plusieurs images dans un dossier que vous souhaitez fusionner dans un ordre spécifique ? Pas de soucis, nous pouvons utiliser le "globbing" de shell à notre avantage. Voici comment :
+
+```bash
+convert *.jpg output.pdf
+```
+
+Cette commande fusionnerait toutes les images JPEG dans le dossier actuel en un seul PDF nommé `output.pdf`.

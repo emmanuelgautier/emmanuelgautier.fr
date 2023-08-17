@@ -1,0 +1,70 @@
+---
+title: Creating PDFs from multiple images on Linux
+description: Today, I want to share a nifty little trick that I recently discovered and help me a lot – how to merge a bunch of images into a single PDF file using the Linux command line.
+image: /images/bash.png
+slug: create-pdf-from-images-linux
+alternate:
+  fr: creation-pdf-images-linux
+tags:
+  - linux
+  - bash
+  - imagemagick
+  - pdf
+locale: en
+updated: 2023-08-17T14:41:39.281Z
+created: 2023-08-17T14:41:39.281Z
+---
+
+Hey there! Today, I want to share a nifty little trick that I recently discovered and help me a lot – how to merge a bunch of images into a single PDF file using the Linux command line. So, let's dive right into it!
+
+## The Command: convert (from the ImageMagick Package)
+
+The magic tool that we're going to use here is `convert`, which is a part of the `ImageMagick` package – a powerful suite of command-line tools for image manipulation. If you don't have it installed, you can usually install it using your package manager. For instance, on Debian-based systems, you'd run:
+
+```bash
+sudo apt-get install imagemagick
+```
+
+## Configuring ImageMagick Policies for PDF Writing
+
+ImageMagick's security policies are designed to ensure that image and file operations are performed in a safe and secure manner, preventing potential abuses. This means that certain features, such as writing PDF files, might be disabled by default for security reasons.
+
+It PDF writing is disable you may encounter this error:
+
+```bash
+attempt to perform an operation not allowed by the security policy 'PDF' @ error/constitute.c/IsCoderAuthorized/421
+```
+
+To enable writing PDF files using the `convert` command, you'll need to modify ImageMagick's security policies. Here's how to do it:
+
+1. Locate the policy file: ImageMagick's policy files are usually located in the `/etc/ImageMagick-<version>/` directory. The file name is `policy.xml`.
+
+2. Edit the policy file: Open the `policy.xml` file with a text editor as an administrator (use sudo for administrative rights).
+
+3. Find the `<policymap>` section: Inside the policy.xml file, you'll find a `<policymap>` section. This is where you'll define policies for each file format.
+
+4. Enable PDF writing: To enable writing PDF files, locate the line that corresponds to the PDF pattern. Modify the value of rights to allow PDF writing. For example:
+
+```xml
+<policy domain="coder" rights="read | write" pattern="PDF" />
+```
+
+## The Command Syntax
+
+The basic syntax of the `convert` command for merging images into a PDF is as follows:
+
+```bash
+convert image1.jpg image2.png output.pdf
+```
+
+You simply list the input images in the order you want them to appear in the PDF, followed by the desired output PDF file name.
+
+## Combining Multiple Images
+
+But what if you have a bunch of images in a folder that you want to merge in a specific order? No worries, we can use shell globbing to our advantage. Here's how:
+
+```bash
+convert *.jpg output.pdf
+```
+
+This command would merge all the JPEG images in the current folder into a single PDF named `output.pdf`.
