@@ -1,0 +1,50 @@
+---
+title: How to construct URI with URI Template
+description: We often use predefined variables and template string to assemble URIs but there is a better approach called URI Template. This approach enables us to create URIs on-the-fly by replacing placeholders with actual data, making our code more flexible and maintainable.
+image: /images/javascript.png
+slug: uri-template-rfc-6570
+tags:
+  - uri-template
+locale: en
+updated: 2023-09-12T20:58:39.429Z
+created: 2023-09-12T20:58:39.429Z
+---
+
+Working with URIs in software development can sometimes be a challenging task, especially when we need to construct them dynamically. This is where URI templates, defined in [RFC 6570](https://datatracker.ietf.org/doc/html/rfc6570), come into play. In this article, we'll explore the concept of URI templates and take a closer look at the details outlined in the RFC.
+
+## RFC 6570
+
+[RFC 6570](https://datatracker.ietf.org/doc/html/rfc6570), titled "URI Template," is a specification that defines a compact syntax for expressing URLs and URI patterns. It provides a standardized way to generate URIs dynamically by allowing placeholders and variable substitution within a template. These templates are invaluable when building APIs, web applications, or any software that interacts with URIs.
+
+## Syntax of URI Templates
+
+The syntax of a URI template, as defined in RFC 6570, consists of literal characters and expressions enclosed in curly braces `{}`. Here are some examples:
+
+- `{scheme}://{host}/{path}`
+- `https://example.com/{resource}?id={id}&lang={lang}`
+
+In these examples, `{scheme}`, `{host}`, `{path}`, `{resource}`, `{id}`, and `{lang}` are placeholders that can be replaced with actual values.
+
+
+## URI Template Expressions
+
+RFC 6570 defines various expression types that can be used within URL templates, including:
+- **Simple String Expansion**: Represented as `{varname}` and are replaced by their corresponding values.
+- **Reserved Expansion**: Represented as `{+varname}` and are used for expansion without percent encoding. Useful for query strings.
+- **Fragment Expansion**: Represented as `{#varname}` and used for expansion within a URL fragment.
+- **Label Expansion with Dot-Prefix**: Represented as `{.varname}` and used for dot notation in path segments.
+- **Path Segment Expansion**: Represented as `{/varname}` and used for inserting values into path segments.
+- **Query Expansion**: Represented as `{?varname}` and used for adding query parameters.
+- **Continuation**: Represented as `{&varname}` and used to continue a query with additional parameters.
+
+## Implementing URI Templates in code
+
+To implement URI templates in your code, you can use libraries or built-in functions that support RFC 6570. Many programming languages have libraries that make working with URI templates straightforward. There is an existing Wiki page listing [RFC 6570 implementations](https://github.com/uri-templates/uritemplate-spec/wiki/Implementations).
+
+For example, in Javascript, the `std-uritemplate` library provides robust support for URI templates. Here's a basic example in Javascript:
+
+```javascript
+const { StdUriTemplate } = require('@std-uritemplate/std-uritemplate');
+
+url = StdUriTemplate.expand("https://example.com/{resource}/{id}", { resource: "users", id: 123 })
+```
