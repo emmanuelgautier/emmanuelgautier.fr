@@ -1,0 +1,70 @@
+---
+title: Golang Cobra commands documentation script
+description: This snippet shows how to generate documentation for a Cobra package commands quickly, making it easier for both you and your users to find the information you need.
+image: /images/golang.png
+slug: go-cobra-docgen
+tags:
+  - golang
+locale: en
+updated: 2023-09-17T13:09:17.946Z
+created: 2023-09-17T13:09:17.946Z
+---
+
+If you've ever worked with Golang's Cobra package to build command-line applications, you've likely realized the importance of good documentation for your commands in addition of the Cobra `help` command. In this short blog post, I'll show you how to generate documentation for your Cobra package commands quickly, making it easier for both you and your users to find the information you need.
+
+This post is inspired by the [Cobra package documentation](https://github.com/spf13/cobra/blob/main/site/content/docgen/_index.md).
+
+## Add Descriptions and Usage Strings
+
+Start by adding descriptions and usage strings to your Cobra commands. These are vital pieces of information that will be used when generating documentation. Here's an example:
+
+```go
+var myCmd = &cobra.Command{
+    Use:   "mycmd",
+    Short: "A brief description of your command",
+    Long:  `A more detailed description of what your command does.`,
+    Run: func(cmd *cobra.Command, args []string) {
+        // Your command logic here
+    },
+}
+```
+
+## Generate Documentation
+
+Write the script below:
+
+```go:gen_doc.go
+package main
+
+import (
+	"log"
+
+	"github.com/spf13/cobra/doc"
+)
+
+func main() {
+  var myCmd = &cobra.Command{
+      Use:   "mycmd",
+      Short: "A brief description of your command",
+      Long:  `A more detailed description of what your command does.`,
+      Run: func(cmd *cobra.Command, args []string) {
+          // Your command logic here
+      },
+  }
+
+	err := doc.GenMarkdownTree(myCmd, "./docs")
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+```
+
+Replace `myCmd` with your command structure, and this code will generate Markdown files in the `./docs` directory, containing the documentation for your commands.
+
+Then run the golang file:
+
+```shell
+go run gen_doc.go
+```
+
+You should have now a `./docs` directory with multiple documentation files depending on your Cobra commands.
