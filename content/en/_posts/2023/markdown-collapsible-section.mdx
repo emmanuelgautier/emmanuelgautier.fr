@@ -1,0 +1,42 @@
+---
+title: Collapsible sections in Markdown
+description: Collapsible sections can help keep markdown organized and user-friendly. In this quick guide, we'll show how to create collapsible sections in a markdown.
+image: /images/markdown.png
+slug: markdown-collapsible-section
+tags:
+  - markdown
+  - github
+locale: en
+updated: 2023-09-17T13:25:40.403Z
+created: 2023-09-17T13:25:40.403Z
+---
+
+Some days ago, I was facing a huge README with large example code blocks ([cerberauth/openapi-oathkeeper](https://github.com/cerberauth/openapi-oathkeeper/)). Those large parts in README are not interesting for every developers and some parts displayed below was not read.
+
+As developers, we know that a well-structured markdown (like README markdown) can make a huge difference in how users and fellow developers interact with our projects. One neat way to enhance your markdown is by adding collapsible sections. These sections can help keep your markdown organized and user-friendly. In this quick guide, we'll show you how to create collapsible sections in your GitHub markdown.
+
+You can use collapsible markdown outside Github on compatible other softwares (Gitlab, VS Code, Jupyter Notebooks, ... etc).
+
+## What are Markdown collapsible sections?
+
+Collapsible sections, also known as "accordion" sections, allow you to hide and reveal content as needed. This can be incredibly useful when your README gets lengthy and you want to keep it clean and easily navigable.
+
+## Create a collapsible section
+
+You can create collapsible sections in Markdown using HTML `<details>` and `<summary>` tags. Let's break down the example below:
+
+```markdown
+<details>
+<summary>Click to expand</summary>
+
+This is the content of the collapsible section. You can include any Markdown-formatted text, lists, or code here.
+
+</details>
+```
+
+Explanation:
+
+- `<details>` ([doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details)): This is the HTML tag that defines the collapsible section. It acts as a container for the content that you want to hide or reveal.
+- `<summary>` ([doc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary)): Inside the `<details>` tag, you use the `<summary>` tag to specify the text that users will see before expanding the section. This serves as a clickable label or button to open or close the section.
+- `"Click to expand"`: This is the text that appears as the summary. You can customize it to provide a clear indication of what's hidden in the section. For example, you could use emojis, like `"🔍 Click to see details."`
+- Content: Between the `<details>` and `</details>` tags, you place the content you want to hide or reveal. This can include any Markdown-formatted text, lists, code blocks, or even other collapsible sections.
