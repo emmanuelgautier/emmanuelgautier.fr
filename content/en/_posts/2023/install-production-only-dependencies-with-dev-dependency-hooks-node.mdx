@@ -1,0 +1,44 @@
+---
+title: Installing Production-Only Dependencies with Dev Dependency Hooks in Node.js
+description: There might be situations where you want to install production dependencies only but you have npm scripts using a dev dependency command. For example it can be the case if you use the `husky` package. In this blog post, we'll look how to install production-only dependencies with hooks using dev dependency.
+image: /images/javascript.png
+slug: install-production-only-dependencies-with-dev-dependency-hooks-node
+tags:
+  - node
+  - npm
+locale: en
+updated: 2023-10-12T21:39:11.490Z
+created: 2023-10-12T21:39:11.490Z
+---
+
+There might be situations where you want to install production dependencies only but you have npm scripts using a dev dependency command. For example it can be the case if you use the `husky` package. In this blog post, we'll look how to install production-only dependencies with hooks using dev dependency.
+
+## The Problem
+
+One common problem developers face is that the commands from dev dependencies are not available when installing production dependencies. This is because npm install only production dependencies and the command used in the script uses a command from a dev dependency not installed. This can result in a "command not found" error when you attempt to use a command from a dev dependency in your project.
+
+## The Solution
+
+To overcome this issue and ensure that hooks will not be blocking when installing production dependencies, you can disable the prepare npm hook. Depending on the version of npm you are using, there are different solutions to achieve this:
+
+### NPM 7 and below
+
+Run the following command to disable the `prepare` hook for all dependencies:
+
+```bash
+npm set-script prepare ""
+npm ci --omit=dev
+```
+
+This command sets an empty script for the prepare hook, effectively disabling it for all dependencies.
+
+### NPM 8 and above:
+
+Run the following command to remove the `prepare` hook from the `scripts` section of your `package.json` file:
+
+```bash
+npm pkg delete scripts.prepare
+npm ci --omit=dev
+```
+
+This command will remove the `scripts.prepare` key from your `package.json` file, ensuring that the `prepare` hook is no longer executed during the installation of dependencies.
