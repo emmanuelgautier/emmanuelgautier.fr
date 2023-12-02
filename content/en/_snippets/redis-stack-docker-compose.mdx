@@ -1,0 +1,49 @@
+---
+title: Easy Redis stack setup using Docker Compose
+description: Learn how to effortlessly set up a Redis stack using Docker Compose and the redis/redis-stack-server docker image in this quick and easy guide with a docker compose file.
+image: /images/redis.png
+slug: redis-stack-docker-compose
+tags:
+  - docker
+  - redis
+locale: en
+updated: 2023-12-02T16:06:13.616Z
+created: 2023-12-02T16:06:13.616Z
+---
+
+Hey there, fellow developers! Today, I was looking for a ready and simple docker compose file using the [redis/redis-stack-server](https://hub.docker.com/r/redis/redis-stack-server) docker image but I did not find anything. So, I am sharing here the one I created if that can help you too.
+
+## Create the Docker Compose file
+
+```yaml:docker-compose.yml
+version: "3.6"
+
+services:
+  redis:
+    image: redis/redis-stack-server:7.2.0-v6
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
+```
+
+Explanations:
+- `healthcheck`: Defines a health check for the container. The healthcheck runs the specified command `redis-cli --raw incr ping` to check if the Redis server is responding properly.
+- `volumes`: Creates a volume named redis_data. This volume is used to persist data, ensuring that even if the container is stopped or removed, the data stored by Redis remains accessible in subsequent container runs.
+
+## Run the Redis stack
+
+Save the `docker-compose.yml` file and run this in your terminal:
+
+```shell
+docker compose up -d
+```
+
+## Verify the Redis setup
+
+Now, go ahead and open your favorite Redis client and connect to `localhost:6379`.
