@@ -1,0 +1,72 @@
+---
+title: How to solve Docker compose .labels array items must be unique?
+description: This blog post provides a clear understanding and a solution for the docker compose error `array items must be unique`.
+image: /images/docker.png
+slug: solve-docker-compose-labels-must-unique
+tags:
+  - docker
+  - traefik
+locale: en
+updated: 2024-01-21T15:26:56.333Z
+created: 2024-01-21T15:26:56.333Z
+---
+
+If you have the `validating docker-compose.dev.yml: services.xxx.labels array items must be unique` error showing up when you are trying to run your docker compose, you are at the right place.
+
+Let's consider a scenario where you have separate Docker Compose files for production and development environments. The production compose file (`docker-compose.prod.yml`) might look like this:
+
+```yaml:docker-compose.prod.yml
+version: '3'
+services:
+  web:
+    image: production-image:latest
+    ports:
+      - "80:80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefiknet"
+      - "traefik.http.routers.yourservice.rule=Host(`service.example.com`)"
+      - "traefik.http.routers.yourservice.service=yourservice"
+      - "traefik.http.routers.yourservice.entrypoints=http"
+      - "traefik.http.services.yourservice.loadbalancer.server.port=4455"
+      - "traefik.http.services.yourservice.loadbalancer.passHostHeader=true"
+
+```
+
+And the development compose file (`docker-compose.dev.yml`) may look similar, with adjustments for the development environment:
+
+```yaml:docker-compose.dev.yml
+version: '3'
+services:
+  web:
+    image: development-image:latest
+    ports:
+      - "8080:80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefiknet"
+      - "traefik.http.routers.yourservice.rule=Host(`service.example.local`)"
+      - "traefik.http.routers.yourservice.service=yourservice"
+      - "traefik.http.routers.yourservice.entrypoints=http"
+      - "traefik.http.services.yourservice.loadbalancer.server.port=4455"
+      - "traefik.http.services.yourservice.loadbalancer.passHostHeader=true"
+```
+
+## Unique Labels Requirement
+
+The error "Docker Compose .labels array items must be unique" arises when [Docker compose labels](https://docs.docker.com/compose/compose-file/compose-file-v3/#labels) are duplicated between Docker Compose files. In our example, if both production and development files share the same labels, this error will occur.
+
+## Solution
+
+Remove from development docker compose file any labels that are already present in the production Docker Compose file (docker-compose.prod.yml). Example:
+
+```yaml:docker-compose.dev.yml
+version: '3'
+services:
+  web:
+    image: development-image:latest
+    ports:
+      - "8080:80"
+    labels:
+      - "traefik.http.routers.yourservice.rule=Host(`service.example.local`)"
+```
