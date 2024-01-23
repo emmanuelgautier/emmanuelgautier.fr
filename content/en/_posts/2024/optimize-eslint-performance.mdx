@@ -1,0 +1,54 @@
+---
+title: Optimizing ESLint Performance with TIMING=1 and Caching
+description: This article provides practical steps to enhance code linting efficiency with the TIMING environment variable and ESLint caching, ensuring faster development processes for large codebases.
+image: /images/eslint.png
+slug: optimize-eslint-performance
+tags:
+  - eslint
+locale: en
+updated: 2024-01-23T20:49:00.255Z
+created: 2024-01-23T20:49:00.255Z
+---
+
+Linting is a crucial step in maintaining code quality and consistency, but it can sometimes be a time and resource-consuming process on your local environment and during Continuous Integration process. Waiting for 20 minutes that the lint process end can be very painful and hurt development productivity.
+
+In this blog post, we'll explore how you can optimize ESLint performance by leveraging the `TIMING=1` environment variable and utilizing **ESLint caching**.
+
+## ESLint Cache
+
+ESLint caching is a powerful feature that helps reduce the linting time by storing information about previously linted files. When enabled, ESLint can skip the linting process for files that haven't changed, improving overall performance. To use [ESLint caching](https://eslint.org/docs/latest/use/command-line-interface#--cache), add the `--cache` flag to your ESLint command:
+
+```bash
+npx eslint --cache
+```
+
+This simple addition can significantly speed up linting for large codebases, especially during incremental builds where only a subset of files has changed.
+
+Do not forget to store the eslint cache file at the end of your Continuous integration workflow. The [default path](https://eslint.org/docs/latest/use/command-line-interface#--cache-file) is `.eslintcache`.
+
+## Identifying Time-Costly Rules
+
+To further optimize ESLint performance, we can use the `TIMING=1` environment variable to profile rule execution times. This feature provides detailed information about the time each ESLint rule takes during the linting process.
+
+Set the TIMING environment variable to 1 before running your ESLint command:
+
+```bash
+TIMING=1 eslint
+```
+
+After ESLint completes the linting process, it will output detailed timing information for each rule. Analyze this information to identify rules that consume a significant amount of time.
+
+```markdown
+Rule                            | Time (ms)
+--------------------------------|----------
+no-unused-vars                  | 150
+react/jsx-no-undef              | 80
+...
+```
+
+Once you've identified the rules with high execution times, consider the following actions:
+* **Optimization**: Review the configuration of time-consuming rules. Some rules may have optimizations or alternative configurations that can improve performance.
+**Rule Exclusion**: If certain rules are not critical for your project, you may choose to exclude them selectively.
+
+
+Optimizing your linting process not only saves time but also enhances the development experience, allowing you to focus on writing high-quality code without unnecessary delays.
