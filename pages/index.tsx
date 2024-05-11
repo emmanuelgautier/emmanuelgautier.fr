@@ -68,12 +68,6 @@ function Home({
               description="Chaque geste compte. Planète Durable partage des conseils, innovations et initiatives veillant à préserver notre planète."
               href="https://www.planete-durable.fr/"
             />
-
-            <ProjectCard
-              title="Filendy"
-              description="Gérer son portefeuille de projets des plateformes de crownlending sera bientôt plus facile avec Filendy."
-              href="https://www.filendy.com/"
-            />
           </>
         )}
 
@@ -81,6 +75,12 @@ function Home({
           title="CerberAuth"
           description="Exploring OAuth, OpenID Connect, and IAM Solutions for Modern Security."
           href="https://www.cerberauth.com/"
+        />
+
+        <ProjectCard
+          title="VulnAPI"
+          description="VulnAPI is an open-source project designed to help you scan your APIs for common security vulnerabilities and weaknesses."
+          href="https://vulnapi.cerberauth.com/"
         />
       </div>
 
