@@ -1,0 +1,39 @@
+---
+title: RabbitMQ Docker Compose
+description:
+  In this blog post, you can find a RabbitMQ Docker Compose file that aims to simplify the deployment and management of RabbitMQ instances using Docker for local development purposes.
+image: /images/docker.png
+slug: rabbitmq-docker-compose
+tags:
+  - docker
+  - rabbitmq
+locale: en
+updated: 2024-06-18T03:43:34.240Z
+created: 2024-06-18T03:43:34.240Z
+---
+
+The following RabbitMQ Docker Compose aims to simplify the deployment and management of RabbitMQ instances using Docker for local development purposes. The RabbitMQ Docker Compose file includes the following services:
+
+- RabbitMQ: The RabbitMQ service is the main service that runs the RabbitMQ server.
+- RabbitMQ Management: The RabbitMQ Management service provides a web-based management interface for RabbitMQ.
+
+```yaml
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+```
+
+To use the RabbitMQ Docker Compose file, create a new directory and save the above content in a file named `docker-compose.yml`. Then, run the following command to start the RabbitMQ services:
+
+```bash
+docker-compose up -d
+```
+
+After running the command, you can access the RabbitMQ Management interface by visiting `http://localhost:15672` in your web browser. The default username and password for the RabbitMQ Management interface are `guest` and `guest`, respectively.
