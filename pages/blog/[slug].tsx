@@ -181,7 +181,7 @@ function BlogPost({
               tags={tags.map(({ hashtag }) => hashtag)}
             />
 
-            <NewsletterForm />
+            {/* <NewsletterForm /> */}
 
             {Array.isArray(relatedPosts) && relatedPosts.length > 0 && (
               <div className="mt-8">
