@@ -1,0 +1,63 @@
+---
+title: Use REST API with Terraform
+description: Sometimes you need to interact with a REST API from Terraform because there is no provider available or the provider is outdated. Here is a solution to interact with REST APIs using the `http` provider or a REST API provider.
+image: /images/hashicorp-terraform.png
+slug: terraform-rest-api
+tags:
+  - terraform
+locale: en
+updated: 2024-07-16T21:56:10.719Z
+created: 2024-07-16T21:56:10.719Z
+---
+
+Sometimes you need to interact with a REST API from Terraform. This can be done using the [`http`](https://registry.terraform.io/providers/hashicorp/http/latest) provider, but, let's be honest, it can be a bit cumbersome.
+
+Hopefully, there are also some providers that make it easier to interact with REST APIs, such as the [Mastercard REST API provider](https://registry.terraform.io/providers/Mastercard/restapi/latest).
+
+## Why use those providers?
+
+If there is an official provider for the solution you want to interact with, it's usually better to use it. Providers are easier to use and provide better integration with Terraform. They also provide better error handling and are more user-friendly.
+
+But it exists some cases where a generic provider like `http` can be useful:
+* When there is no provider available for the REST API you want to interact with.
+* When the provider is not maintained or doesn't provide the features you need.
+
+## When to use the `http` provider
+
+If you need to interact with a very simple REST API, you can use the `http` provider. This provider allows you to make HTTP requests to any REST API.
+
+Here's an example of how you can use the `http` provider to interact with a REST API:
+
+```hcl
+data "http" "example" {
+  url = "https://checkpoint-api.hashicorp.com/v1/check/terraform"
+
+  # Optional request headers
+  request_headers = {
+    Accept = "application/json"
+  }
+}
+```
+
+## When to use a REST API provider
+
+REST API provider developed by Mastercard is a good choice when you need to interact with a more complex REST API. This provider is designed to manage global behavior, such as action methods, authentication, resource id management, and error handling.
+
+Here's an example of how you can use the Mastercard REST API provider to interact with a REST API:
+
+```hcl
+provider "restapi" {
+  endpoint = "https://api.example.com/v1"
+
+  oauth_client_credentials {
+    oauth_token_endpoint = "https://api.example.com/oauth/token"
+    oauth_client_id      = "your-client-id"
+    oauth_client_secret  = "your-client-secret"
+    oauth_scopes         = ["scope1", "scope2"]
+  }
+}
+
+resource "restapi_resource" "example" {
+  path = "/example"
+}
+```
