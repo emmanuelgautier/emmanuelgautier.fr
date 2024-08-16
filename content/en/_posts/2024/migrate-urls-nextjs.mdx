@@ -1,0 +1,58 @@
+---
+title: Migrate URLs in Next.js
+description: How to migrate URLs in Next.js to avoid 404 errors and improve SEO with permanent redirects.
+image: /images/nextjs.jpg
+slug: migrate-urls-nextjs
+tags:
+  - nextjs
+  - javascript
+locale: en
+updated: 2024-08-16T12:56:18.249Z
+created: 2024-08-16T12:56:18.249Z
+---
+
+Let's say you have a Next.js application and you want to change the URLs of some pages. You might want to do this to improve SEO or to make the URLs more user-friendly. But changing URLs can be tricky because you don't want to break existing links or cause 404 errors. In this article, I'll show you how to migrate URLs in Next.js without breaking anything.
+
+## How to migrate one URL in Next.js
+
+To migrate URLs in Next.js, you need to use [redirects](https://nextjs.org/docs/app/api-reference/next-config-js/redirects). Redirects tell the browser to go to a different URL when a user tries to access a specific URL. This way, you can change the URLs of your pages without breaking existing links.
+
+Remember that you should always use permanent redirects (HTTP status code 308) when migrating URLs. This tells search engines that the old URL has permanently moved to a new location. This is important for SEO because it transfers the SEO value of the old URL to the new one.
+
+Let's say you have a page with the URL `/old-url` and you want to change it to `/new-url`. You can add a redirect in your `next.config.js` file like this:
+
+```javascript
+module.exports = {
+  async redirects() {
+    return [
+      {
+        source: '/old-url',
+        destination: '/new-url',
+        permanent: true,
+      },
+    ]
+  },
+}
+```
+
+Now, when a user tries to access `/old-url`, they will be redirected to `/new-url`. This way, you can change the URLs of your pages without breaking existing links or causing 404 errors.
+
+## How to migrate multiple URLs in Next.js
+
+If you have multiple URLs that you want to migrate, like all URLs that start with `/old/` to URLs that start with `/new/`, you can use a wildcard path matching in the `source` field of the redirect. This way, you can redirect all URLs that match a specific pattern to a new location.
+
+Here's an example of how you can migrate all URLs that start with `/old/` to URLs that start with `/new/`:
+
+```javascript
+module.exports = {
+  async redirects() {
+    return [
+      {
+        source: '/old/:path*',
+        destination: '/new/:path*',
+        permanent: true,
+      },
+    ]
+  },
+}
+```
