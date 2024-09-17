@@ -1,0 +1,51 @@
+---
+title: Missing Authorization header in Apache
+description: Apache remove Authorization header for security reasons. Here is how to fix it.
+image: /images/apache.png
+slug: apache-missing-auth-header
+tags:
+  - apache
+  - php
+locale: en
+updated: 2024-09-17T13:02:03.833Z
+created: 2024-09-17T13:02:03.833Z
+---
+
+If you are using Apache with PHP-FPM, PHP-CGI, or any other FastCGI implementation, you may have noticed that the `Authorization` header is missing in your code. This is because Apache removes the `Authorization` header for security reasons.
+
+Authorization headers are used to send credentials to the server. They are used to authenticate the user and authorize access to resources. If the `Authorization` header is missing, your application won't be able to authenticate the user and authorize access to resources. It includes the `Bearer` token used in OAuth2 authentication, Basic authentication, and other authentication methods.
+
+## Apache configuration
+
+To fix this issue, you need to add the [CGIPassAuth](https://httpd.apache.org/docs/current/en/mod/core.html#cgipassauth) directive to your Apache configuration. This directive tells Apache to pass the `Authorization` header to the FastCGI server.
+
+Here is an example of how you can add the `CGIPassAuth` directive to your Apache configuration:
+
+```apache
+CGIPassAuth on
+```
+
+In your VirtualHost configuration, you can add the following configuration:
+
+```apache
+<VirtualHost *:80>
+    SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+</VirtualHost>
+```
+
+## .htaccess configuration
+
+If you don't have access to the Apache configuration file, you can also add the CGIPassAuth directive to your `.htaccess` file. This will tell Apache to pass the `Authorization` header to the FastCGI server for the specific directory.
+
+Here is an example of how you can add the `CGIPassAuth` directive to your `.htaccess` file:
+
+```apache
+RewriteEngine On
+RewriteCond %{HTTP:Authorization} .+
+RewriteRule ^ - [E=HTTP_AUTHORIZATION:%0]
+```
+
+## Ressources
+
+- [Stack Overflow Apache + PHP-FPM and Authorization headers](https://stackoverflow.com/questions/17018586/apache-2-4-php-fpm-and-authorization-headers)
+- [Symfony Comment](https://github.com/symfony/symfony/blob/4.4/src/Symfony/Component/HttpFoundation/ServerBag.php#L43-L55)
