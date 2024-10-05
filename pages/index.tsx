@@ -64,13 +64,19 @@ function Home({
         <ProjectCard
           title="CerberAuth"
           description="Exploring OAuth, OpenID Connect, and IAM Solutions for Modern Security."
-          href="https://www.cerberauth.com/"
+          href="https://www.cerberauth.com"
         />
 
         <ProjectCard
           title="VulnAPI"
-          description="VulnAPI is an open-source project designed to help you scan your APIs for common security vulnerabilities and weaknesses."
-          href="https://vulnapi.cerberauth.com/"
+          description="VulnAPI is an open-source project designed to help you scan your APIs for security vulnerabilities and weaknesses."
+          href="https://vulnapi.cerberauth.com"
+        />
+
+        <ProjectCard
+          title="DomChekr"
+          description="Save time and reduce cost with domain ownership verification solution with clear UI and DNS Provider integration such as Cloudflare."
+          href="https://www.domchekr.com"
         />
 
         {locale === 'fr' && (
