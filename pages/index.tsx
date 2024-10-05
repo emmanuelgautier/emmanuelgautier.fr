@@ -61,16 +61,6 @@ function Home({
           {capitalize(intl.formatMessage({ defaultMessage: 'Projects' }))}
         </Text>
 
-        {locale === 'fr' && (
-          <>
-            <ProjectCard
-              title="Planète Durable"
-              description="Chaque geste compte. Planète Durable partage des conseils, innovations et initiatives veillant à préserver notre planète."
-              href="https://www.planete-durable.fr/"
-            />
-          </>
-        )}
-
         <ProjectCard
           title="CerberAuth"
           description="Exploring OAuth, OpenID Connect, and IAM Solutions for Modern Security."
@@ -82,6 +72,22 @@ function Home({
           description="VulnAPI is an open-source project designed to help you scan your APIs for common security vulnerabilities and weaknesses."
           href="https://vulnapi.cerberauth.com/"
         />
+
+        {locale === 'fr' && (
+          <>
+            <ProjectCard
+              title="Planète Durable"
+              description="Chaque geste compte. Planète Durable partage des conseils, innovations et initiatives veillant à préserver notre planète."
+              href="https://www.planete-durable.fr"
+            />
+
+            <ProjectCard
+              title="Compeco"
+              description="Trouvez les produits les plus durables et économiques au meilleur prix !"
+              href="https://www.compeco.fr"
+            />
+          </>
+        )}
       </div>
 
       <ConsultingCTA />
