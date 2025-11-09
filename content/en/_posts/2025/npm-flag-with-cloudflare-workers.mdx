@@ -1,0 +1,29 @@
+---
+title: How to pass npm flag with Cloudflare workers during install
+description: I have encountered an error forcing me to use the `legacy-peer-deps` flag with npm. But it is not so simple with Cloudflare workers because install command is not configurable easily. In this blog post, we'll look how to pass npm flag with Cloudflare workers.
+image: /images/cloudflare.png
+slug: npm-flag-with-cloudflare-workers
+tags:
+  - nodejs
+  - cloudflare
+  - npm
+locale: en
+updated: 2025-11-09T18:53:38.156Z
+created: 2025-11-09T18:53:38.156Z
+---
+
+## Passing NPM Flags with Cloudflare Workers to fix installation issues
+
+When using Cloudflare workers to build your project, you may encounter an error like `Fix the upstream dependency conflict, or retry this command with --force or --legacy-peer-deps`.
+
+This error is quite generic and can be caused by many different reasons. One of them is a dependency conflict between two packages. I encountered this error when trying to install a package with a peer dependency that was not installed (`next-plausible` and `next`).
+
+The solution is to use the `legacy-peer-deps` flag with npm. This flag will allow npm to install dependencies even if there are conflicts between them.
+
+To pass this flag to npm, you need to create a `.npmrc` file with the following content:
+
+```bash
+legacy-peer-deps=true
+```
+
+Now, when you run the `npm install` command, it will use the `legacy-peer-deps` flag. This flag will also be used by Cloudflare workers or any other command that uses npm to install dependencies. This is a good way to fix installation issues with Cloudflare workers.
