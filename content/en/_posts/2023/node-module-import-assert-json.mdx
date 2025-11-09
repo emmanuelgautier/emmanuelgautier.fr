@@ -22,5 +22,5 @@ import packageJSON from './package.json';
 The reason is that you have to assert the type even if Node.js understand it is a JSON. According to [tc39/proposal-import-attributes](https://github.com/tc39/proposal-import-attributes), you should write the import with an assertion like this:
 
 ```javascript:example.mjs
-import packageJSON from './package.json' assert { type: 'json' };
+import packageJSON from './package.json' with { type: 'json' };
 ```

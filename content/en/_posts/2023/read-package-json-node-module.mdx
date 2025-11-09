@@ -16,7 +16,7 @@ When you write a program you may want to read the content of the package.json fi
 With Node.JS module, is very simple to import the content of a JSON and `package.json` is no more than a JSON file so the simple code below works fine:
 
 ```javascript:example.mjs
-import packageJSON from './package.json' assert { type: 'json' };
+import packageJSON from './package.json' with { type: 'json' };
 
 console.log(packageJSON.version);
 // Output: 1.0.0
