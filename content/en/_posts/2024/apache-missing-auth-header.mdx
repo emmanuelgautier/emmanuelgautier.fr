@@ -21,13 +21,13 @@ To fix this issue, you need to add the [CGIPassAuth](https://httpd.apache.org/do
 
 Here is an example of how you can add the `CGIPassAuth` directive to your Apache configuration:
 
-```apache
+```bash
 CGIPassAuth on
 ```
 
 In your VirtualHost configuration, you can add the following configuration:
 
-```apache
+```bash
 <VirtualHost *:80>
     SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 </VirtualHost>
@@ -39,7 +39,7 @@ If you don't have access to the Apache configuration file, you can also add the 
 
 Here is an example of how you can add the `CGIPassAuth` directive to your `.htaccess` file:
 
-```apache
+```bash
 RewriteEngine On
 RewriteCond %{HTTP:Authorization} .+
 RewriteRule ^ - [E=HTTP_AUTHORIZATION:%0]
