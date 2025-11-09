@@ -37,7 +37,7 @@
     "classnames": "2.5.1",
     "clsx": "2.1.1",
     "contentlayer": "0.3.4",
-    "date-fns": "3.6.0",
+    "date-fns": "4.1.0",
     "image-size": "1.1.1",
     "lodash": "4.17.21",
     "next": "12.3.4",
