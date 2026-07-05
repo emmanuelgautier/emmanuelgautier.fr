@@ -1,0 +1,15 @@
+---
+import Card from './Card.astro'
+import type { ImageMetadata } from 'astro'
+
+interface Props {
+  title: string
+  description: string
+  href: string
+  icon?: ImageMetadata
+}
+
+const { href, ...cardProps } = Astro.props
+---
+
+<Card {...cardProps} href={href} external />

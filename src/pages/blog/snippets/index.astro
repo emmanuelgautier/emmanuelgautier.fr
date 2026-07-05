@@ -1,0 +1,53 @@
+---
+import { SITE } from '../../../config/site'
+import { t } from '../../../i18n'
+import { getAllSnippets, getSnippetUrl } from '../../../lib/content'
+import { breadcrumbJsonLd } from '../../../lib/jsonld'
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import SnippetCard from '../../../components/SnippetCard.astro'
+
+const locale = SITE.locale as 'en' | 'fr'
+
+const snippets = (await getAllSnippets(true))
+  .sort((a, b) => (a.data.created > b.data.created ? -1 : 1))
+  .slice(0, 30)
+
+const title = 'Snippets'
+const description = ''
+const url = `${SITE.siteUrl}/blog/snippets`
+
+const languageAlternates = SITE.domains.map(({ domain, defaultLocale }) => ({
+  hrefLang: defaultLocale,
+  href: `https://${domain}/blog/snippets`,
+}))
+
+const crumbs = breadcrumbJsonLd([
+  { position: 1, name: t('ejEGdx', locale), item: SITE.siteUrl },
+  { position: 2, name: t('snippets', locale), item: url },
+])
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={url}
+  languageAlternates={languageAlternates}
+  jsonLd={crumbs}
+  class="flex flex-col px-8 justify-center max-w-4xl mx-auto"
+>
+  <div class="flex flex-col justify-center items-start mb-16">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl pt-1 pb-2 md:pb-4 font-bold tracking-wide">
+      {title}
+    </h1>
+
+    {snippets.map((snippet) => (
+      <SnippetCard
+        class="w-full"
+        url={getSnippetUrl(snippet)}
+        title={snippet.data.title}
+        description={snippet.data.description}
+        icon={snippet.data.image}
+      />
+    ))}
+  </div>
+</BaseLayout>

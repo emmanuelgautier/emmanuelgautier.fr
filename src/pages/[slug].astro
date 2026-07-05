@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from 'astro:content'
+import { SITE } from '../config/site'
+import { t } from '../i18n'
+import { breadcrumbJsonLd } from '../lib/jsonld'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages')
+  return pages
+    .filter(
+      (entry) =>
+        entry.data.slug !== 'index' && entry.id.startsWith(`${import.meta.env.PUBLIC_LOCALE || 'en'}/`)
+    )
+    .map((entry) => ({
+      params: { slug: entry.data.slug ?? entry.id.split('/').pop()! },
+      props: { entry },
+    }))
+}
+
+const { entry } = Astro.props
+const { Content } = await render(entry)
+const { title, description, slug } = entry.data
+const pageSlug = slug ?? entry.id.split('/').pop()!
+const locale = SITE.locale as 'en' | 'fr'
+
+const crumbs = breadcrumbJsonLd([
+  { position: 1, name: t('ejEGdx', locale), item: SITE.siteUrl },
+  { position: 2, name: title, item: `${SITE.siteUrl}/${pageSlug}` },
+])
+---
+
+<BaseLayout title={title} description={description} jsonLd={crumbs}>
+  <article>
+    <header class="pt-2">
+      <div class="space-y-4 text-left">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl pt-1 pb-2 md:pb-4 font-bold tracking-wide">
+          {title}
+        </h1>
+      </div>
+    </header>
+
+    <div class="prose dark:prose-dark max-w-none w-full mt-8">
+      <div class="text-base leading-7 max-w-6xl mx-auto">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

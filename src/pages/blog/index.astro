@@ -1,0 +1,56 @@
+---
+import { SITE } from '../../config/site'
+import { getAllPosts, getPostUrl } from '../../lib/content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import BlogPostCard from '../../components/BlogPostCard.astro'
+
+const posts = (await getAllPosts(true))
+  .sort((a, b) => (a.data.created > b.data.created ? -1 : 1))
+
+const featuredPosts = posts.filter((p) => p.data.featured).slice(0, 10)
+
+const title = 'Blog'
+const description = ''
+const url = `${SITE.siteUrl}/blog`
+
+const languageAlternates = SITE.domains.map(({ domain, defaultLocale }) => ({
+  hrefLang: defaultLocale,
+  href: `https://${domain}/blog`,
+}))
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={url}
+  languageAlternates={languageAlternates}
+  class="flex flex-col px-8 justify-center max-w-4xl mx-auto"
+>
+  <div class="flex flex-col justify-center items-start mb-16">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl pt-1 pb-2 md:pb-4 font-bold tracking-wide">
+      {title}
+    </h1>
+
+    <section>
+      <h2 class="text-xl md:text-2xl py-1 font-bold tracking-wide mb-2">Featured Posts</h2>
+      {featuredPosts.map((post) => (
+        <BlogPostCard
+          url={getPostUrl(post)}
+          title={post.data.title}
+          description={post.data.description}
+        />
+      ))}
+    </section>
+
+    <section>
+      <h2 class="text-xl md:text-2xl py-1 font-bold tracking-wide mb-2">All Posts</h2>
+      {posts.map((post) => (
+        <BlogPostCard
+          url={getPostUrl(post)}
+          title={post.data.title}
+          description={post.data.description}
+        />
+      ))}
+    </section>
+  </div>
+</BaseLayout>

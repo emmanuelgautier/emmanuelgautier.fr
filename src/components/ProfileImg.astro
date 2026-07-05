@@ -1,0 +1,25 @@
+---
+import { Image } from 'astro:assets'
+import profileImage from '../assets/images/profile.png'
+
+interface Props {
+  class?: string
+  title: string
+  width: number
+  height: number
+  priority?: boolean
+}
+
+const { class: className, title, width, height, priority = false } = Astro.props
+---
+
+<Image
+  class={`object-cover rounded-full ${className ?? ''}`}
+  src={profileImage}
+  alt={title}
+  width={width}
+  height={height}
+  quality={85}
+  loading={priority ? 'eager' : 'lazy'}
+  decoding={priority ? 'sync' : 'async'}
+/>

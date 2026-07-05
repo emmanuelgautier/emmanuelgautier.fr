@@ -1,0 +1,95 @@
+---
+import { render } from 'astro:content'
+import { SITE } from '../config/site'
+import { t } from '../i18n'
+import { getAllPosts, getPageBySlug, getPostUrl } from '../lib/content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import ProfileImg from '../components/ProfileImg.astro'
+import BlogPostCard from '../components/BlogPostCard.astro'
+import ProjectCard from '../components/ProjectCard.astro'
+import ConsultingCTA from '../components/ConsultingCTA.astro'
+
+const locale = SITE.locale as 'en' | 'fr'
+
+const homePage = await getPageBySlug('index')
+if (!homePage) throw new Error('Home page not found')
+const { Content } = await render(homePage)
+
+const featuredPosts = (await getAllPosts())
+  .filter((p) => p.data.featured)
+  .sort((a, b) => (a.data.created > b.data.created ? -1 : 1))
+  .slice(0, 3)
+
+const { title, description } = homePage.data
+
+const languageAlternates = SITE.domains.map(({ domain, defaultLocale }) => ({
+  hrefLang: defaultLocale,
+  href: `https://${domain}`,
+}))
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  languageAlternates={languageAlternates}
+  class="flex flex-col px-8 justify-center max-w-4xl mx-auto"
+>
+  <div class="flex flex-col-reverse sm:flex-row items-start pb-8 mt-4">
+    <div class="flex flex-col pr-4">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl pt-1 pb-2 font-semibold tracking-wide mb-2">
+        {title}
+      </h1>
+      <div class="prose dark:prose-dark text-base sm:text-lg md:text-xl">
+        <Content />
+      </div>
+    </div>
+    <div class="h-40 w-40 mx-auto">
+      <ProfileImg width={250} height={250} title={title} />
+    </div>
+  </div>
+
+  <div class="my-4 pb-8">
+    <h2 class="text-xl md:text-2xl py-1 font-bold tracking-wide mb-2">
+      {t('UxTJRa', locale)}
+    </h2>
+
+    <ProjectCard
+      title="CerberAuth"
+      description="Exploring OAuth, OpenID Connect, and IAM Solutions for Modern Security."
+      href="https://www.cerberauth.com"
+    />
+
+    {locale === 'fr' && (
+      <>
+        <ProjectCard
+          title="Planète Durable"
+          description="Chaque geste compte. Planète Durable partage des conseils, innovations et initiatives veillant à préserver notre planète."
+          href="https://www.planete-durable.fr"
+        />
+        <ProjectCard
+          title="Compeco"
+          description="Trouvez les produits les plus durables et économiques au meilleur prix !"
+          href="https://www.compeco.fr"
+        />
+      </>
+    )}
+  </div>
+
+  <ConsultingCTA />
+
+  {featuredPosts.length > 0 && (
+    <div class="my-4 pb-8">
+      <h2 class="text-xl md:text-2xl py-1 font-bold tracking-wide mb-2">
+        {t('tv5FG3', locale)}
+      </h2>
+
+      {featuredPosts.map((post) => (
+        <BlogPostCard
+          url={getPostUrl(post)}
+          title={post.data.title}
+          description={post.data.description}
+        />
+      ))}
+    </div>
+  )}
+</BaseLayout>

@@ -1,0 +1,49 @@
+---
+import { SITE } from '../config/site'
+import { t } from '../i18n'
+
+const locale = SITE.locale as 'en' | 'fr'
+const { socials } = SITE
+---
+
+<footer class="flex flex-col justify-center max-w-4xl mx-auto items-start mx-auto w-full p-8 mb-4">
+  <hr class="w-full border-1 border-gray-200 dark:border-gray-800 mb-8" />
+  <div class="w-full max-w-2xl grid grid-cols-3 gap-2 pb-16">
+    <div class="flex flex-col space-y-4">
+      <a href="/" class="text-gray-500 hover:text-gray-600">
+        {t('nav.home.text', locale)}
+      </a>
+    </div>
+    <div class="flex flex-col space-y-4">
+      <a
+        href={socials.github}
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+        class="text-gray-500 hover:text-gray-600"
+      >
+        GitHub
+      </a>
+      <a
+        href={socials.linkedin}
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+        class="text-gray-500 hover:text-gray-600"
+      >
+        Linkedin
+      </a>
+      <a
+        href={socials.mastodon}
+        target="_blank"
+        rel="me nofollow noopener noreferrer"
+        class="text-gray-500 hover:text-gray-600"
+      >
+        Mastodon
+      </a>
+    </div>
+    <div class="flex flex-col space-y-4">
+      {locale === 'en' && (
+        <a href="/uses" class="text-gray-500 hover:text-gray-600">Uses</a>
+      )}
+    </div>
+  </div>
+</footer>

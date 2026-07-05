@@ -1,0 +1,102 @@
+---
+import { render } from 'astro:content'
+import { SITE, getDomainFromLocale } from '../../../config/site'
+import { t } from '../../../i18n'
+import { getAllSnippets } from '../../../lib/content'
+import { articleJsonLd, breadcrumbJsonLd } from '../../../lib/jsonld'
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import ConsultingCTA from '../../../components/ConsultingCTA.astro'
+import CarbonAds from '../../../components/CarbonAds.astro'
+
+export async function getStaticPaths() {
+  const snippets = await getAllSnippets()
+  return snippets.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }))
+}
+
+const { entry } = Astro.props
+const { Content } = await render(entry)
+const { title, description, image, slug, alternate, created, updated } = entry.data
+
+const locale = SITE.locale as 'en' | 'fr'
+const url = `${SITE.siteUrl}/blog/snippets/${slug}`
+
+// const tags = await getAllTagsForSnippet(entry)
+
+const languageAlternates: Array<{ hrefLang: string; href: string }> = [
+  { hrefLang: locale, href: url },
+]
+if (alternate) {
+  const [alternateLang, alternateSlug] = Object.entries(alternate)[0]
+  const alternateSubdomain = getDomainFromLocale(alternateLang)
+  languageAlternates.push({
+    hrefLang: alternateLang,
+    href: `https://${alternateSubdomain}/blog/snippets/${alternateSlug}`,
+  })
+}
+
+const jsonLd = [
+  articleJsonLd({
+    url,
+    title,
+    images: [image.src],
+    datePublished: created,
+    dateModified: updated,
+    description,
+  }),
+  breadcrumbJsonLd([
+    { position: 1, name: t('ejEGdx', locale), item: SITE.siteUrl },
+    { position: 2, name: t('snippets', locale), item: `${SITE.siteUrl}/blog/snippets` },
+    { position: 3, name: title, item: url },
+  ]),
+]
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={url}
+  type="article"
+  article={{ publishedTime: created, modifiedTime: updated }}
+  languageAlternates={languageAlternates}
+  jsonLd={jsonLd}
+>
+  <article class="px-4 md:px-8">
+    <header class="my-4 flex flex-col lg:grid lg:grid-cols-8 lg:gap-4 max-w-8xl mx-auto">
+      <div class="col-start-3 col-span-4">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl pt-1 pb-2 md:pb-4 font-bold tracking-wide">
+          {title}
+        </h1>
+      </div>
+      <div class="col-span-2">
+        <CarbonAds />
+      </div>
+    </header>
+
+    <div class="flex flex-col lg:grid lg:grid-cols-8 lg:gap-4 justify-center max-w-8xl mx-auto">
+      <div class="flex flex-col col-start-3 col-span-4">
+        <div class="prose dark:prose-dark max-w-none w-full mb-8">
+          <div class="text-base leading-7 max-w-6xl mx-auto">
+            <Content />
+          </div>
+        </div>
+
+        <ConsultingCTA />
+
+        <!-- <ShareButtons
+          url={url}
+          title={title}
+          description={description}
+          tags={tags.map((t) => t.hashtag)}
+          siteUrl={SITE.siteUrl}
+          twitterHandle={SITE.twitter.handle_simple}
+          personName={SITE.person.name}
+          shareLabel={t('share.buttons.share', locale)}
+          rssLabel={t('share.buttons.follow_rss_feed', locale)}
+        /> -->
+      </div>
+    </div>
+  </article>
+</BaseLayout>
