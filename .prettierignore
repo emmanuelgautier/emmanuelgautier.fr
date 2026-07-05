@@ -1,3 +1,2 @@
-.contentlayer/
-.next/
-out/
+dist/
+.astro/

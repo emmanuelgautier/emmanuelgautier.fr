@@ -1,0 +1,22 @@
+---
+import { SITE } from '../config/site'
+import { t } from '../i18n'
+import ThemeToggle from './ThemeToggle.astro'
+
+const locale = SITE.locale as 'en' | 'fr'
+---
+
+<nav class="hidden md:flex justify-between max-w-4xl mx-auto items-center w-full p-4 mb-8 my-4">
+  <div>
+    <a href="/" class="p-1 sm:p-4 text-gray-800 dark:text-gray-100">
+      {t('nav.home.text', locale)}
+    </a>
+    <a href="/blog" class="p-1 sm:p-4 text-gray-800 dark:text-gray-100">
+      {t('nav.blog.text', locale)}
+    </a>
+    <a href="/blog/snippets" class="p-1 sm:p-4 text-gray-800 dark:text-gray-100">
+      {t('snippets', locale)}
+    </a>
+  </div>
+  <ThemeToggle />
+</nav>

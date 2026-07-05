@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+
+interface Props {
+  title: string
+  description: string
+  href?: string
+  external?: boolean
+  icon?: ImageMetadata
+  class?: string
+  hoverEffect?: boolean
+}
+
+const {
+  title,
+  description,
+  href,
+  external = false,
+  icon,
+  class: className = '',
+  hoverEffect = false,
+} = Astro.props
+
+const cardClass = `flex justify-between border border-gray-200 dark:border-gray-800 bg-white dark:bg-transparent rounded p-6 mb-4${hoverEffect ? ' hover:border-gray-300 dark:hover:border-gray-700 transition-colors' : ''}`
+---
+
+{href ? (
+  <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} class={className}>
+    <div class={cardClass}>
+      <div class="px-2">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">{title}</h3>
+        <p class="leading-5 text-gray-700 dark:text-gray-300">{description}</p>
+      </div>
+      {icon && (
+        <div class="px-2">
+          <Image src={icon} alt={title} title={title} width={56} height={56} class="rounded-full" />
+        </div>
+      )}
+    </div>
+  </a>
+) : (
+  <div class={`${cardClass} ${className}`}>
+    <div class="px-2">
+      <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">{title}</h3>
+      <p class="leading-5 text-gray-700 dark:text-gray-300">{description}</p>
+    </div>
+    {icon && (
+      <div class="px-2">
+        <Image src={icon} alt={title} title={title} width={56} height={56} class="rounded-full" />
+      </div>
+    )}
+  </div>
+)}

@@ -1,0 +1,89 @@
+---
+import { render } from 'astro:content'
+import { format, parseISO } from 'date-fns'
+import readingTime from 'reading-time'
+import { SITE } from '../../config/site'
+import { t } from '../../i18n'
+import { getAllNewsletters, getNewsletterSlug } from '../../lib/content'
+import { articleJsonLd, breadcrumbJsonLd } from '../../lib/jsonld'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+export async function getStaticPaths() {
+  const entries = await getAllNewsletters()
+  return entries.map((entry) => ({
+    params: { slug: getNewsletterSlug(entry) },
+    props: { entry },
+  }))
+}
+
+const { entry } = Astro.props
+const { Content } = await render(entry)
+const { title, description, image, created, updated } = entry.data
+
+const locale = SITE.locale as 'en' | 'fr'
+const slug = getNewsletterSlug(entry)
+const url = `${SITE.siteUrl}/newsletter/${slug}`
+const rt = readingTime(entry.body ?? '')
+
+const languageAlternates = SITE.domains.map(({ domain, defaultLocale }) => ({
+  hrefLang: defaultLocale,
+  href: `https://${domain}/newsletter/${slug}`,
+}))
+
+const images: string[] = image ? [`${SITE.siteUrl}${image.src}`] : []
+
+const jsonLd = [
+  articleJsonLd({
+    url,
+    title,
+    images,
+    datePublished: created,
+    dateModified: updated,
+    description,
+  }),
+  breadcrumbJsonLd([
+    { position: 1, name: t('ejEGdx', locale), item: SITE.siteUrl },
+    { position: 2, name: t('mmPYWx', locale), item: `${SITE.siteUrl}/newsletter` },
+    { position: 3, name: title, item: url },
+  ]),
+]
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={url}
+  type="article"
+  article={{
+    publishedTime: created,
+    modifiedTime: updated,
+  }}
+  languageAlternates={languageAlternates}
+  jsonLd={jsonLd}
+>
+  <article>
+    <header class="pt-2">
+      <div class="space-y-4 text-left">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl pt-1 pb-2 md:pb-4 font-bold tracking-wide">
+          {title}
+        </h1>
+
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center w-full mt-2 md:mt-0 text-sm text-gray-600 dark:text-gray-400">
+          <div class="flex items-center">
+            <p>
+              <span>{`${SITE.person.name} / `}</span>
+              <span>{format(parseISO(created), 'MMMM dd, yyyy')}</span>
+            </p>
+          </div>
+          <p class="min-w-32">{rt.text}</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="prose dark:prose-dark max-w-none w-full mt-8">
+      <div class="text-base leading-7 max-w-6xl mx-auto">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

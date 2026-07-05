@@ -1,0 +1,134 @@
+---
+import { config, icon } from '@fortawesome/fontawesome-svg-core'
+import {
+  faTwitter,
+  faLinkedin,
+  faHackerNews,
+  faGetPocket,
+} from '@fortawesome/free-brands-svg-icons'
+import { faRss } from '@fortawesome/free-solid-svg-icons'
+
+config.autoAddCss = false
+
+interface Props {
+  url: string
+  title: string
+  description: string
+  tags: string[]
+  siteUrl: string
+  twitterHandle: string
+  personName: string
+  shareLabel: string
+  rssLabel: string
+}
+
+const {
+  url,
+  title,
+  description,
+  tags,
+  siteUrl,
+  twitterHandle,
+  personName,
+  shareLabel,
+  rssLabel,
+} = Astro.props
+
+function iconHtml(definition: Parameters<typeof icon>[0]) {
+  return icon(definition).html.join('')
+}
+
+function shareUrl(baseUrl: string, params: Record<string, string>) {
+  const searchParams = new URLSearchParams(params)
+
+  return `${baseUrl}?${searchParams.toString()}`
+}
+
+const rssFeedUrl = `${siteUrl}/rss.xml`
+const xShareUrl = shareUrl('https://twitter.com/intent/tweet', {
+  url,
+  text: title,
+  via: twitterHandle,
+  hashtags: tags.join(','),
+  related: twitterHandle,
+})
+const linkedinShareUrl = shareUrl('https://www.linkedin.com/shareArticle', {
+  mini: 'true',
+  url,
+  title,
+  summary: description,
+  source: personName,
+})
+const hackerNewsShareUrl = shareUrl('https://news.ycombinator.com/submitlink', {
+  u: url,
+  t: title,
+})
+const pocketShareUrl = shareUrl('https://getpocket.com/edit', {
+  url,
+  title,
+})
+const feedlyUrl = `https://feedly.com/i/subscription/feed/${encodeURIComponent(
+  rssFeedUrl,
+)}`
+---
+
+<div class="flex flex-col md:flex-row md:space-x-3">
+  <div class="w-full flex flex-col items-center border border-gray-100 rounded p-6 dark:border-gray-900 bg-white dark:bg-gray-700">
+    <span class="text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100">
+      {shareLabel}
+    </span>
+
+    <div class="mt-4 flex items-center justify-center space-x-1">
+      <a
+        class="plausible-event-name=shareButtonClick plausible-event-network=twitter"
+        href={xShareUrl}
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+      >
+        <span class="bg-blue-300 px-4 py-2 font-semibold text-white text-xl inline-flex items-center rounded" set:html={iconHtml(faTwitter)} />
+      </a>
+
+      <a
+        class="plausible-event-name=shareButtonClick plausible-event-network=linkedin"
+        href={linkedinShareUrl}
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+      >
+        <span class="bg-blue-500 px-4 py-2 font-semibold text-white text-xl inline-flex items-center rounded" set:html={iconHtml(faLinkedin)} />
+      </a>
+
+      <a
+        href={hackerNewsShareUrl}
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+        class="plausible-event-name=shareButtonClick plausible-event-network=hacker_news"
+      >
+        <span class="bg-orange-500 px-4 py-2 font-semibold text-white text-xl inline-flex items-center rounded" set:html={iconHtml(faHackerNews)} />
+      </a>
+
+      <a
+        class="plausible-event-name=shareButtonClick plausible-event-network=pocket"
+        href={pocketShareUrl}
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+      >
+        <span class="bg-red-400 px-4 py-2 font-semibold text-white text-xl inline-flex items-center rounded" set:html={iconHtml(faGetPocket)} />
+      </a>
+    </div>
+  </div>
+
+  <div class="w-full flex flex-col items-center border border-gray-100 rounded p-6 dark:border-gray-900 bg-white dark:bg-gray-700">
+    <span class="text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100">
+      {rssLabel}
+    </span>
+
+    <a
+      href={feedlyUrl}
+      target="_blank"
+      rel="nofollow noopener noreferrer"
+      class="mt-4 plausible-event-name=rssFollow"
+    >
+      <span class="bg-orange-400 px-4 py-2 font-semibold text-white text-lg rounded inline-flex items-center" set:html={iconHtml(faRss)} />
+    </a>
+  </div>
+</div>

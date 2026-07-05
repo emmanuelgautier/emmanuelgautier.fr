@@ -1,0 +1,44 @@
+---
+import { SITE } from '../../config/site'
+import { getAllNewsletters, getNewsletterSlug } from '../../lib/content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const newsletters = (await getAllNewsletters()).sort((a, b) =>
+  a.data.created > b.data.created ? -1 : 1
+)
+
+const title = 'Newsletters'
+const description = 'This is the newsletter page talking about various topics.'
+const url = `${SITE.siteUrl}/newsletter`
+
+const languageAlternates = SITE.domains.map(({ domain, defaultLocale }) => ({
+  hrefLang: defaultLocale,
+  href: `https://${domain}/newsletter`,
+}))
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={url}
+  languageAlternates={languageAlternates}
+>
+  <div class="flex flex-col justify-center items-start mb-16">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl pt-1 pb-2 md:pb-4 font-bold tracking-wide">
+      {title}
+    </h1>
+
+    <section>
+      <h2 class="text-xl md:text-2xl py-1 font-bold tracking-wide mb-2">All Issues</h2>
+
+      {newsletters.map((entry) => {
+        const slug = getNewsletterSlug(entry)
+        return (
+          <a href={`/newsletter/${slug}`} class="block mb-4">
+            <span class="text-base leading-7">{entry.data.title}</span>
+          </a>
+        )
+      })}
+    </section>
+  </div>
+</BaseLayout>

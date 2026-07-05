@@ -1,0 +1,168 @@
+---
+import { render } from 'astro:content'
+import { format, parseISO } from 'date-fns'
+import readingTime from 'reading-time'
+import { SITE, getDomainFromLocale } from '../../config/site'
+import { t } from '../../i18n'
+import { getAllPosts, getAllTagsForPost, getPostUrl } from '../../lib/content'
+import { articleJsonLd, breadcrumbJsonLd, faqPageJsonLd } from '../../lib/jsonld'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import BlogPostCard from '../../components/BlogPostCard.astro'
+import ConsultingCTA from '../../components/ConsultingCTA.astro'
+import CarbonAds from '../../components/CarbonAds.astro'
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts()
+  return posts.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }))
+}
+
+const { entry } = Astro.props
+const { Content } = await render(entry)
+const { title, description, image, created, updated, slug, alternate, questions } = entry.data
+
+const locale = SITE.locale as 'en' | 'fr'
+const url = `${SITE.siteUrl}/blog/${slug}`
+const rt = readingTime(entry.body ?? '')
+
+const tags = await getAllTagsForPost(entry)
+
+const allPosts = await getAllPosts()
+
+const relatedPosts = tags
+  .flatMap((tag) => tag.posts)
+  .sort((a, b) => (a.data.created > b.data.created ? -1 : 1))
+  .filter((p) => p.data.slug !== slug)
+  .slice(0, 3)
+
+const featuredPosts = allPosts
+  .filter((p) => p.data.featured && p.data.slug !== slug)
+  .sort((a, b) => (a.data.created > b.data.created ? -1 : 1))
+  .slice(0, 3)
+
+const languageAlternates: Array<{ hrefLang: string; href: string }> = [
+  { hrefLang: locale, href: url },
+]
+if (alternate) {
+  const [alternateLang, alternateSlug] = Object.entries(alternate)[0]
+  const alternateSubdomain = getDomainFromLocale(alternateLang)
+  languageAlternates.push({
+    hrefLang: alternateLang,
+    href: `https://${alternateSubdomain}/blog/${alternateSlug}`,
+  })
+}
+
+const images: string[] = image ? [`${SITE.siteUrl}${image.src}`] : []
+
+const jsonLd = [
+  articleJsonLd({
+    url,
+    title,
+    images,
+    datePublished: created,
+    dateModified: updated,
+    description,
+  }),
+  breadcrumbJsonLd([
+    { position: 1, name: t('ejEGdx', locale), item: SITE.siteUrl },
+    { position: 2, name: t('tv5FG3', locale), item: `${SITE.siteUrl}/blog` },
+    { position: 3, name: title, item: url },
+  ]),
+  ...(questions && questions.length > 0 ? [faqPageJsonLd(questions)] : []),
+]
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={image?.src}
+  canonical={url}
+  type="article"
+  article={{
+    publishedTime: created,
+    modifiedTime: updated,
+    tags: tags.map((t) => t.name),
+  }}
+  languageAlternates={languageAlternates}
+  jsonLd={jsonLd}
+>
+  <article class="px-4 md:px-8">
+    <header class="my-4 flex flex-col lg:grid lg:grid-cols-8 lg:gap-4 max-w-8xl mx-auto">
+      <div class="col-start-3 col-span-4">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl pt-1 pb-2 md:pb-4 font-bold tracking-wide">
+          {title}
+        </h1>
+
+        <div class="flex flex-row justify-between items-start w-full mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <div class="flex items-center">
+            <p>
+              <span>{`${SITE.person.name} / `}</span>
+              <span>{format(parseISO(created), 'MMMM dd, yyyy')}</span>
+            </p>
+          </div>
+          <p class="min-w-32">{rt.text}</p>
+        </div>
+      </div>
+
+      <div class="col-span-2">
+        <CarbonAds />
+      </div>
+    </header>
+
+    <div class="flex flex-col lg:grid lg:grid-cols-8 lg:gap-4 justify-center max-w-8xl mx-auto">
+      <div class="flex flex-col col-start-3 col-span-4">
+        <div class="prose dark:prose-dark max-w-none w-full mb-8">
+          <div class="text-base leading-7 max-w-6xl mx-auto">
+            <Content />
+          </div>
+        </div>
+
+        <ConsultingCTA />
+
+        <!-- <ShareButtons
+          url={url}
+          title={title}
+          description={description}
+          tags={tags.map((t) => t.hashtag)}
+          siteUrl={SITE.siteUrl}
+          twitterHandle={SITE.twitter.handle_simple}
+          personName={SITE.person.name}
+          shareLabel={t('share.buttons.share', locale)}
+          rssLabel={t('share.buttons.follow_rss_feed', locale)}
+        /> -->
+
+        {relatedPosts.length > 0 && (
+          <div class="mt-8">
+            <h2 class="text-xl md:text-2xl py-1 font-bold tracking-wide mb-2">
+              {t('KGtd2k', locale)}
+            </h2>
+            {relatedPosts.map((post) => (
+              <BlogPostCard
+                url={getPostUrl(post)}
+                title={post.data.title}
+                description={post.data.description}
+              />
+            ))}
+          </div>
+        )}
+
+        {featuredPosts.length > 0 && (
+          <div class="mt-8">
+            <h2 class="text-xl md:text-2xl py-1 font-bold tracking-wide mb-2">
+              {t('pYjtjn', locale)}
+            </h2>
+            {featuredPosts.map((post) => (
+              <BlogPostCard
+                url={getPostUrl(post)}
+                title={post.data.title}
+                description={post.data.description}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </article>
+</BaseLayout>
