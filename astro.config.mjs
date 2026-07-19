@@ -33,6 +33,10 @@ function renameSitemapIndex() {
 
 export default defineConfig({
   site: siteUrl,
+  trailingSlash: 'never',
+  build: {
+    format: 'file',
+  },
   markdown: {
     rehypePlugins: [
       rehypeSlug,
