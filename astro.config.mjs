@@ -7,6 +7,7 @@ import rehypeSlug from 'rehype-slug'
 import rehypeCodeTitles from 'rehype-code-titles'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeExternalLinks from 'rehype-external-links'
+import { visit } from 'unist-util-visit'
 
 const locale = process.env.PUBLIC_LOCALE || 'en'
 const siteUrl =
@@ -19,6 +20,28 @@ const excludedDomains = [
   'emmanuelgautier.com',
   'cerberauth.com',
 ]
+
+// Code fences use a `lang:title` convention (e.g. ```yaml:docker-compose.yml```)
+// to show a filename. Shiki only understands real language ids, so split the
+// title off before it reaches the highlighter.
+function remarkSplitCodeTitle() {
+  return (tree) => {
+    visit(tree, 'code', (node) => {
+      if (!node.lang) {
+        return
+      }
+
+      const separatorIndex = node.lang.indexOf(':')
+      if (separatorIndex === -1) {
+        return
+      }
+
+      const title = node.lang.slice(separatorIndex + 1)
+      node.lang = node.lang.slice(0, separatorIndex)
+      node.meta = node.meta ? `title="${title}" ${node.meta}` : `title="${title}"`
+    })
+  }
+}
 
 function renameSitemapIndex() {
   return {
@@ -38,6 +61,12 @@ export default defineConfig({
     format: 'file',
   },
   markdown: {
+    remarkPlugins: [remarkSplitCodeTitle],
+    shikiConfig: {
+      langAlias: {
+        git: 'shell',
+      },
+    },
     rehypePlugins: [
       rehypeSlug,
       rehypeCodeTitles,
