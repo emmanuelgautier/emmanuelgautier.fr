@@ -47,7 +47,7 @@
     "@astrojs/check": "0.9.9",
     "@emmanuelgautier/renovate-config": "1.5.4",
     "@eslint/js": "^10.0.1",
-    "@fullhuman/postcss-purgecss": "8.0.0",
+    "@fullhuman/postcss-purgecss": "9.1.0",
     "@types/lodash": "4.17.24",
     "@types/node": "26.1.0",
     "cross-env": "10.1.0",
